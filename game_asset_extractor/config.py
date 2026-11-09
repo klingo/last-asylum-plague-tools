@@ -1,0 +1,47 @@
+"""Where things live, and what counts as an image bundle."""
+
+from __future__ import annotations
+
+import os
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+CACHE = HERE / "cache"  # the bundles as pulled from the device, by file name
+OUT = HERE / "out"  # the PNGs (out/<group>/<name>.png), index.json, matches.json and the gallery
+STATE = HERE / "state"  # what was pulled / extracted, the last scan
+# The webapp lives in its own repository (last-asylum-plague), checked out next to this one as `last-asylum-pack-solver`
+# (or wherever LAST_ASYLUM_WEBAPP points); the pictures it shows are in its webapp/public/assets.
+WEBAPP = Path(os.environ.get("LAST_ASYLUM_WEBAPP") or HERE.parents[1] / "last-asylum-pack-solver")
+WEBAPP_ASSETS = WEBAPP / "webapp" / "public" / "assets"
+
+
+def require_webapp(assets: Path | None = None) -> Path:
+    """The webapp's assets folder, or an error that says where it was looked for (so nothing is written to a wrong place)."""
+    assets = assets or WEBAPP_ASSETS
+    if not assets.is_dir():
+        raise FileNotFoundError(f"the webapp's assets folder is not at {assets} - check out the webapp repository there "
+                                "or set LAST_ASYLUM_WEBAPP to its folder")
+    return assets
+
+
+PACKAGE = "com.phs.global"  # Last Asylum: Plague
+DEFAULT_SERIAL = "127.0.0.1:5555"  # BlueStacks' usual ADB address (Settings > Advanced > Android Debug Bridge)
+ADB_CANDIDATES = (
+    r"C:\Program Files\BlueStacks_nxt\HD-Adb.exe",
+    r"C:\Program Files\BlueStacks\HD-Adb.exe",
+    r"C:\Program Files (x86)\BlueStacks\HD-Adb.exe",
+)
+
+# What a scan can take, by the manifest's `pathName`: key -> (label, path prefixes). The first type whose prefix fits wins,
+# whatever fits none is "other". Only the pictures are on by default; the rest is optional (a bundle of any type that
+# holds textures yields them as pictures too).
+TYPES = {
+    "pictures": ("Pictures (atlases, banners, backgrounds)", ("UI/Atlas/", "UITexture/")),
+    "effects": ("Effects, spines & animations", ("Assets/EffectClassify/", "Effects/", "Spines/", "UI/Models/", "UI/DynamicLoadEffects/", "UI/UI_Animation/")),
+    "models": ("Characters, props & NPCs (3D)", ("Assets/ArtResources/", "Role/")),
+    "scenes": ("Scenes & maps", ("Scenes/",)),
+    "layouts": ("UI layouts (prefabs)", ("UI/UIModules/", "UI/CommonPrefab/", "UI/Components/", "UI/Test/")),
+    "data": ("Game texts, tables & scripts", ("GameData/", "LuaScript")),
+    "other": ("Other (fonts, shaders, plugins, ...)", ()),
+}
+DEFAULT_TYPES = ("pictures",)
