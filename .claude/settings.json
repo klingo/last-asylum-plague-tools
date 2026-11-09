@@ -1,0 +1,28 @@
+{
+    "$schema": "https://json.schemastore.org/claude-code-settings.json",
+    "availableModels": ["opus", "sonnet"],
+    "model": "opusplan",
+    "effortLevel": "high",
+    "maxEffortLevel": "max",
+    "permissions": {
+        "allow": ["Bash(.venv/Scripts/python -m pytest*)"],
+        "ask": ["Bash(git push *)"],
+        "deny": ["Bash(rm -rf *)", "Bash(git reset --hard*)", "Bash(git push --force*)", "Bash(git clean -f*)"]
+    },
+    "worktree": {
+        "bgIsolation": "none"
+    },
+    "env": {
+        "DISABLE_TELEMETRY": "1",
+        "DISABLE_ERROR_REPORTING": "1"
+    },
+    "feedbackSurveyRate": 0,
+    "cleanupPeriodDays": 365,
+    "autoUpdatesChannel": "stable",
+    "enableArtifact": false,
+    "disableWorkflows": true,
+    "attribution": {
+        "commit": "",
+        "pr": ""
+    }
+}
