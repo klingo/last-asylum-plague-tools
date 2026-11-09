@@ -1,0 +1,26 @@
+# Dependabot version updates, monthly: the pinned Python packages of each tool (minor and patch updates in one pull request,
+# so numpy, numba and opencv move together) and the GitHub Actions of the test workflow. Options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+    - package-ecosystem: pip
+      directory: /game_asset_extractor
+      schedule:
+          interval: monthly
+      groups:
+          pip-minor-and-patch:
+              update-types: [minor, patch]
+
+    - package-ecosystem: pip
+      directory: /mahjong_minigame_helper
+      schedule:
+          interval: monthly
+      groups:
+          pip-minor-and-patch:
+              update-types: [minor, patch]
+
+    - package-ecosystem: github-actions
+      directory: /
+      schedule:
+          interval: monthly
