@@ -1,0 +1,6 @@
+# local state of the Mahjong Minigame Helper
+kinds.npz
+__pycache__/
+.pytest_cache/
+recordings/
+.venv/

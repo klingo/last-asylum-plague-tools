@@ -1,0 +1,17 @@
+{
+  "pitch": [101.0, 106.7],
+  "tile": [100, 106],
+  "ring": [94, 92],
+  "corner": [3, 3],
+  "icon": [6, 6, 88, 80],
+  "face_free": [213, 217, 247],
+  "face_dim": [123, 126, 139],
+  "lip_dim": [95, 93, 126],
+  "outline_max_v": 112,
+  "tray_color": [123, 65, 57],
+  "tray_slots": 7,
+  "tray_pad": 13,
+  "match": 3,
+  "grid": [29.44, 6.72, 50.664, 53.632],
+  "notes": {"source": "hand-tuned on the first screenshots; icons trained on the recordings"}
+}
