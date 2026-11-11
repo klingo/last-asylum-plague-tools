@@ -251,6 +251,22 @@
   "source": "Zombie_Hero/ico_yx_zyy3",
   "synced": "8b611758cfd4b08bf7558448fd8785a7"
  },
+ "gear/slots/armor.png": {
+  "source": "Zombie_Factory/pic_zzzx_icon2",
+  "synced": "d706ff0b32d5f76fbb63e62b1be7aeef"
+ },
+ "gear/slots/boots.png": {
+  "source": "Zombie_Factory/pic_zzzx_icon4",
+  "synced": "1b8de2816254fe23dbfc1b12e9acc627"
+ },
+ "gear/slots/gauntlets.png": {
+  "source": "Zombie_Factory/pic_zzzx_icon3",
+  "synced": "6c15f7df3bfaaa3b56c635de172f7a5d"
+ },
+ "gear/slots/sword.png": {
+  "source": "Zombie_Factory/pic_zzzx_icon1",
+  "synced": "f4e906e938811f726c0b20cc96a541ac"
+ },
  "gear/stars/0_5.png": {
   "source": "Zombie_Hero/Hero_img_starBg",
   "synced": "93d64523f9a5ed97f81b531b71ba898b"
