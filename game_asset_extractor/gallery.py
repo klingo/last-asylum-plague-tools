@@ -4,7 +4,9 @@ Open it from the folder (`out/index.html`); it reads `out/data.js` (not a fetche
 on disk). Filter by group, search by name, and show only what was added or changed (together or each alone) since the baseline
 (`main.py baseline` / "Mark all as seen": the extract run up to which everything counts as seen), what the webapp
 does not have yet, or what it has (a close sprite to a PNG of `webapp/public/assets`, see `match.py`, or the source (or overlay) of
-a webapp image in `mapping.json`, which finds cropped ones too), and by size (one of the most frequent sizes, or a range
+a webapp image in `mapping.json`, which finds cropped ones too), by the resource version a picture was first extracted in
+(`meta.runs` of `out/index.json` says which version each extract run was made for; the first run holds everything that
+was there from the start, so its version means "this or earlier"), and by size (one of the most frequent sizes, or a range
 of the longer side). Clicking a picture copies its id for `python main.py import <id> <dest>` (or the window's Import row).
 """
 
@@ -44,6 +46,7 @@ input.px { width: 70px; }
 </style></head><body>
 <header>
   <select id="group"></select>
+  <select id="version"></select>
   <select id="status">
     <option value="all">All pictures</option>
     <option value="fresh">New or changed since marked as seen</option>
@@ -62,10 +65,18 @@ input.px { width: 70px; }
 <script>
 const D = window.GALLERY, PAGE = 400;
 const $ = id => document.getElementById(id);
-const groupSel = $('group'), statusSel = $('status'), sizeSel = $('size'), min = $('min'), max = $('max'), search = $('search'), grid = $('grid'), more = $('more');
+const groupSel = $('group'), versionSel = $('version'), statusSel = $('status'), sizeSel = $('size'), min = $('min'), max = $('max'), search = $('search'), grid = $('grid'), more = $('more');
 let shown = 0, matches = [];
 groupSel.append(new Option('All groups (' + D.sprites.length + ')', ''));
 for (const [g, n] of D.groups) groupSel.append(new Option(g + ' (' + n + ')', g));
+const versionOf = run => D.runs[run] || '?';
+const versionCounts = {}, lastRun = {};
+for (const s of D.sprites) versionCounts[versionOf(s[5])] = (versionCounts[versionOf(s[5])] || 0) + 1;
+for (const run of Object.keys(D.runs)) lastRun[D.runs[run]] = Math.max(lastRun[D.runs[run]] || 0, +run);
+const firstVersion = D.runs[Math.min(...Object.keys(D.runs).map(Number))];
+versionSel.append(new Option('Any resource version', ''));
+for (const v of Object.keys(versionCounts).sort((a, b) => (lastRun[b] || 0) - (lastRun[a] || 0)))
+  versionSel.append(new Option((v === '?' ? 'Unknown version' : v) + (v === firstVersion ? ' or earlier' : '') + ' (' + versionCounts[v] + ' new)', v));
 const sizeCounts = {};
 for (const s of D.sprites) sizeCounts[s[3] + ' x ' + s[4]] = (sizeCounts[s[3] + ' x ' + s[4]] || 0) + 1;
 sizeSel.append(new Option('Any size', ''));
@@ -75,6 +86,7 @@ function pass(s) {
   if (groupSel.value && group !== groupSel.value) return false;
   const q = search.value.trim().toLowerCase();
   if (q && !id.toLowerCase().includes(q)) return false;
+  if (versionSel.value && versionOf(added) !== versionSel.value) return false;
   if (sizeSel.value && w + ' x ' + h !== sizeSel.value) return false;
   if (min.value && Math.max(w, h) < +min.value) return false;
   if (max.value && Math.max(w, h) > +max.value) return false;
@@ -89,7 +101,7 @@ function pass(s) {
 }
 function tile(s) {
   const [id, group, name, w, h, added, changed] = s;
-  const t = document.createElement('div'); t.className = 'tile'; t.title = id + (D.used[id] ? '\nin the webapp: ' + D.used[id].join(', ') : '');
+  const t = document.createElement('div'); t.className = 'tile'; t.title = id + '\nfirst extracted in ' + versionOf(added) + (D.used[id] ? '\nin the webapp: ' + D.used[id].join(', ') : '');
   const pic = document.createElement('div'); pic.className = 'pic';
   const img = document.createElement('img'); img.loading = 'lazy'; img.src = encodeURI(group + '/' + name + '.png'); pic.append(img);
   const nm = document.createElement('div'); nm.className = 'name'; nm.textContent = name;
@@ -117,14 +129,15 @@ function next() {
   shown = Math.min(shown + PAGE, matches.length); more.style.display = shown < matches.length ? '' : 'none';
 }
 more.onclick = next;
-groupSel.onchange = statusSel.onchange = sizeSel.onchange = render; search.oninput = min.oninput = max.oninput = render;
+groupSel.onchange = versionSel.onchange = statusSel.onchange = sizeSel.onchange = render; search.oninput = min.oninput = max.oninput = render;
 render();
 </script></body></html>
 """
 
 
 def build_data(index: dict, matches: dict, mapping: dict | None = None) -> dict:
-    """What the page needs: sprites as [id, group, name, w, h, added, changed], group counts, and which sprite is in the
+    """What the page needs: sprites as [id, group, name, w, h, added, changed], group counts, the resource version of every
+    extract run (`runs`: run -> version, so `added` says in which version a picture first showed up) and which sprite is in the
     webapp: by a close hash, or as the source of a mapped webapp image (an image cropped from its sprite hashes far away)."""
     sprites = sorted(index["sprites"].values(), key=lambda s: (s["group"].lower(), s["name"].lower()))
     groups: dict[str, int] = {}
@@ -140,6 +153,7 @@ def build_data(index: dict, matches: dict, mapping: dict | None = None) -> dict:
                 used.setdefault(source, []).append(path)
     return {
         "baseline": index["meta"].get("baseline", 0),
+        "runs": {run: info.get("version", "?") for run, info in index["meta"].get("runs", {}).items()},
         "groups": sorted(groups.items(), key=lambda g: g[0].lower()),
         "sprites": [[s["id"], s["group"], s["name"], s["w"], s["h"], s["added"], s["changed"]] for s in sprites],
         "used": used,

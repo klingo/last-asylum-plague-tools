@@ -8,7 +8,7 @@ def sprite(group, name, added=1, changed=None):
 
 
 def test_build_data_sorts_counts_groups_and_marks_what_the_webapp_has():
-    index = {"meta": {"run": 2, "baseline": 1, "runs": {}}, "sprites": {s["id"]: s for s in [
+    index = {"meta": {"run": 2, "baseline": 1, "runs": {"1": {"version": "1.0.1"}, "2": {"version": "1.0.2"}}}, "sprites": {s["id"]: s for s in [
         sprite("B", "zeta"), sprite("A", "beta", added=2), sprite("A", "alpha", changed=2)]}}
     matches = {
         "items/gold.png": [{"id": "A/alpha", "dist": 3}],
@@ -16,6 +16,7 @@ def test_build_data_sorts_counts_groups_and_marks_what_the_webapp_has():
     }
     data = G.build_data(index, matches)
     assert data["baseline"] == 1
+    assert data["runs"] == {"1": "1.0.1", "2": "1.0.2"}  # `added` / `changed` are runs: this says in which version
     assert data["groups"] == [("A", 2), ("B", 1)]
     assert [s[0] for s in data["sprites"]] == ["A/alpha", "A/beta", "B/zeta"]
     assert data["sprites"][0] == ["A/alpha", "A", "alpha", 144, 144, 1, 2]

@@ -20,8 +20,9 @@ install-time asset pack (`split_abPack1.apk`) and the hot-updated ones on the sd
 3. **Match** compares every PNG and WebP of `webapp/public/assets` with the sprites by a perceptual hash
    (`out/matches.json`).
 4. The **gallery** (`out/index.html`) shows it all: search, folders, "new or changed since marked as seen" (or only new, or only changed), "not in the
-   webapp yet" / "already in the webapp" (by look, or as the source of a mapped image, so cropped ones count too), size
-   (the four most frequent sizes, or a range of the longer side). Click a picture to copy its id. **Mark all as seen** (`main.py baseline`) starts
+   webapp yet" / "already in the webapp" (by look, or as the source of a mapped image, so cropped ones count too), resource version
+   a picture was first extracted in (each extract run records the game's resource version, shown as `1.0.818`; the first run's
+   version means "this or earlier"), size (the four most frequent sizes, or a range of the longer side). Click a picture to copy its id. **Mark all as seen** (`main.py baseline`) starts
    the NEW / CHANGED badges over.
 5. **Map**: `mapping.json` (committed) says which game picture each webapp image is made from. The **mapping editor**
    (window: Edit mapping...) shows the webapp picture, the game picture and what Sync would make of it, side by side;
