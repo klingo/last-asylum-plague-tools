@@ -1,8 +1,8 @@
 """Gallery: out/index.html, one static page to browse every extracted picture.
 
 Open it from the folder (`out/index.html`); it reads `out/data.js` (not a fetched JSON, which browsers block for files
-on disk). Filter by group, search by name, and show only what was added or changed since the baseline (`main.py
-baseline` / "Mark all as seen": the extract run up to which everything counts as seen), what the webapp
+on disk). Filter by group, search by name, and show only what was added or changed (together or each alone) since the baseline
+(`main.py baseline` / "Mark all as seen": the extract run up to which everything counts as seen), what the webapp
 does not have yet, or what it has (a close sprite to a PNG of `webapp/public/assets`, see `match.py`, or the source (or overlay) of
 a webapp image in `mapping.json`, which finds cropped ones too), and by size (one of the most frequent sizes, or a range
 of the longer side). Clicking a picture copies its id for `python main.py import <id> <dest>` (or the window's Import row).
@@ -47,6 +47,8 @@ input.px { width: 70px; }
   <select id="status">
     <option value="all">All pictures</option>
     <option value="fresh">New or changed since marked as seen</option>
+    <option value="new">New since marked as seen</option>
+    <option value="changed">Changed since marked as seen</option>
     <option value="missing">Not in the webapp yet</option>
     <option value="used">Already in the webapp</option>
   </select>
@@ -78,6 +80,8 @@ function pass(s) {
   if (max.value && Math.max(w, h) > +max.value) return false;
   switch (statusSel.value) {
     case 'fresh': return added > D.baseline || changed > D.baseline;
+    case 'new': return added > D.baseline;
+    case 'changed': return added <= D.baseline && changed > D.baseline;  // as the badge: a new picture is not also "changed"
     case 'missing': return !D.used[id];
     case 'used': return !!D.used[id];
   }

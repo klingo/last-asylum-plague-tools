@@ -19,7 +19,7 @@ install-time asset pack (`split_abPack1.apk`) and the hot-updated ones on the sd
    as a PNG: `out/<folder>/<name>.png` (item icons are 144 x 144 with transparency, like the webapp's).
 3. **Match** compares every PNG and WebP of `webapp/public/assets` with the sprites by a perceptual hash
    (`out/matches.json`).
-4. The **gallery** (`out/index.html`) shows it all: search, folders, "new or changed since marked as seen", "not in the
+4. The **gallery** (`out/index.html`) shows it all: search, folders, "new or changed since marked as seen" (or only new, or only changed), "not in the
    webapp yet" / "already in the webapp" (by look, or as the source of a mapped image, so cropped ones count too), size
    (the four most frequent sizes, or a range of the longer side). Click a picture to copy its id. **Mark all as seen** (`main.py baseline`) starts
    the NEW / CHANGED badges over.
