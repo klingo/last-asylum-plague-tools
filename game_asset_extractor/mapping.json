@@ -311,6 +311,266 @@
   "source": "Zombie_Hero/Patrol_img_star0",
   "synced": "6932366154ca5114330def079d45085e"
  },
+ "heroes/skills/adv_call_of_the_brave.png": {
+  "source": "Zombie_SkillIcon144/skill_4_4_js",
+  "synced": "4be2f529b3c58241c115ad0e14a3c873"
+ },
+ "heroes/skills/adv_celestial_judgment.png": {
+  "source": "Zombie_SkillIcon144/skill_4_2_js",
+  "synced": "5353d76af9f5d953b227ee9c1b861ed3"
+ },
+ "heroes/skills/adv_holy_banner.png": {
+  "source": "Zombie_SkillIcon144/skill_4_1_js",
+  "synced": "05e1d93bd69e072121ad127899edb551"
+ },
+ "heroes/skills/adv_rain_of_arrows.png": {
+  "source": "Zombie_SkillIcon144/skill_4_3_js",
+  "synced": "02c1eaddba42e598812bd0508053b4a9"
+ },
+ "heroes/skills/battle_anthem.png": {
+  "source": "Zombie_SkillIcon144/skill_29_4",
+  "synced": "614fa2f5550986e3ddebc893e9c27642"
+ },
+ "heroes/skills/battle_shield.png": {
+  "source": "Zombie_SkillIcon144/skill_9_1",
+  "synced": "b54eb5a6e2943bf61936fa3f1628be45"
+ },
+ "heroes/skills/battle_will.png": {
+  "source": "Zombie_SkillIcon144/skill_24_1",
+  "synced": "9d34a4e602894b5397b53c9534c1a992"
+ },
+ "heroes/skills/blood_blade.png": {
+  "source": "Zombie_SkillIcon144/skill_25_1",
+  "synced": "28dd3215c0c568099498cf302dcba336"
+ },
+ "heroes/skills/bloodshed_defense.png": {
+  "source": "Zombie_SkillIcon144/skill_24_2",
+  "synced": "9afec891078fd4ce292f2874de1d2517"
+ },
+ "heroes/skills/bloodthirsty_slaughter.png": {
+  "source": "Zombie_SkillIcon144/skill_25_3",
+  "synced": "6b723f799520d592f2c1c24f485e1577"
+ },
+ "heroes/skills/bubble.png": {
+  "source": "Zombie_SkillIcon144/skill_23_1",
+  "synced": "8a70641e9d350ff1f7aa3250e68a85f3"
+ },
+ "heroes/skills/candy.png": {
+  "source": "Zombie_SkillIcon144/skill_21_1",
+  "synced": "f39030349b1ac88820794bc2908350ff"
+ },
+ "heroes/skills/candy_jar.png": {
+  "source": "Zombie_SkillIcon144/skill_21_2",
+  "synced": "dab265891143ebd127edd81d93488c60"
+ },
+ "heroes/skills/charged_gummies.png": {
+  "source": "Zombie_SkillIcon144/skill_21_4",
+  "synced": "063a87cd464ff247e8f4711266a69d68"
+ },
+ "heroes/skills/crimson_bloom.png": {
+  "source": "Zombie_SkillIcon144/skill_10_3",
+  "synced": "5156d6f9bf6c15061a39f399928c0267"
+ },
+ "heroes/skills/crimson_rose.png": {
+  "source": "Zombie_SkillIcon144/skill_25_2",
+  "synced": "bc7c71a52872ee91e1bdfb958893c073"
+ },
+ "heroes/skills/cross_whip.png": {
+  "source": "Zombie_SkillIcon144/skill_28_2",
+  "synced": "ebb9254f5abb781f2438ffd4c1205a67"
+ },
+ "heroes/skills/dagger.png": {
+  "source": "Zombie_SkillIcon144/skill_27_1",
+  "synced": "ab49e2478c8d1b55cccdc1af664f45ae"
+ },
+ "heroes/skills/deadly_pierce.png": {
+  "source": "Zombie_SkillIcon144/skill_24_3",
+  "synced": "6c4564e64d173a0e993c282f1144abf9"
+ },
+ "heroes/skills/deal_cards.png": {
+  "source": "Zombie_SkillIcon144/skill_22_1",
+  "synced": "d7ed241ecfd1cc17193471ee08f94c52"
+ },
+ "heroes/skills/earthshattering.png": {
+  "source": "Zombie_SkillIcon144/skill_9_2",
+  "synced": "0d3b41b59f5112393caea79c1bdb6ffb"
+ },
+ "heroes/skills/ember_dust.png": {
+  "source": "Zombie_SkillIcon144/skill_31_1",
+  "synced": "89b80ed0ff543ab44341b564cd531743"
+ },
+ "heroes/skills/fates_thread.png": {
+  "source": "Zombie_SkillIcon144/skill_30_3",
+  "synced": "b457f8141069dcb8e5d653416c7d9687"
+ },
+ "heroes/skills/flame_soul_power.png": {
+  "source": "Zombie_SkillIcon144/skill_31_4",
+  "synced": "24989cd2c03637e2a42b01286a1d43e6"
+ },
+ "heroes/skills/force_link.png": {
+  "source": "Zombie_SkillIcon144/skill_28_3",
+  "synced": "30cdd354f31b46b621b3dcaa0cb7d874"
+ },
+ "heroes/skills/forest_hunter.png": {
+  "source": "Zombie_SkillIcon144/skill_27_2",
+  "synced": "8c481a6e9e25441bf87e44e185f0f72d"
+ },
+ "heroes/skills/frenzied_emotion.png": {
+  "source": "Zombie_SkillIcon144/skill_22_4",
+  "synced": "fb01554b56a58f35924e7796dfbb0151"
+ },
+ "heroes/skills/healing_sound.png": {
+  "source": "Zombie_SkillIcon144/skill_29_3",
+  "synced": "69236d76d4435a8780f6db822f8ec2c3"
+ },
+ "heroes/skills/hearthunt_red_card.png": {
+  "source": "Zombie_SkillIcon144/skill_22_3",
+  "synced": "808b328d3c66048cd4972373a1b46ced"
+ },
+ "heroes/skills/heartwarming_flame.png": {
+  "source": "Zombie_SkillIcon144/skill_31_3",
+  "synced": "c00a4576554141e0d4d186421cd09b8d"
+ },
+ "heroes/skills/indomitable_spirit.png": {
+  "source": "Zombie_SkillIcon144/skill_28_4",
+  "synced": "4313fcd77dd77886a2bbb06525a51d74"
+ },
+ "heroes/skills/inferno_array.png": {
+  "source": "Zombie_SkillIcon144/skill_31_2",
+  "synced": "080fe2bfe67828bde3945850eea3f2d5"
+ },
+ "heroes/skills/inspiration.png": {
+  "source": "Zombie_SkillIcon144/skill_29_2",
+  "synced": "02a19a82406bfe7892c70d1945e66e44"
+ },
+ "heroes/skills/joker_ace.png": {
+  "source": "Zombie_SkillIcon144/skill_22_2",
+  "synced": "5abbc64cc7eb60802ce19816c6a6c9d1"
+ },
+ "heroes/skills/lady_of_the_forest.png": {
+  "source": "Zombie_SkillIcon144/skill_27_4",
+  "synced": "b63706a8c4f9846d110a87ba927434cb"
+ },
+ "heroes/skills/lone_flower.png": {
+  "source": "Zombie_SkillIcon144/skill_25_4",
+  "synced": "f51ca477815b4cd30146ae374a0ec088"
+ },
+ "heroes/skills/lunar_howl.png": {
+  "source": "Zombie_SkillIcon144/skill_26_3",
+  "synced": "cc13f4033e8a2cc9b4311a2e0c718396"
+ },
+ "heroes/skills/lunar_hunt.png": {
+  "source": "Zombie_SkillIcon144/skill_20_2",
+  "synced": "e545bb001a2aa4e0cdec5e0247123e95"
+ },
+ "heroes/skills/moon_blade.png": {
+  "source": "Zombie_SkillIcon144/skill_20_1",
+  "synced": "d475bff6f4489991defceeb70d93ff2a"
+ },
+ "heroes/skills/moonfall_dance.png": {
+  "source": "Zombie_SkillIcon144/skill_20_3",
+  "synced": "3fd6d70e1fc61a0e1dee6aaf9ef27881"
+ },
+ "heroes/skills/moons_blessing.png": {
+  "source": "Zombie_SkillIcon144/skill_20_4",
+  "synced": "7efc3b222d2593ff3d212e80ffece44a"
+ },
+ "heroes/skills/mountain_god_wrath.png": {
+  "source": "Zombie_SkillIcon144/skill_27_3",
+  "synced": "0c37e4af805a4fe221712f33c6d78ada"
+ },
+ "heroes/skills/musical_note.png": {
+  "source": "Zombie_SkillIcon144/skill_29_1",
+  "synced": "7ebfbfa733b4e7c71da36f736f56eaa2"
+ },
+ "heroes/skills/peerless_blade.png": {
+  "source": "Zombie_SkillIcon144/skill_10_2",
+  "synced": "8d22009fbffa4f9a2b1ad47ae86a758c"
+ },
+ "heroes/skills/puppet.png": {
+  "source": "Zombie_SkillIcon144/skill_30_4",
+  "synced": "df682bea926ae5b7d42f8ee38c5075db"
+ },
+ "heroes/skills/resolute_fight.png": {
+  "source": "Zombie_SkillIcon144/skill_24_4",
+  "synced": "e6ca228499509741cdf4ff826e18735c"
+ },
+ "heroes/skills/rock_solid.png": {
+  "source": "Zombie_SkillIcon144/skill_9_3",
+  "synced": "277bdaa43b4752d5ff73bee7f94fc38d"
+ },
+ "heroes/skills/shackles.png": {
+  "source": "Zombie_SkillIcon144/skill_28_1",
+  "synced": "b3822b4593ecd9229d5058768592f3e5"
+ },
+ "heroes/skills/shadow_hunt.png": {
+  "source": "Zombie_SkillIcon144/skill_19_2",
+  "synced": "90196c984125057ab637f8e9236e5fa0"
+ },
+ "heroes/skills/shadow_strike.png": {
+  "source": "Zombie_SkillIcon144/skill_19_3",
+  "synced": "dc6ef731ccd73dd7914eeecfa4605641"
+ },
+ "heroes/skills/shadow_veil.png": {
+  "source": "Zombie_SkillIcon144/skill_19_4",
+  "synced": "48525f5a0c2c44f02e3d20c263f1e86d"
+ },
+ "heroes/skills/sharp_claw.png": {
+  "source": "Zombie_SkillIcon144/skill_26_1",
+  "synced": "1126be9486f15a5f4321ef404c67120a"
+ },
+ "heroes/skills/skybreaker_slash.png": {
+  "source": "Zombie_SkillIcon144/skill_10_1",
+  "synced": "16cbac6b3f873fdcb56ea7e5240c687c"
+ },
+ "heroes/skills/smoke_cartridge.png": {
+  "source": "Zombie_SkillIcon144/skill_19_1",
+  "synced": "3b47dd2788966c3e15059c0286e8fada"
+ },
+ "heroes/skills/strong_will.png": {
+  "source": "Zombie_SkillIcon144/skill_9_4",
+  "synced": "57ce358e19f2a6c9706f0b3aa81771d4"
+ },
+ "heroes/skills/surprise_gift.png": {
+  "source": "Zombie_SkillIcon144/skill_21_3",
+  "synced": "86139fdd2f1bbb2c03abfd8a41c6510c"
+ },
+ "heroes/skills/tenacity.png": {
+  "source": "Zombie_SkillIcon144/skill_00_3",
+  "synced": "1aab5b9fdabbea92bf851ac06592f528"
+ },
+ "heroes/skills/throat_bite.png": {
+  "source": "Zombie_SkillIcon144/skill_26_2",
+  "synced": "eafe4ffa6533dc10fb40405247308669"
+ },
+ "heroes/skills/truth_and_lies.png": {
+  "source": "Zombie_SkillIcon144/skill_30_2",
+  "synced": "db2318b51aebcb0e8b7ceee69e3e3850"
+ },
+ "heroes/skills/vitality_bubble.png": {
+  "source": "Zombie_SkillIcon144/skill_23_3",
+  "synced": "73114f78a8ae4ea46ecf7b551df61125"
+ },
+ "heroes/skills/war_flute_sound.png": {
+  "source": "Zombie_SkillIcon144/skill_23_2",
+  "synced": "eecfebc3643bf55460e57a34c21aa7b3"
+ },
+ "heroes/skills/war_gods_will.png": {
+  "source": "Zombie_SkillIcon144/skill_10_4",
+  "synced": "3a58a1185554661e0adfba81d1136078"
+ },
+ "heroes/skills/warriors_anthem.png": {
+  "source": "Zombie_SkillIcon144/skill_23_4",
+  "synced": "a357f6a1c51dd025c3b526c2b2fde44d"
+ },
+ "heroes/skills/wolf_bloodline.png": {
+  "source": "Zombie_SkillIcon144/skill_26_4",
+  "synced": "c470cc0333f6f22f321217451931a209"
+ },
+ "heroes/skills/wooden_frame.png": {
+  "source": "Zombie_SkillIcon144/skill_30_1",
+  "synced": "2e941d03a405ccfb4b9447f5a7bb1520"
+ },
  "heroes/sr_durant.png": {
   "source": "HeroIcon/pic_card4_01",
   "synced": "3c9512397fb4eb99d2902b1e285388bf"
