@@ -712,8 +712,8 @@
   "synced": "30a7f7dcb0e78d1448bc61a457cdcd07"
  },
  "items/chest/city_seizure_chest.png": {
-  "source": "Zombie_Alliance/pic_lmlw_bx03",
-  "synced": "a37f1fdd777cb6421c2fb5efc4eed287"
+  "source": "Zombie_ItemIcon144/icon_lianmmengliwubox03",
+  "synced": "923a3c10a3062050119dbb22d286bb1d"
  },
  "items/chest/curio_chest_sr.png": {
   "source": "Zombie_ItemIcon144/icon_changpinbox03",
@@ -836,16 +836,16 @@
   "synced": "34fdb0c219885163b2c53915d362733e"
  },
  "items/chest/ssr_explorer_chest.png": {
-  "source": "Zombie_Alliance/pic_lmlw_bx03",
-  "synced": "a37f1fdd777cb6421c2fb5efc4eed287"
+  "source": "Zombie_ItemIcon144/icon_lianmmengliwubox03",
+  "synced": "923a3c10a3062050119dbb22d286bb1d"
  },
  "items/chest/universal_curio_random_chest.png": {
   "source": "Zombie_ItemIcon144/icon_tongyongcangpinsuijibaoxiang",
   "synced": "023805a6c6f2ec4aa2a8d4478349c753"
  },
  "items/chest/ur_adventure_chest.png": {
-  "source": "Zombie_Alliance/pic_lmlw_bx05",
-  "synced": "d477422f1f0724c4f8649d1b59f3fed5"
+  "source": "Zombie_ItemIcon144/icon_lianmmengliwubox05",
+  "synced": "2cafabfef5647d5c140af4bd84a5b082"
  },
  "items/chest/ur_epigraph_chest.png": {
   "source": "Zombie_ItemIcon144/Icon_item_UAVSkillChip_04",
@@ -928,8 +928,8 @@
   "synced": "90e1bdb600413426c68a2d4d9078a5d0"
  },
  "items/event_item/dwarven_pickaxe.png": {
-  "source": "Zombie_ShootTreasure/icon_yymj_danyao",
-  "synced": "114425c7edda4fd6799e4f0244990093"
+  "source": "Zombie_ItemIcon144/item_activity_danyao",
+  "synced": "8d793f233b34855c12ea0340f99ac307"
  },
  "items/event_item/lion_coin.png": {
   "source": "Zombie_ItemIcon144/Icon_Item_AbyssalinvasionCoin",
@@ -948,16 +948,16 @@
   "synced": "c947afe2e14877ee76d97e9e8365c478"
  },
  "items/event_item/pirate_gold.png": {
-  "source": "LuckySevenSymbol/ico_hdhd_haidaobi",
-  "synced": "f32b3b53636cdbd20e146eaa98b08b00"
+  "source": "Zombie_ItemIcon144/ico_hdhd_haidaobi",
+  "synced": "c579c23f33b4465345dde945b0514ab3"
  },
  "items/event_item/recluse_coin.png": {
   "source": "Zombie_ItemIcon144/icon_yssr_yinshibi",
   "synced": "dd94f155a87dc7645c7e19b9e65f833b"
  },
  "items/event_item/star_moon_sigil.png": {
-  "source": "LuckySevenSymbol/ico_zqj_xingyueyinji",
-  "synced": "9fab5d0b8f81b61eebdaa62c74fca961"
+  "source": "Zombie_ItemIcon144/icon_zq_duihuanbi",
+  "synced": "f7274f36f22d8ec1e2973abf0dbd46ba"
  },
  "items/event_item/stone_blade.png": {
   "source": "Zombie_ItemIcon144/item_activity_beizhanjinquan",
@@ -968,8 +968,8 @@
   "synced": "e2411629c2b7eb5d28caeb9b4cf1a1ea"
  },
  "items/event_item/surprise_emblem.png": {
-  "source": "Zombie_Act_SupplyCall/icon_bjzh_yaoshi",
-  "synced": "c9c4d05edee681f7fe4cfb26dd4d4aaf"
+  "source": "Zombie_ItemIcon144/item_activity_zhaohuanyaoshi",
+  "synced": "733d581e6db134d19b74f6fc048fdb68"
  },
  "items/gathering_speedup.png": {
   "source": "Zombie_ItemIcon144/icon_yuekacaijijiacheng",
@@ -1128,24 +1128,24 @@
   "synced": "a39cd86878b43d5f6cc79558af1d4025"
  },
  "items/material/ur_hero_omni_shard.png": {
-  "source": "EliminateMaster/icon_wannengsuipian_chengse",
-  "synced": "9f637444210d31b33c58c2b737fddacd"
+  "source": "Zombie_ItemIcon144/icon_wannengsuipian_chengse",
+  "synced": "7f344c8002b2a198cb6879db6e7c6ac8"
  },
  "items/mega_march_queue.png": {
   "source": "Zombie_ItemIcon144/icon_yuekachaojicheku",
   "synced": "2a442dcbadbe8c0625782a43dd7f21c2"
  },
  "items/raven/attackers_claw.png": {
-  "source": "Zombie_UAVEquip/icon_shr_xinpian5_3",
-  "synced": "f3294a80f20bb139fbe5957c2136bcf9"
+  "source": "Zombie_ItemIcon144/icon_danao",
+  "synced": "c5d244045f5bb8066e68995eca8630fa"
  },
  "items/raven/eye_of_perception.png": {
-  "source": "Zombie_UAVEquip/icon_shr_xinpian6_3",
-  "synced": "bfecef1e2da007fda3975ca47a725a4a"
+  "source": "Zombie_ItemIcon144/icon_yanjing",
+  "synced": "09ff09320aa999706783a0e4cb3022f1"
  },
  "items/raven/feather_of_the_night.png": {
-  "source": "Zombie_UAVEquip/icon_shr_xinpian2_3",
-  "synced": "6fb18907d4feedaa2e81d4e2dcfc4b64"
+  "source": "Zombie_ItemIcon144/icon_jirou",
+  "synced": "92eca03fe21d2f07463e185540f0ec15"
  },
  "items/raven/frenzied_flock_iv_ranger.png": {
   "source": "Zombie_ItemIcon144/Icon_Item_drone07",
@@ -1172,8 +1172,8 @@
   "synced": "e40d0ac4aa9f95c3a0c9412ca7a9657c"
  },
  "items/raven/heart_of_wisdom.png": {
-  "source": "Zombie_UAVEquip/icon_shr_xinpian1_3",
-  "synced": "9a37a313328c333628b3572c54819764"
+  "source": "Zombie_ItemIcon144/icon_xinzang",
+  "synced": "0b9e1dc67d45e62e09b6c1817d76359a"
  },
  "items/raven/protective_charm_iv_ranger.png": {
   "source": "Zombie_ItemIcon144/Icon_Item_drone01",
@@ -1212,16 +1212,16 @@
   "synced": "82cc2f1399408a58ae67c539b090ecd7"
  },
  "items/raven/sharp_beak.png": {
-  "source": "Zombie_UAVEquip/icon_shr_xinpian3_3",
-  "synced": "71785c348d27a90858bcab143bcaec51"
+  "source": "Zombie_ItemIcon144/icon_guge",
+  "synced": "a54071b529d31e2e36c8dd9e4934a4c3"
  },
  "items/raven/ssr_epigraph_shard.png": {
   "source": "Zombie_ItemIcon144/icon_item_drone_chipMaterial_common",
   "synced": "0f3cdd93292d8ae6afb2242de625c8f3"
  },
  "items/raven/tail_of_wind.png": {
-  "source": "Zombie_UAVEquip/icon_shr_xinpian4_3",
-  "synced": "901965ff4e8043587576a84ee9d47321"
+  "source": "Zombie_ItemIcon144/icon_shijing",
+  "synced": "21fad428f38aa164f72655071ff46b7a"
  },
  "items/raven/ur_epigraph_shard.png": {
   "source": "Zombie_ItemIcon144/icon_item_drone_chipMaterial_seniorl",
@@ -1244,12 +1244,12 @@
   "synced": "f34717a6a58b80ec94e0dbbfc8d541cd"
  },
  "items/resource/diamonds.png": {
-  "source": "EliminateMaster/icon_zuanshi",
-  "synced": "0fb8221b24d5f958de92483a835f0fba"
+  "source": "Zombie_ItemIcon144/icon_zuanshi",
+  "synced": "59bbcf4aae7b163f88020ebd1c6a761a"
  },
  "items/resource/grain.png": {
-  "source": "Zombie_BuildingIcon/icon_food",
-  "synced": "62ae82c4f9003303191eaaef94c24e26"
+  "source": "Zombie_ItemIcon144/icon_food",
+  "synced": "c9c58b6ec0f364b62583dc77400204df"
  },
  "items/resource/grain_level_supply.png": {
   "source": "Zombie_ItemIcon144/icon_foodbox",
@@ -1260,8 +1260,8 @@
   "synced": "7693eb24688d7c09c289f8153b77f67b"
  },
  "items/resource/herbs.png": {
-  "source": "Zombie_BuildingIcon/icon_power",
-  "synced": "8a3bfbee66f5402f24f354ce722b7fa9"
+  "source": "Zombie_ItemIcon144/icon_power",
+  "synced": "5f0b7294af9f0ae3262223ffd20b11a4"
  },
  "items/resource/resource_supply.png": {
   "source": "Zombie_ItemIcon144/icon_resourcebox",
@@ -1272,8 +1272,8 @@
   "synced": "d63bcad977a8a86fecac3c626ca7b8f5"
  },
  "items/resource/timber.png": {
-  "source": "Zombie_BuildingIcon/icon_wood",
-  "synced": "861659dd99b0e76b303a9c57ebb00c21"
+  "source": "Zombie_ItemIcon144/icon_wood",
+  "synced": "58796f4d5a7e0ef13e25f208e6ee7f9f"
  },
  "items/resource/timber_level_supply.png": {
   "source": "Zombie_ItemIcon144/icon_woodbox",
