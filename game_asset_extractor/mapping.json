@@ -311,6 +311,50 @@
   "source": "Zombie_Hero/Patrol_img_star0",
   "synced": "6932366154ca5114330def079d45085e"
  },
+ "heroes/awakened/ur_annie.png": {
+  "source": "HeroIcon/pic_card4_21_jx",
+  "synced": "cccf69ac9f3fc2ef12cb5ad0083d073a"
+ },
+ "heroes/awakened/ur_arthur.png": {
+  "source": "HeroIcon/pic_card4_09_jx",
+  "synced": "89449dbfd80026d34b83718b2ff80657"
+ },
+ "heroes/awakened/ur_cynthia.png": {
+  "source": "HeroIcon/pic_card4_20_jx",
+  "synced": "8ec4d978b0238622ef54368712419f60"
+ },
+ "heroes/awakened/ur_joker.png": {
+  "source": "HeroIcon/pic_card4_22_jx",
+  "synced": "8fc6f33709321b0caf203df6fdc2a4e8"
+ },
+ "heroes/awakened/ur_marlena.png": {
+  "source": "HeroIcon/pic_card4_10_jx",
+  "synced": "da0e28ab55cb4bd4fd6e19938d542f83"
+ },
+ "heroes/awakened/ur_shadow.png": {
+  "source": "HeroIcon/pic_card4_19_jx",
+  "synced": "f7083ebba38f934089ea117faedbf5c9"
+ },
+ "heroes/frames/awakening_1.png": {
+  "source": "AwakenFrame/pic_awaken_touxiangkuang1",
+  "synced": "1e1ba16e4a2cb99577d36377c00b000f"
+ },
+ "heroes/frames/awakening_10.png": {
+  "source": "AwakenFrame/pic_awaken_touxiangkuang2",
+  "synced": "51f5cf5d876989c52349bebd3c60c81c"
+ },
+ "heroes/frames/awakening_20.png": {
+  "source": "AwakenFrame/pic_awaken_touxiangkuang3",
+  "synced": "d395348e3f0d4f9cb939ea0493f809c9"
+ },
+ "heroes/frames/awakening_30.png": {
+  "source": "AwakenFrame/pic_awaken_touxiangkuang4",
+  "synced": "707e0b5e5b7371c26e3e918b4457c49d"
+ },
+ "heroes/frames/awakening_40.png": {
+  "source": "AwakenFrame/pic_awaken_touxiangkuang5",
+  "synced": "63040e3d062bf5460c22fd11be2cb3f0"
+ },
  "heroes/skills/adv_call_of_the_brave.png": {
   "source": "Zombie_SkillIcon144/skill_4_4_js",
   "synced": "3b6ada0c5371799dbf6494c85fae79bb"
@@ -527,6 +571,18 @@
   "source": "Zombie_SkillIcon144/skill_19_1",
   "synced": "9275edf587a67dbdfc601ad2e6797846"
  },
+ "heroes/skills/soul_of_ranger.png": {
+  "source": "Zombie_SkillIcon144/skill_00_5",
+  "synced": "a3042bbf9cba9141f13900c51466a3de"
+ },
+ "heroes/skills/soul_of_warlock.png": {
+  "source": "Zombie_SkillIcon144/skill_00_6",
+  "synced": "f691cf18f477303927ad66c723a11c2d"
+ },
+ "heroes/skills/soul_of_warrior.png": {
+  "source": "Zombie_SkillIcon144/skill_00_4",
+  "synced": "d8989aead72f042101783d0ceecfc82a"
+ },
  "heroes/skills/strong_will.png": {
   "source": "Zombie_SkillIcon144/skill_9_4",
   "synced": "537cc2214ca440c1d40187c8d13a2bec"
@@ -694,6 +750,30 @@
  "heroes/ur_zoya.png": {
   "source": "HeroIcon/pic_card4_27",
   "synced": "6e9cd74f07210dfd96e728fcc44af6a4"
+ },
+ "heroes/weapons/annie.png": {
+  "source": "Zombie_ItemIcon144/icon_ue_50011",
+  "synced": "22f7f459e7a310d4c2a5344d3481746a"
+ },
+ "heroes/weapons/cynthia.png": {
+  "source": "Zombie_ItemIcon144/icon_ue_50006",
+  "synced": "cfee94616afed2fc4b0523cfa3c7a9f8"
+ },
+ "heroes/weapons/daskal.png": {
+  "source": "Zombie_ItemIcon144/icon_ue_50001",
+  "synced": "bf5e26b173ea523d7594a375cbc300ca"
+ },
+ "heroes/weapons/louis.png": {
+  "source": "Zombie_ItemIcon144/icon_ue_50005",
+  "synced": "ba961b22b469873e7225b6de43202143"
+ },
+ "heroes/weapons/marlena.png": {
+  "source": "Zombie_ItemIcon144/icon_ue_30006",
+  "synced": "33fa0db50d1820e112996e8d2fe2b06b"
+ },
+ "heroes/weapons/ulfrid.png": {
+  "source": "Zombie_ItemIcon144/icon_ue_50010",
+  "synced": "6873db9a117cb436862721c0875dcadd"
  },
  "items/chest/awaken_shard_choice_chest.png": {
   "source": "Zombie_ItemIcon144/icon_herozixuanbox_awaken_only",
@@ -1782,5 +1862,9 @@
  "ui/banknote.png": {
   "source": "Zombie_ItemIcon144/icon_wangguojinquan",
   "synced": "fda2c2376577496cca0a8607bd9ae2c3"
+ },
+ "ui/lock.png": {
+  "source": "Buillding_N/pic_yx_suo",
+  "synced": "73ccf3a059402e1c5a2ef28a29afd8e1"
  }
 }
