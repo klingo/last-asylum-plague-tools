@@ -100,3 +100,15 @@ def test_a_slider_and_its_field_follow_each_other(editor):
     spinboxes[0].insert(0, "abc")
     spinboxes[0].event_generate("<Return>")
     assert editor.fx.get() == 1 and spinboxes[0].get() == "1.000"  # not a number: unchanged
+
+
+def test_a_moving_slider_redraws_now_and_then_and_the_exact_preview_comes_at_rest(editor, monkeypatch):
+    calls = []
+    monkeypatch.setattr(editor, "show_result", lambda exact: calls.append(exact))
+    editor.rel = "items/a.png"
+    for _ in range(20):
+        editor.drag()
+    editor.after(MG.SETTLE_DELAY + 100, editor.quit)
+    editor.mainloop()
+    assert calls.count(False) < 5 and calls[-1] is True  # a few live redraws, then the exact one
+    assert editor.timers == {"live": None, "settle": None}

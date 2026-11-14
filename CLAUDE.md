@@ -27,7 +27,7 @@ Run from the tool's own folder, with its venv (`.venv/Scripts/python`; set it up
 `.venv/Scripts/python -m pip install -r requirements.txt`; use `python -m pip`, a moved venv's `pip.exe` points at the old path).
 
 ```bash
-.venv/Scripts/python -m pytest -q          # the tool's tests (game_asset_extractor: 101, mahjong_minigame_helper: 64)
+.venv/Scripts/python -m pytest -q          # the tool's tests (game_asset_extractor: 104, mahjong_minigame_helper: 64)
 .venv/Scripts/python main.py --help        # the CLI (game_asset_extractor: also gui.py / start_gui.bat; mahjong: gui.py)
 ```
 

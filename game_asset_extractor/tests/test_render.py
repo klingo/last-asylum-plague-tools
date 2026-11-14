@@ -142,3 +142,21 @@ def test_an_overlay_keeps_the_transparency_of_the_picture_on_top(tmp_path):
     ring.save(top)
     img = Image.open(io.BytesIO(R.render(base, "events/e.webp", overlay={"path": top, "scale": 1, "at": [0.5, 0.5]})[0])).convert("RGBA")
     assert img.getpixel((200, 180))[0] > 200 and img.getpixel((400, 180))[2] > 200  # red edge on top, background shows elsewhere
+
+
+def test_load_rgba_decodes_once_until_the_file_changes(tmp_path):
+    path = tmp_path / "a.png"
+    Image.new("RGB", (4, 4), (255, 0, 0)).save(path)
+    first = R.load_rgba(path)
+    assert R.load_rgba(path) is first and first.mode == "RGBA"
+    Image.new("RGB", (6, 6), (0, 0, 255)).save(path)
+    assert R.load_rgba(path).size == (6, 6)
+
+
+def test_make_is_what_render_encodes(tmp_path):
+    path = tmp_path / "a.png"
+    Image.new("RGB", (300, 100), (10, 20, 30)).save(path)
+    img, note = R.make(path, "items/x.png", (0.5, 0.5))
+    data, same_note = R.render(path, "items/x.png", (0.5, 0.5))
+    assert img.size == (144, 144) and note == same_note
+    assert Image.open(io.BytesIO(data)).convert("RGBA").tobytes() == img.tobytes()

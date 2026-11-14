@@ -18,6 +18,7 @@ the result's, centred at `at` = (x, y) from 0 to 1 of the result, its transparen
 from __future__ import annotations
 
 import io
+from functools import lru_cache
 from pathlib import Path, PurePosixPath
 
 from PIL import Image
@@ -68,10 +69,22 @@ def fit(img: Image.Image, size: tuple[int, int] | None, focus=DEFAULT_FOCUS) -> 
     return img.resize(size, Image.LANCZOS), ", ".join(notes + [f"resized to {tw}x{th}"])
 
 
+@lru_cache(maxsize=6)
+def _decoded(path: str, size: int, mtime: int) -> Image.Image:
+    with Image.open(path) as src:
+        return src.convert("RGBA")
+
+
+def load_rgba(path: Path) -> Image.Image:
+    """The picture as RGBA, decoded once while the file stays the same (the editor re-renders it on every slider move).
+    The result is shared: never change it in place."""
+    stat = Path(path).stat()
+    return _decoded(str(path), stat.st_size, stat.st_mtime_ns)
+
+
 def compose(img: Image.Image, overlay: dict) -> tuple[Image.Image, str]:
     """`img` with the picture of `overlay` on top; the note names it."""
-    with Image.open(overlay["path"]) as src:
-        top = src.convert("RGBA")
+    top = load_rgba(overlay["path"])
     height = max(1, round(img.height * overlay.get("scale", OVERLAY_SCALE)))
     top = top.resize((max(1, round(top.width * height / top.height)), height), Image.LANCZOS)
     ax, ay = overlay.get("at", OVERLAY_AT)
@@ -98,11 +111,10 @@ def same_pixels(data: bytes, existing: Path) -> bool:
         return False
 
 
-def render(source: Path, dest: str, focus=None, force_size: bool = False, overlay: dict | None = None) -> tuple[bytes, str]:
-    """The bytes of the file `dest` (relative path in the assets folder, e.g. events/x.webp) made from the picture `source`
-    (and the `overlay` picture on top of it, if any)."""
-    with Image.open(source) as src:
-        img = src.convert("RGBA")
+def make(source: Path, dest: str, focus=None, force_size: bool = False, overlay: dict | None = None) -> tuple[Image.Image, str]:
+    """The picture of the file `dest` (relative path in the assets folder, e.g. events/x.webp) made from the picture `source`
+    (and the `overlay` picture on top of it, if any), before it is encoded."""
+    img = load_rgba(source)
     if not force_size and keeps_size(dest, img.size):
         note = f"{img.width}x{img.height}, the game's size kept"
     else:
@@ -110,4 +122,10 @@ def render(source: Path, dest: str, focus=None, force_size: bool = False, overla
     if overlay:
         img, over = compose(img, overlay)
         note += f", {over}"
+    return img, note
+
+
+def render(source: Path, dest: str, focus=None, force_size: bool = False, overlay: dict | None = None) -> tuple[bytes, str]:
+    """The bytes of the file `dest`: `make`, encoded in the folder's format."""
+    img, note = make(source, dest, focus, force_size, overlay)
     return encode(img, dest), note

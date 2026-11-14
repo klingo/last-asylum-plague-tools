@@ -4,6 +4,7 @@ Left: the webapp's images with their status (filter and search above). Right, fo
 the game picture it is mapped to (or the closest the hash match found), and what `sync` would make of it, then the
 closest candidates and a search over all game pictures. "Use this picture" maps it, "No original" marks it as having none
 in the game. A second picture (a trophy) can be put on top of the game picture ("Overlay"). Every change is written to mapping.json at once; nothing in the webapp changes until Sync.
+While a slider moves the result is redrawn at most every `LIVE_DELAY` ms, without encoding it; the exact one follows when it rests.
 The list sorts by a click on a column heading (again: the other way round). Every slider has a field next to it for an exact value.
 """
 
@@ -25,6 +26,8 @@ THUMB = 230  # px: the three big previews
 SMALL = 64  # px: candidate buttons
 CANDIDATES_HEIGHT = 112  # px: the row of candidate buttons (a picture of SMALL and two lines of text)
 SEARCH_LIMIT = 150
+LIVE_DELAY = 30  # ms: a moving slider redraws the result at most this often ...
+SETTLE_DELAY = 250  # ms: ... and the exact preview (encoded, compared with the webapp's file) comes when it rests
 SLIDER_LENGTH = 110  # px: a slider (its field sits next to it)
 HEADINGS = {"#0": "Webapp image", "status": "Status", "source": "Game picture", "dist": "Dist"}
 COLOURS = {"official": "#1b7f3b", "to sync": "#b36b00", "missing": "#b00020", "suggested": "#1f5fbf", "unmapped": "#b00020", "none": "#777777"}
@@ -70,6 +73,8 @@ class Editor(tk.Toplevel):
         self.rel: str | None = None
         self.chosen: str | None = None
         self.sort: tuple[str, bool] | None = None  # (column, descending); None: the order of the data
+        self.timers: dict[str, str | None] = {"live": None, "settle": None}  # the pending `after` calls of a moving slider
+        self.bind("<Destroy>", lambda e: self.stop_timers() if e.widget is self else None)
         self.overlay: str | None = None  # the picture put on top of the chosen one
         self.reload()
 
@@ -259,24 +264,58 @@ class Editor(tk.Toplevel):
         self.photos[key] = thumbnail(img, size)
         self.panes[key].configure(image=self.photos[key])
 
-    def preview(self) -> None:
+    def stop_timers(self) -> None:
+        for name, timer in self.timers.items():
+            if timer:
+                self.after_cancel(timer)
+            self.timers[name] = None
+
+    def drag(self) -> None:
+        """A slider moved: redraw the result now and then (not on every event, which makes the slider lag), the exact
+        preview when it comes to rest."""
         if self.rel is None:
             return
+        if not self.timers["live"]:
+            self.timers["live"] = self.after(LIVE_DELAY, self.draw_live)
+        if self.timers["settle"]:
+            self.after_cancel(self.timers["settle"])
+        self.timers["settle"] = self.after(SETTLE_DELAY, self.preview)
+
+    def draw_live(self) -> None:
+        self.timers["live"] = None
+        self.show_result(exact=False)
+
+    def preview(self) -> None:
+        """All three pictures, the result exactly as Sync would write it."""
+        if self.rel is None:
+            return
+        self.stop_timers()
         self.put("webapp", load_picture(C.WEBAPP_ASSETS / self.rel))
         picture = C.OUT / f"{self.chosen}.png" if self.chosen else None
         self.put("game", load_picture(picture) if picture else None)
+        self.show_result(exact=True)
+        self.overlay_label.set(f"Overlay: {self.overlay}" if self.overlay else "Overlay: none")
+
+    def show_result(self, exact: bool) -> None:
+        """The "After sync" picture. Not `exact`: the rendered picture as it is, without encoding it and comparing it with
+        the webapp's file (what takes the time)."""
+        picture = C.OUT / f"{self.chosen}.png" if self.chosen else None
         result, note = None, "No game picture chosen."
         if picture and picture.is_file():
             overlay = Mp.overlay_of({"overlay": self.overlay_entry()})
             if overlay and not overlay["path"].is_file():
                 overlay = None
-            data, note = R.render(picture, self.rel, (self.fx.get(), self.fy.get()), self.resize.get(), overlay)
-            result = load_picture_bytes(data)
-            same = R.same_pixels(data, C.WEBAPP_ASSETS / self.rel)
-            note = f"{self.chosen}: {note}" + ("  -  the webapp file already looks exactly like this" if same else "")
+            args = (picture, self.rel, (self.fx.get(), self.fy.get()), self.resize.get(), overlay)
+            if exact:
+                data, note = R.render(*args)
+                result = load_picture_bytes(data)
+                same = R.same_pixels(data, C.WEBAPP_ASSETS / self.rel)
+                note += "  -  the webapp file already looks exactly like this" if same else ""
+            else:
+                result, note = R.make(*args)
+            note = f"{self.chosen}: {note}"
         self.put("result", result)
         self.note.set(note)
-        self.overlay_label.set(f"Overlay: {self.overlay}" if self.overlay else "Overlay: none")
 
     def show_candidates(self) -> None:
         for child in self.cands.winfo_children():
@@ -290,7 +329,7 @@ class Editor(tk.Toplevel):
     def slider(self, parent: tk.Misc, var: tk.DoubleVar, low: float, high: float) -> ttk.Frame:
         """A slider on `var` with a field beside it for an exact value; each follows the other."""
         frame = ttk.Frame(parent)
-        inert(ttk.Scale(frame, from_=low, to=high, variable=var, length=SLIDER_LENGTH, command=lambda v: self.preview())).pack(side="left")
+        inert(ttk.Scale(frame, from_=low, to=high, variable=var, length=SLIDER_LENGTH, command=lambda v: self.drag())).pack(side="left")
         text = tk.StringVar(value=f"{var.get():.3f}")
         var.trace_add("write", lambda *a: text.set(f"{var.get():.3f}"))  # a drag, or a selection that sets it
 
