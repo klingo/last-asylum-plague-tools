@@ -1,4 +1,20 @@
 {
+ "events/alliance_duel.webp": {
+  "source": "pictures/Zombie_AllianceBattle/pic_tmdj_bg",
+  "overlay": {
+   "source": "pictures/Zombie_AllianceBattle2/pic_tmdj_ls_jiangbei03",
+   "scale": 1.0,
+   "at": [
+    0.5,
+    0.5
+   ]
+  },
+  "focus": [
+   0.5,
+   0.1
+  ],
+  "synced": "59c75d6ed8e11943a8fc30801f1e0af5"
+ },
  "events/alliance_duel_phase1.webp": {
   "source": "pictures/Zombie_AllianceBattle/pic_tmdj_bg",
   "overlay": {
@@ -299,25 +315,77 @@
   ],
   "synced": "6c89b927d762ef07f3836a0a0e947ec9"
  },
+ "events/survival_battle.webp": {
+  "source": "pictures/Zombie_ArmyRace/pic_jbjs_bg",
+  "overlay": {
+   "source": "pictures/Zombie_ArmyRace/ico_jbjs_tb",
+   "scale": 0.8,
+   "at": [
+    0.65,
+    0.5
+   ]
+  },
+  "synced": "df14c18f6362fba39f280081c705d9a0"
+ },
  "events/survival_battle_build_territory.webp": {
-  "source": "pictures/Zombie_ArmyRace_Banner/pic_jbjs_tu1",
-  "synced": "ce88016c7e3518c3801899418e5745c6"
+  "source": "pictures/Zombie_ArmyRace/pic_jbjs_bg",
+  "overlay": {
+   "source": "pictures/Zombie_ArmyRace_Banner/pic_jbjs_tu1",
+   "scale": 0.9,
+   "at": [
+    0.7,
+    0.5
+   ]
+  },
+  "synced": "799d4a3fa6ca8e3e15f48220bf10c752"
  },
  "events/survival_battle_enhance_heroes.webp": {
-  "source": "pictures/Zombie_ArmyRace_Banner/pic_jbjs_tu5",
-  "synced": "97eb3ac690857d3c59a96a472a9c8538"
+  "source": "pictures/Zombie_ArmyRace/pic_jbjs_bg",
+  "overlay": {
+   "source": "pictures/Zombie_ArmyRace_Banner/pic_jbjs_tu5",
+   "scale": 0.9,
+   "at": [
+    0.7,
+    0.5
+   ]
+  },
+  "synced": "a244dc769b69cd62c9c8943544429aab"
  },
  "events/survival_battle_enhance_raven.webp": {
-  "source": "pictures/Zombie_ArmyRace_Banner/pic_jbjs_tu3",
-  "synced": "63f39ccd17b3ec971f353dafdadbb783"
+  "source": "pictures/Zombie_ArmyRace/pic_jbjs_bg",
+  "overlay": {
+   "source": "pictures/Zombie_ArmyRace_Banner/pic_jbjs_tu3",
+   "scale": 0.9,
+   "at": [
+    0.7,
+    0.5
+   ]
+  },
+  "synced": "558368d7b335e6a899b143417bb2ee5f"
  },
  "events/survival_battle_technology_research.webp": {
-  "source": "pictures/Zombie_ArmyRace_Banner/pic_jbjs_tu2",
-  "synced": "84460e386d27542b54b3bba4b835616b"
+  "source": "pictures/Zombie_ArmyRace/pic_jbjs_bg",
+  "overlay": {
+   "source": "pictures/Zombie_ArmyRace_Banner/pic_jbjs_tu2",
+   "scale": 0.9,
+   "at": [
+    0.7,
+    0.5
+   ]
+  },
+  "synced": "b481e716b3b10520b7307d9d6c48e2d6"
  },
  "events/survival_battle_train_soldiers.webp": {
-  "source": "pictures/Zombie_ArmyRace_Banner/pic_jbjs_tu4",
-  "synced": "44e65ed079e42a66544744db7ebe4337"
+  "source": "pictures/Zombie_ArmyRace/pic_jbjs_bg",
+  "overlay": {
+   "source": "pictures/Zombie_ArmyRace_Banner/pic_jbjs_tu4",
+   "scale": 0.9,
+   "at": [
+    0.7,
+    0.5
+   ]
+  },
+  "synced": "a121c001766048fb40a24c334dc5b285"
  },
  "events/tempered_arms.webp": {
   "source": "pictures/Zombie_Activity_BattlePass2/pic_zl_banner1_11",
