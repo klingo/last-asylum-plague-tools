@@ -52,37 +52,37 @@ def solid(colour, size=(8, 8)):
 
 def test_extract_bundle_writes_pngs_and_numbers_name_collisions(out):
     index = new_index()
-    n = E.extract_bundle("b1", "Grp", [("gold", solid("gold")), ("gold", solid("red")), ("gem", solid("blue"))], index, run=1)
+    n = E.extract_bundle("b1", "Grp", [("gold", solid("gold")), ("gold", solid("red")), ("gem", solid("blue"))], index, run=1, kind="pictures")
     assert n == 3
-    assert sorted(index["sprites"]) == ["Grp/gem", "Grp/gold", "Grp/gold_2"]
-    assert (out / "Grp" / "gold_2.png").is_file()
-    s = index["sprites"]["Grp/gold"]
+    assert sorted(index["sprites"]) == ["pictures/Grp/gem", "pictures/Grp/gold", "pictures/Grp/gold_2"]
+    assert (out / "pictures" / "Grp" / "gold_2.png").is_file()
+    s = index["sprites"]["pictures/Grp/gold"]
     assert (s["w"], s["h"], s["bundle"], s["added"], s["changed"]) == (8, 8, "b1", 1, None) and len(s["dhash"]) == 64
 
 
 def test_extract_bundle_marks_changed_pictures_and_keeps_added(out):
     index = new_index()
-    E.extract_bundle("b1", "Grp", [("gold", solid("gold")), ("gem", solid("blue"))], index, run=1)
-    n = E.extract_bundle("b1", "Grp", [("gold", solid("gold")), ("gem", solid("green"))], index, run=2)
+    E.extract_bundle("b1", "Grp", [("gold", solid("gold")), ("gem", solid("blue"))], index, run=1, kind="pictures")
+    n = E.extract_bundle("b1", "Grp", [("gold", solid("gold")), ("gem", solid("green"))], index, run=2, kind="pictures")
     assert n == 1  # only the gem differs; the gold file is not rewritten
-    assert (index["sprites"]["Grp/gem"]["added"], index["sprites"]["Grp/gem"]["changed"]) == (1, 2)
-    assert (index["sprites"]["Grp/gold"]["added"], index["sprites"]["Grp/gold"]["changed"]) == (1, None)
+    assert (index["sprites"]["pictures/Grp/gem"]["added"], index["sprites"]["pictures/Grp/gem"]["changed"]) == (1, 2)
+    assert (index["sprites"]["pictures/Grp/gold"]["added"], index["sprites"]["pictures/Grp/gold"]["changed"]) == (1, None)
 
 
 def test_extract_bundle_drops_pictures_that_left_the_bundle(out):
     index = new_index()
-    E.extract_bundle("b1", "Grp", [("gold", solid("gold")), ("gem", solid("blue"))], index, run=1)
-    E.extract_bundle("b1", "Grp", [("gold", solid("gold"))], index, run=2)
-    assert list(index["sprites"]) == ["Grp/gold"]
-    assert not (out / "Grp" / "gem.png").exists()
+    E.extract_bundle("b1", "Grp", [("gold", solid("gold")), ("gem", solid("blue"))], index, run=1, kind="pictures")
+    E.extract_bundle("b1", "Grp", [("gold", solid("gold"))], index, run=2, kind="pictures")
+    assert list(index["sprites"]) == ["pictures/Grp/gold"]
+    assert not (out / "pictures" / "Grp" / "gem.png").exists()
 
 
 def test_extract_bundle_keeps_other_bundles_names_taken(out):
     index = new_index()
-    E.extract_bundle("b1", "Grp", [("gold", solid("gold"))], index, run=1)
-    E.extract_bundle("b2", "Grp", [("gold", solid("red"))], index, run=1)
-    assert sorted(index["sprites"]) == ["Grp/gold", "Grp/gold_2"]
-    assert index["sprites"]["Grp/gold"]["bundle"] == "b1"
+    E.extract_bundle("b1", "Grp", [("gold", solid("gold"))], index, run=1, kind="pictures")
+    E.extract_bundle("b2", "Grp", [("gold", solid("red"))], index, run=1, kind="pictures")
+    assert sorted(index["sprites"]) == ["pictures/Grp/gold", "pictures/Grp/gold_2"]
+    assert index["sprites"]["pictures/Grp/gold"]["bundle"] == "b1"
 
 
 def test_mark_seen_sets_the_baseline_to_the_current_run(out):
@@ -93,3 +93,26 @@ def test_mark_seen_sets_the_baseline_to_the_current_run(out):
     S.save_index(index)
     assert E.mark_seen() == 3
     assert S.load_index()["meta"]["baseline"] == 3
+
+
+def test_other_types_go_into_their_own_folder_and_a_bundle_without_pictures_leaves_none(out):
+    index = new_index()
+    E.extract_bundle("b1", "Fx", [("glow", solid("gold"))], index, run=1, kind="effects")
+    E.extract_bundle("b2", "Empty", [], index, run=1, kind="data")
+    assert list(index["sprites"]) == ["effects/Fx/glow"]
+    assert (index["sprites"]["effects/Fx/glow"]["group"], index["sprites"]["effects/Fx/glow"]["type"]) == ("effects/Fx", "effects")
+    assert (out / "effects" / "Fx" / "glow.png").is_file() and not (out / "Empty").exists()
+    E.extract_bundle("b1", "Fx", [], index, run=2, kind="effects")  # it left the bundle: its file goes too
+    assert not (out / "effects" / "Fx" / "glow.png").exists()
+
+
+def test_write_texts_names_files_by_their_content_and_keeps_the_folders_of_other_bundles(out):
+    E.write_texts("data", "LuaScript/Sub", [("t", b"x")])
+    files = [("a", b"text"), ("a", b"\xff\x00"), ("api.proto", b"syntax"), ("b c", "\u4e2d".encode()), ("A", b"1"), ("a", b"2")]
+    assert E.write_texts("data", "LuaScript", files) == 6
+    folder = out / "data" / "LuaScript"
+    # Windows folds the case: A and a must not overwrite each other
+    assert sorted(p.name for p in folder.iterdir() if p.is_file()) == ["A_2.txt", "a.bin", "a.txt", "a_3.txt", "api.proto", "b_c.txt"]
+    assert (folder / "a.txt").read_bytes() == b"text" and (folder / "a.bin").read_bytes() == b"\xff\x00"
+    E.write_texts("data", "LuaScript", [("n", b"1")])  # the bundle changed: its old files go, the sub-bundle's stay
+    assert sorted(p.name for p in folder.iterdir()) == ["Sub", "n.txt"] and (folder / "Sub" / "t.txt").is_file()

@@ -7,7 +7,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 CACHE = HERE / "cache"  # the bundles as pulled from the device, by file name
-OUT = HERE / "out"  # the PNGs (out/<group>/<name>.png), index.json, matches.json and the gallery
+OUT = HERE / "out"  # the PNGs (out/<type>/<group>/<name>.png, the type being a key of TYPES), index.json, matches.json and the gallery
 STATE = HERE / "state"  # what was pulled / extracted, the last scan
 # The webapp lives in its own repository (last-asylum-plague), checked out next to this one as `last-asylum-pack-solver`
 # (or wherever LAST_ASYLUM_WEBAPP points); the pictures it shows are in its webapp/public/assets.
@@ -45,3 +45,10 @@ TYPES = {
     "other": ("Other (fonts, shaders, plugins, ...)", ()),
 }
 DEFAULT_TYPES = ("pictures",)
+TEXT_TYPES = ("data",)  # the types whose bundles hold TextAssets (tables, texts, scripts), written as files instead of cut into pictures
+PICTURES = "pictures"  # the type whose PNGs are the game's pictures: the gallery, the hash match and the mapping work on these only
+
+
+def is_picture(sprite: dict) -> bool:
+    """Is an `out/index.json` entry one of the game's pictures (and not a texture of an effect, a model, ...)?"""
+    return sprite.get("type") == PICTURES

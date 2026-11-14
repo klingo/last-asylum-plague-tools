@@ -27,7 +27,7 @@ Run from the tool's own folder, with its venv (`.venv/Scripts/python`; set it up
 `.venv/Scripts/python -m pip install -r requirements.txt`; use `python -m pip`, a moved venv's `pip.exe` points at the old path).
 
 ```bash
-.venv/Scripts/python -m pytest -q          # the tool's tests (game_asset_extractor: 104, mahjong_minigame_helper: 64)
+.venv/Scripts/python -m pytest -q          # the tool's tests (game_asset_extractor: 108, mahjong_minigame_helper: 64)
 .venv/Scripts/python main.py --help        # the CLI (game_asset_extractor: also gui.py / start_gui.bat; mahjong: gui.py)
 ```
 
@@ -37,7 +37,7 @@ the recording (git-ignored `recordings/`) is missing; the mapping-editor test sk
 ## Game Asset Extractor
 
 - Pipeline: `scan` (the game's file list against what was pulled) > `pull` (bundles into `cache/`) > `extract` (PNGs into
-  `out/<group>/<name>.png`, `out/index.json`) > `match` (perceptual hash of every webapp image against the sprites,
+  `out/<type>/<group>/<name>.png`, `out/index.json`) > `match` (perceptual hash of every webapp image against the sprites,
   `out/matches.json`) > `gallery` (`out/index.html`). `mapping.py` / `render.py` / `importer.py` make the webapp's images from
   the mapped game pictures.
 - `mapping.json` (committed here) says which game picture each webapp image is made from (`source`, crop `focus`, `resize`,

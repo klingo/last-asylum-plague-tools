@@ -1,4 +1,13 @@
-"""Extract: turn the pulled bundles into PNGs, out/<group>/<name>.png, and keep out/index.json up to date.
+"""Extract: turn the pulled bundles into PNGs, out/<type>/<group>/<name>.png, and keep out/index.json up to date.
+
+The PNGs of each type (pictures, effects, models, ... as `config.TYPES`) sit below a folder of the type's name, so a type
+can be deleted as one folder; the gallery and the hash match only take the pictures (`config.is_picture`). A bundle
+without a picture leaves no folder.
+
+The bundles of `config.TEXT_TYPES` (game texts, tables, scripts) hold TextAssets, not textures: each is written as a file
+below `out/<type>/<the bundle's whole path>/` (`.txt` when it reads as UTF-8, `.bin` when not: the game's tables and Lua
+scripts are obfuscated, the language tables, `.proto` files and atlas lists are plain text). They are not in `out/index.json`;
+a bundle's files are rewritten whenever the bundle changes.
 
 Three kinds of pictures are in a bundle:
   - NGUI atlases (the game's UI): a MonoBehaviour with `mSprites` (name, x, y, width, height, padding; from the top
@@ -6,7 +15,7 @@ Three kinds of pictures are in a bundle:
   - Unity `Sprite` objects: exported as UnityPy cuts them.
   - Any other Texture2D (banners, backgrounds, loose icons): exported whole.
 
-`out/index.json` has one entry per picture (id = `group/name`, size, bundle, md5 of the PNG, dhash for `match.py`) and
+`out/index.json` has one entry per picture (id = `type/group/name`, size, bundle, type, md5 of the PNG, dhash for `match.py`) and
 which extract run added it (`added`) or last changed it (`changed`); `meta.runs` says when each run was and for which
 resource version. `meta.baseline` is the run up to which everything counts as seen (`mark_seen`): the gallery marks what
 was added or changed after it.
@@ -92,6 +101,44 @@ def export_bundle(path: Path) -> list[tuple[str, Image.Image]]:
     return images
 
 
+def export_texts(path: Path) -> list[tuple[str, bytes]]:
+    """[(name, bytes)] of the TextAssets of a bundle."""
+    files = []
+    for o in UnityPy.load(str(path)).objects:
+        if o.type.name == "TextAsset":
+            asset = o.read()
+            raw = asset.m_Script
+            files.append((asset.m_Name, raw.encode("utf-8", "surrogateescape") if isinstance(raw, str) else bytes(raw)))
+    return files
+
+
+def write_texts(kind: str, path_name: str, files: list[tuple[str, bytes]]) -> int:
+    """Write a bundle's TextAssets into `out/<kind>/<its path>/`, replacing what an earlier version of it wrote there
+    (only the files directly in the folder: the folders of other bundles below it stay); returns how many."""
+    folder = C.OUT.joinpath(kind, *(safe_name(part) for part in path_name.split("/")))
+    folder.mkdir(parents=True, exist_ok=True)
+    for old in folder.iterdir():
+        if old.is_file():
+            old.unlink()
+    taken: set[str] = set()
+    for raw, data in files:
+        base = safe_name(raw)
+        if not base.endswith(".proto"):
+            try:
+                data.decode("utf-8")
+                base += ".txt"
+            except UnicodeDecodeError:
+                base += ".bin"
+        stem, dot, ext = base.rpartition(".")
+        unique, n = base, 1
+        while unique.lower() in taken:  # Windows folds the case: Foo and foo are one file
+            n += 1
+            unique = f"{stem}_{n}{dot}{ext}"
+        taken.add(unique.lower())
+        (folder / unique).write_bytes(data)
+    return len(files)
+
+
 def main_texture(atlas_data: dict, objects: dict, textures: dict) -> int | None:
     """The path id of an atlas's texture: its material's `_MainTex`, else the bundle's only texture."""
     try:
@@ -110,14 +157,13 @@ def png_bytes(img: Image.Image) -> bytes:
     return buf.getvalue()
 
 
-def extract_bundle(name: str, group: str, images: list[tuple[str, Image.Image]], index: dict, run: int) -> int:
-    """Write a bundle's pictures and update its index entries; returns how many are new or changed."""
-    group = safe_name(group)  # the id's group is the folder's name
+def extract_bundle(name: str, group: str, images: list[tuple[str, Image.Image]], index: dict, run: int, kind: str) -> int:
+    """Write a bundle's pictures (of the type `kind`) and update its index entries; returns how many are new or changed."""
+    group = f"{kind}/{safe_name(group)}"  # the id's group is the folder's path below out/
     sprites = index["sprites"]
     old = {i: sprites.pop(i) for i in [i for i, s in sprites.items() if s["bundle"] == name]}
     taken = {s["id"] for s in sprites.values()}
     folder = C.OUT / group
-    folder.mkdir(parents=True, exist_ok=True)
     news = 0
     kept = set()
     for raw, img in images:
@@ -133,10 +179,11 @@ def extract_bundle(name: str, group: str, images: list[tuple[str, Image.Image]],
         before = old.get(sid)
         differs = before is not None and before["md5"] != md5
         if before is None or differs:
+            folder.mkdir(parents=True, exist_ok=True)
             (folder / f"{unique}.png").write_bytes(data)
             news += 1
         sprites[sid] = {
-            "id": sid, "group": group, "name": unique, "w": img.width, "h": img.height, "bundle": name,
+            "id": sid, "group": group, "name": unique, "w": img.width, "h": img.height, "bundle": name, "type": kind,
             "md5": md5, "dhash": M.dhash(img),
             "added": before["added"] if before else run,
             "changed": run if differs else (before or {}).get("changed"),
@@ -164,7 +211,7 @@ def run(pattern: str | None = None, force: bool = False) -> dict:
         if (force or done.get(n) != p["md5"]) and (rx is None or rx.search(p["path"])) and (C.CACHE / n).exists()
     )
     index = S.load_index()
-    counts = {"bundles": len(todo), "pictures": 0, "new_or_changed": 0, "failed": 0}
+    counts = {"bundles": len(todo), "pictures": 0, "texts": 0, "new_or_changed": 0, "failed": 0}
     if not todo:
         return counts
     meta = index["meta"]
@@ -173,15 +220,19 @@ def run(pattern: str | None = None, force: bool = False) -> dict:
     meta["runs"][str(meta["run"])] = {"version": version, "time": time.strftime("%Y-%m-%d %H:%M")}
     try:
         for i, name in enumerate(todo, 1):
+            path, kind = pulled[name]["path"], Sc.type_of(pulled[name]["path"])
             try:
-                images = export_bundle(C.CACHE / name)
+                if kind in C.TEXT_TYPES:
+                    counts["texts"] += write_texts(kind, path, export_texts(C.CACHE / name))
+                else:
+                    images = export_bundle(C.CACHE / name)
             except Exception as e:  # noqa: BLE001 - one broken bundle must not stop the rest
                 counts["failed"] += 1
                 print(f"!! {name}: {e}", flush=True)
                 continue
-            group = Sc.group_of(pulled[name]["path"])
-            counts["pictures"] += len(images)
-            counts["new_or_changed"] += extract_bundle(name, group, images, index, meta["run"])
+            if kind not in C.TEXT_TYPES:
+                counts["pictures"] += len(images)
+                counts["new_or_changed"] += extract_bundle(name, Sc.group_of(path), images, index, meta["run"], kind)
             done[name] = pulled[name]["md5"]
             if i % 20 == 0:
                 print(f"progress extract: {i * 100 // len(todo)} %", flush=True)

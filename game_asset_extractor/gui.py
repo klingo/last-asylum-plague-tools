@@ -49,7 +49,7 @@ TIPS = {
     "check": "Connects to BlueStacks and shows the game's version. Use it first when something does not respond.",
     "scan": "Reads the game's file list and compares it with what you downloaded: new, changed and removed pictures, "
             "per folder. Downloads nothing.",
-    "pull": "Downloads exactly what the last scan found, cuts the pictures out (out/<folder>/<name>.png), compares "
+    "pull": "Downloads exactly what the last scan found, cuts the pictures out (out/<kind>/<folder>/<name>.png; game texts, tables and scripts are saved as files in out/data), compares "
             "them with the webapp's pictures and rebuilds the gallery. Scans again first.",
     "types": "What to scan and download. Pictures are the atlases, banners and backgrounds. The other kinds are optional "
              "and much bigger (all of them: about 1 GB); what textures they hold become pictures too.",

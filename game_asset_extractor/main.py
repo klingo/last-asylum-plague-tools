@@ -3,7 +3,7 @@
     python main.py check                       is the device reachable, which game and resource version
     python main.py scan                        what is new / changed in the game since the last pull
     python main.py pull                        scan, then copy the new / changed bundles into cache/
-    python main.py extract                     cut the pulled bundles into PNGs (out/<group>/<name>.png)
+    python main.py extract                     cut the pulled bundles into PNGs (out/<type>/<group>/<name>.png)
     python main.py match                       which sprites the webapp already has (out/matches.json)
     python main.py gallery                     write out/index.html
     python main.py baseline                    mark everything extracted so far as seen (NEW / CHANGED start over)
@@ -160,7 +160,7 @@ def build_parser() -> argparse.ArgumentParser:
     sy.add_argument("--apply", action="store_true", help="write the files (without it nothing changes)")
     sy.add_argument("--force", action="store_true", help="rebuild files that are already up to date too")
     imp = command("import", do_import, "add a sprite to webapp/public/assets as a new image and map it")
-    imp.add_argument("id", help="sprite id: <group>/<name>, as the gallery shows it")
+    imp.add_argument("id", help="sprite id: <type>/<group>/<name>, as the gallery shows it")
     imp.add_argument("dest", help="<folder>/<name> in the assets folder, e.g. items/chest/gold (events/ become .webp)")
     imp.add_argument("--force", action="store_true", help="replace an existing file")
     imp.add_argument("--resize", action="store_true",

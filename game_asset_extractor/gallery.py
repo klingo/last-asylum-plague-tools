@@ -1,7 +1,7 @@
 """Gallery: out/index.html, one static page to browse every extracted picture.
 
 Open it from the folder (`out/index.html`); it reads `out/data.js` (not a fetched JSON, which browsers block for files
-on disk). Filter by group, search by name, and show only what was added or changed (together or each alone) since the baseline
+on disk). Only the pictures (`config.is_picture`) are listed. Filter by group, search by name, and show only what was added or changed (together or each alone) since the baseline
 (`main.py baseline` / "Mark all as seen": the extract run up to which everything counts as seen), what the webapp
 does not have yet, or what it has (a close sprite to a PNG of `webapp/public/assets`, see `match.py`, or the source (or overlay) of
 a webapp image in `mapping.json`, which finds cropped ones too), by the resource version a picture was first extracted in
@@ -68,7 +68,7 @@ const $ = id => document.getElementById(id);
 const groupSel = $('group'), versionSel = $('version'), statusSel = $('status'), sizeSel = $('size'), min = $('min'), max = $('max'), search = $('search'), grid = $('grid'), more = $('more');
 let shown = 0, matches = [];
 groupSel.append(new Option('All groups (' + D.sprites.length + ')', ''));
-for (const [g, n] of D.groups) groupSel.append(new Option(g + ' (' + n + ')', g));
+for (const [g, n] of D.groups) groupSel.append(new Option(g.replace(/^pictures\//, '') + ' (' + n + ')', g));
 const versionOf = run => D.runs[run] || '?';
 const versionCounts = {}, lastRun = {};
 for (const s of D.sprites) versionCounts[versionOf(s[5])] = (versionCounts[versionOf(s[5])] || 0) + 1;
@@ -139,7 +139,7 @@ def build_data(index: dict, matches: dict, mapping: dict | None = None) -> dict:
     """What the page needs: sprites as [id, group, name, w, h, added, changed], group counts, the resource version of every
     extract run (`runs`: run -> version, so `added` says in which version a picture first showed up) and which sprite is in the
     webapp: by a close hash, or as the source of a mapped webapp image (an image cropped from its sprite hashes far away)."""
-    sprites = sorted(index["sprites"].values(), key=lambda s: (s["group"].lower(), s["name"].lower()))
+    sprites = sorted((s for s in index["sprites"].values() if C.is_picture(s)), key=lambda s: (s["group"].lower(), s["name"].lower()))
     groups: dict[str, int] = {}
     for s in sprites:
         groups[s["group"]] = groups.get(s["group"], 0) + 1

@@ -4,7 +4,8 @@ import match as M
 
 
 def sprite(group, name, added=1, changed=None):
-    return {"id": f"{group}/{name}", "group": group, "name": name, "w": 144, "h": 144, "added": added, "changed": changed}
+    return {"id": f"{group}/{name}", "group": group, "name": name, "w": 144, "h": 144, "added": added, "changed": changed,
+            "type": "pictures"}
 
 
 def test_build_data_sorts_counts_groups_and_marks_what_the_webapp_has():
@@ -74,3 +75,10 @@ def test_the_page_script_is_valid_javascript(tmp_path):
     script.write_text(re.search(r"<script>([\s\S]*?)</script>", G.PAGE).group(1), encoding="utf-8")
     result = subprocess.run([node, "--check", str(script)], capture_output=True, text=True)
     assert result.returncode == 0, result.stderr
+
+
+def test_the_gallery_lists_only_pictures():
+    fx = {**sprite("effects/Fx", "glow"), "type": "effects"}
+    index = {"meta": {"run": 1, "baseline": 0, "runs": {}}, "sprites": {s["id"]: s for s in [sprite("A", "old"), sprite("B", "new"), fx]}}
+    data = G.build_data(index, {})
+    assert [s[0] for s in data["sprites"]] == ["A/old", "B/new"] and data["groups"] == [("A", 1), ("B", 1)]

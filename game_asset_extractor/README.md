@@ -16,7 +16,11 @@ install-time asset pack (`split_abPack1.apk`) and the hot-updated ones on the sd
 1. **Scan** reads that file list and compares it with what was downloaded before: new / changed / unchanged bundles
    per kind and folder (tick the kinds to look at; pictures are on by default). It downloads nothing.
 2. **Download & extract** pulls exactly those bundles (md5-checked) into `cache/` and cuts every sprite and texture out
-   as a PNG: `out/<folder>/<name>.png` (item icons are 144 x 144 with transparency, like the webapp's).
+   as a PNG: `out/<kind>/<folder>/<name>.png` (item icons are 144 x 144 with transparency, like the webapp's), so a
+   kind (pictures, effects, models, ...) is one folder to delete. The match and the gallery only look at the pictures.
+   A bundle without a picture leaves no folder.
+   The game texts, tables and scripts (kind "Game texts, tables & scripts") hold no pictures: their files are written
+   as they are to `out/data/<the bundle's path>/` (`.txt` when readable, `.bin` when obfuscated, as the tables and Lua scripts are).
 3. **Match** compares every PNG and WebP of `webapp/public/assets` with the sprites by a perceptual hash
    (`out/matches.json`).
 4. The **gallery** (`out/index.html`) shows it all: search, folders, "new or changed since marked as seen" (or only new, or only changed), "not in the

@@ -49,7 +49,7 @@ def webapp_images(assets: Path = C.WEBAPP_ASSETS) -> list[Path]:
 
 def match(index: dict, assets: Path = C.WEBAPP_ASSETS) -> dict:
     """{webapp path relative to the assets folder: [{id, dist}, ...]} against the sprites of `index`."""
-    sprites = [s for s in index["sprites"].values() if s.get("dhash")]
+    sprites = [s for s in index["sprites"].values() if s.get("dhash") and C.is_picture(s)]
     if not sprites:
         return {}
     ids = [s["id"] for s in sprites]

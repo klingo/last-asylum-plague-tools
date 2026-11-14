@@ -99,7 +99,7 @@ class Editor(tk.Toplevel):
         self.show_headings()
         self.tree.column("#0", width=260)
         self.tree.column("status", width=70)
-        self.tree.column("source", width=230)
+        self.tree.column("source", width=390)  # fits the longest id (pictures/<folder>/<name>)
         self.tree.column("dist", width=40, anchor="e")
         for status, colour in COLOURS.items():
             self.tree.tag_configure(status, foreground=colour)

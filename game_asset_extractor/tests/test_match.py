@@ -44,7 +44,7 @@ def test_match_lists_the_closest_sprites_per_webapp_image(tmp_path):
     assets = tmp_path / "assets"
     (assets / "items" / "chest").mkdir(parents=True)
     picture("circle", size=144).save(assets / "items" / "chest" / "coin.png")
-    index = {"sprites": {f"G/{k}": {"id": f"G/{k}", "dhash": M.dhash(picture(k))} for k in ("bar", "circle", "triangle")}}
+    index = {"sprites": {f"G/{k}": {"id": f"G/{k}", "type": "pictures", "dhash": M.dhash(picture(k))} for k in ("bar", "circle", "triangle")}}
     found = M.match(index, assets)
     assert list(found) == ["items/chest/coin.png"]
     assert found["items/chest/coin.png"][0] == {"id": "G/circle", "dist": 0}
@@ -63,3 +63,12 @@ def test_the_webapp_assets_folder_is_required_and_named_in_the_error(tmp_path):
     with pytest.raises(FileNotFoundError):
         M.webapp_images(tmp_path / "missing")  # no empty list: nothing may be written next to a wrong folder
     assert C.require_webapp(tmp_path) == tmp_path
+
+
+def test_match_ignores_the_textures_of_other_types(tmp_path):
+    assets = tmp_path / "assets"
+    (assets / "items").mkdir(parents=True)
+    picture("circle").save(assets / "items" / "coin.png")
+    index = {"sprites": {"fx/G/circle": {"id": "fx/G/circle", "type": "effects", "dhash": M.dhash(picture("circle"))},
+                         "G/bar": {"id": "G/bar", "type": "pictures", "dhash": M.dhash(picture("bar"))}}}
+    assert [c["id"] for c in M.match(index, assets)["items/coin.png"]] == ["G/bar"]
