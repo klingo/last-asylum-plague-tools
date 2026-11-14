@@ -12,7 +12,8 @@
   "focus": [
    0.5,
    0.1
-  ]
+  ],
+  "synced": "763e59d1b6633e0b9aab9ff504f3809f"
  },
  "events/alliance_duel_phase2.webp": {
   "source": "Zombie_AllianceBattle/pic_tmdj_bg",
@@ -27,7 +28,8 @@
   "focus": [
    0.5,
    0.1
-  ]
+  ],
+  "synced": "30693a4b0c2bdb40f0062e2dda7d4e23"
  },
  "events/alliance_duel_phase3.webp": {
   "source": "Zombie_AllianceBattle/pic_tmdj_bg",
@@ -42,7 +44,8 @@
   "focus": [
    0.5,
    0.1
-  ]
+  ],
+  "synced": "a2871afe185ee46a1745202ca2dfc8b9"
  },
  "events/alliance_duel_phase4.webp": {
   "source": "Zombie_AllianceBattle/pic_tmdj_bg",
@@ -57,7 +60,8 @@
   "focus": [
    0.5,
    0.1
-  ]
+  ],
+  "synced": "43512a24ff79196176b008fd9e3bd030"
  },
  "events/alliance_duel_phase5.webp": {
   "source": "Zombie_AllianceBattle/pic_tmdj_bg",
@@ -72,7 +76,8 @@
   "focus": [
    0.5,
    0.1
-  ]
+  ],
+  "synced": "cd0321a078641c7ebea8dd4cbac3fd65"
  },
  "events/alliance_duel_phase6.webp": {
   "source": "Zombie_AllianceBattle/pic_tmdj_bg",
@@ -87,7 +92,8 @@
   "focus": [
    0.5,
    0.1
-  ]
+  ],
+  "synced": "7eeef65b115130dc2238d80cadbfb77a"
  },
  "events/ancient_recipe.webp": {
   "source": "Zombie_Activity_Recharge/pic_726x346banner_005",
