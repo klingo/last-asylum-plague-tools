@@ -1,4 +1,19 @@
 {
+ "events/alliance_duel_phase6.webp": {
+  "source": "Zombie_AllianceBattle/pic_tmdj_bg",
+  "overlay": {
+   "source": "Zombie_AllianceBattleBanner/pic_tmdj_tu5",
+   "scale": 1.0,
+   "at": [
+    0.5,
+    0.5
+   ]
+  },
+  "focus": [
+   0.5,
+   0.103
+  ]
+ },
  "events/ancient_recipe.webp": {
   "source": "Zombie_Activity_Recharge/pic_726x346banner_005",
   "synced": "c78a008c4fbee31aea1f6468cbd77bd1"
@@ -127,6 +142,22 @@
   "source": "HurtWar/pic_wl_peitu",
   "synced": "e002d5018705e239b35452bc90635aa6"
  },
+ "events/kingdom_war.webp": {
+  "source": "ZoneContest/bg_wgdj_01",
+  "overlay": {
+   "source": "ZoneContest/img_wgdj_jiangbei",
+   "scale": 0.615,
+   "at": [
+    0.5,
+    0.5
+   ]
+  },
+  "focus": [
+   0.5,
+   0.54
+  ],
+  "synced": "b09c6721e10e3280542993c24b629186"
+ },
  "events/login_rewards.webp": {
   "source": "Zombie_Activity_BattlePass1/pic_zl_banner1_2",
   "synced": "2aef39421d6d9ccefc69912b615c7ded"
@@ -166,6 +197,14 @@
    0.048
   ],
   "synced": "3a6577b3295e98cbcd55a79e690c4bc5"
+ },
+ "events/royal_city_scramble.webp": {
+  "source": "Zombie_TempleBg/pic_sj_bg_ghzdz1",
+  "focus": [
+   0.5,
+   0.397
+  ],
+  "synced": "cb75147d7f2aab911d79998922fb5b99"
  },
  "events/strange_bazaar.webp": {
   "source": "Zombie_Act_GoldMarket/pic_gqjs_bg1",
