@@ -1,6 +1,33 @@
 {
+ "events:event_rotations.alliance_duel.phases[construction].name": {
+  "source": "tables/AllianceCompetitionStage:102.rightEntryName"
+ },
+ "events:event_rotations.alliance_duel.phases[heroes].name": {
+  "source": "tables/AllianceCompetitionStage:104.rightEntryName"
+ },
+ "events:event_rotations.alliance_duel.phases[raid_the_enemy].earn_points[4].text": {
+  "source": "tables/PointSource:1403.pointSourceText"
+ },
+ "events:event_rotations.alliance_duel.phases[raid_the_enemy].name": {
+  "source": "tables/AllianceCompetitionStage:106.rightEntryName"
+ },
+ "events:event_rotations.alliance_duel.phases[raven].name": {
+  "source": "tables/AllianceCompetitionStage:101.rightEntryName"
+ },
+ "events:event_rotations.alliance_duel.phases[research].name": {
+  "source": "tables/AllianceCompetitionStage:103.rightEntryName"
+ },
+ "events:event_rotations.alliance_duel.phases[war_preparation].name": {
+  "source": "tables/AllianceCompetitionStage:105.rightEntryName"
+ },
  "events:event_rotations.survival_battle.phases[build_territory].name": {
   "source": "tables/ActivityDisplay:100201.name"
+ },
+ "events:event_rotations.survival_battle.phases[enhance_heroes].earn_points[2].text": {
+  "source": "tables/PointSource:1709.pointSourceText"
+ },
+ "events:event_rotations.survival_battle.phases[enhance_raven].earn_points[1].text": {
+  "source": "tables/PointSource:1706.pointSourceText"
  },
  "events:events.canyon_conquest.name": {
   "source": "tables/ActivityDisplay:10102011.name"
@@ -92,8 +119,14 @@
  "hero_skills:heroes.cynthia.awakening_skills[1].description": {
   "source": "tables/HeroAwakenShow:17.awakenSkillDesc"
  },
+ "hero_skills:heroes.cynthia.awakening_skills[1].name": {
+  "source": "tables/HeroAwakenShow:17.awakenSkillName"
+ },
  "hero_skills:heroes.cynthia.awakening_skills[2].description": {
   "source": "tables/HeroAwakenShow:18.awakenSkillDesc"
+ },
+ "hero_skills:heroes.cynthia.awakening_skills[2].name": {
+  "source": "tables/HeroAwakenShow:18.awakenSkillName"
  },
  "hero_skills:heroes.cynthia.awakening_skills[moons_blessing].description": {
   "source": "tables/HeroAwakenShow:20.awakenSkillDesc"
@@ -104,11 +137,20 @@
  "hero_skills:heroes.marlena.awakening_skills[0].description": {
   "source": "tables/HeroAwakenShow:6.awakenSkillDesc"
  },
+ "hero_skills:heroes.marlena.awakening_skills[0].name": {
+  "source": "tables/HeroAwakenShow:6.awakenSkillName"
+ },
  "hero_skills:heroes.marlena.awakening_skills[1].description": {
   "source": "tables/HeroAwakenShow:7.awakenSkillDesc"
  },
+ "hero_skills:heroes.marlena.awakening_skills[1].name": {
+  "source": "tables/HeroAwakenShow:7.awakenSkillName"
+ },
  "hero_skills:heroes.marlena.awakening_skills[4].description": {
   "source": "tables/HeroAwakenShow:10.awakenSkillDesc"
+ },
+ "hero_skills:heroes.marlena.awakening_skills[4].name": {
+  "source": "tables/HeroAwakenShow:10.awakenSkillName"
  },
  "hero_skills:heroes.marlena.awakening_skills[war_gods_will].description": {
   "source": "tables/HeroAwakenShow:8.awakenSkillDesc"
@@ -263,6 +305,15 @@
  "lord_specialty:lords.legion_commander.talents[wasteland_march].name": {
   "source": "tables/LordJobSkill:2009.name"
  },
+ "pack_data:exchange_shops.halloween_bazaar_shop.name": {
+  "source": "tables/ActivityDisplay:8200503.name"
+ },
+ "pack_data:exchange_shops.recluse_merchant.name": {
+  "source": "tables/ActivityDisplay:6000101.name"
+ },
+ "pack_data:exchange_shops.sanctuary_shop.name": {
+  "source": "tables/ArenaActivityShop:99.shopName"
+ },
  "pack_data:exchange_shops.starry_bazaar.name": {
   "source": "tables/ActivityDisplay:8200403.name"
  },
@@ -271,6 +322,9 @@
  },
  "pack_data:exchange_shops.surprise_encounter_shop.name": {
   "source": "tables/ActivityDisplay:4500103.name"
+ },
+ "pack_data:exchange_shops.vip_shop.name": {
+  "source": "tables/ArenaActivityShop:2.shopName"
  },
  "pack_data:items.alliance_coins.name": {
   "source": "language/Common:UNION_COIN"
@@ -482,6 +536,9 @@
  "pack_data:items.raven_essence.name": {
   "source": "tables/Item:item_drone_part.name"
  },
+ "pack_data:items.raven_fruit.name": {
+  "source": "tables/Item:item_drone_data.name"
+ },
  "pack_data:items.recluse_coin.name": {
   "source": "tables/Item:recluse_coin.name"
  },
@@ -512,8 +569,260 @@
  "pack_data:items.resource_supply_ur.name": {
   "source": "tables/Item:item_optionalBox_Resource4.name"
  },
+ "pack_data:items.rock_loot.name": {
+  "source": "tables/Item:item_activity_prepare_randomBox_3.name"
+ },
+ "pack_data:items.secret_reward.name": {
+  "source": "tables/Item:item_secret_rescue_random_box.name"
+ },
+ "pack_data:items.skill_badge.name": {
+  "source": "tables/Item:item_HeroSkill_Book.name"
+ },
+ "pack_data:items.speedup_supply.name": {
+  "source": "tables/Item:item_Box_SpeedBox_5m.name"
+ },
+ "pack_data:items.sr_epigraph_chest.name": {
+  "source": "tables/Item:item_module_props_Box_2.name"
+ },
+ "pack_data:items.sr_hero_omni_shard.name": {
+  "source": "tables/Item:item_Material_universalFragment_3.name"
+ },
+ "pack_data:items.ssr_armor.name": {
+  "source": "tables/Item:item_equipment_shield_rare.name"
+ },
+ "pack_data:items.ssr_boots.name": {
+  "source": "tables/Item:item_equipment_trousers_rare.name"
+ },
+ "pack_data:items.ssr_epigraph_chest.name": {
+  "source": "tables/Item:item_module_props_Box_3.name"
+ },
+ "pack_data:items.ssr_epigraph_shard.name": {
+  "source": "tables/Item:item_fighter_jet_experience_card_3.name"
+ },
+ "pack_data:items.ssr_gauntlets.name": {
+  "source": "tables/Item:item_equipment_coat_rare.name"
+ },
+ "pack_data:items.ssr_hero_omni_shard.name": {
+  "source": "tables/Item:item_Material_universalFragment_4.name"
+ },
+ "pack_data:items.ssr_sword.name": {
+  "source": "tables/Item:item_equipment_weapon_rare.name"
+ },
+ "pack_data:items.stamina.name": {
+  "source": "tables/ItemIcon:6.name"
+ },
+ "pack_data:items.stone_blade.name": {
+  "source": "tables/Item:item_activity_shop_prepare.name"
+ },
+ "pack_data:items.strange_coin.name": {
+  "source": "tables/Item:item_activity_shop_market.name"
+ },
+ "pack_data:items.surprise_emblem.name": {
+  "source": "tables/Item:item_activity_airDrop.name"
+ },
+ "pack_data:items.survivor_recruit_ticket.name": {
+  "source": "tables/Item:item_UseUp_workerRecruitCoin.name"
+ },
+ "pack_data:items.survivor_token.name": {
+  "source": "tables/Item:item_worker_token.name"
+ },
+ "pack_data:items.tempered_steel.name": {
+  "source": "tables/Item:item_equip_produce_materials_05.name"
+ },
+ "pack_data:items.timber.name": {
+  "source": "language/Item:public_wood"
+ },
+ "pack_data:items.timber_level_supply_sr.name": {
+  "source": "tables/Item:item_castleBox_Metal_2.name"
+ },
+ "pack_data:items.timber_level_supply_ssr.name": {
+  "source": "tables/Item:item_castleBox_Metal_3.name"
+ },
+ "pack_data:items.timber_level_supply_ur.name": {
+  "source": "tables/Item:item_castleBox_Metal_4.name"
+ },
+ "pack_data:items.top_up_exp.name": {
+  "source": "tables/Item:item_shop_dailyBuy.name"
+ },
+ "pack_data:items.trade_agreement.name": {
+  "source": "tables/Item:item_Escort_Convoy_Quality.name"
+ },
+ "pack_data:items.training_speedup.name": {
+  "source": "language/Bag:speedup_train"
+ },
+ "pack_data:items.twin_dragon_brooch.name": {
+  "source": "tables/Item:item_decor_01.name"
+ },
+ "pack_data:items.universal_curio_random_chest.name": {
+  "source": "tables/Item:item_decorations_universalRandomBox_1.name"
+ },
+ "pack_data:items.universal_curio_shard.name": {
+  "source": "tables/Item:item_decorations_universal.name"
+ },
+ "pack_data:items.ur_adventure_chest.name": {
+  "source": "tables/Item:item_worker_explorer_randomBox_2.name"
+ },
+ "pack_data:items.ur_armor.name": {
+  "source": "tables/Item:item_equipment_shield_legendary.name"
+ },
+ "pack_data:items.ur_boots.name": {
+  "source": "tables/Item:item_equipment_trousers_legendary.name"
+ },
+ "pack_data:items.ur_epigraph_chest.name": {
+  "source": "tables/Item:item_module_props_Box_4.name"
+ },
+ "pack_data:items.ur_epigraph_choice_chest.name": {
+  "source": "tables/Item:item_module_props_Box_5.name"
+ },
+ "pack_data:items.ur_epigraph_shard.name": {
+  "source": "tables/Item:item_fighter_jet_experience_card_2.name"
+ },
+ "pack_data:items.ur_gauntlets.name": {
+  "source": "tables/Item:item_equipment_coat_legendary.name"
+ },
+ "pack_data:items.ur_hero_omni_shard.name": {
+  "source": "tables/Item:item_Material_universalFragment_5.name"
+ },
+ "pack_data:items.ur_sword.name": {
+  "source": "tables/Item:item_equipment_weapon_legendary.name"
+ },
+ "pack_data:items.vip_points.name": {
+  "source": "language/lang_abc:public_VipPoint"
+ },
  "pack_data:mines.dwarven_mine.name": {
   "source": "tables/ActivityDisplay:4500102.name"
+ },
+ "pack_data:packages.awaken_shard.name": {
+  "source": "language/Mall:daily_tab_3"
+ },
+ "pack_data:packages.copper_coin_pack_24h.name": {
+  "source": "tables/GiftBase:901600002.giftName"
+ },
+ "pack_data:packages.copper_coin_pack_6h.name": {
+  "source": "tables/GiftBase:901600001.giftName"
+ },
+ "pack_data:packages.copper_coin_pack_72h.name": {
+  "source": "tables/GiftBase:901600003.giftName"
+ },
+ "pack_data:packages.dwarven_mine_exquisite_pack.name": {
+  "source": "tables/GiftBase:901300002.giftName"
+ },
+ "pack_data:packages.dwarven_mine_premium_pack.name": {
+  "source": "tables/GiftBase:901300004.giftName"
+ },
+ "pack_data:packages.dwarven_mine_rare_pack.name": {
+  "source": "tables/GiftBase:901300003.giftName"
+ },
+ "pack_data:packages.dwarven_mine_select_pack.name": {
+  "source": "tables/GiftBase:901300001.giftName"
+ },
+ "pack_data:packages.dwarven_mine_ultimate_pack.name": {
+  "source": "tables/GiftBase:901300005.giftName"
+ },
+ "pack_data:packages.enhance_might.name": {
+  "source": "tables/GiftBase:900903008.giftName"
+ },
+ "pack_data:packages.era_of_revival_raven_essence_weekly_pass.name": {
+  "source": "tables/GiftBase:300000018.giftName"
+ },
+ "pack_data:packages.falcon_tower_pass.name": {
+  "source": "tables/ActivityDisplay:3100000.name"
+ },
+ "pack_data:packages.gear_pass.name": {
+  "source": "tables/ActivityDisplay:3100100.name"
+ },
+ "pack_data:packages.halloween_ball_trick_or_treat.name": {
+  "source": "tables/ActivityDisplay:8200502.name"
+ },
+ "pack_data:packages.hero_awaken.name": {
+  "source": "tables/GiftBase:900903015.giftName"
+ },
+ "pack_data:packages.hero_promotion.name": {
+  "source": "tables/GiftBase:900903005.giftName"
+ },
+ "pack_data:packages.moon_coin_deluxe_pack.name": {
+  "source": "tables/GiftBase:997002005.giftName"
+ },
+ "pack_data:packages.moon_coin_majestic_pack.name": {
+  "source": "tables/GiftBase:997002007.giftName"
+ },
+ "pack_data:packages.moon_coin_premium_pack.name": {
+  "source": "tables/GiftBase:997002004.giftName"
+ },
+ "pack_data:packages.moon_coin_rare_pack.name": {
+  "source": "tables/GiftBase:997002006.giftName"
+ },
+ "pack_data:packages.moon_coin_special_pack.name": {
+  "source": "tables/GiftBase:997002003.giftName"
+ },
+ "pack_data:packages.moon_coin_supreme_pack.name": {
+  "source": "tables/GiftBase:997002008.giftName"
+ },
+ "pack_data:packages.moon_coin_value_pack.name": {
+  "source": "tables/GiftBase:997002002.giftName"
+ },
+ "pack_data:packages.recluse_coin_deluxe_pack.name": {
+  "source": "tables/GiftBase:996005002.giftName"
+ },
+ "pack_data:packages.recluse_coin_majestic_pack.name": {
+  "source": "tables/GiftBase:996005004.giftName"
+ },
+ "pack_data:packages.recluse_coin_premium_pack.name": {
+  "source": "tables/GiftBase:996005001.giftName"
+ },
+ "pack_data:packages.recluse_coin_rare_pack.name": {
+  "source": "tables/GiftBase:996005003.giftName"
+ },
+ "pack_data:packages.recluse_coin_supreme_pack.name": {
+  "source": "tables/GiftBase:996005005.giftName"
+ },
+ "pack_data:packages.stamina_discount_pack.name": {
+  "source": "tables/GiftBase:900903009.giftName"
+ },
+ "pack_data:packages.strange_bazaar_exquisite_pack.name": {
+  "source": "tables/GiftBase:901200002.giftName"
+ },
+ "pack_data:packages.strange_bazaar_premium_pack.name": {
+  "source": "tables/GiftBase:901200004.giftName"
+ },
+ "pack_data:packages.strange_bazaar_rare_pack.name": {
+  "source": "tables/GiftBase:901200003.giftName"
+ },
+ "pack_data:packages.strange_bazaar_select_pack.name": {
+  "source": "tables/GiftBase:901200001.giftName"
+ },
+ "pack_data:packages.strange_bazaar_ultimate_pack.name": {
+  "source": "tables/GiftBase:901200005.giftName"
+ },
+ "pack_data:packages.surprise_encounter_exquisite_pack.name": {
+  "source": "tables/GiftBase:901400002.giftName"
+ },
+ "pack_data:packages.surprise_encounter_premium_pack.name": {
+  "source": "tables/GiftBase:901400004.giftName"
+ },
+ "pack_data:packages.surprise_encounter_rare_pack.name": {
+  "source": "tables/GiftBase:901400003.giftName"
+ },
+ "pack_data:packages.surprise_encounter_select_pack.name": {
+  "source": "tables/GiftBase:901400001.giftName"
+ },
+ "pack_data:packages.surprise_encounter_ultimate_pack.name": {
+  "source": "tables/GiftBase:901400005.giftName"
+ },
+ "pack_data:packages.ur_gear_crafting.name": {
+  "source": "tables/GiftBase:900903007.giftName"
+ },
+ "pack_data:packages.weekly_grain_pass.name": {
+  "source": "tables/GiftBase:300000016.giftName"
+ },
+ "pack_data:packages.weekly_herb_pass.name": {
+  "source": "tables/GiftBase:300000014.giftName"
+ },
+ "pack_data:packages.weekly_hero_exp_pass.name": {
+  "source": "tables/GiftBase:300000013.giftName"
+ },
+ "pack_data:packages.weekly_timber_pass.name": {
+  "source": "tables/GiftBase:300000015.giftName"
  },
  "pack_data:spend_reward_tracks.halloween_cookie.name": {
   "source": "tables/ActivityDisplay:8200507.name"
