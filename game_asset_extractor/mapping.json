@@ -1,4 +1,79 @@
 {
+ "events/alliance_duel_phase1.webp": {
+  "source": "Zombie_AllianceBattle/pic_tmdj_bg",
+  "overlay": {
+   "source": "Zombie_AllianceBattleBanner/pic_tmdj_tu1",
+   "scale": 1.0,
+   "at": [
+    0.5,
+    0.5
+   ]
+  },
+  "focus": [
+   0.5,
+   0.1
+  ]
+ },
+ "events/alliance_duel_phase2.webp": {
+  "source": "Zombie_AllianceBattle/pic_tmdj_bg",
+  "overlay": {
+   "source": "Zombie_AllianceBattleBanner/pic_tmdj_tu2",
+   "scale": 1.0,
+   "at": [
+    0.5,
+    0.5
+   ]
+  },
+  "focus": [
+   0.5,
+   0.1
+  ]
+ },
+ "events/alliance_duel_phase3.webp": {
+  "source": "Zombie_AllianceBattle/pic_tmdj_bg",
+  "overlay": {
+   "source": "Zombie_AllianceBattleBanner/pic_tmdj_tu3",
+   "scale": 1.0,
+   "at": [
+    0.5,
+    0.5
+   ]
+  },
+  "focus": [
+   0.5,
+   0.1
+  ]
+ },
+ "events/alliance_duel_phase4.webp": {
+  "source": "Zombie_AllianceBattle/pic_tmdj_bg",
+  "overlay": {
+   "source": "Zombie_AllianceBattleBanner/pic_tmdj_tu4",
+   "scale": 1.0,
+   "at": [
+    0.5,
+    0.5
+   ]
+  },
+  "focus": [
+   0.5,
+   0.1
+  ]
+ },
+ "events/alliance_duel_phase5.webp": {
+  "source": "Zombie_AllianceBattle/pic_tmdj_bg",
+  "overlay": {
+   "source": "Zombie_AllianceBattleBanner/pic_tmdj_tu6",
+   "scale": 1.0,
+   "at": [
+    0.5,
+    0.5
+   ]
+  },
+  "focus": [
+   0.5,
+   0.1
+  ]
+ },
  "events/alliance_duel_phase6.webp": {
   "source": "Zombie_AllianceBattle/pic_tmdj_bg",
   "overlay": {
@@ -11,7 +86,7 @@
   },
   "focus": [
    0.5,
-   0.103
+   0.1
   ]
  },
  "events/ancient_recipe.webp": {

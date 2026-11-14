@@ -4,6 +4,7 @@ Left: the webapp's images with their status (filter and search above). Right, fo
 the game picture it is mapped to (or the closest the hash match found), and what `sync` would make of it, then the
 closest candidates and a search over all game pictures. "Use this picture" maps it, "No original" marks it as having none
 in the game. A second picture (a trophy) can be put on top of the game picture ("Overlay"). Every change is written to mapping.json at once; nothing in the webapp changes until Sync.
+The list sorts by a click on a column heading (again: the other way round). Every slider has a field next to it for an exact value.
 """
 
 from __future__ import annotations
@@ -24,6 +25,8 @@ THUMB = 230  # px: the three big previews
 SMALL = 64  # px: candidate buttons
 CANDIDATES_HEIGHT = 112  # px: the row of candidate buttons (a picture of SMALL and two lines of text)
 SEARCH_LIMIT = 150
+SLIDER_LENGTH = 110  # px: a slider (its field sits next to it)
+HEADINGS = {"#0": "Webapp image", "status": "Status", "source": "Game picture", "dist": "Dist"}
 COLOURS = {"official": "#1b7f3b", "to sync": "#b36b00", "missing": "#b00020", "suggested": "#1f5fbf", "unmapped": "#b00020", "none": "#777777"}
 
 
@@ -51,6 +54,13 @@ def inert(widget: tk.Widget) -> tk.Widget:
     return widget
 
 
+def sort_key(row: dict, column: str):
+    """What the list sorts a row by in `column`: the distance as a number, the rest as lower-case text."""
+    if column == "dist":
+        return row["dist"]
+    return ((row["rel"] if column == "#0" else row[column]) or "").lower()
+
+
 class Editor(tk.Toplevel):
     def __init__(self, master: tk.Misc, on_change=None):
         super().__init__(master)
@@ -59,6 +69,7 @@ class Editor(tk.Toplevel):
         self.photos: dict[str, ImageTk.PhotoImage] = {}
         self.rel: str | None = None
         self.chosen: str | None = None
+        self.sort: tuple[str, bool] | None = None  # (column, descending); None: the order of the data
         self.overlay: str | None = None  # the picture put on top of the chosen one
         self.reload()
 
@@ -78,10 +89,9 @@ class Editor(tk.Toplevel):
         self.count = tk.StringVar()
         ttk.Label(bar, textvariable=self.count).pack(side="left")
         self.tree = ttk.Treeview(left, columns=("status", "source", "dist"), height=26, selectmode="browse")
-        self.tree.heading("#0", text="Webapp image")
-        self.tree.heading("status", text="Status")
-        self.tree.heading("source", text="Game picture")
-        self.tree.heading("dist", text="Dist")
+        for column in HEADINGS:
+            self.tree.heading(column, command=lambda c=column: self.sort_by(c))
+        self.show_headings()
         self.tree.column("#0", width=260)
         self.tree.column("status", width=70)
         self.tree.column("source", width=230)
@@ -134,12 +144,13 @@ class Editor(tk.Toplevel):
                               variable=self.resize, command=self.preview)).pack(anchor="w", pady=(8, 0))
         crop = ttk.Frame(right)
         crop.pack(anchor="w", pady=6)
-        ttk.Label(crop, text="Crop window (a picture of another aspect): left-right").grid(row=0, column=0, sticky="w")
+        ttk.Label(crop, text="Crop window (a picture of another aspect)").grid(row=0, column=0, columnspan=4, sticky="w")
         self.fx = tk.DoubleVar(value=R.DEFAULT_FOCUS[0])
         self.fy = tk.DoubleVar(value=R.DEFAULT_FOCUS[1])
-        inert(ttk.Scale(crop, from_=0, to=1, variable=self.fx, length=140, command=lambda v: self.preview())).grid(row=0, column=1)
-        ttk.Label(crop, text="top-bottom").grid(row=0, column=2, padx=(10, 2))
-        inert(ttk.Scale(crop, from_=0, to=1, variable=self.fy, length=140, command=lambda v: self.preview())).grid(row=0, column=3)
+        ttk.Label(crop, text="left-right").grid(row=1, column=0)
+        self.slider(crop, self.fx, 0, 1).grid(row=1, column=1, padx=(2, 10))
+        ttk.Label(crop, text="top-bottom").grid(row=1, column=2)
+        self.slider(crop, self.fy, 0, 1).grid(row=1, column=3, padx=2)
 
         over = ttk.Frame(right)
         over.pack(anchor="w", pady=(0, 6))
@@ -150,8 +161,7 @@ class Editor(tk.Toplevel):
         self.ov = {key: tk.DoubleVar(value=default) for key, default in (("scale", R.OVERLAY_SCALE), ("x", R.OVERLAY_AT[0]), ("y", R.OVERLAY_AT[1]))}
         for column, (key, title) in enumerate((("scale", "size"), ("x", "left-right"), ("y", "top-bottom"))):
             ttk.Label(over, text=title).grid(row=2, column=column)
-            inert(ttk.Scale(over, from_=0.05 if key == "scale" else 0, to=1, variable=self.ov[key], length=140,
-                            command=lambda v: self.preview())).grid(row=3, column=column, padx=4)
+            self.slider(over, self.ov[key], 0.05 if key == "scale" else 0, 1).grid(row=3, column=column, padx=4)
 
         buttons = ttk.Frame(right)
         buttons.pack(anchor="w", pady=6)
@@ -184,11 +194,33 @@ class Editor(tk.Toplevel):
             self.on_change()
 
     # --- list ---------------------------------------------------------------------------------------------------
+    def sort_by(self, column: str) -> None:
+        descending = self.sort == (column, False)  # the same heading again turns it round
+        self.sort = (column, descending)
+        self.show_headings()
+        self.fill(select=self.rel)
+
+    def show_headings(self) -> None:
+        for column, title in HEADINGS.items():
+            arrow = ""
+            if self.sort and self.sort[0] == column:
+                arrow = "  ▼" if self.sort[1] else "  ▲"
+            self.tree.heading(column, text=title + arrow)
+
+    def sorted_table(self) -> list[dict]:
+        if not self.sort:
+            return self.table
+        column, descending = self.sort
+        if column == "dist":  # images without a candidate go last either way
+            known = sorted((r for r in self.table if r["dist"] is not None), key=lambda r: r["dist"], reverse=descending)
+            return known + [r for r in self.table if r["dist"] is None]
+        return sorted(self.table, key=lambda r: sort_key(r, column), reverse=descending)
+
     def fill(self, select: str | None = None) -> None:
         want, q = self.filter.get(), self.query.get().strip().lower()
         self.tree.delete(*self.tree.get_children())
         shown = 0
-        for r in self.table:
+        for r in self.sorted_table():
             if (want == "all" or r["status"] == want) and q in r["rel"].lower():
                 self.tree.insert("", "end", iid=r["rel"], text=r["rel"], tags=(r["status"],),
                                  values=(r["status"], r["source"] or "", "" if r["dist"] is None else r["dist"]))
@@ -254,6 +286,28 @@ class Editor(tk.Toplevel):
             self.photos[f"cand{i}"] = photo
             inert(ttk.Button(self.cands, image=photo, text=f"{cand['id'].split('/')[-1][:22]}\ndist {cand['dist']}", compound="top",
                              command=lambda c=cand["id"]: self.choose(c))).pack(side="left", padx=4)
+
+    def slider(self, parent: tk.Misc, var: tk.DoubleVar, low: float, high: float) -> ttk.Frame:
+        """A slider on `var` with a field beside it for an exact value; each follows the other."""
+        frame = ttk.Frame(parent)
+        inert(ttk.Scale(frame, from_=low, to=high, variable=var, length=SLIDER_LENGTH, command=lambda v: self.preview())).pack(side="left")
+        text = tk.StringVar(value=f"{var.get():.3f}")
+        var.trace_add("write", lambda *a: text.set(f"{var.get():.3f}"))  # a drag, or a selection that sets it
+
+        def commit(_=None) -> None:
+            try:
+                value = round(min(max(float(text.get().replace(",", ".")), low), high), 3)
+            except ValueError:
+                value = var.get()  # not a number: back to what the slider has
+            var.set(value)
+            text.set(f"{value:.3f}")  # also when var did not change (a write of the same value does not notify)
+            self.preview()
+
+        field = ttk.Spinbox(frame, from_=low, to=high, increment=0.01, textvariable=text, width=6, command=commit)
+        field.pack(side="left", padx=(4, 0))
+        field.bind("<Return>", commit)
+        field.bind("<FocusOut>", commit)
+        return frame
 
     def overlay_entry(self) -> dict | None:
         """The overlay as mapping.json keeps it ({source, scale, at}), None without one."""

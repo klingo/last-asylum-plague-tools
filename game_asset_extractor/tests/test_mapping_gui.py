@@ -68,3 +68,35 @@ def test_typing_fields_still_take_the_focus(editor):
 def test_the_list_row_the_arrow_keys_start_from_is_set_after_a_refill(editor):
     editor.fill(select="items/b.png")
     assert editor.tree.selection() == ("items/b.png",) and editor.tree.focus() == "items/b.png"
+
+
+def test_a_heading_click_sorts_the_list_and_a_second_one_turns_it_round(editor):
+    editor.sort_by("dist")
+    assert editor.tree.get_children() == ("items/a.png", "items/c.png", "items/b.png")  # no candidate: last
+    editor.sort_by("dist")
+    assert editor.tree.get_children() == ("items/c.png", "items/a.png", "items/b.png")
+    assert editor.tree.heading("dist", "text").startswith("Dist")
+    editor.sort_by("#0")
+    assert editor.tree.get_children() == ("items/a.png", "items/b.png", "items/c.png")
+    assert not editor.tree.heading("dist", "text").endswith(("\u25b2", "\u25bc"))
+
+
+def test_a_slider_and_its_field_follow_each_other(editor):
+    spinboxes = [w for w in widgets(editor) if w.winfo_class() == "TSpinbox" and w.cget("increment") == 0.01]
+    assert len(spinboxes) == 5  # crop: 2, overlay: 3
+    editor.fx.set(0.25)
+    assert spinboxes[0].get() == "0.250"
+    spinboxes[0].focus_force()  # key events go to the focused widget
+    editor.update()
+    spinboxes[0].delete(0, "end")
+    spinboxes[0].insert(0, "0.8764")
+    spinboxes[0].event_generate("<Return>")
+    assert editor.fx.get() == 0.876 and spinboxes[0].get() == "0.876"
+    spinboxes[0].delete(0, "end")
+    spinboxes[0].insert(0, "7")
+    spinboxes[0].event_generate("<Return>")
+    assert editor.fx.get() == 1 and spinboxes[0].get() == "1.000"  # clamped to the slider's range
+    spinboxes[0].delete(0, "end")
+    spinboxes[0].insert(0, "abc")
+    spinboxes[0].event_generate("<Return>")
+    assert editor.fx.get() == 1 and spinboxes[0].get() == "1.000"  # not a number: unchanged
