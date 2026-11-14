@@ -1,5 +1,3 @@
-import tkinter as tk
-
 import pytest
 
 import mapping_gui as MG
@@ -10,19 +8,6 @@ TABLE = [
     {"rel": "items/c.png", "status": "suggested", "source": "G/y", "dist": 5},
 ]
 MATCHES = {"items/a.png": [{"id": "G/x", "dist": 3}, {"id": "G/y", "dist": 9}, {"id": "G/z", "dist": 12}]}
-
-
-@pytest.fixture(scope="module")
-def root():
-    """One Tk root for the whole module: starting and destroying several in one process makes the next one fail to find
-    its Tcl library on Windows."""
-    try:
-        tk_root = tk.Tk()
-    except tk.TclError as e:
-        pytest.skip(f"cannot start Tk: {e}")
-    tk_root.withdraw()
-    yield tk_root
-    tk_root.destroy()
 
 
 @pytest.fixture

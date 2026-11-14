@@ -1,0 +1,521 @@
+{
+ "events:event_rotations.survival_battle.phases[build_territory].name": {
+  "source": "tables/ActivityDisplay:100201.name"
+ },
+ "events:events.canyon_conquest.name": {
+  "source": "tables/ActivityDisplay:10102011.name"
+ },
+ "events:events.claires_inner_demon.name": {
+  "source": "tables/ActivityDisplay:5600102.name"
+ },
+ "events:events.crystal_cluster_valley.name": {
+  "source": "tables/ActivityDisplay:11000101.name"
+ },
+ "events:events.demon_king_ranger_blight.description": {
+  "source": "tables/AbyssBoss:5400101.benefitDes"
+ },
+ "events:events.demon_king_ranger_blight.name": {
+  "source": "tables/ActivityDisplay:5400101.name"
+ },
+ "events:events.demon_king_warlock_blight.description": {
+  "source": "tables/AbyssBoss:4400101.benefitDes"
+ },
+ "events:events.demon_king_warlock_blight.name": {
+  "source": "tables/ActivityDisplay:4400101.name"
+ },
+ "events:events.demon_king_warrior_blight.description": {
+  "source": "tables/AbyssBoss:6400101.benefitDes"
+ },
+ "events:events.demon_king_warrior_blight.name": {
+  "source": "tables/ActivityDisplay:6400101.name"
+ },
+ "events:events.dwarven_mine.name": {
+  "source": "tables/ActivityDisplay:4500102.name"
+ },
+ "events:events.elixir_scramble.name": {
+  "source": "tables/ActivityDisplay:4600101.name"
+ },
+ "events:events.full_moon_night.name": {
+  "source": "tables/ComprehensiveIconCfg:11.displayContent"
+ },
+ "events:events.gear_upgrade.name": {
+  "source": "tables/ActivityDisplay:15000201.name"
+ },
+ "events:events.halloween_ball.name": {
+  "source": "tables/ComprehensiveIconCfg:12.displayContent"
+ },
+ "events:events.hunt_battle.name": {
+  "source": "tables/ActivityDisplay:4500108.name"
+ },
+ "events:events.kingdom_war.name": {
+  "source": "tables/ActivityDisplay:5900201.name"
+ },
+ "events:events.pandemic_experience.name": {
+  "source": "tables/ActivityDisplay:3900101.name"
+ },
+ "events:events.quiz_of_wisdom.name": {
+  "source": "tables/ActivityDisplay:9900101.name"
+ },
+ "events:events.recluse_merchant.name": {
+  "source": "tables/ActivityDisplay:6000101.name"
+ },
+ "events:events.shadow_blight.name": {
+  "source": "tables/ActivityDisplay:4800101.name"
+ },
+ "events:events.strange_bazaar.name": {
+  "source": "tables/ActivityDisplay:4500104.name"
+ },
+ "events:events.thief_hunt.name": {
+  "source": "tables/ActivityDisplay:4500106.name"
+ },
+ "events:events.wandering_phantom.name": {
+  "source": "tables/ActivityDisplay:4500107.name"
+ },
+ "events:kingdom_war.weeks[finals].name": {
+  "source": "language/lang_abc:cross_match_tips5"
+ },
+ "events:kingdom_war.weeks[week_1].name": {
+  "source": "language/lang_abc:cross_match_tips3"
+ },
+ "events:kingdom_war.weeks[week_2].name": {
+  "source": "language/lang_abc:cross_match_tips4"
+ },
+ "hero_skills:heroes.annie.awakening_skills[4].description": {
+  "source": "tables/HeroAwakenShow:25.awakenSkillDesc"
+ },
+ "hero_skills:heroes.annie.awakening_skills[4].name": {
+  "source": "tables/HeroAwakenShow:25.awakenSkillName"
+ },
+ "hero_skills:heroes.cynthia.awakening_skills[0].description": {
+  "source": "tables/HeroAwakenShow:16.awakenSkillDesc"
+ },
+ "hero_skills:heroes.cynthia.awakening_skills[1].description": {
+  "source": "tables/HeroAwakenShow:17.awakenSkillDesc"
+ },
+ "hero_skills:heroes.cynthia.awakening_skills[2].description": {
+  "source": "tables/HeroAwakenShow:18.awakenSkillDesc"
+ },
+ "hero_skills:heroes.cynthia.awakening_skills[moons_blessing].description": {
+  "source": "tables/HeroAwakenShow:20.awakenSkillDesc"
+ },
+ "hero_skills:heroes.cynthia.awakening_skills[moons_blessing].name": {
+  "source": "tables/HeroAwakenShow:20.awakenSkillName"
+ },
+ "hero_skills:heroes.marlena.awakening_skills[0].description": {
+  "source": "tables/HeroAwakenShow:6.awakenSkillDesc"
+ },
+ "hero_skills:heroes.marlena.awakening_skills[1].description": {
+  "source": "tables/HeroAwakenShow:7.awakenSkillDesc"
+ },
+ "hero_skills:heroes.marlena.awakening_skills[4].description": {
+  "source": "tables/HeroAwakenShow:10.awakenSkillDesc"
+ },
+ "hero_skills:heroes.marlena.awakening_skills[war_gods_will].description": {
+  "source": "tables/HeroAwakenShow:8.awakenSkillDesc"
+ },
+ "hero_skills:heroes.marlena.awakening_skills[war_gods_will].name": {
+  "source": "tables/HeroAwakenShow:8.awakenSkillName"
+ },
+ "lord_specialty:lords.handyman.description": {
+  "source": "tables/LordJob:1.desc"
+ },
+ "lord_specialty:lords.handyman.name": {
+  "source": "tables/LordJob:1.name"
+ },
+ "lord_specialty:lords.handyman.talents[alliance_aid].name": {
+  "source": "tables/LordJobSkill:1012.name"
+ },
+ "lord_specialty:lords.handyman.talents[art_of_architecture].name": {
+  "source": "tables/LordJobSkill:1015.name"
+ },
+ "lord_specialty:lords.handyman.talents[free_build].description": {
+  "source": "tables/LordJobSkill:1005.desc"
+ },
+ "lord_specialty:lords.handyman.talents[free_build].name": {
+  "source": "tables/LordJobSkill:1005.name"
+ },
+ "lord_specialty:lords.handyman.talents[free_research].description": {
+  "source": "tables/LordJobSkill:1006.desc"
+ },
+ "lord_specialty:lords.handyman.talents[free_research].name": {
+  "source": "tables/LordJobSkill:1006.name"
+ },
+ "lord_specialty:lords.handyman.talents[hidden_peril].name": {
+  "source": "tables/LordJobSkill:1022.name"
+ },
+ "lord_specialty:lords.handyman.talents[instant_build].description": {
+  "source": "tables/LordJobSkill:1007.desc"
+ },
+ "lord_specialty:lords.handyman.talents[instant_build].name": {
+  "source": "tables/LordJobSkill:1007.name"
+ },
+ "lord_specialty:lords.handyman.talents[instant_produce].description": {
+  "source": "tables/LordJobSkill:1001.desc"
+ },
+ "lord_specialty:lords.handyman.talents[instant_produce].name": {
+  "source": "tables/LordJobSkill:1001.name"
+ },
+ "lord_specialty:lords.handyman.talents[instant_research].description": {
+  "source": "tables/LordJobSkill:1008.desc"
+ },
+ "lord_specialty:lords.handyman.talents[instant_research].name": {
+  "source": "tables/LordJobSkill:1008.name"
+ },
+ "lord_specialty:lords.handyman.talents[material_recycle].name": {
+  "source": "tables/LordJobSkill:1016.name"
+ },
+ "lord_specialty:lords.handyman.talents[outstanding_contribution].name": {
+  "source": "tables/LordJobSkill:1002.name"
+ },
+ "lord_specialty:lords.handyman.talents[random_visitor].name": {
+  "source": "tables/LordJobSkill:1021.name"
+ },
+ "lord_specialty:lords.handyman.talents[raven_supply].description": {
+  "source": "tables/LordJobSkill:1019.desc"
+ },
+ "lord_specialty:lords.handyman.talents[raven_supply].name": {
+  "source": "tables/LordJobSkill:1019.name"
+ },
+ "lord_specialty:lords.handyman.talents[siege_frenzy].description": {
+  "source": "tables/LordJobSkill:1004.desc"
+ },
+ "lord_specialty:lords.handyman.talents[siege_frenzy].name": {
+  "source": "tables/LordJobSkill:1004.name"
+ },
+ "lord_specialty:lords.handyman.talents[solid_defense].name": {
+  "source": "tables/LordJobSkill:1020.name"
+ },
+ "lord_specialty:lords.handyman.talents[swift_stride].name": {
+  "source": "tables/LordJobSkill:1009.name"
+ },
+ "lord_specialty:lords.handyman.talents[vitality_vigor].name": {
+  "source": "tables/LordJobSkill:1003.name"
+ },
+ "lord_specialty:lords.legion_commander.description": {
+  "source": "tables/LordJob:2.desc"
+ },
+ "lord_specialty:lords.legion_commander.name": {
+  "source": "tables/LordJob:2.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[boost_morale].name": {
+  "source": "tables/LordJobSkill:2011.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[concealed_identity].description": {
+  "source": "tables/LordJobSkill:2014.desc"
+ },
+ "lord_specialty:lords.legion_commander.talents[concealed_identity].name": {
+  "source": "tables/LordJobSkill:2014.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[concentrated_fire].name": {
+  "source": "tables/LordJobSkill:2007.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[emergency_treatment].description": {
+  "source": "tables/LordJobSkill:2006.desc"
+ },
+ "lord_specialty:lords.legion_commander.talents[emergency_treatment].name": {
+  "source": "tables/LordJobSkill:2006.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[frenzy].name": {
+  "source": "tables/LordJobSkill:2005.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[full_power_buff].name": {
+  "source": "tables/LordJobSkill:2015.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[hold_the_line].name": {
+  "source": "tables/LordJobSkill:2019.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[infirmary_expansion].name": {
+  "source": "tables/LordJobSkill:2004.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[intensive_training].name": {
+  "source": "tables/LordJobSkill:2008.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[rally_guardian].name": {
+  "source": "tables/LordJobSkill:2020.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[reinforcement_enhance].name": {
+  "source": "tables/LordJobSkill:2016.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[reinforcement_speedup].name": {
+  "source": "tables/LordJobSkill:2012.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[return_now].description": {
+  "source": "tables/LordJobSkill:2001.desc"
+ },
+ "lord_specialty:lords.legion_commander.talents[return_now].name": {
+  "source": "tables/LordJobSkill:2001.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[team_raid].name": {
+  "source": "tables/LordJobSkill:2013.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[territory_raid].name": {
+  "source": "tables/LordJobSkill:2021.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[train_now].description": {
+  "source": "tables/LordJobSkill:2002.desc"
+ },
+ "lord_specialty:lords.legion_commander.talents[train_now].name": {
+  "source": "tables/LordJobSkill:2002.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[war_supply].name": {
+  "source": "tables/LordJobSkill:2010.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[wasteland_march].name": {
+  "source": "tables/LordJobSkill:2009.name"
+ },
+ "pack_data:exchange_shops.starry_bazaar.name": {
+  "source": "tables/ActivityDisplay:8200403.name"
+ },
+ "pack_data:exchange_shops.strange_bazaar_shop.name": {
+  "source": "tables/ActivityDisplay:4500104.name"
+ },
+ "pack_data:exchange_shops.surprise_encounter_shop.name": {
+  "source": "tables/ActivityDisplay:4500103.name"
+ },
+ "pack_data:items.alliance_coins.name": {
+  "source": "language/Common:UNION_COIN"
+ },
+ "pack_data:items.alliance_relocate.name": {
+  "source": "tables/Item:item_UseUp_unionMove.name"
+ },
+ "pack_data:items.antitoxin.name": {
+  "source": "tables/ItemIcon:5.name"
+ },
+ "pack_data:items.antitoxin_level_supply_r.name": {
+  "source": "tables/Item:item_castleBox_HeroEXP_1.name"
+ },
+ "pack_data:items.antitoxin_level_supply_sr.name": {
+  "source": "tables/Item:item_castleBox_HeroEXP_2.name"
+ },
+ "pack_data:items.antitoxin_level_supply_ssr.name": {
+  "source": "tables/Item:item_castleBox_HeroEXP_3.name"
+ },
+ "pack_data:items.antitoxin_level_supply_ur.name": {
+  "source": "tables/Item:item_castleBox_HeroEXP_4.name"
+ },
+ "pack_data:items.basic_gear_supply.name": {
+  "source": "tables/Item:item_equipment_materialBox_1.name"
+ },
+ "pack_data:items.battlebreaker_loot.name": {
+  "source": "tables/Item:item_activity_prepare_randomBox_5.name"
+ },
+ "pack_data:items.berserker_loot.name": {
+  "source": "tables/Item:item_activity_prepare_randomBox_4.name"
+ },
+ "pack_data:items.black_raven_fortress.name": {
+  "source": "tables/Item:item_cityskin_milkyway_permanent.name"
+ },
+ "pack_data:items.brass.name": {
+  "source": "tables/Item:item_equip_produce_materials_03.name"
+ },
+ "pack_data:items.builders_hammer.name": {
+  "source": "tables/Item:item_decor_1013.name"
+ },
+ "pack_data:items.chiefs_count_chest.name": {
+  "source": "tables/Item:item_activity_abyssComing_box.name"
+ },
+ "pack_data:items.cloth.name": {
+  "source": "tables/Item:item_equip_produce_materials_01.name"
+ },
+ "pack_data:items.construction_speedup.name": {
+  "source": "language/Bag:speedup_build"
+ },
+ "pack_data:items.copper_coin.name": {
+  "source": "tables/ItemIcon:1043.name"
+ },
+ "pack_data:items.covert_order.name": {
+  "source": "tables/Item:item_secret_rescue_refresh.name"
+ },
+ "pack_data:items.curio_chest_ssr.name": {
+  "source": "tables/Item:item_decorations_box_02.name"
+ },
+ "pack_data:items.curio_chest_ur.name": {
+  "source": "tables/Item:item_decorations_box_03.name"
+ },
+ "pack_data:items.deluxe_choice_chest.name": {
+  "source": "tables/Item:item_box_lux_optional.name"
+ },
+ "pack_data:items.demon_knight_permanent.name": {
+  "source": "tables/Item:item_halloween_permanent.name"
+ },
+ "pack_data:items.demons_eye.name": {
+  "source": "tables/Item:item_decor_1003.name"
+ },
+ "pack_data:items.diamond_golden_egg.name": {
+  "source": "tables/Item:item_itemegg_newyear.name"
+ },
+ "pack_data:items.diamonds.name": {
+  "source": "language/Common:TxtCrystal"
+ },
+ "pack_data:items.direct_relocate.name": {
+  "source": "tables/Item:item_UseUp_targetMove.name"
+ },
+ "pack_data:items.dragon_blood.name": {
+  "source": "tables/Item:item_decor_1004.name"
+ },
+ "pack_data:items.dwarven_pickaxe.name": {
+  "source": "tables/Item:item_activity_flipCard.name"
+ },
+ "pack_data:items.exclusive_weapon_omni_shard.name": {
+  "source": "tables/Item:item_ue_universalFragment.name"
+ },
+ "pack_data:items.fantasy_city.name": {
+  "source": "tables/Item:item_cityskin_huanxiangzhicheng_permanent.name"
+ },
+ "pack_data:items.gear_blueprint_mr.name": {
+  "source": "tables/Item:item_equipment_equipmentDrawing_mythology.name"
+ },
+ "pack_data:items.gear_blueprint_ur.name": {
+  "source": "tables/Item:item_equipment_equipmentDrawing_legendary.name"
+ },
+ "pack_data:items.gear_choice_supply.name": {
+  "source": "tables/Item:item_equipment_chooseBox_1.name"
+ },
+ "pack_data:items.gearstone.name": {
+  "source": "tables/Item:item_equipment_enhanceStone.name"
+ },
+ "pack_data:items.grain.name": {
+  "source": "language/Item:public_food"
+ },
+ "pack_data:items.haunting_shadows_permanent.name": {
+  "source": "tables/Item:item_atmosphereSkin_halloween_permanent.name"
+ },
+ "pack_data:items.healing_speedup.name": {
+  "source": "language/Bag:speedup_cure"
+ },
+ "pack_data:items.herb_level_supply_sr.name": {
+  "source": "tables/Item:item_castleBox_Energy_2.name"
+ },
+ "pack_data:items.herb_level_supply_ssr.name": {
+  "source": "tables/Item:item_castleBox_Energy_3.name"
+ },
+ "pack_data:items.herb_level_supply_ur.name": {
+  "source": "tables/Item:item_castleBox_Energy_4.name"
+ },
+ "pack_data:items.herbs.name": {
+  "source": "language/Item:public_iron"
+ },
+ "pack_data:items.hero_awaken_omni_shard.name": {
+  "source": "tables/Item:item_Awaken_universalFragment.name"
+ },
+ "pack_data:items.hero_awaken_shard.name": {
+  "source": null
+ },
+ "pack_data:items.holy_sword_loot.name": {
+  "source": "tables/Item:item_activity_prepare_randomBox_2.name"
+ },
+ "pack_data:items.iron_guard_loot.name": {
+  "source": "tables/Item:item_activity_prepare_randomBox_1.name"
+ },
+ "pack_data:items.leather.name": {
+  "source": "tables/Item:item_equip_produce_materials_02.name"
+ },
+ "pack_data:items.lion_coin.description": {
+  "source": "tables/Item:item_activity_shop_invasion.description"
+ },
+ "pack_data:items.lv1_alliance_chest.name": {
+  "source": "tables/UnionGiftCfg:1001.name"
+ },
+ "pack_data:items.lv1_raven_gear_chest.name": {
+  "source": "tables/Item:item_drone_componentBox_1.name"
+ },
+ "pack_data:items.lv2_alliance_chest.name": {
+  "source": "tables/UnionGiftCfg:1002.name"
+ },
+ "pack_data:items.lv3_alliance_chest.name": {
+  "source": "tables/UnionGiftCfg:1003.name"
+ },
+ "pack_data:items.lv3_raven_gear_chest.name": {
+  "source": "tables/Item:item_drone_componentBox_3.name"
+ },
+ "pack_data:items.lv4_alliance_chest.name": {
+  "source": "tables/UnionGiftCfg:1004.name"
+ },
+ "pack_data:items.lv5_alliance_chest.name": {
+  "source": "tables/UnionGiftCfg:1005.name"
+ },
+ "pack_data:items.lv5_raven_gear_chest.name": {
+  "source": "tables/Item:item_drone_componentBox_5.name"
+ },
+ "pack_data:items.lv6_alliance_chest.name": {
+  "source": "tables/UnionGiftCfg:1006.name"
+ },
+ "pack_data:items.magic_hat.name": {
+  "source": "tables/Item:halloween_market_money.name"
+ },
+ "pack_data:items.magic_hat_lucky_box.name": {
+  "source": "tables/Item:halloween_lucky_box1.name"
+ },
+ "pack_data:items.moon_coin.name": {
+  "source": "tables/Item:mid_autumn_raffle_ticket.name"
+ },
+ "pack_data:items.mr_armor.name": {
+  "source": "tables/EquipmentBase:100502.pro_name"
+ },
+ "pack_data:items.mr_boots.name": {
+  "source": "tables/EquipmentBase:100504.pro_name"
+ },
+ "pack_data:items.mr_gauntlets.name": {
+  "source": "tables/EquipmentBase:100503.pro_name"
+ },
+ "pack_data:items.mr_sword.name": {
+  "source": "tables/EquipmentBase:100501.pro_name"
+ },
+ "pack_data:items.mythic_era_reward.name": {
+  "source": "tables/Item:season_finish_hero_awake_box.name"
+ },
+ "pack_data:items.pumpkin_ghost.name": {
+  "source": "tables/Item:item_decor_1018.name"
+ },
+ "pack_data:items.r_epigraph_chest.name": {
+  "source": "tables/Item:item_module_props_Box_1.name"
+ },
+ "pack_data:items.random_gear_chest.name": {
+  "source": "tables/Item:item_equipment_equipmentRandomBox_1.name"
+ },
+ "pack_data:items.random_gearstone_supply.name": {
+  "source": "tables/Item:item_equipment_enhanceStoneRandomBox_1.name"
+ },
+ "pack_data:items.random_relocate.name": {
+  "source": "tables/Item:item_UseUp_randomMove.name"
+ },
+ "pack_data:items.raven_essence.name": {
+  "source": "tables/Item:item_drone_part.name"
+ },
+ "pack_data:items.recluse_coin.name": {
+  "source": "tables/Item:recluse_coin.name"
+ },
+ "pack_data:items.recruit_ticket.name": {
+  "source": "tables/Item:item_UseUp_recruitCoin.name"
+ },
+ "pack_data:items.red_amber_amulet.name": {
+  "source": "tables/Item:item_decor_03.name"
+ },
+ "pack_data:items.red_nutcracker.name": {
+  "source": "tables/Item:item_decor_1000.name"
+ },
+ "pack_data:items.refined_iron.name": {
+  "source": "tables/Item:item_equip_produce_materials_04.name"
+ },
+ "pack_data:items.research_tome.name": {
+  "source": "tables/Item:item_decor_1014.name"
+ },
+ "pack_data:items.resource_supply_general.name": {
+  "source": "tables/Item:item_optionalBox_Resource.name"
+ },
+ "pack_data:items.resource_supply_sr.name": {
+  "source": "tables/Item:item_optionalBox_Resource2.name"
+ },
+ "pack_data:items.resource_supply_ssr.name": {
+  "source": "tables/Item:item_optionalBox_Resource3.name"
+ },
+ "pack_data:items.resource_supply_ur.name": {
+  "source": "tables/Item:item_optionalBox_Resource4.name"
+ },
+ "pack_data:mines.dwarven_mine.name": {
+  "source": "tables/ActivityDisplay:4500102.name"
+ },
+ "pack_data:spend_reward_tracks.halloween_cookie.name": {
+  "source": "tables/ActivityDisplay:8200507.name"
+ }
+}

@@ -9,15 +9,13 @@ manifest with `state/pulled.json` (file name -> {md5, path} of what was pulled):
     unchanged   pulled and still the same
     removed     pulled, no longer in the manifest (at all, whatever types are scanned)
 
-Only the chosen types count (`config.TYPES`: pictures, effects, models, ... by the start of the `pathName`; pictures
-by default). A bundle's `group` is the folder it sits in, which is how the window sorts them:
+Only the chosen types count (`config.TYPES`: pictures, game texts, effects, models, ... by the start of the `pathName`; the
+pictures and the game texts, `config.REQUIRED_TYPES`, are always in). A bundle's `group` is the folder it sits in, which is how the window sorts them:
 `UI/Atlas/Module/Zombie_ItemIcon144/Zombie_ItemIcon144Atlas.prefab` -> `Zombie_ItemIcon144`,
 `UITexture/DynamicTexture/BigBg/x.png` -> `BigBg`.
 """
 
 from __future__ import annotations
-
-import re
 
 import config as C
 import state as S
@@ -38,14 +36,14 @@ def type_of(path_name: str) -> str:
 
 
 def parse_types(text: str) -> tuple[str, ...]:
-    """`--types` value: comma-separated keys of `config.TYPES`, or `all`."""
+    """`--types` value: comma-separated keys of `config.TYPES`, or `all`. The required types are always in, in `config.TYPES`' order."""
     if text.strip() == "all":
         return tuple(C.TYPES)
-    keys = tuple(k.strip() for k in text.split(",") if k.strip())
-    unknown = [k for k in keys if k not in C.TYPES]
-    if unknown or not keys:
-        raise ValueError(f"unknown type {', '.join(unknown) or '(none given)'}: use all or a list of {', '.join(C.TYPES)}")
-    return keys
+    keys = {k.strip() for k in text.split(",") if k.strip()}
+    unknown = sorted(keys - set(C.TYPES))
+    if unknown:
+        raise ValueError(f"unknown type {', '.join(unknown)}: use all or a list of {', '.join(C.TYPES)}")
+    return tuple(k for k in C.TYPES if k in keys or k in C.REQUIRED_TYPES)
 
 
 def entries_of(manifest: dict) -> dict[str, dict]:
@@ -57,10 +55,9 @@ def entries_of(manifest: dict) -> dict[str, dict]:
     }
 
 
-def select(entries: dict[str, dict], types=C.DEFAULT_TYPES, pattern: str | None = None) -> dict[str, dict]:
-    """The entries of the chosen types whose path matches `pattern` (case-insensitive)."""
-    rx = re.compile(pattern, re.I) if pattern else None
-    return {n: e for n, e in entries.items() if e["type"] in types and (rx is None or rx.search(e["path"]))}
+def select(entries: dict[str, dict], types=C.REQUIRED_TYPES) -> dict[str, dict]:
+    """The entries of the chosen types."""
+    return {n: e for n, e in entries.items() if e["type"] in types}
 
 
 def diff(wanted: dict[str, dict], pulled: dict[str, dict], known=None) -> dict:
@@ -91,12 +88,12 @@ def by_type(result: dict) -> list[dict]:
     return rows
 
 
-def scan(device, types=C.DEFAULT_TYPES, pattern: str | None = None) -> dict:
+def scan(device, types=C.REQUIRED_TYPES) -> dict:
     """Read the device's manifest, compare it with what was pulled, save and return the result."""
     manifest, version = device.read_manifest()
     entries = entries_of(manifest)
-    result = diff(select(entries, types, pattern), S.load("pulled.json"), known=entries)
-    result.update(version=version, types=list(types), pattern=pattern)
+    result = diff(select(entries, types), S.load("pulled.json"), known=entries)
+    result.update(version=version, types=list(types))
     S.save("scan.json", result)
     return result
 

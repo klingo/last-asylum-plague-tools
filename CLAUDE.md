@@ -27,7 +27,7 @@ Run from the tool's own folder, with its venv (`.venv/Scripts/python`; set it up
 `.venv/Scripts/python -m pip install -r requirements.txt`; use `python -m pip`, a moved venv's `pip.exe` points at the old path).
 
 ```bash
-.venv/Scripts/python -m pytest -q          # the tool's tests (game_asset_extractor: 108, mahjong_minigame_helper: 64)
+.venv/Scripts/python -m pytest -q          # the tool's tests (game_asset_extractor: 166, mahjong_minigame_helper: 64)
 .venv/Scripts/python main.py --help        # the CLI (game_asset_extractor: also gui.py / start_gui.bat; mahjong: gui.py)
 ```
 
@@ -42,11 +42,20 @@ the recording (git-ignored `recordings/`) is missing; the mapping-editor test sk
   the mapped game pictures.
 - `mapping.json` (committed here) says which game picture each webapp image is made from (`source`, crop `focus`, `resize`,
   `overlay`: a second picture on top, e.g. a trophy, `synced` fingerprint). It is data about the webapp's files: edit it through
-  the mapping editor (`gui.py` > Edit mapping) or `main.py map` / `import`, not by hand.
+  the mapping editor (`gui.py` > Pictures > Edit mapping) or `main.py map` / `import`, not by hand.
 - The webapp's images are written to the webapp's repository: `config.WEBAPP_ASSETS`, `../last-asylum-pack-solver/webapp/public/assets`
   or under `LAST_ASYLUM_WEBAPP`. The commands that touch it (`match`, `update`, `map`, `status`, `sync`, `import`) stop with a
   message when it is missing (`config.require_webapp`), so nothing is written to a wrong place. `sync` / `import` change files
   there: say so in the report, never commit them.
+- Texts: the kind "data" (on by default) is extracted as files; `texts.py` reads them (`language_F` CSV, `basedb_F` Lua tables), records
+  per extract run which texts were added / changed (`out/texts.json`, same runs and baseline as the pictures), `text_browser.py`
+  writes `out/texts/index.html`. `text_mapping.json` (committed) says which game text each localized `{en, de}` of the webapp's
+  `data/*.json` is; it is data, edited through the editor (`text_mapping_gui.py`) or `main.py text-map`. `text-sync --apply` rewrites
+  the webapp's data files (every language, English included) and formats them with the webapp's prettier: say so in the report,
+  never commit them. `name.de` in the webapp stays the game's own text: it only ever comes from here, never from a guess.
+- `history.json` (committed, `history.py`) is the only copy of which game version added or changed each picture and text (runs merged per resource version,
+  and per picture / text the run, only where it differs from the first run); extract writes it at the end of every run and a cache
+  that starts empty is rebuilt from it. Commit it after each game update. The "seen" pointer (`meta.baseline`) stays local.
 - `cache/`, `out/` (about 1.5 GB together) and `state/` are local, git-ignored game data. Never commit them or the game's files.
 - Folder rules of the webapp's images (`render.py`): `items/` and `heroes/` 144x144 PNG, `events/` WebP (a banner of about 2:1 keeps
   the game's size, anything else is cropped to 720x360), `packages/` WebP as it is. Keep these in step with the webapp's own

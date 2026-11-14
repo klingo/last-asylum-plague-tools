@@ -46,22 +46,19 @@ def test_type_of_follows_the_path_prefix(path, kind):
     assert Sc.type_of(path) == kind
 
 
-def test_parse_types():
-    assert Sc.parse_types("pictures") == ("pictures",)
-    assert Sc.parse_types(" pictures, data ") == ("pictures", "data")
+def test_parse_types_always_takes_the_required_kinds():
+    assert Sc.parse_types("") == Sc.parse_types(",") == Sc.parse_types("pictures") == Sc.parse_types(" pictures, data ") == C.REQUIRED_TYPES
+    assert Sc.parse_types("models, effects") == ("pictures", "data", "effects", "models")  # in the order of config.TYPES
     assert Sc.parse_types("all") == tuple(C.TYPES)
-    for bad in ("", "pictures,nope", ","):
-        with pytest.raises(ValueError):
-            Sc.parse_types(bad)
+    with pytest.raises(ValueError, match="unknown type nope"):
+        Sc.parse_types("pictures,nope")
 
 
-def test_select_keeps_the_chosen_types_and_applies_the_filter():
+def test_select_keeps_the_chosen_types():
     e = Sc.entries_of(MANIFEST)
-    assert set(Sc.select(e)) == {"a.assetbundles", "b.assetbundles"}  # pictures by default
+    assert set(Sc.select(e)) == {"a.assetbundles", "b.assetbundles"}  # the required kinds by default
     assert set(Sc.select(e, types=tuple(C.TYPES))) == set(e)
     assert set(Sc.select(e, types=("models",))) == {"c.assetbundles"}
-    assert set(Sc.select(e, pattern="itemicon")) == {"a.assetbundles"}  # case-insensitive
-    assert set(Sc.select(e, types=("pictures", "models"), pattern="prop_f")) == {"c.assetbundles"}
 
 
 def test_diff_classifies_new_changed_removed_unchanged():

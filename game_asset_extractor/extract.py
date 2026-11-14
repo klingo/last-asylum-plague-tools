@@ -7,7 +7,8 @@ without a picture leaves no folder.
 The bundles of `config.TEXT_TYPES` (game texts, tables, scripts) hold TextAssets, not textures: each is written as a file
 below `out/<type>/<the bundle's whole path>/` (`.txt` when it reads as UTF-8, `.bin` when not: the game's tables and Lua
 scripts are obfuscated, the language tables, `.proto` files and atlas lists are plain text). They are not in `out/index.json`;
-a bundle's files are rewritten whenever the bundle changes.
+a bundle's files are rewritten whenever the bundle changes. When a run wrote texts, `texts.update_index` records in
+`out/texts.json` which texts it added or changed (for the text browser), under the same run number as the pictures.
 
 Three kinds of pictures are in a bundle:
   - NGUI atlases (the game's UI): a MonoBehaviour with `mSprites` (name, x, y, width, height, padding; from the top
@@ -18,7 +19,8 @@ Three kinds of pictures are in a bundle:
 `out/index.json` has one entry per picture (id = `type/group/name`, size, bundle, type, md5 of the PNG, dhash for `match.py`) and
 which extract run added it (`added`) or last changed it (`changed`); `meta.runs` says when each run was and for which
 resource version. `meta.baseline` is the run up to which everything counts as seen (`mark_seen`): the gallery marks what
-was added or changed after it.
+was added or changed after it. The runs and each picture's and text's run are also written to `history.json` (`history.py`,
+committed) at the end of every run; a cache that starts empty is rebuilt from it (`meta.restoring` until every bundle is back).
 """
 
 from __future__ import annotations
@@ -33,9 +35,11 @@ import UnityPy
 from PIL import Image
 
 import config as C
+import history as H
 import match as M
 import scan as Sc
 import state as S
+import texts as T
 
 SAFE = re.compile(r"[^\w.\-]+")
 
@@ -202,22 +206,19 @@ def mark_seen() -> int:
     return index["meta"]["baseline"]
 
 
-def run(pattern: str | None = None, force: bool = False) -> dict:
+def run(force: bool = False) -> dict:
     """Extract every pulled bundle whose pictures are missing or out of date; returns the counts."""
     pulled, done = S.load("pulled.json"), S.load("extracted.json")
-    rx = re.compile(pattern, re.I) if pattern else None
-    todo = sorted(
-        n for n, p in pulled.items()
-        if (force or done.get(n) != p["md5"]) and (rx is None or rx.search(p["path"])) and (C.CACHE / n).exists()
-    )
+    todo = sorted(n for n, p in pulled.items() if (force or done.get(n) != p["md5"]) and (C.CACHE / n).exists())
     index = S.load_index()
     counts = {"bundles": len(todo), "pictures": 0, "texts": 0, "new_or_changed": 0, "failed": 0}
     if not todo:
         return counts
-    meta = index["meta"]
-    meta["run"] += 1
-    version = (C.STATE / "version.txt").read_text(encoding="utf-8").strip() if (C.STATE / "version.txt").exists() else "?"
-    meta["runs"][str(meta["run"])] = {"version": version, "time": time.strftime("%Y-%m-%d %H:%M")}
+    meta, history = index["meta"], H.load()
+    if not (H.restore_run(index, history) or meta.get("restoring")):  # else: a cache rebuilt from history.json, no new run
+        meta["run"] += 1
+        version = (C.STATE / "version.txt").read_text(encoding="utf-8").strip() if (C.STATE / "version.txt").exists() else "?"
+        meta["runs"][str(meta["run"])] = {"version": version, "time": time.strftime("%Y-%m-%d %H:%M")}
     try:
         for i, name in enumerate(todo, 1):
             path, kind = pulled[name]["path"], Sc.type_of(pulled[name]["path"])
@@ -237,6 +238,13 @@ def run(pattern: str | None = None, force: bool = False) -> dict:
             if i % 20 == 0:
                 print(f"progress extract: {i * 100 // len(todo)} %", flush=True)
     finally:
+        if meta.get("restoring"):  # a rebuilt cache: the pictures get the runs the history recorded, until every bundle is back
+            H.apply_pictures(index, history)
+            if all(done.get(n) == p["md5"] for n, p in pulled.items() if (C.CACHE / n).exists()):
+                del meta["restoring"]
         S.save_index(index)
         S.save("extracted.json", done)
+        if counts["texts"]:
+            T.update_index(meta["run"])
+        H.record(index, T.load_index())
     return counts

@@ -50,14 +50,17 @@ def test_write_makes_a_page_that_reads_data_js(tmp_path, monkeypatch):
 def test_build_command_for_each_button():
     base = [gui.sys.executable, "-u", str(gui.MAIN), "--serial", "127.0.0.1:5555"]
     assert gui.build_command("check") == base + ["check"]
-    assert gui.build_command("scan", serial=" 1.2.3.4:5555 ", adb="C:/adb.exe", types=("pictures", "data"), pattern=" icon ") == [
+    assert gui.build_command("scan", serial=" 1.2.3.4:5555 ", adb="C:/adb.exe", types=("pictures", "data", "models")) == [
         gui.sys.executable, "-u", str(gui.MAIN), "--serial", "1.2.3.4:5555", "--adb-exe", "C:/adb.exe",
-        "scan", "--types", "pictures,data", "--filter", "icon"]
-    assert gui.build_command("update") == base + ["update", "--types", "pictures"]
+        "scan", "--types", "pictures,data,models"]
+    assert gui.build_command("update") == base + ["update", "--types", "pictures,data"]  # the pictures and the texts are always taken
     assert gui.build_command("import", sprite=" G/x ", dest=" items/x ", force=True) == base + ["import", "G/x", "items/x", "--force"]
     assert gui.build_command("sync") == base + ["sync"]  # a preview
     assert gui.build_command("sync", apply=True) == base + ["sync", "--apply"]
     assert gui.build_command("baseline") == base + ["baseline"]
+    assert gui.build_command("texts") == base + ["texts"]
+    assert gui.build_command("text-sync") == base + ["text-sync"]  # a preview
+    assert gui.build_command("text-sync", apply=True) == base + ["text-sync", "--apply"]
 
 
 def test_the_page_script_is_valid_javascript(tmp_path):

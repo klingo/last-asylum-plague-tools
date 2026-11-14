@@ -116,3 +116,20 @@ def test_write_texts_names_files_by_their_content_and_keeps_the_folders_of_other
     assert (folder / "a.txt").read_bytes() == b"text" and (folder / "a.bin").read_bytes() == b"\xff\x00"
     E.write_texts("data", "LuaScript", [("n", b"1")])  # the bundle changed: its old files go, the sub-bundle's stay
     assert sorted(p.name for p in folder.iterdir()) == ["Sub", "n.txt"] and (folder / "Sub" / "t.txt").is_file()
+
+
+def test_a_run_that_wrote_texts_records_them_under_its_run_number(out, monkeypatch, tmp_path):
+    import state as S
+    import texts as T
+
+    monkeypatch.setattr(C, "CACHE", tmp_path / "cache")
+    monkeypatch.setattr(C, "STATE", tmp_path / "state")
+    C.CACHE.mkdir()
+    (C.CACHE / "b1").write_bytes(b"bundle")
+    S.save("pulled.json", {"b1": {"md5": "m", "path": "GameData/language_F/en"}})
+    monkeypatch.setattr(E, "export_texts", lambda path: [("Item", b"KEY,Chinese\ngold,Gold\n")])
+    runs = []
+    monkeypatch.setattr(T, "update_index", lambda run: runs.append(run))
+    assert E.run()["texts"] == 1
+    assert runs == [1] and (out / "data" / "GameData" / "language_F" / "en" / "Item.txt").is_file()
+    assert E.run()["bundles"] == 0 and runs == [1]  # nothing new: no new run, nothing to record

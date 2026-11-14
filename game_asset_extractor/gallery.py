@@ -2,7 +2,7 @@
 
 Open it from the folder (`out/index.html`); it reads `out/data.js` (not a fetched JSON, which browsers block for files
 on disk). Only the pictures (`config.is_picture`) are listed. Filter by group, search by name, and show only what was added or changed (together or each alone) since the baseline
-(`main.py baseline` / "Mark all as seen": the extract run up to which everything counts as seen), what the webapp
+(`main.py baseline` / "Mark all as seen": the extract run up to which everything counts as seen, shared with the text browser), what the webapp
 does not have yet, or what it has (a close sprite to a PNG of `webapp/public/assets`, see `match.py`, or the source (or overlay) of
 a webapp image in `mapping.json`, which finds cropped ones too), by the resource version a picture was first extracted in
 (`meta.runs` of `out/index.json` says which version each extract run was made for; the first run holds everything that
