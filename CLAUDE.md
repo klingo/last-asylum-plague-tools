@@ -32,7 +32,8 @@ Run from the tool's own folder, with its venv (`.venv/Scripts/python`; set it up
 ```
 
 Tests use small inline data and need neither the game nor a device. The Mahjong tests on recorded games skip themselves when
-the recording (git-ignored `recordings/`) is missing; the mapping-editor test skips when Tk cannot start. There is no CI.
+the recording (git-ignored `recordings/`) is missing; the mapping-editor test skips when Tk cannot start. CI (`.github/workflows/test.yml`, Windows) runs both suites with no
+webapp checkout and a small screen: tests stub the webapp's folder and size the editor window themselves.
 
 ## Game Asset Extractor
 

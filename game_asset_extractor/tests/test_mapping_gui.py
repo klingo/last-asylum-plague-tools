@@ -22,6 +22,14 @@ def editor(root, monkeypatch):
     ed.destroy()
 
 
+def full_height(editor):
+    """The window as tall as its content asks for: on a small screen (a CI runner's) it opens clamped to the screen, and
+    pack then squeezes the lower controls out, unmapped."""
+    editor.update()
+    editor.geometry(f"{editor.winfo_width()}x{editor.winfo_reqheight()}")
+    editor.update()
+
+
 def widgets(parent):
     for child in parent.winfo_children():
         yield child
@@ -67,6 +75,7 @@ def test_a_heading_click_sorts_the_list_and_a_second_one_turns_it_round(editor):
 
 
 def test_a_slider_and_its_field_follow_each_other(editor):
+    full_height(editor)
     spinboxes = [w for w in widgets(editor) if w.winfo_class() == "TSpinbox" and w.cget("increment") == 0.01]
     assert len(spinboxes) == 9  # crop: 2, overlay: 3, pictures 2 and 3: 4
     editor.fx.set(0.25)
@@ -104,7 +113,7 @@ def shown_frames(editor):
 
 
 def test_the_layout_switch_shows_only_the_controls_of_the_chosen_layout(editor):
-    editor.update()
+    full_height(editor)
     assert editor.mode.get() == "single" and shown_frames(editor) == ["single"]  # no controls: an empty frame
     for mode, frame, rows in (("overlay", "overlay", 0), ("beside2", "beside", 1), ("beside3", "beside", 2)):
         editor.mode.set(mode)
@@ -116,6 +125,8 @@ def test_the_layout_switch_shows_only_the_controls_of_the_chosen_layout(editor):
 
 def test_the_controls_of_every_layout_fit_the_space_the_window_opened_with(editor):
     editor.update()
+    if editor.winfo_height() < editor.winfo_reqheight():
+        pytest.skip("the screen is too small for the window to open at the size its content asks for")
     height = editor.stack.winfo_height()
     for mode in ("overlay", "beside3", "single"):
         editor.mode.set(mode)

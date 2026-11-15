@@ -1,3 +1,5 @@
+import pytest
+
 import config as C
 import main
 import text_browser as TB
@@ -7,6 +9,12 @@ TABLE = [
     {"location": "pack_data:items.a.name", "status": "suggested", "source": "tables/Item:a.name", "en": "A"},
     {"location": "pack_data:items.b.name", "status": "official", "source": "tables/Item:b.name", "en": "B"},
 ]
+
+
+@pytest.fixture(autouse=True)
+def webapp(tmp_path, monkeypatch):
+    """The text commands stop without the webapp's folder (not checked out on CI); an empty one stands in, the texts are stubbed."""
+    monkeypatch.setattr(C, "WEBAPP_ASSETS", tmp_path)
 
 
 def test_text_status_summarizes_and_lists_what_needs_attention(monkeypatch, capsys):
