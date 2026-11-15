@@ -62,6 +62,9 @@
  "events:events.elixir_scramble.name": {
   "source": "tables/ActivityDisplay:4600101.name"
  },
+ "events:events.expedition_battle.name": {
+  "source": "tables/ActivitySummary:6.title"
+ },
  "events:events.full_moon_night.name": {
   "source": "tables/ComprehensiveIconCfg:11.displayContent"
  },

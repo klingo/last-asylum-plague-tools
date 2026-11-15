@@ -207,6 +207,18 @@
   "source": "pictures/Zombie_Activity_BattlePass1/pic_zl_banner1_2",
   "synced": "2aef39421d6d9ccefc69912b615c7ded"
  },
+ "events/expedition_battle.webp": {
+  "source": "pictures/Zombie_honorCard1/pic_yz_peitu1",
+  "beside": [
+   {
+    "source": "pictures/Zombie_honorCard2/pic_yz_peitu3"
+   },
+   {
+    "source": "pictures/Zombie_honorCard1/pic_yz_peitu2"
+   }
+  ],
+  "synced": "2cd48a60b65e4aad646b14f7ce40e0e6"
+ },
  "events/falcon_tower_pass.webp": {
   "source": "pictures/Zombie_Activity_BattlePass1/pic_zl_banner1_2",
   "synced": "2aef39421d6d9ccefc69912b615c7ded"
