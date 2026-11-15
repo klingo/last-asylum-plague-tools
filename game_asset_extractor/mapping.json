@@ -303,6 +303,18 @@
   ],
   "synced": "cb75147d7f2aab911d79998922fb5b99"
  },
+ "events/shadow_blight.webp": {
+  "source": "pictures/Zombie_Act_WeekendBoss1/pic_kbsl_haibao_boss19",
+  "beside": [
+   {
+    "source": "pictures/Zombie_Act_WeekendBoss1/pic_kbsl_haibao_boss16"
+   },
+   {
+    "source": "pictures/Zombie_Act_WeekendBoss2/pic_kbsl_haibao_boss30"
+   }
+  ],
+  "synced": "231059e0e9d98c295a5374e5f1b72319"
+ },
  "events/strange_bazaar.webp": {
   "source": "pictures/Zombie_Act_GoldMarket/pic_gqjs_bg1",
   "synced": "f53fe114eabd5c448073037d85108b53"
