@@ -1,0 +1,3080 @@
+{
+ "pictures/EliminateMaster/icon_speed_jianzao": [
+  "speedup"
+ ],
+ "pictures/EliminateMaster/icon_speed_xunlian": [
+  "speedup"
+ ],
+ "pictures/EliminateMaster/icon_wannengsuipian_chengse": [
+  "shard"
+ ],
+ "pictures/EliminateMaster/icon_zsw_36": [
+  "curio"
+ ],
+ "pictures/EliminateMaster/icon_zuanshi": [
+  "diamond"
+ ],
+ "pictures/HeroHonor/pic_card5_04_sj": [
+  "claire",
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_01": [
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_02": [
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_03": [
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_04": [
+  "claire",
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_05": [
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_06": [
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_07": [
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_08": [
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_09": [
+  "arthur",
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_09_jx": [
+  "arthur",
+  "awaken",
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_10": [
+  "hero",
+  "marlena"
+ ],
+ "pictures/HeroIcon/pic_card4_10_jx": [
+  "awaken",
+  "hero",
+  "marlena"
+ ],
+ "pictures/HeroIcon/pic_card4_11": [
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_12": [
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_13": [
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_14": [
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_15": [
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_16": [
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_17": [
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_18": [
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_19": [
+  "hero",
+  "shadow"
+ ],
+ "pictures/HeroIcon/pic_card4_19_jx": [
+  "awaken",
+  "hero",
+  "shadow"
+ ],
+ "pictures/HeroIcon/pic_card4_20": [
+  "cynthia",
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_20_jx": [
+  "awaken",
+  "cynthia",
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_21": [
+  "annie",
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_21_jx": [
+  "annie",
+  "awaken",
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_22": [
+  "hero",
+  "joker"
+ ],
+ "pictures/HeroIcon/pic_card4_22_jx": [
+  "awaken",
+  "hero",
+  "joker"
+ ],
+ "pictures/HeroIcon/pic_card4_23": [
+  "harper",
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_24": [
+  "daskal",
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_25": [
+  "hero",
+  "red lady"
+ ],
+ "pictures/HeroIcon/pic_card4_26": [
+  "hero",
+  "ulfrid"
+ ],
+ "pictures/HeroIcon/pic_card4_27": [
+  "hero",
+  "zoya"
+ ],
+ "pictures/HeroIcon/pic_card4_28": [
+  "hero",
+  "louis"
+ ],
+ "pictures/HeroIcon/pic_card4_29": [
+  "bell",
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_30": [
+  "billy",
+  "hero"
+ ],
+ "pictures/HeroIcon/pic_card4_31": [
+  "hero",
+  "nicole"
+ ],
+ "pictures/MiddleAges_CastleGain/Icon_Item_Shield": [
+  "shield"
+ ],
+ "pictures/Middle_Hotel/icon_tongbi": [
+  "copper"
+ ],
+ "pictures/SeasonBoost/pic_sd_zengfu1": [
+  "sanctuary skin"
+ ],
+ "pictures/SeasonBoost/pic_sd_zengfu2": [
+  "cynthia",
+  "ranger"
+ ],
+ "pictures/SeasonBoost/pic_sd_zengfu3": [
+  "ulfrid",
+  "warlock"
+ ],
+ "pictures/SeasonBoost/pic_sd_zengfu4": [
+  "marlena",
+  "warrior"
+ ],
+ "pictures/SeasonBoost/pic_sd_zengfu5": [
+  "annie",
+  "warlock"
+ ],
+ "pictures/SeasonBoost/pic_sd_zengfu6": [
+  "daskal",
+  "warrior"
+ ],
+ "pictures/SeasonBoost/pic_sd_zengfu7": [
+  "louis",
+  "ranger"
+ ],
+ "pictures/SeasonBoost/pic_sd_zengfu8": [
+  "claire",
+  "warrior"
+ ],
+ "pictures/SoldierIcon100/pic_bingzhong01": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon100/pic_bingzhong02": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon100/pic_bingzhong03": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon100/pic_bingzhong04": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon100/pic_bingzhong05": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon100/pic_bingzhong06": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon100/pic_bingzhong07": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon100/pic_bingzhong08": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon100/pic_bingzhong09": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon100/pic_bingzhong10": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bingzhong01": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bingzhong02": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bingzhong03": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bingzhong04": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bingzhong05": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bingzhong06": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bingzhong07": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bingzhong08": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bingzhong09": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bingzhong10": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bz_sangsgi01": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bz_sangsgi02": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bz_sangsgi03": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bz_sangsgi04": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bz_sangsgi05": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bz_sangsgi06": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bz_sangsgi07": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bz_sangsgi08": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bz_sangsgi09": [
+  "soldier"
+ ],
+ "pictures/SoldierIcon144/pic_bz_sangsgi10": [
+  "soldier"
+ ],
+ "pictures/Zombie_Act_SupplyCall/icon_bjzh_yaoshi": [
+  "item",
+  "surprise encounter"
+ ],
+ "pictures/Zombie_Act_WeekendBoss/img_kbsl_boss16": [
+  "demon"
+ ],
+ "pictures/Zombie_Act_WeekendBoss/img_kbsl_boss19": [
+  "demon"
+ ],
+ "pictures/Zombie_Act_WeekendBoss/img_kbsl_boss30": [
+  "demon"
+ ],
+ "pictures/Zombie_Act_WeekendBoss/pic_kbsl_boss16": [
+  "demon"
+ ],
+ "pictures/Zombie_Act_WeekendBoss/pic_kbsl_boss19": [
+  "demon"
+ ],
+ "pictures/Zombie_Act_WeekendBoss/pic_kbsl_boss30": [
+  "demon"
+ ],
+ "pictures/Zombie_Act_WeekendBoss1/pic_kbsl_haibao_boss16": [
+  "demon"
+ ],
+ "pictures/Zombie_Act_WeekendBoss1/pic_kbsl_haibao_boss19": [
+  "demon"
+ ],
+ "pictures/Zombie_Act_WeekendBoss2/pic_kbsl_haibao_boss30": [
+  "demon"
+ ],
+ "pictures/Zombie_Act_WorldBoss/pic_sjboss_banner1": [
+  "demon"
+ ],
+ "pictures/Zombie_Act_WorldBoss/pic_sjboss_banner2": [
+  "demon"
+ ],
+ "pictures/Zombie_Act_WorldBoss/pic_sjboss_banner3": [
+  "demon"
+ ],
+ "pictures/Zombie_Act_WorldBoss1/pic_sjboss_haibao2": [
+  "demon"
+ ],
+ "pictures/Zombie_Act_WorldBoss1/pic_sjboss_haibao3": [
+  "demon"
+ ],
+ "pictures/Zombie_Act_WorldBoss2/pic_sjboss_haibao": [
+  "demon"
+ ],
+ "pictures/Zombie_AllianceBattleIcon/icon_speed_jianzao": [
+  "speedup"
+ ],
+ "pictures/Zombie_AllianceBattleIcon/icon_speed_tongyong": [
+  "speedup"
+ ],
+ "pictures/Zombie_AllianceBattleIcon/icon_speed_yanfa": [
+  "speedup"
+ ],
+ "pictures/Zombie_AllianceBattleIcon/icon_wannengsuipian_chengse": [
+  "shard"
+ ],
+ "pictures/Zombie_AreaReward1/pic_kaidi_boss_16": [
+  "demon"
+ ],
+ "pictures/Zombie_AreaReward1/pic_kaidi_boss_19": [
+  "demon"
+ ],
+ "pictures/Zombie_AreaReward1/pic_kaidi_boss_30": [
+  "demon"
+ ],
+ "pictures/Zombie_BuildingIcon/icon_food": [
+  "grain"
+ ],
+ "pictures/Zombie_BuildingIcon/icon_power": [
+  "herb"
+ ],
+ "pictures/Zombie_BuildingIcon/icon_wood": [
+  "timber"
+ ],
+ "pictures/Zombie_BurningFrostBattlefield/img_rs_banner1": [
+  "crystal cluster"
+ ],
+ "pictures/Zombie_BurningFrostBattlefield/img_rs_yugao": [
+  "crystal cluster"
+ ],
+ "pictures/Zombie_CastleSkinPic/Icon_Item_Skin_Castle1": [
+  "territory skin"
+ ],
+ "pictures/Zombie_CastleSkinPic/Icon_Item_Skin_Castle12_nvxing": [
+  "territory skin"
+ ],
+ "pictures/Zombie_CastleSkinPic/Icon_Item_Skin_Castle8_shuishanghuati": [
+  "territory skin"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_liaotianqipao0": [
+  "chat bubble"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_liaotianqipao1": [
+  "chat bubble"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_liaotianqipao2": [
+  "chat bubble"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_liaotianqipao3": [
+  "chat bubble"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_liaotianqipao4": [
+  "chat bubble"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_liaotianqipao5": [
+  "chat bubble"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_mingpai0": [
+  "nameplate"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_mingpai1": [
+  "nameplate"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_mingpai2": [
+  "nameplate"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_mingpai_etj": [
+  "nameplate"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_mingpai_gh01": [
+  "nameplate"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_mingpai_gh02": [
+  "nameplate"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_mingpai_gh03": [
+  "nameplate"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_mingpai_hd01": [
+  "nameplate"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_mingpai_lzbx": [
+  "nameplate"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_mingpai_wsj": [
+  "nameplate"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_mingpai_zb04": [
+  "nameplate"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_mingpai_zbph": [
+  "nameplate"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_mingpai_zqj": [
+  "nameplate"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_touxiangkuang0": [
+  "avatar frame"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_touxiangkuang1": [
+  "avatar frame"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_touxiangkuang10": [
+  "avatar frame"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_touxiangkuang11": [
+  "avatar frame"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_touxiangkuang12": [
+  "avatar frame"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_touxiangkuang13": [
+  "avatar frame"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_touxiangkuang14": [
+  "avatar frame"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_touxiangkuang15": [
+  "avatar frame"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_touxiangkuang2": [
+  "avatar frame"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_touxiangkuang3": [
+  "avatar frame"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_touxiangkuang4": [
+  "avatar frame"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_touxiangkuang5": [
+  "avatar frame"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_touxiangkuang6": [
+  "avatar frame"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_touxiangkuang7": [
+  "avatar frame"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_touxiangkuang8": [
+  "avatar frame"
+ ],
+ "pictures/Zombie_CastleSkinPic/pic_touxiangkuang9": [
+  "avatar frame"
+ ],
+ "pictures/Zombie_CityTemp/1001": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/1002": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/1004": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/1006": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/1007": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/1008": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/1010": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/1016": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/1017": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/1019": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/1020": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/1027": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5002": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5006": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5008": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5010": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5013": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5014": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5015": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5016": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5021": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5023": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5024": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5025": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5029": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5031": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5033": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5034": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5035": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5036": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5038": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5039": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5040": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5041": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5042": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5043": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5051": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp/5052": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp2/5044": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp2/5045": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp2/5046": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp2/5047": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp2/5049": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp2/5051": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp2/5051_1": [
+  "caravan"
+ ],
+ "pictures/Zombie_CityTemp2/5051_2": [
+  "caravan"
+ ],
+ "pictures/Zombie_CityTemp2/5051_3": [
+  "caravan"
+ ],
+ "pictures/Zombie_CityTemp2/5051_4": [
+  "caravan"
+ ],
+ "pictures/Zombie_CityTemp2/5051_5": [
+  "caravan"
+ ],
+ "pictures/Zombie_CityTemp2/5052": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp2/5053": [
+  "building"
+ ],
+ "pictures/Zombie_CityTemp2/5054": [
+  "building"
+ ],
+ "pictures/Zombie_CovertTask/pic_rqq_pinzhi1": [
+  "n"
+ ],
+ "pictures/Zombie_CovertTask/pic_rqq_pinzhi2": [
+  "r"
+ ],
+ "pictures/Zombie_CovertTask/pic_rqq_pinzhi3": [
+  "sr"
+ ],
+ "pictures/Zombie_CovertTask/pic_rqq_pinzhi4": [
+  "ssr"
+ ],
+ "pictures/Zombie_CovertTask/pic_rqq_pinzhi5": [
+  "ur"
+ ],
+ "pictures/Zombie_CovertTask/pic_ybrw_daxingxing": [
+  "star"
+ ],
+ "pictures/Zombie_CovertTask/pic_ybrw_xingxing": [
+  "star"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_01": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_02": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_03": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_04": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_05": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_06": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_07": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_08": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_09": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_10": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_11": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_12": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_13": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_14": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_15": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_16": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_17": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_18": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_19": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_20": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_21": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_22": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_23": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_24": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_25": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_26": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_27": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_28": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_29": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_30": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_31": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_32": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_33": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_34": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_35": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_36": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_37": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_38": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_39": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_40": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_41": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_42": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_43": [
+  "curio"
+ ],
+ "pictures/Zombie_DecorateBuildIcon/pic_zsw_44": [
+  "curio"
+ ],
+ "pictures/Zombie_Decoration/pic_zsw_xing": [
+  "star"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei1_1": [
+  "n"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei1_2": [
+  "gear",
+  "r",
+  "sword"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei1_3": [
+  "gear",
+  "sr",
+  "sword"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei1_4": [
+  "gear",
+  "ssr",
+  "sword"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei1_5": [
+  "gear",
+  "sword",
+  "ur"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei1_6": [
+  "gear",
+  "mr",
+  "sword"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei2_1": [
+  "armor",
+  "gear",
+  "n"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei2_2": [
+  "armor",
+  "gear",
+  "r"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei2_3": [
+  "armor",
+  "gear",
+  "sr"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei2_4": [
+  "armor",
+  "gear",
+  "ssr"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei2_5": [
+  "armor",
+  "gear",
+  "ur"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei2_6": [
+  "armor",
+  "gear",
+  "mr"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei3_1": [
+  "gauntlet",
+  "gear",
+  "n"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei3_2": [
+  "gauntlet",
+  "gear",
+  "r"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei3_3": [
+  "gauntlet",
+  "gear",
+  "sr"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei3_4": [
+  "gauntlet",
+  "gear",
+  "ssr"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei3_5": [
+  "gauntlet",
+  "gear",
+  "ur"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei3_6": [
+  "gauntlet",
+  "gear",
+  "mr"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei4_1": [
+  "boots",
+  "gear",
+  "n"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei4_2": [
+  "boots",
+  "gear",
+  "r"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei4_3": [
+  "boots",
+  "gear",
+  "sr"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei4_4": [
+  "boots",
+  "gear",
+  "ssr"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei4_5": [
+  "boots",
+  "gear",
+  "ur"
+ ],
+ "pictures/Zombie_EquipIcon/icon_equip_buwei4_6": [
+  "boots",
+  "gear",
+  "mr"
+ ],
+ "pictures/Zombie_Escort_1/feiting_01_leida_1": [
+  "caravan"
+ ],
+ "pictures/Zombie_Escort_1/feiting_02_leida_1": [
+  "caravan"
+ ],
+ "pictures/Zombie_Escort_1/pic_rqq_qiqiu2_1": [
+  "caravan"
+ ],
+ "pictures/Zombie_Escort_1/pic_rqq_qiqiu2_2": [
+  "caravan"
+ ],
+ "pictures/Zombie_Escort_1/pic_rqq_qiqiu2_3": [
+  "caravan"
+ ],
+ "pictures/Zombie_Escort_1/pic_rqq_qiqiu2_4": [
+  "caravan"
+ ],
+ "pictures/Zombie_Escort_1/pic_rqq_qiqiu2_5": [
+  "caravan"
+ ],
+ "pictures/Zombie_Escort_1/pic_rqq_qiqiu2_6": [
+  "caravan"
+ ],
+ "pictures/Zombie_Escort_1/pic_rqq_qiqiu3_6": [
+  "caravan"
+ ],
+ "pictures/Zombie_Escort_1/pic_rqq_qiqiu3_7": [
+  "caravan"
+ ],
+ "pictures/Zombie_Escort_1/reqiqiu_01_leida_1": [
+  "caravan"
+ ],
+ "pictures/Zombie_Escort_1/reqiqiu_02_leida_1": [
+  "caravan"
+ ],
+ "pictures/Zombie_Escort_1/reqiqiu_03_leida_1": [
+  "caravan"
+ ],
+ "pictures/Zombie_Escort_1/reqiqiu_04_leida_1": [
+  "caravan"
+ ],
+ "pictures/Zombie_Escort_1/reqiqiu_05_leida_1": [
+  "caravan"
+ ],
+ "pictures/Zombie_Escort_1/reqiqiu_06_leida_1": [
+  "caravan"
+ ],
+ "pictures/Zombie_Escort_2/pic_rqq_feitingbg2": [
+  "caravan"
+ ],
+ "pictures/Zombie_Escort_2/pic_rqq_feitingbg3": [
+  "caravan"
+ ],
+ "pictures/Zombie_Factory/pic_zzzx_icon1": [
+  "gear",
+  "sword"
+ ],
+ "pictures/Zombie_Factory/pic_zzzx_icon2": [
+  "armor",
+  "gear"
+ ],
+ "pictures/Zombie_Factory/pic_zzzx_icon3": [
+  "gauntlet",
+  "gear"
+ ],
+ "pictures/Zombie_Factory/pic_zzzx_icon4": [
+  "boots",
+  "gear"
+ ],
+ "pictures/Zombie_FullPreparing/pic_qmbz_lb1": [
+  "blades out"
+ ],
+ "pictures/Zombie_FullPreparing/pic_qmbz_lb2": [
+  "blades out"
+ ],
+ "pictures/Zombie_FullPreparing/pic_qmbz_lb3": [
+  "blades out"
+ ],
+ "pictures/Zombie_FullPreparing/pic_qmbz_lb4": [
+  "blades out"
+ ],
+ "pictures/Zombie_FullPreparing/pic_qmbz_lb5": [
+  "blades out"
+ ],
+ "pictures/Zombie_GotoIcon/icon_changpinduihuanquan": [
+  "curio"
+ ],
+ "pictures/Zombie_Hero/Hero_img_starBg": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/Patrol_img1_star0": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/Patrol_img1_star1": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/Patrol_img1_star2": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/Patrol_img1_star3": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/Patrol_img1_star4": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/Patrol_img_star0": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/Patrol_img_star1": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/Patrol_img_star2": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/Patrol_img_star3": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/Patrol_img_star4": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/ico_yx_dw1": [
+  "class",
+  "tank"
+ ],
+ "pictures/Zombie_Hero/ico_yx_dw2": [
+  "carry",
+  "class"
+ ],
+ "pictures/Zombie_Hero/ico_yx_dw3": [
+  "class",
+  "support"
+ ],
+ "pictures/Zombie_Hero/ico_yx_zyy1": [
+  "ranger"
+ ],
+ "pictures/Zombie_Hero/ico_yx_zyy2": [
+  "warlock"
+ ],
+ "pictures/Zombie_Hero/ico_yx_zyy3": [
+  "warrior"
+ ],
+ "pictures/Zombie_Hero/pic_xing0-0": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_0": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_1": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_10": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_11": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_12": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_13": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_14": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_15": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_16": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_17": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_18": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_19": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_2": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_20": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_21": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_22": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_23": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_24": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_25": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_26": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_27": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_28": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_29": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_3": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_30": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_31": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_32": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_33": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_34": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_35": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_36": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_37": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_38": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_39": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_4": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_40": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_41": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_42": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_43": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_44": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_45": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_46": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_47": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_48": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_49": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_5": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_50": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_6": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_7": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_8": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_9": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_huang": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_xing_hui": [
+  "star"
+ ],
+ "pictures/Zombie_Hero/pic_yx_3sr": [
+  "sr"
+ ],
+ "pictures/Zombie_Hero/pic_yx_4sr": [
+  "ssr"
+ ],
+ "pictures/Zombie_Hero/pic_yx_5sr": [
+  "ur"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_01": [
+  "hero"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_02": [
+  "hero"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_03": [
+  "hero"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_04": [
+  "claire",
+  "hero",
+  "warrior"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_04_sj": [
+  "claire",
+  "hero",
+  "warrior"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_05": [
+  "hero"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_06": [
+  "hero"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_07": [
+  "hero"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_08": [
+  "hero"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_09": [
+  "arthur",
+  "hero",
+  "warrior"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_09_jx": [
+  "arthur",
+  "awaken",
+  "hero",
+  "warrior"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_10": [
+  "hero",
+  "marlena",
+  "warrior"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_10_jx": [
+  "awaken",
+  "hero",
+  "marlena",
+  "warrior"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_11": [
+  "hero"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_12": [
+  "hero"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_13": [
+  "hero"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_14": [
+  "hero"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_14_jx": [
+  "hero"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_15": [
+  "hero"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_16": [
+  "hero"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_17": [
+  "hero"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_18": [
+  "hero"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_19": [
+  "hero",
+  "ranger",
+  "shadow"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_19_jx": [
+  "awaken",
+  "hero",
+  "ranger",
+  "shadow"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_20": [
+  "cynthia",
+  "hero",
+  "ranger"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_20_jx": [
+  "awaken",
+  "cynthia",
+  "hero",
+  "ranger"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_21": [
+  "annie",
+  "hero",
+  "warlock"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_21_jx": [
+  "annie",
+  "awaken",
+  "hero",
+  "warlock"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_22": [
+  "hero",
+  "joker",
+  "warlock"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_22_jx": [
+  "awaken",
+  "hero",
+  "joker",
+  "warlock"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_23": [
+  "harper",
+  "hero",
+  "warrior"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_24": [
+  "daskal",
+  "hero",
+  "warrior"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_25": [
+  "hero",
+  "ranger",
+  "red lady"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_26": [
+  "hero",
+  "ulfrid",
+  "warlock"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_27": [
+  "hero",
+  "warrior",
+  "zoya"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_28": [
+  "hero",
+  "louis",
+  "ranger"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_29": [
+  "bell",
+  "hero",
+  "ranger"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_30": [
+  "billy",
+  "hero",
+  "warlock"
+ ],
+ "pictures/Zombie_HeroMarch/pic_card6_31": [
+  "hero",
+  "nicole",
+  "warlock"
+ ],
+ "pictures/Zombie_HeroUniqueWeapon/icon_ue_30006": [
+  "exclusive weapon"
+ ],
+ "pictures/Zombie_HeroUniqueWeapon/icon_ue_50001": [
+  "daskal",
+  "exclusive weapon"
+ ],
+ "pictures/Zombie_HeroUniqueWeapon/icon_ue_50005": [
+  "exclusive weapon",
+  "louis"
+ ],
+ "pictures/Zombie_HeroUniqueWeapon/icon_ue_50006": [
+  "exclusive weapon"
+ ],
+ "pictures/Zombie_HeroUniqueWeapon/icon_ue_50010": [
+  "exclusive weapon",
+  "ulfrid"
+ ],
+ "pictures/Zombie_HeroUniqueWeapon/icon_ue_50011": [
+  "annie",
+  "exclusive weapon"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_Box_Explorer_2": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_MoveCity_Command": [
+  "relocate"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_MoveCity_Newbie": [
+  "relocate"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_MoveCity_Random": [
+  "relocate"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_Shield": [
+  "shield"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_TroopSpeed1": [
+  "vip"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone01": [
+  "epigraph",
+  "ranger"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone02": [
+  "epigraph",
+  "warlock"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone03": [
+  "epigraph",
+  "warrior"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone04": [
+  "epigraph",
+  "ranger"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone05": [
+  "epigraph",
+  "warlock"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone06": [
+  "epigraph",
+  "warrior"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone07": [
+  "epigraph",
+  "ranger"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone08": [
+  "epigraph",
+  "warlock"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone09": [
+  "epigraph",
+  "warrior"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone10": [
+  "epigraph",
+  "ranger"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone11": [
+  "epigraph",
+  "warlock"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone12": [
+  "epigraph",
+  "warrior"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone13": [
+  "epigraph",
+  "ranger"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone14": [
+  "epigraph",
+  "warlock"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone15": [
+  "epigraph",
+  "warrior"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone16": [
+  "epigraph",
+  "ranger"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone17": [
+  "epigraph",
+  "warlock"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone18": [
+  "epigraph",
+  "warrior"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone19": [
+  "epigraph",
+  "ranger"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone20": [
+  "epigraph",
+  "warlock"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone21": [
+  "epigraph",
+  "warrior"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone22": [
+  "epigraph",
+  "ranger"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone23": [
+  "epigraph",
+  "warlock"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone24": [
+  "epigraph",
+  "warrior"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone25": [
+  "epigraph"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone26": [
+  "epigraph"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone27": [
+  "epigraph"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone28": [
+  "epigraph"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone29": [
+  "epigraph"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone30": [
+  "epigraph"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone31": [
+  "epigraph"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_Item_drone32": [
+  "epigraph"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_item_UAVSkillChip_01": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_item_UAVSkillChip_02": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_item_UAVSkillChip_03": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_item_UAVSkillChip_04": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/Icon_item_UAVSkillChip_05": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_Item_Skin_Castle11_jinzita": [
+  "sanctuary skin"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_Item_Skin_Castle8_shuishanghuati": [
+  "sanctuary skin"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_awaken_suipian_09": [
+  "arthur",
+  "awaken",
+  "awaken shard",
+  "shard"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_awaken_suipian_10": [
+  "awaken",
+  "awaken shard",
+  "marlena",
+  "shard"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_awaken_suipian_19": [
+  "awaken",
+  "awaken shard",
+  "shadow",
+  "shard"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_awaken_suipian_20": [
+  "awaken",
+  "awaken shard",
+  "cynthia",
+  "shard"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_awaken_suipian_21": [
+  "annie",
+  "awaken",
+  "awaken shard",
+  "shard"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_awaken_suipian_22": [
+  "awaken",
+  "awaken shard",
+  "joker",
+  "shard"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_building_plans_41": [
+  "sanctuary skin"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_building_plans_42": [
+  "sanctuary skin"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_building_plans_43": [
+  "sanctuary skin"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_building_plans_45": [
+  "sanctuary skin"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_building_plans_46": [
+  "sanctuary skin"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_building_plans_47": [
+  "sanctuary skin"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_building_plans_48": [
+  "sanctuary skin"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_building_plans_49": [
+  "sanctuary skin"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_building_plans_50": [
+  "sanctuary skin"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_building_plans_51": [
+  "sanctuary skin"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_building_plans_52": [
+  "sanctuary skin"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_changpinbox01": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_changpinbox02": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_changpinbox03": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_changpinbox04": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_changpinbox05": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_changpinbox06": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_changpinbox07": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_changpinbox08": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_changpinbox09": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_changpinduihuanquan": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_cqsd_jiajiang": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_cuihuaji": [
+  "raven"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_dfw_baoxiang01": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_dfw_baoxiang02": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_dfw_baoxiang03": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_dfw_baoxiang04": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_dfw_baoxiang05": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_equip_dazaocailiaobox": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_equip_qianghuacailiaobox": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_equip_qianghuashi": [
+  "gear"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_equip_suijibox_chengse": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_equip_suijibox_lanse": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_equip_suijibox_zise": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_equip_tuzi_chengse": [
+  "gear"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_equip_tuzi_hongse": [
+  "gear"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_equip_zixuanbox": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_equip_zixuanbox_yinse": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_eraCoal": [
+  "coal"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_eraIron": [
+  "iron",
+  "resource"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_food": [
+  "grain"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_foodbox": [
+  "grain"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_haohuazixuan": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_haohuazixuanbox": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_herojingyan": [
+  "antitoxin"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_herojingyanbox": [
+  "antitoxin"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_herozhaohuanquan": [
+  "hero",
+  "recruit"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_herozixuanbox_awaken": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_herozixuanbox_awaken_only": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_herozixuanbox_chengse05": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_herozixuanbox_chengse06": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_herozixuanbox_chengse08": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_herozixuanbox_chengse09": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_herozixuanbox_chengse10": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_herozixuanbox_chengse11": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_herozixuanbox_chengse12": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_herozixuanbox_chengse13": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_item_box_resource_all": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_item_box_resource_all1": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_item_box_resource_all2": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_item_box_resource_all3": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_item_box_resource_all4": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_item_drone_chipMaterial_common": [
+  "epigraph",
+  "shard"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_item_drone_chipMaterial_seniorl": [
+  "epigraph",
+  "shard"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_item_goldMarket": [
+  "strange bazaar"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_jiasubujixiang": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_ldlb_jianzao_2": [
+  "queue"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_ldlb_jianzao_3": [
+  "queue"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_ldlb_jianzao_4": [
+  "queue"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_leidazengjia": [
+  "falcon quest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_lianmenggongxiandian": [
+  "alliance",
+  "coin"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_lianmmengliwubox01": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_lianmmengliwubox02": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_lianmmengliwubox03": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_lianmmengliwubox04": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_lianmmengliwubox05": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_lianmmengliwubox06": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_lz_jinengchongzhishu": [
+  "lord"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_lz_kangxingts_week": [
+  "vip"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_lz_lingzhuzyjy": [
+  "lord"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_lz_zhiyechongzhi": [
+  "lord"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_lz_zhiyejinengdian": [
+  "lord"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_maoyiqiyue": [
+  "caravan"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_nengli_box01": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_nengli_box02": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_nengli_box03": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_nengli_box04": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_nengli_box05": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_points04": [
+  "pass"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_points05": [
+  "pass"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_points09": [
+  "pass"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_points10": [
+  "coin"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_points11": [
+  "pass"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_power": [
+  "herb"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_powerbox": [
+  "herb"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_qiguanqianghuasuijibox1": [
+  "chest",
+  "raven"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_qiguanqianghuasuijibox2": [
+  "chest",
+  "raven"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_qiguanzixuanbox1": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_qiguanzixuanbox2": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_resourcebox": [
+  "resource"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_shrjinhua": [
+  "raven"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_sjsg_jinengdian": [
+  "crystal cluster"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_sjsg_shuijing": [
+  "crystal cluster"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_speed_jianzao": [
+  "speedup"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_speed_tongyong": [
+  "speedup"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_speed_xunlian": [
+  "speedup"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_speed_yanfa": [
+  "speedup"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_speed_yiliao": [
+  "speedup"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_01": [
+  "shard",
+  "sr"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_02": [
+  "shard",
+  "sr"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_03": [
+  "shard",
+  "ssr"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_04": [
+  "shard",
+  "ssr"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_05": [
+  "shard",
+  "ssr"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_06": [
+  "shard",
+  "ssr"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_07": [
+  "shard",
+  "ssr"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_08": [
+  "shard",
+  "ssr"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_09": [
+  "arthur",
+  "shard",
+  "ur",
+  "warrior"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_10": [
+  "marlena",
+  "shard",
+  "ur",
+  "warrior"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_11": [
+  "shard",
+  "sr"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_12": [
+  "shard",
+  "ssr"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_13": [
+  "shard",
+  "ssr"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_14": [
+  "shard",
+  "ssr"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_15": [
+  "shard",
+  "sr"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_16": [
+  "shard",
+  "ssr"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_17": [
+  "shard",
+  "ssr"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_18": [
+  "shard",
+  "ssr"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_19": [
+  "ranger",
+  "shadow",
+  "shard",
+  "ur"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_20": [
+  "cynthia",
+  "ranger",
+  "shard",
+  "ur"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_21": [
+  "annie",
+  "shard",
+  "ur",
+  "warlock"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_22": [
+  "joker",
+  "shard",
+  "ur",
+  "warlock"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_23": [
+  "harper",
+  "shard",
+  "ur",
+  "warrior"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_24": [
+  "daskal",
+  "shard",
+  "ur",
+  "warrior"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_25": [
+  "ranger",
+  "red lady",
+  "shard",
+  "ur"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_26": [
+  "shard",
+  "ulfrid",
+  "ur",
+  "warlock"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_27": [
+  "shard",
+  "ur",
+  "warrior",
+  "zoya"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_28": [
+  "louis",
+  "ranger",
+  "shard",
+  "ur"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_29": [
+  "bell",
+  "ranger",
+  "shard",
+  "ur"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_30": [
+  "billy",
+  "shard",
+  "ur",
+  "warlock"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_suipian_31": [
+  "nicole",
+  "shard",
+  "ur",
+  "warlock"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_tiezhibiaoqiang": [
+  "cheese"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_tili": [
+  "stamina"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_tongbi": [
+  "copper"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_touxiangkuang1": [
+  "avatar frame",
+  "frame"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_touxiangkuang10": [
+  "avatar frame",
+  "frame"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_touxiangkuang11": [
+  "avatar frame",
+  "frame"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_touxiangkuang13": [
+  "avatar frame",
+  "frame"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_touxiangkuang14": [
+  "avatar frame",
+  "frame"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_touxiangkuang15": [
+  "avatar frame",
+  "frame"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_touxiangkuang4": [
+  "avatar frame",
+  "frame"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_touxiangkuang5": [
+  "avatar frame",
+  "frame"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_touxiangkuang6": [
+  "avatar frame",
+  "frame"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_touxiangkuang7": [
+  "avatar frame",
+  "frame"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_touxiangkuang8": [
+  "avatar frame",
+  "frame"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_touxiangkuang9": [
+  "avatar frame",
+  "frame"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_ue_30006": [
+  "exclusive weapon"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_ue_50001": [
+  "exclusive weapon"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_ue_50005": [
+  "exclusive weapon"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_ue_50006": [
+  "exclusive weapon"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_ue_50010": [
+  "exclusive weapon"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_ue_50011": [
+  "exclusive weapon"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_ue_zixuanbox_1": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_vip": [
+  "vip"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_wannengsuipian_awaken": [
+  "awaken",
+  "awaken shard",
+  "shard"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_wannengsuipian_chengse": [
+  "shard"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_wannengsuipian_lanse": [
+  "shard"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_wannengsuipian_zise": [
+  "shard"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_wood": [
+  "timber"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_woodbox": [
+  "timber"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_worker_token": [
+  "survivor"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_xianfengbi_1": [
+  "pass"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_yjs_gongzuotai": [
+  "queue"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_yuekacaijijiacheng": [
+  "vip"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_yuekachaojicheku": [
+  "vip"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_yuekajianshangbuff": [
+  "vip"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_yuekajianzaojiasu": [
+  "vip"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zhongzhuangbox": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zhuanwusuipian_50001": [
+  "weapon shard"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zhuanwusuipian_50005": [
+  "weapon shard"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zhuanwusuipian_50010": [
+  "weapon shard"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zhuanwutongyong": [
+  "weapon shard"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zombiehorde_radar": [
+  "undead invasion"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zqj_xingyuebaoxiang": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zqj_xingyuexinyunxiang": [
+  "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_01": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_03": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_04": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_05": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_06": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_07": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_08": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_09": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_11": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_12": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_13": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_14": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_15": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_16": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_18": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_19": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_20": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_21": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_23": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_24": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_25": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_26": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_27": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_28": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_29": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_30": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_31": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_32": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_33": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_34": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_35": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_36": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_37": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_38": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_39": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_40": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_41": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_42": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_43": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zsw_44": [
+  "curio"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_zuanshi": [
+  "diamond"
+ ],
+ "pictures/Zombie_ItemIcon144/item_activity_beizhanjinquan": [
+  "blades out"
+ ],
+ "pictures/Zombie_ItemIcon144/item_activity_zhaohuanyaoshi": [
+  "surprise encounter"
+ ],
+ "pictures/Zombie_ItemIcon144/uav_skin_012": [
+  "raven"
+ ],
+ "pictures/Zombie_MallGiftIcon/pic_mrbm_mingwen": [
+  "epigraph",
+  "pass"
+ ],
+ "pictures/Zombie_MallGiftIcon/pic_mzth_wannengsuipian": [
+  "pack"
+ ],
+ "pictures/Zombie_MallGiftIcon/pic_zk_peitu2": [
+  "herb",
+  "pass"
+ ],
+ "pictures/Zombie_MallGiftIcon/pic_zk_peitu3": [
+  "pass"
+ ],
+ "pictures/Zombie_MallGiftIcon/pic_zk_peitu5": [
+  "antitoxin",
+  "pass"
+ ],
+ "pictures/Zombie_MallGiftIcon2/pic_lb_libao01": [
+  "curio"
+ ],
+ "pictures/Zombie_MallGiftIcon2/pic_lb_zuanshi": [
+  "diamond"
+ ],
+ "pictures/Zombie_MallGiftIcon2/pic_lb_zuanshi2": [
+  "diamond"
+ ],
+ "pictures/Zombie_MallGiftIcon2/pic_lb_zuanshi3": [
+  "diamond"
+ ],
+ "pictures/Zombie_MallGiftIcon2/pic_lb_zuanshi4": [
+  "diamond"
+ ],
+ "pictures/Zombie_MallGiftIcon2/pic_lb_zuanshi5": [
+  "diamond"
+ ],
+ "pictures/Zombie_MallGiftIcon2/pic_mzth_wannengsuipian": [
+  "pack"
+ ],
+ "pictures/Zombie_Mall_Voucher/icon_wg_jinquan": [
+  "banknote"
+ ],
+ "pictures/Zombie_Mall_Voucher/pic_lb_jinquan": [
+  "banknote"
+ ],
+ "pictures/Zombie_Mall_Voucher/pic_lb_jinquan2": [
+  "banknote"
+ ],
+ "pictures/Zombie_Mall_Voucher/pic_lb_jinquan3": [
+  "banknote"
+ ],
+ "pictures/Zombie_Mall_Voucher/pic_lb_jinquan4": [
+  "banknote"
+ ],
+ "pictures/Zombie_Mall_Voucher/pic_lb_jinquan5": [
+  "banknote"
+ ],
+ "pictures/Zombie_Mall_Voucher/pic_lb_jinquan6": [
+  "banknote"
+ ],
+ "pictures/Zombie_Mall_Voucher/pic_zs_jinquanpeitu": [
+  "banknote"
+ ],
+ "pictures/Zombie_Pub/icon_herozhaohuanquan": [
+  "recruit"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_00_3": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_00_4": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_00_5": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_00_6": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_10_1": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_10_2": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_10_3": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_10_4": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_19_1": [
+  "shadow",
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_19_2": [
+  "shadow",
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_19_3": [
+  "shadow",
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_19_4": [
+  "shadow",
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_20_1": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_20_2": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_20_3": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_20_4": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_21_1": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_21_2": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_21_3": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_21_4": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_22_1": [
+  "joker",
+  "skill",
+  "warlock"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_22_2": [
+  "joker",
+  "skill",
+  "warlock"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_22_3": [
+  "joker",
+  "skill",
+  "warlock"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_22_4": [
+  "joker",
+  "skill",
+  "warlock"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_23_1": [
+  "harper",
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_23_2": [
+  "harper",
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_23_3": [
+  "harper",
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_23_4": [
+  "harper",
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_24_1": [
+  "daskal",
+  "skill",
+  "warrior"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_24_2": [
+  "daskal",
+  "skill",
+  "warrior"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_24_3": [
+  "daskal",
+  "skill",
+  "warrior"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_24_4": [
+  "daskal",
+  "skill",
+  "warrior"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_25_1": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_25_2": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_25_3": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_25_4": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_26_1": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_26_2": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_26_3": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_26_4": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_27_1": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_27_2": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_27_3": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_27_4": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_28_1": [
+  "louis",
+  "ranger",
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_28_2": [
+  "louis",
+  "ranger",
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_28_3": [
+  "louis",
+  "ranger",
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_28_4": [
+  "louis",
+  "ranger",
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_29_1": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_29_2": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_29_3": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_29_4": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_30_1": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_30_2": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_30_3": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_30_4": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_31_1": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_31_2": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_31_3": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_31_4": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_4_1_js": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_4_2_js": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_4_3_js": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_4_4_js": [
+  "skill"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_9_1": [
+  "arthur",
+  "skill",
+  "warrior"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_9_2": [
+  "arthur",
+  "skill",
+  "warrior"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_9_3": [
+  "arthur",
+  "skill",
+  "warrior"
+ ],
+ "pictures/Zombie_SkillIcon144/skill_9_4": [
+  "arthur",
+  "skill",
+  "warrior"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian1_1": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian1_2": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian1_3": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian1_4": [
+  "raven"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian2_1": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian2_2": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian2_3": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian2_4": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian3_1": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian3_2": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian3_3": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian3_4": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian4_1": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian4_2": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian4_3": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian4_4": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian5_1": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian5_2": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian5_3": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian5_4": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian6_1": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian6_2": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian6_3": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVEquip/icon_shr_xinpian6_4": [
+  "raven",
+  "raven gear"
+ ],
+ "pictures/Zombie_UAVSkillClip/Icon_item_UAVSkillChip_05": [
+  "chest"
+ ],
+ "pictures/Zombie_Vip/pic_vip_chengse": [
+  "vip"
+ ],
+ "pictures/Zombie_Vip/pic_vip_chengse2": [
+  "vip"
+ ],
+ "pictures/Zombie_Vip/pic_vip_chengse3": [
+  "vip"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz01_03_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz01_03_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz04_03_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz04_03_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz04_03_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz04_03_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz07_03_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz07_03_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz07_03_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz07_03_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz08_03_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz08_03_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz08_03_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz08_03_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz13_03_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz13_03_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz13_03_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz13_03_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz14_03_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz14_03_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz14_03_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz14_03_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz15_03_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz15_03_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz15_03_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz15_03_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz16_03_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz16_03_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz16_03_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz22_03_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz22_03_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz22_03_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz22_03_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz27_03_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz27_03_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz27_03_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz27_03_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz60_03_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz60_03_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz60_03_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerBigIcon/pic_xcz60_03_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz01_02_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz01_02_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz04_02_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz04_02_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz04_02_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz04_02_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz07_02_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz07_02_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz07_02_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz07_02_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz08_02_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz08_02_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz08_02_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz08_02_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz13_02_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz13_02_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz13_02_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz13_02_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz14_02_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz14_02_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz14_02_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz14_02_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz15_02_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz15_02_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz15_02_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz15_02_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz16_02_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz16_02_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz16_02_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz16_02_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz22_02_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz22_02_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz22_02_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz22_02_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz27_02_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz27_02_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz27_02_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz27_02_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz60_02_01": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz60_02_02": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz60_02_03": [
+  "survivor"
+ ],
+ "pictures/Zombie_WorkerIcon/pic_xcz60_02_04": [
+  "survivor"
+ ],
+ "pictures/Zombie_honorCard1/pic_yz_peitu1": [
+  "expedition battle"
+ ],
+ "pictures/Zombie_honorCard1/pic_yz_peitu2": [
+  "expedition battle"
+ ],
+ "pictures/Zombie_honorCard2/pic_yz_peitu3": [
+  "expedition battle"
+ ],
+ "pictures/Zombie_honorExpedition/pic_yz_yeqian1": [
+  "warrior"
+ ],
+ "pictures/Zombie_honorExpedition/pic_yz_yeqian2": [
+  "warlock"
+ ],
+ "pictures/Zombie_honorExpedition/pic_yz_yeqian3": [
+  "ranger"
+ ],
+ "pictures/Zombie_honorExpedition/pic_yz_yeqian4": [
+  "warrior"
+ ],
+ "pictures/Zombie_honorExpedition/pic_yz_yeqian5": [
+  "warlock"
+ ],
+ "pictures/Zombie_honorExpedition/pic_yz_yeqian6": [
+  "ranger"
+ ],
+ "pictures/Zombie_honorExpedition/pic_yz_zhenying1": [
+  "warlock"
+ ],
+ "pictures/Zombie_honorExpedition/pic_yz_zhenying2": [
+  "warrior"
+ ],
+ "pictures/Zombie_honorExpedition/pic_yz_zhenying3": [
+  "ranger"
+ ]
+}

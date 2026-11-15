@@ -24,7 +24,7 @@ install-time asset pack (`split_abPack1.apk`) and the hot-updated ones on the sd
    What is new or changed in the language texts is recorded per extract run (`out/texts.json`), like the pictures'.
 3. **Match** compares every PNG and WebP of `webapp/public/assets` with the sprites by a perceptual hash
    (`out/matches.json`).
-4. The **gallery** (`out/index.html`) shows it all: search, folders, "new or changed since marked as seen" (or only new, or only changed), "not in the
+4. The **gallery** (`out/index.html`) shows it all: search (names and your tags, see Tags), folders, a tag filter, "new or changed since marked as seen" (or only new, or only changed), "not in the
    webapp yet" / "already in the webapp" (by look, or as the source of a mapped image, so cropped ones count too), resource version
    a picture was first extracted in (each extract run records the game's resource version, shown as `1.0.818`; the first run's
    version means "this or earlier"), size (the four most frequent sizes, or a range of the longer side). Click a picture to copy its id. **Mark all as seen** (`main.py baseline`, the one button of the Scan & download group, for pictures and texts together) starts
@@ -69,6 +69,17 @@ switch the game to another language once and Download & extract it). A text's id
     strings. Preview first (`main.py text-sync`, or Texts > Preview sync); `--apply` writes. It changes the webapp's
     repository: review it there with `git diff` and commit it there.
 
+### Tags
+
+The pictures' own names are pinyin and abbreviations (`icon_dfw_baoxiang05`), so you can give them tags of your own (`chest`,
+`hero`, `portrait`, ...) and find them by those: the gallery's search looks through the names and the tags, and the **Any tag**
+filter lists every tag with the number of pictures that have it. Nothing is tagged automatically.
+
+Ctrl-click pictures in the gallery (shift-click: a range), type tags separated by commas in the bar that appears at the bottom,
+**Add** or **Remove**; a tag chip in the bar (`×`) removes that tag from all selected pictures. The tags are saved in `tags.json`
+(committed, next to `mapping.json`, `{picture id: [tags]}`) through a small server that listens on this computer only, which
+"Open gallery" / `main.py gallery --serve` start. Opened as a plain file the gallery shows and filters tags but cannot save.
+
 ### History (which version added what)
 
 `out/` is a cache you may delete, but *which game version added or changed which picture and text* cannot be read from the
@@ -107,6 +118,7 @@ the Texts group (Open texts, Edit mapping, Preview sync / Sync to webapp). The s
 python main.py check
 python main.py scan                       # what is new since the last download
 python main.py update                     # pull + extract + match + gallery (new / changed only)
+python main.py gallery --serve            # the gallery on a local server, so tags can be saved (the window's "Open gallery" does this)
 python main.py update --types effects,models   # pictures and game texts are always taken; more kinds: effects, models, scenes, layouts, other (or all, about 1 GB)
 python main.py baseline                   # everything extracted so far counts as seen
 python main.py map --accept 10            # map near-identical suggestions (distance <= 10 of 256)

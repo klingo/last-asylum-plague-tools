@@ -27,7 +27,7 @@ Run from the tool's own folder, with its venv (`.venv/Scripts/python`; set it up
 `.venv/Scripts/python -m pip install -r requirements.txt`; use `python -m pip`, a moved venv's `pip.exe` points at the old path).
 
 ```bash
-.venv/Scripts/python -m pytest -q          # the tool's tests (game_asset_extractor: 182, mahjong_minigame_helper: 64)
+.venv/Scripts/python -m pytest -q          # the tool's tests (game_asset_extractor: 192, mahjong_minigame_helper: 64)
 .venv/Scripts/python main.py --help        # the CLI (game_asset_extractor: also gui.py / start_gui.bat; mahjong: gui.py)
 ```
 
@@ -54,6 +54,9 @@ webapp checkout and a small screen: tests stub the webapp's folder and size the 
   `data/*.json` is; it is data, edited through the editor (`text_mapping_gui.py`) or `main.py text-map`. `text-sync --apply` rewrites
   the webapp's data files (every language, English included) and formats them with the webapp's prettier: say so in the report,
   never commit them. `name.de` in the webapp stays the game's own text: it only ever comes from here, never from a guess.
+- Tags (the gallery): only the user's own, in `tags.json` (committed, `tags.py`, `{picture id: [tags]}`), edited only through the
+  gallery's local server (`gallery.serve`, 127.0.0.1, `POST /tags`; the window's "Open gallery" / `gallery --serve`), not by hand.
+  No automatic tagging (game tables, AI): it was tried and dropped, the user wants manual tags only; don't re-propose it.
 - `history.json` (committed, `history.py`) is the only copy of which game version added or changed each picture and text (runs merged per resource version,
   and per picture / text the run, only where it differs from the first run); extract writes it at the end of every run and a cache
   that starts empty is rebuilt from it. Commit it after each game update. The "seen" pointer (`meta.baseline`) stays local.

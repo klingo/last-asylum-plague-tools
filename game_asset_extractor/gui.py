@@ -5,8 +5,8 @@
 Every button runs the matching `main.py` command in the background and shows its output below. "Scan" lists what is
 new or changed in the game since the last download (per folder), "Download & extract" fetches exactly that and makes
 the PNGs, "Mark all as seen" starts the NEW / CHANGED badges of pictures and texts over. The Pictures group: "Open gallery"
-shows the game's pictures in the browser, "Edit mapping" opens the editor that says which game picture each webapp image
-is made from (mapping_gui.py), "Preview sync" / "Sync to webapp" make the webapp's files from those pictures,
+shows the game's pictures in the browser (from a local server, so the tags you give them are saved), "Edit mapping" opens
+the editor that says which game picture each webapp image is made from (mapping_gui.py), "Preview sync" / "Sync to webapp" make the webapp's files from those pictures,
 and the Import row adds a new picture to the webapp's assets. The Texts group opens the browser over every extracted game text,
 the editor that says which game text each of the webapp's texts is (text_mapping_gui.py), and previews / writes the game's
 wording and translations into the webapp's data files.
@@ -63,7 +63,8 @@ TIPS = {
     "required": "Always scanned, downloaded and extracted. Pictures are the atlases, banners and backgrounds; the game's texts, "
                 "tables and scripts hold the texts of every language the game has downloaded.",
     "types": "Optional and much bigger (all of them: about 1 GB). What textures they hold become pictures too.",
-    "gallery": "Opens the gallery (out/index.html) in the browser. Click a picture there to copy its id.",
+    "gallery": "Opens the gallery in the browser (served from this computer only, so tags can be saved). Click a picture to copy its id, "
+               "ctrl-click (shift-click: a range) to select pictures and tag them.",
     "seen": "Everything extracted so far counts as seen, pictures and texts together (one pointer): the NEW / CHANGED badges of "
             "the gallery and of the text browser and their \"new or changed\" filters start over and only show what the next "
             "game updates bring.",
@@ -141,6 +142,7 @@ class Launcher:
         self.lines: queue.Queue = queue.Queue()  # output lines, None = command ended
         self.summaries: queue.Queue = queue.Queue()  # the texts' summary, worked out in a thread (it takes a few seconds)
         self.action = ""
+        self.gallery = None  # the gallery's local server while one is open (it saves the tags)
         root.title("Last Asylum: Plague - Game Asset Extractor")
         root.minsize(700, 700)
         pad = {"padx": 8, "pady": 4}
@@ -325,10 +327,16 @@ class Launcher:
         return (row["new"] or "", row["changed"] or "", row["unchanged"] or "", f"{row['kb'] / 1024:.1f}" if row["kb"] else "")
 
     def open_gallery(self) -> None:
-        page = C.OUT / "index.html"
-        if page.exists():
-            G.write()  # the webapp images mapped since the last run count as "in webapp"
-            webbrowser.open(page.as_uri())
+        if (C.OUT / "index.html").exists():
+            try:
+                if self.gallery:
+                    G.stop(self.gallery)
+                    self.gallery = None
+                self.gallery, url = G.start()  # written again: the webapp images mapped since the last run count as "in webapp"
+            except (ValueError, OSError) as e:  # e.g. a tags.json that is not valid JSON
+                self.write(f"!! {e}\n")
+                return
+            webbrowser.open(url)
         else:
             self.write("! no gallery yet: run Download & extract first\n")
 
@@ -341,6 +349,8 @@ class Launcher:
     def close(self) -> None:
         if self.proc is not None and self.proc.poll() is None:
             self.proc.terminate()
+        if self.gallery:
+            G.stop(self.gallery)
         self.root.destroy()
 
     # --- output --------------------------------------------------------------------------------------------------

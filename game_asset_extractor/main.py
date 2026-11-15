@@ -5,7 +5,7 @@
     python main.py pull                        scan, then copy the new / changed bundles into cache/
     python main.py extract                     cut the pulled bundles into PNGs (out/<type>/<group>/<name>.png)
     python main.py match                       which sprites the webapp already has (out/matches.json)
-    python main.py gallery                     write out/index.html
+    python main.py gallery [--serve]           write out/index.html (--serve: and open it on a local server, where tags can be edited)
     python main.py baseline                    mark everything extracted so far as seen (NEW / CHANGED start over)
     python main.py history                     write history.json (which version added / changed what) from the cache; commit it
     python main.py update                      pull + extract + match + gallery
@@ -26,6 +26,8 @@ from __future__ import annotations
 
 import argparse
 import sys
+import threading
+import webbrowser
 
 import config as C
 import device as D
@@ -98,7 +100,16 @@ def do_match(args) -> None:
 
 
 def do_gallery(args) -> None:
-    print(f"gallery: {G.write()}")
+    if not args.serve:
+        print(f"gallery: {G.write()}")
+        return
+    server, url = G.start()
+    print(f"gallery: {url} (Ctrl+C stops the server)", flush=True)
+    webbrowser.open(url)
+    try:
+        threading.Event().wait()
+    except KeyboardInterrupt:
+        G.stop(server)
 
 
 def do_update(args) -> None:
@@ -190,7 +201,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     def command(name, fn, help_, bundles=False):
         c = sub.add_parser(name, help=help_)
-        c.set_defaults(fn=fn, force=False, types=",".join(C.REQUIRED_TYPES))
+        c.set_defaults(fn=fn, force=False, serve=False, types=",".join(C.REQUIRED_TYPES))
         if bundles:
             c.add_argument("--types", default=",".join(C.REQUIRED_TYPES),
                            help=f"bundle types to take besides {' and '.join(C.REQUIRED_TYPES)} (always taken): all or a list of "
@@ -203,7 +214,8 @@ def build_parser() -> argparse.ArgumentParser:
     command("extract", do_extract, "cut the pulled bundles into PNGs").add_argument(
         "--force", action="store_true", help="extract bundles again even if nothing changed")
     command("match", do_match, "which sprites the webapp already has")
-    command("gallery", do_gallery, "write out/index.html")
+    command("gallery", do_gallery, "write out/index.html").add_argument(
+        "--serve", action="store_true", help="serve it on this computer only and open it, so tags can be edited in it")
     command("baseline", do_baseline, "mark everything extracted so far as seen (the gallery's NEW / CHANGED start over)")
     command("history", do_history, "write history.json (which version added / changed what) from the cache")
     command("update", do_update, "pull + extract + match + gallery", bundles=True)
