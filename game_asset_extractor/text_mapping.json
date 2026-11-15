@@ -1,4 +1,7 @@
 {
+ "events:event_rotations.alliance_duel.phases[construction].earn_points[1].text": {
+  "source": "tables/PointSource:12031.pointSourceText"
+ },
  "events:event_rotations.alliance_duel.phases[construction].name": {
   "source": "tables/AllianceCompetitionStage:102.rightEntryName"
  },
@@ -11,8 +14,38 @@
  "events:event_rotations.alliance_duel.phases[raid_the_enemy].name": {
   "source": "tables/AllianceCompetitionStage:106.rightEntryName"
  },
+ "events:event_rotations.alliance_duel.phases[raven].earn_points[1].text": {
+  "source": "tables/PointSource:13003.pointSourceText"
+ },
+ "events:event_rotations.alliance_duel.phases[raven].earn_points[6].text": {
+  "source": "tables/PointSource:13001.pointSourceText"
+ },
  "events:event_rotations.alliance_duel.phases[raven].name": {
   "source": "tables/AllianceCompetitionStage:101.rightEntryName"
+ },
+ "events:event_rotations.alliance_duel.phases[research].earn_points[10].text": {
+  "source": "tables/PointSource:1375.pointSourceText"
+ },
+ "events:event_rotations.alliance_duel.phases[research].earn_points[1].text": {
+  "source": "tables/PointSource:13006.pointSourceText"
+ },
+ "events:event_rotations.alliance_duel.phases[research].earn_points[2].text": {
+  "source": "tables/PointSource:13007.pointSourceText"
+ },
+ "events:event_rotations.alliance_duel.phases[research].earn_points[3].text": {
+  "source": "tables/PointSource:13008.pointSourceText"
+ },
+ "events:event_rotations.alliance_duel.phases[research].earn_points[4].text": {
+  "source": "tables/PointSource:13009.pointSourceText"
+ },
+ "events:event_rotations.alliance_duel.phases[research].earn_points[5].text": {
+  "source": "tables/PointSource:13010.pointSourceText"
+ },
+ "events:event_rotations.alliance_duel.phases[research].earn_points[6].text": {
+  "source": "tables/PointSource:13011.pointSourceText"
+ },
+ "events:event_rotations.alliance_duel.phases[research].earn_points[7].text": {
+  "source": "tables/PointSource:13012.pointSourceText"
  },
  "events:event_rotations.alliance_duel.phases[research].name": {
   "source": "tables/AllianceCompetitionStage:103.rightEntryName"
@@ -110,6 +143,15 @@
  "events:kingdom_war.weeks[week_2].name": {
   "source": "language/lang_abc:cross_match_tips4"
  },
+ "hero_skills:heroes.annie.awakening_skills[0].description": {
+  "source": "tables/HeroAwakenShow:21.awakenSkillDesc"
+ },
+ "hero_skills:heroes.annie.awakening_skills[1].description": {
+  "source": "tables/HeroAwakenShow:22.awakenSkillDesc"
+ },
+ "hero_skills:heroes.annie.awakening_skills[2].description": {
+  "source": "tables/HeroAwakenShow:23.awakenSkillDesc"
+ },
  "hero_skills:heroes.annie.awakening_skills[4].description": {
   "source": "tables/HeroAwakenShow:25.awakenSkillDesc"
  },
@@ -173,6 +215,15 @@
  "lord_specialty:lords.handyman.talents[art_of_architecture].name": {
   "source": "tables/LordJobSkill:1015.name"
  },
+ "lord_specialty:lords.handyman.talents[bond_shield].description": {
+  "source": "tables/LordJobSkill:1018.desc"
+ },
+ "lord_specialty:lords.handyman.talents[bond_shield].name": {
+  "source": "tables/LordJobSkill:1018.name"
+ },
+ "lord_specialty:lords.handyman.talents[combat_exp].name": {
+  "source": "tables/LordJobSkill:1011.name"
+ },
  "lord_specialty:lords.handyman.talents[free_build].description": {
   "source": "tables/LordJobSkill:1005.desc"
  },
@@ -184,6 +235,18 @@
  },
  "lord_specialty:lords.handyman.talents[free_research].name": {
   "source": "tables/LordJobSkill:1006.name"
+ },
+ "lord_specialty:lords.handyman.talents[healing_force].name": {
+  "source": "tables/LordJobSkill:1017.name"
+ },
+ "lord_specialty:lords.handyman.talents[help_building].name": {
+  "source": "tables/LordJobSkill:1013.name"
+ },
+ "lord_specialty:lords.handyman.talents[help_research].name": {
+  "source": "tables/LordJobSkill:1014.name"
+ },
+ "lord_specialty:lords.handyman.talents[hidden_peril].description": {
+  "source": "tables/LordJobSkill:1022.desc"
  },
  "lord_specialty:lords.handyman.talents[hidden_peril].name": {
   "source": "tables/LordJobSkill:1022.name"
@@ -227,6 +290,9 @@
  "lord_specialty:lords.handyman.talents[siege_frenzy].name": {
   "source": "tables/LordJobSkill:1004.name"
  },
+ "lord_specialty:lords.handyman.talents[siege_war_flag].name": {
+  "source": "tables/LordJobSkill:1010.name"
+ },
  "lord_specialty:lords.handyman.talents[solid_defense].name": {
   "source": "tables/LordJobSkill:1020.name"
  },
@@ -242,8 +308,14 @@
  "lord_specialty:lords.legion_commander.name": {
   "source": "tables/LordJob:2.name"
  },
+ "lord_specialty:lords.legion_commander.talents[barracks_expansion].name": {
+  "source": "tables/LordJobSkill:2003.name"
+ },
  "lord_specialty:lords.legion_commander.talents[boost_morale].name": {
   "source": "tables/LordJobSkill:2011.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[charging_war_flag].name": {
+  "source": "tables/LordJobSkill:2018.name"
  },
  "lord_specialty:lords.legion_commander.talents[concealed_identity].description": {
   "source": "tables/LordJobSkill:2014.desc"
@@ -253,6 +325,12 @@
  },
  "lord_specialty:lords.legion_commander.talents[concentrated_fire].name": {
   "source": "tables/LordJobSkill:2007.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[eliminate_threats].description": {
+  "source": "tables/LordJobSkill:2022.desc"
+ },
+ "lord_specialty:lords.legion_commander.talents[eliminate_threats].name": {
+  "source": "tables/LordJobSkill:2022.name"
  },
  "lord_specialty:lords.legion_commander.talents[emergency_treatment].description": {
   "source": "tables/LordJobSkill:2006.desc"
@@ -307,6 +385,9 @@
  },
  "lord_specialty:lords.legion_commander.talents[wasteland_march].name": {
   "source": "tables/LordJobSkill:2009.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[weakened].name": {
+  "source": "tables/LordJobSkill:2017.name"
  },
  "pack_data:exchange_shops.halloween_bazaar_shop.name": {
   "source": "tables/ActivityDisplay:8200503.name"
