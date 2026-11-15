@@ -2067,8 +2067,16 @@
   "source": "pictures/Zombie_ItemIcon144/icon_wangguojinquan",
   "synced": "fda2c2376577496cca0a8607bd9ae2c3"
  },
+ "ui/cross.png": {
+  "source": "pictures/Zombie_Alliance/pic_lm_cw",
+  "synced": "8e787207a7d03e04c4c583ada0abbff5"
+ },
  "ui/lock.png": {
   "source": "pictures/Buillding_N/pic_yx_suo",
   "synced": "73ccf3a059402e1c5a2ef28a29afd8e1"
+ },
+ "ui/tick.png": {
+  "source": "pictures/Zombie_Alliance/pic_lm_lcb5",
+  "synced": "0604fc2382fed5b9d1d1b403af6607aa"
  }
 }
