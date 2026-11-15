@@ -109,7 +109,8 @@ def test_a_moving_slider_redraws_now_and_then_and_the_exact_preview_comes_at_res
 
 
 def shown_frames(editor):
-    return sorted(key for key, frame in editor.layout_frames.items() if frame.winfo_ismapped())
+    # gridded, not mapped: the empty "single" frame has no size, and Tk never maps a window without one
+    return sorted(key for key, frame in editor.layout_frames.items() if frame.grid_info())
 
 
 def test_the_layout_switch_shows_only_the_controls_of_the_chosen_layout(editor):
