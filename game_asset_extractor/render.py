@@ -13,6 +13,10 @@ poster keeps its upper part). A picture that has to be enlarged by more than 10 
 
 An `overlay` puts a second picture (a trophy, say) on top of the result: `{"path", "scale", "at"}`, its height `scale` times
 the result's, centred at `at` = (x, y) from 0 to 1 of the result, its transparency respected.
+
+`beside` (a list of `{"path", "focus"}`) puts the pictures after the first next to it, in equal columns (two: halves, three:
+thirds), no gap. The first picture decides the size of the whole (the size it alone would get); each picture is cropped, not
+stretched, to its column by its own `focus`.
 """
 
 from __future__ import annotations
@@ -93,6 +97,20 @@ def compose(img: Image.Image, overlay: dict) -> tuple[Image.Image, str]:
     return Image.alpha_composite(img.convert("RGBA"), layer), f"{Path(overlay['path']).stem} on top"
 
 
+def side_by_side(size: tuple[int, int], pictures: list[dict]) -> tuple[Image.Image, str]:
+    """A picture of `size` made of `pictures` ({path, focus}) in equal columns, each fitted to its column."""
+    width, height = size
+    count = len(pictures)
+    edges = [round(i * width / count) for i in range(count + 1)]
+    canvas = Image.new("RGBA", size)
+    warnings = []
+    for i, picture in enumerate(pictures):
+        column, note = fit(load_rgba(picture["path"]), (edges[i + 1] - edges[i], height), tuple(picture.get("focus") or DEFAULT_FOCUS))
+        canvas.paste(column, (edges[i], 0))
+        warnings += [f"picture {i + 1} {part}" for part in note.split(", ") if part.startswith("WARNING")]
+    return canvas, ", ".join([f"{count} side by side", *warnings])
+
+
 def encode(img: Image.Image, dest: str) -> bytes:
     buf = io.BytesIO()
     if dest.lower().endswith(".webp"):
@@ -111,21 +129,28 @@ def same_pixels(data: bytes, existing: Path) -> bool:
         return False
 
 
-def make(source: Path, dest: str, focus=None, force_size: bool = False, overlay: dict | None = None) -> tuple[Image.Image, str]:
+def make(source: Path, dest: str, focus=None, force_size: bool = False, overlay: dict | None = None,
+         beside: list[dict] | None = None) -> tuple[Image.Image, str]:
     """The picture of the file `dest` (relative path in the assets folder, e.g. events/x.webp) made from the picture `source`
-    (and the `overlay` picture on top of it, if any), before it is encoded."""
+    (the `beside` pictures next to it, the `overlay` picture on top of it, if any), before it is encoded."""
     img = load_rgba(source)
-    if not force_size and keeps_size(dest, img.size):
+    focus = tuple(focus) if focus else DEFAULT_FOCUS
+    if beside:  # `source` decides the size of the whole; the columns are fitted one by one
+        size = img.size if not force_size and keeps_size(dest, img.size) else target_size(dest) or img.size
+        img, note = side_by_side(size, [{"path": source, "focus": focus}, *beside])
+        note = f"{size[0]}x{size[1]}, {note}"
+    elif not force_size and keeps_size(dest, img.size):
         note = f"{img.width}x{img.height}, the game's size kept"
     else:
-        img, note = fit(img, target_size(dest), tuple(focus) if focus else DEFAULT_FOCUS)
+        img, note = fit(img, target_size(dest), focus)
     if overlay:
         img, over = compose(img, overlay)
         note += f", {over}"
     return img, note
 
 
-def render(source: Path, dest: str, focus=None, force_size: bool = False, overlay: dict | None = None) -> tuple[bytes, str]:
+def render(source: Path, dest: str, focus=None, force_size: bool = False, overlay: dict | None = None,
+           beside: list[dict] | None = None) -> tuple[bytes, str]:
     """The bytes of the file `dest`: `make`, encoded in the folder's format."""
-    img, note = make(source, dest, focus, force_size, overlay)
+    img, note = make(source, dest, focus, force_size, overlay, beside)
     return encode(img, dest), note

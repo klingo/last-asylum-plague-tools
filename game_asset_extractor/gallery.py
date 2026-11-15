@@ -148,7 +148,7 @@ def build_data(index: dict, matches: dict, mapping: dict | None = None) -> dict:
         if candidates and candidates[0]["dist"] <= M.CLOSE:
             used.setdefault(candidates[0]["id"], []).append(path)
     for path, entry in (mapping or {}).items():
-        for source in (entry.get("source"), (entry.get("overlay") or {}).get("source")):
+        for source in Mp.sources(entry):
             if source in index["sprites"] and path not in used.get(source, []):
                 used.setdefault(source, []).append(path)
     return {

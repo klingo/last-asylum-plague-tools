@@ -10,11 +10,15 @@ extension) to the game picture it is made from:
 
     "events/canyon_conquest.webp": {"source": "...", "overlay": {"source": "...", "scale": 0.8, "at": [0.5, 0.5]}, ...}
                                                        a second picture (a trophy) on top of the first
+    "events/x.webp": {"source": "A", "focus": [0.3, 0.0], "beside": [{"source": "B"}, {"source": "C", "focus": [0.7, 0.1]}]}
+                                                       three pictures next to each other (one `beside` entry: two)
 
 `source` is a picture id of `out/index.json`; `focus` is the crop window of `render.py`; `resize` makes an event
 banner 720x360 although it is close to 2:1 (otherwise it keeps the game's size); `overlay` puts another picture on top
-(`render.compose`: its height `scale` times the image's, centred at `at`); `synced` is the fingerprint (`fingerprint`: the
-md5 of the game picture, of both pictures with an overlay) the file was last made from. An image is
+(`render.compose`: its height `scale` times the image's, centred at `at`); `beside` puts the pictures after the first
+next to it in equal columns (`render.side_by_side`, each with its own `focus`; the editor writes `overlay` or `beside`,
+not both); `synced` is the fingerprint (`fingerprint`: the md5 of the game picture, of all its pictures together with an
+overlay or `beside`) the file was last made from. An image is
 
     official    mapped, and the file was made from the game's current picture
     to sync     mapped, but never synced or the game changed the picture since (`sync` rebuilds the file)
@@ -64,21 +68,31 @@ def best_candidate(matches: dict, rel: str) -> dict | None:
     return found[0] if found else None
 
 
-def fingerprint(entry: dict, sprites: dict) -> str | None:
-    """What `synced` records: the md5 of the entry's game picture (with an overlay, of the two together); None if one is not extracted."""
-    sprite = sprites.get(entry.get("source"))
+def sources(entry: dict) -> list[str]:
+    """The ids of every game picture the entry is made from: its own, the overlay, then the `beside` ones."""
     over = entry.get("overlay")
-    if sprite is None or (over and over["source"] not in sprites):
+    return [entry.get("source"), *([over["source"]] if over else []), *(b["source"] for b in entry.get("beside") or [])]
+
+
+def fingerprint(entry: dict, sprites: dict) -> str | None:
+    """What `synced` records: the md5 of the entry's game picture (with more pictures, of all together); None if one is not extracted."""
+    found = [sprites.get(i) for i in sources(entry)]
+    if any(f is None for f in found):
         return None
-    if not over:
-        return sprite["md5"]
-    return hashlib.md5((sprite["md5"] + sprites[over["source"]]["md5"]).encode()).hexdigest()
+    if len(found) == 1:
+        return found[0]["md5"]
+    return hashlib.md5("".join(f["md5"] for f in found).encode()).hexdigest()
 
 
 def overlay_of(entry: dict, out: Path = C.OUT) -> dict | None:
     """The entry's overlay as `render.render` takes it (the picture's path instead of its id)."""
     over = entry.get("overlay")
     return over and {**over, "path": out / f"{over['source']}.png"}
+
+
+def beside_of(entry: dict, out: Path = C.OUT) -> list[dict] | None:
+    """The entry's `beside` pictures as `render.render` takes them (the picture's path instead of its id)."""
+    return [{**b, "path": out / f"{b['source']}.png"} for b in entry["beside"]] if entry.get("beside") else None
 
 
 def status_of(rel: str, mapping: dict, sprites: dict, matches: dict, assets: Path = C.WEBAPP_ASSETS) -> str:
@@ -120,14 +134,18 @@ def summary(table: list[dict]) -> str:
 
 
 def set_source(rel: str, source: str | None, focus=None, synced: str | None = None, resize: bool = False,
-               path: Path = PATH, overlay: dict | None = None) -> dict:
+               path: Path = PATH, overlay: dict | None = None, beside: list[dict] | None = None) -> dict:
     """Map `rel` (re-read from the file first, so nothing another window wrote is lost); None = no original.
     Without `synced` (the fingerprint of what the file was just made from) the entry needs a sync. `overlay`
-    is {source, scale, at}."""
+    is {source, scale, at}, `beside` a list of {source, focus} (a default focus is left out)."""
     mapping = load(path)
     entry = {"source": source}
     if source is not None and overlay:
         entry["overlay"] = overlay
+    if source is not None and beside:
+        entry["beside"] = [{"source": b["source"], **({"focus": [round(float(v), 3) for v in b["focus"]]}
+                                                       if b.get("focus") and tuple(b["focus"]) != R.DEFAULT_FOCUS else {})}
+                           for b in beside]
     if source is not None and focus and tuple(focus) != R.DEFAULT_FOCUS:
         entry["focus"] = [round(float(v), 3) for v in focus]
     if source is not None and resize:
@@ -174,14 +192,14 @@ def sync(index: dict, apply: bool = False, force: bool = False, out: Path = C.OU
         picture = out / f"{source}.png"
         overlay = overlay_of(entry, out)
         current = fingerprint(entry, index["sprites"])
-        missing = [i for i in (source, (entry.get("overlay") or {}).get("source")) if i and not (out / f"{i}.png").is_file()]
+        missing = [i for i in sources(entry) if not (out / f"{i}.png").is_file()]
         if current is None or missing:
             done.append({"rel": rel, "action": "skipped", "note": f"{(missing or [source])[0]} is not extracted"})
             continue
         target = assets / rel
         if not force and entry.get("synced") == current and target.is_file():
             continue
-        data, note = R.render(picture, rel, entry.get("focus"), entry.get("resize", False), overlay)
+        data, note = R.render(picture, rel, entry.get("focus"), entry.get("resize", False), overlay, beside_of(entry, out))
         same = target.is_file() and R.same_pixels(data, target)
         if apply:
             if not same:

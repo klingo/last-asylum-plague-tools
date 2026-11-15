@@ -33,6 +33,8 @@ def test_build_data_counts_the_source_of_a_mapped_image_as_in_the_webapp():
     assert G.build_data(index, matches, mapping)["used"] == {"A/poster": ["events/x.webp", "events/y.webp"]}
     mapping["events/x.webp"]["overlay"] = {"source": "A/other"}  # a picture put on top counts too
     assert G.build_data(index, matches, mapping)["used"]["A/other"] == ["events/x.webp"]
+    mapping["events/y.webp"]["beside"] = [{"source": "A/other"}]  # so does a picture next to it
+    assert G.build_data(index, matches, mapping)["used"]["A/other"] == ["events/x.webp", "events/y.webp"]
 
 
 def test_build_data_without_a_baseline_counts_from_the_start():

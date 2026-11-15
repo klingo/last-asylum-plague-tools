@@ -27,7 +27,7 @@ Run from the tool's own folder, with its venv (`.venv/Scripts/python`; set it up
 `.venv/Scripts/python -m pip install -r requirements.txt`; use `python -m pip`, a moved venv's `pip.exe` points at the old path).
 
 ```bash
-.venv/Scripts/python -m pytest -q          # the tool's tests (game_asset_extractor: 166, mahjong_minigame_helper: 64)
+.venv/Scripts/python -m pytest -q          # the tool's tests (game_asset_extractor: 182, mahjong_minigame_helper: 64)
 .venv/Scripts/python main.py --help        # the CLI (game_asset_extractor: also gui.py / start_gui.bat; mahjong: gui.py)
 ```
 
@@ -41,7 +41,7 @@ the recording (git-ignored `recordings/`) is missing; the mapping-editor test sk
   `out/matches.json`) > `gallery` (`out/index.html`). `mapping.py` / `render.py` / `importer.py` make the webapp's images from
   the mapped game pictures.
 - `mapping.json` (committed here) says which game picture each webapp image is made from (`source`, crop `focus`, `resize`,
-  `overlay`: a second picture on top, e.g. a trophy, `synced` fingerprint). It is data about the webapp's files: edit it through
+  `overlay`: a second picture on top, e.g. a trophy, `beside`: one or two more pictures next to the first in equal columns, `synced` fingerprint). It is data about the webapp's files: edit it through
   the mapping editor (`gui.py` > Pictures > Edit mapping) or `main.py map` / `import`, not by hand.
 - The webapp's images are written to the webapp's repository: `config.WEBAPP_ASSETS`, `../last-asylum-pack-solver/webapp/public/assets`
   or under `LAST_ASYLUM_WEBAPP`. The commands that touch it (`match`, `update`, `map`, `status`, `sync`, `import`) stop with a

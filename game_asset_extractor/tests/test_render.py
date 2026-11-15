@@ -160,3 +160,57 @@ def test_make_is_what_render_encodes(tmp_path):
     data, same_note = R.render(path, "items/x.png", (0.5, 0.5))
     assert img.size == (144, 144) and note == same_note
     assert Image.open(io.BytesIO(data)).convert("RGBA").tobytes() == img.tobytes()
+
+
+def three_pictures(tmp_path, size=(300, 300)):
+    paths = []
+    for name, colour in (("a", "red"), ("b", "lime"), ("c", "blue")):
+        paths.append(tmp_path / f"{name}.png")
+        Image.new("RGBA", size, colour).save(paths[-1])
+    return paths
+
+
+def test_two_pictures_side_by_side_fill_one_half_each(tmp_path):
+    a, b, _ = three_pictures(tmp_path, (1440, 720))
+    img, note = R.make(a, "events/e.webp", force_size=True, beside=[{"path": b}])
+    assert img.size == (720, 360) and note == "720x360, 2 side by side"
+    assert img.getpixel((359, 180))[0] > 200 and img.getpixel((360, 180))[1] > 200  # red | green, edge at the middle
+
+
+def test_three_pictures_side_by_side_fill_a_third_each(tmp_path):
+    a, b, c = three_pictures(tmp_path, (1440, 720))
+    img, note = R.make(a, "events/e.webp", force_size=True, beside=[{"path": b}, {"path": c}])
+    assert img.size == (720, 360) and note.endswith("3 side by side")
+    assert [img.getpixel((x, 180))[:3] for x in (0, 239, 240, 479, 480, 719)] == [
+        (255, 0, 0), (255, 0, 0), (0, 255, 0), (0, 255, 0), (0, 0, 255), (0, 0, 255)]
+
+
+def test_side_by_side_takes_its_size_from_the_first_picture(tmp_path):
+    a, b, _ = three_pictures(tmp_path, (726, 346))
+    assert R.make(a, "events/e.webp", beside=[{"path": b}])[0].size == (726, 346)  # a banner keeps the game's size
+    assert R.make(a, "events/e.webp", force_size=True, beside=[{"path": b}])[0].size == (720, 360)
+    assert R.make(a, "items/i.png", beside=[{"path": b}])[0].size == (144, 144)
+    assert R.make(a, "packages/p.webp", beside=[{"path": b}])[0].size == (726, 346)  # a folder without a size: the first picture's
+
+
+def test_each_side_by_side_picture_is_cropped_by_its_own_focus(tmp_path):
+    left, right = tmp_path / "l.png", tmp_path / "r.png"
+    bands(300, 100, vertical=False).save(left)  # red | green | blue, a 3:1 picture for a 1:2 column
+    bands(300, 100, vertical=False).save(right)
+    img, _ = R.make(left, "items/i.png", (0.0, 0.0), beside=[{"path": right, "focus": (1.0, 0.0)}])
+    assert img.getpixel((10, 70))[0] > 200  # the left half shows the left part of its picture: red
+    assert img.getpixel((130, 70))[2] > 200  # the right half the right part of its: blue
+
+
+def test_side_by_side_calls_out_an_enlarged_picture(tmp_path):
+    a, b, _ = three_pictures(tmp_path, (1440, 720))
+    small = tmp_path / "small.png"
+    Image.new("RGBA", (50, 100), "lime").save(small)
+    assert "picture 2 WARNING: enlarged from 50x50" in R.make(a, "events/e.webp", beside=[{"path": small}])[1]
+    assert "WARNING" not in R.make(a, "events/e.webp", beside=[{"path": b}])[1]
+
+
+def test_an_overlay_goes_on_top_of_side_by_side_pictures(tmp_path):
+    a, b, c = three_pictures(tmp_path, (1440, 720))
+    img, note = R.make(a, "events/e.webp", overlay={"path": c, "scale": 0.5, "at": [0.5, 0.5]}, beside=[{"path": b}])
+    assert note.endswith("c on top") and img.getpixel((720, 360))[2] > 200 and img.getpixel((10, 10))[0] > 200

@@ -39,7 +39,8 @@ install-time asset pack (`split_abPack1.apk`) and the hot-updated ones on the sd
    stretched) to 720 x 360 by the mapping's crop window. A mapping with `"resize": true` (editor checkbox, `import
    --resize`) forces 720 x 360 for a near-2:1 banner too. It only previews unless `--apply`; a file that already looks
    exactly like the result is left alone. Review it as a git diff. A mapping can also carry an `overlay` (editor: "Use chosen picture
-   as overlay", with size and position sliders, each with a field for an exact value): a second game picture, e.g. a trophy, put on top of the first.
+   as overlay", with size and position sliders, each with a field for an exact value): a second game picture, e.g. a trophy, put on top of the first. The editor's **Layout** switch chooses between one picture, an overlay,
+   and two or three pictures **side by side** (`beside`: equal columns of the first picture's size, each picture cropped to its column by its own crop window).
 7. **Status** counts the webapp images that are *official* (mapped and made from the game's current picture): `main.py
    status`, also shown in the window. A game update that changes a picture turns its image back to "to sync".
 8. **Import** adds a new picture to the webapp's assets and maps it (`import <id> items/chest/gold`, events become WebP).

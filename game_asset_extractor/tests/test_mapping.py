@@ -1,3 +1,5 @@
+import hashlib
+
 import pytest
 from PIL import Image
 
@@ -185,3 +187,45 @@ def test_set_source_without_an_overlay_drops_it(world):
     Mp.set_source("events/a.webp", "G/banner", path=world["path"], overlay={"source": "G/red"})
     Mp.set_source("events/a.webp", "G/banner", path=world["path"])
     assert Mp.load(world["path"]) == {"events/a.webp": {"source": "G/banner"}}
+
+
+def test_set_source_stores_beside_for_a_mapped_picture_and_leaves_out_a_default_focus(world):
+    beside = [{"source": "G/red", "focus": (0.5, 0.0)}, {"source": "G/gold", "focus": (0.7, 0.1234)}]
+    Mp.set_source("events/a.webp", "G/banner", path=world["path"], beside=beside)
+    Mp.set_source("events/b.webp", None, path=world["path"], beside=beside)
+    assert Mp.load(world["path"]) == {
+        "events/a.webp": {"source": "G/banner", "beside": [{"source": "G/red"}, {"source": "G/gold", "focus": [0.7, 0.123]}]},
+        "events/b.webp": {"source": None}}
+
+
+def test_the_pictures_next_to_each_other_are_part_of_the_fingerprint_and_the_status(world):
+    sprites, assets = world["index"]["sprites"], world["assets"]
+    entry = {"source": "G/banner", "beside": [{"source": "G/red"}, {"source": "G/gold"}]}
+    assert Mp.sources(entry) == ["G/banner", "G/red", "G/gold"]
+    full = Mp.fingerprint(entry, sprites)
+    assert full not in ("md5-banner", Mp.fingerprint({**entry, "beside": entry["beside"][:1]}, sprites))
+    assert Mp.fingerprint({**entry, "beside": [{"source": "G/ghost"}]}, sprites) is None
+    assert Mp.status_of("events/x.webp", {"events/x.webp": {**entry, "synced": full}}, sprites, {}, assets) == "official"
+    assert Mp.status_of("events/x.webp", {"events/x.webp": {**entry, "synced": "md5-banner"}}, sprites, {}, assets) == "to sync"
+    assert Mp.status_of("events/x.webp", {"events/x.webp": {**entry, "beside": [{"source": "G/ghost"}]}}, sprites, {}, assets) == "missing"
+
+
+def test_an_overlay_fingerprint_is_the_one_it_always_was(world):
+    entry = {"source": "G/banner", "overlay": {"source": "G/gold"}}
+    assert Mp.fingerprint(entry, world["index"]["sprites"]) == hashlib.md5(b"md5-bannermd5-gold").hexdigest()
+
+
+def test_sync_puts_the_pictures_next_to_each_other_and_marks_all_as_synced(world):
+    Mp.set_source("events/new.webp", "G/banner", resize=True, path=world["path"], beside=[{"source": "G/red"}, {"source": "G/gold"}])
+    run_sync(world, apply=True)
+    made = Image.open(world["assets"] / "events" / "new.webp").convert("RGB")
+    assert made.getpixel((100, 180))[2] > 200 and made.getpixel((360, 180))[0] > 200  # blue | red | gold
+    assert made.getpixel((620, 180))[0] > 200 and made.getpixel((620, 180))[1] > 150  # gold, not red
+    entry = Mp.load(world["path"])["events/new.webp"]
+    assert entry["synced"] == Mp.fingerprint(entry, world["index"]["sprites"])
+    assert run_sync(world, apply=True) == []
+
+
+def test_sync_skips_an_entry_whose_side_by_side_picture_is_not_extracted(world):
+    Mp.save({"events/new.webp": {"source": "G/banner", "beside": [{"source": "G/ghost"}]}}, world["path"])
+    assert run_sync(world, apply=True) == [{"rel": "events/new.webp", "action": "skipped", "note": "G/ghost is not extracted"}]

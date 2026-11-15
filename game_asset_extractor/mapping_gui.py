@@ -3,7 +3,9 @@
 Left: the webapp's images with their status (filter and search above). Right, for the selected one: the webapp picture,
 the game picture it is mapped to (or the closest the hash match found), and what `sync` would make of it, then the
 closest candidates and a search over all game pictures. "Use this picture" maps it, "No original" marks it as having none
-in the game. A second picture (a trophy) can be put on top of the game picture ("Overlay"). Every change is written to mapping.json at once; nothing in the webapp changes until Sync.
+in the game. The layout switch says how the webapp image is made: from one picture, with a second picture (a trophy) on top
+("Overlay"), or from two or three pictures next to each other (each with its own crop window); only the controls of the
+chosen layout show. Every change is written to mapping.json at once; nothing in the webapp changes until Sync.
 While a slider moves the result is redrawn at most every `LIVE_DELAY` ms, without encoding it; the exact one follows when it rests.
 The list sorts by a click on a column heading (again: the other way round). Every slider has a field next to it for an exact value.
 """
@@ -30,6 +32,8 @@ LIVE_DELAY = 30  # ms: a moving slider redraws the result at most this often ...
 SETTLE_DELAY = 250  # ms: ... and the exact preview (encoded, compared with the webapp's file) comes when it rests
 SLIDER_LENGTH = 110  # px: a slider (its field sits next to it)
 HEADINGS = {"#0": "Webapp image", "status": "Status", "source": "Game picture", "dist": "Dist"}
+LAYOUTS = {"single": "One picture", "overlay": "Overlay", "beside2": "2 side by side", "beside3": "3 side by side"}
+BESIDE_COUNT = {"beside2": 1, "beside3": 2}  # layout -> how many pictures come after the first
 COLOURS = {"official": "#1b7f3b", "to sync": "#b36b00", "missing": "#b00020", "suggested": "#1f5fbf", "unmapped": "#b00020", "none": "#777777"}
 
 
@@ -76,6 +80,7 @@ class Editor(tk.Toplevel):
         self.timers: dict[str, str | None] = {"live": None, "settle": None}  # the pending `after` calls of a moving slider
         self.bind("<Destroy>", lambda e: self.stop_timers() if e.widget is self else None)
         self.overlay: str | None = None  # the picture put on top of the chosen one
+        self.beside: list[str | None] = [None, None]  # the pictures next to the chosen one (picture 2 and 3)
         self.reload()
 
         right = ttk.Frame(self)  # packed first: it always keeps the width its three pictures need, the list gets the rest
@@ -144,12 +149,19 @@ class Editor(tk.Toplevel):
         self.results.bind("<<ListboxSelect>>", self.pick_result)
         self.results.bind("<ButtonRelease-1>", lambda e: self.tree.focus_set())  # picked: back to the list
 
+        layout = ttk.Frame(right)
+        layout.pack(anchor="w", pady=(10, 0))
+        ttk.Label(layout, text="Layout").pack(side="left", padx=(0, 6))
+        self.mode = tk.StringVar(value="single")
+        for key, title in LAYOUTS.items():
+            inert(ttk.Radiobutton(layout, text=title, value=key, variable=self.mode, command=self.layout_changed)).pack(side="left", padx=4)
         self.resize = tk.BooleanVar(value=False)
         inert(ttk.Checkbutton(right, text="Always make it the folder's size (720x360 for events), even if it is close to 2:1",
                               variable=self.resize, command=self.preview)).pack(anchor="w", pady=(8, 0))
         crop = ttk.Frame(right)
         crop.pack(anchor="w", pady=6)
-        ttk.Label(crop, text="Crop window (a picture of another aspect)").grid(row=0, column=0, columnspan=4, sticky="w")
+        ttk.Label(crop, text="Crop window (a picture of another aspect; the first picture's in a side by side layout)").grid(
+            row=0, column=0, columnspan=4, sticky="w")
         self.fx = tk.DoubleVar(value=R.DEFAULT_FOCUS[0])
         self.fy = tk.DoubleVar(value=R.DEFAULT_FOCUS[1])
         ttk.Label(crop, text="left-right").grid(row=1, column=0)
@@ -157,16 +169,35 @@ class Editor(tk.Toplevel):
         ttk.Label(crop, text="top-bottom").grid(row=1, column=2)
         self.slider(crop, self.fy, 0, 1).grid(row=1, column=3, padx=2)
 
-        over = ttk.Frame(right)
-        over.pack(anchor="w", pady=(0, 6))
+        # the controls of each layout share one cell; only the chosen layout's frame is shown, the cell keeps the size of the biggest
+        self.stack = ttk.Frame(right)
+        self.stack.pack(anchor="w", pady=(0, 6))
+        self.layout_frames = {"single": ttk.Frame(self.stack), "overlay": ttk.Frame(self.stack), "beside": ttk.Frame(self.stack)}
+        over = self.layout_frames["overlay"]
         self.overlay_label = tk.StringVar()
         ttk.Label(over, textvariable=self.overlay_label).grid(row=0, column=0, columnspan=4, sticky="w")
-        inert(ttk.Button(over, text="Use chosen picture as overlay", command=self.set_overlay)).grid(row=1, column=0, padx=(0, 6))
-        inert(ttk.Button(over, text="Remove overlay", command=self.remove_overlay)).grid(row=1, column=1, padx=6)
+        inert(ttk.Button(over, text="Use chosen picture as overlay", command=self.set_overlay)).grid(row=1, column=0, columnspan=3, sticky="w")
         self.ov = {key: tk.DoubleVar(value=default) for key, default in (("scale", R.OVERLAY_SCALE), ("x", R.OVERLAY_AT[0]), ("y", R.OVERLAY_AT[1]))}
         for column, (key, title) in enumerate((("scale", "size"), ("x", "left-right"), ("y", "top-bottom"))):
             ttk.Label(over, text=title).grid(row=2, column=column)
             self.slider(over, self.ov[key], 0.05 if key == "scale" else 0, 1).grid(row=3, column=column, padx=4)
+        self.beside_labels = [tk.StringVar(), tk.StringVar()]
+        self.beside_focus = [(tk.DoubleVar(value=R.DEFAULT_FOCUS[0]), tk.DoubleVar(value=R.DEFAULT_FOCUS[1])) for _ in range(2)]
+        self.beside_rows = []
+        for n in range(2):
+            row = ttk.Frame(self.layout_frames["beside"])
+            row.grid(row=n, column=0, sticky="w", pady=(0, 6))
+            ttk.Label(row, textvariable=self.beside_labels[n]).grid(row=0, column=0, columnspan=5, sticky="w")
+            inert(ttk.Button(row, text=f"Use chosen picture as picture {n + 2}", command=lambda n=n: self.set_beside(n))).grid(row=1, column=0, padx=(0, 10))
+            ttk.Label(row, text="left-right").grid(row=1, column=1)
+            self.slider(row, self.beside_focus[n][0], 0, 1).grid(row=1, column=2, padx=(2, 10))
+            ttk.Label(row, text="top-bottom").grid(row=1, column=3)
+            self.slider(row, self.beside_focus[n][1], 0, 1).grid(row=1, column=4, padx=2)
+            self.beside_rows.append(row)
+        self.update_idletasks()
+        self.stack.grid_columnconfigure(0, minsize=max(f.winfo_reqwidth() for f in self.layout_frames.values()))
+        self.stack.grid_rowconfigure(0, minsize=max(f.winfo_reqheight() for f in self.layout_frames.values()))
+        self.show_layout()
 
         buttons = ttk.Frame(right)
         buttons.pack(anchor="w", pady=6)
@@ -254,6 +285,14 @@ class Editor(tk.Toplevel):
         self.ov["scale"].set(over.get("scale", R.OVERLAY_SCALE))
         self.ov["x"].set(over.get("at", R.OVERLAY_AT)[0])
         self.ov["y"].set(over.get("at", R.OVERLAY_AT)[1])
+        beside = entry.get("beside") or []
+        for n in range(2):
+            panel = beside[n] if n < len(beside) else {}
+            self.beside[n] = panel.get("source")
+            self.beside_focus[n][0].set((panel.get("focus") or R.DEFAULT_FOCUS)[0])
+            self.beside_focus[n][1].set((panel.get("focus") or R.DEFAULT_FOCUS)[1])
+        self.mode.set("overlay" if self.overlay else {1: "beside2", 2: "beside3"}.get(len(beside), "single"))
+        self.show_layout()
         row = next(r for r in self.table if r["rel"] == self.rel)
         self.heading.set(f"{self.rel}   [{row['status']}]")
         self.show_candidates()
@@ -295,17 +334,25 @@ class Editor(tk.Toplevel):
         self.put("game", load_picture(picture) if picture else None)
         self.show_result(exact=True)
         self.overlay_label.set(f"Overlay: {self.overlay}" if self.overlay else "Overlay: none")
+        for n, label in enumerate(self.beside_labels):
+            label.set(f"Picture {n + 2}: {self.beside[n] or 'none'}")
 
     def show_result(self, exact: bool) -> None:
         """The "After sync" picture. Not `exact`: the rendered picture as it is, without encoding it and comparing it with
         the webapp's file (what takes the time)."""
         picture = C.OUT / f"{self.chosen}.png" if self.chosen else None
         result, note = None, "No game picture chosen."
-        if picture and picture.is_file():
+        gap = self.missing_slot()
+        if gap:
+            note = f"Choose picture {gap} first: pick it above, then 'Use chosen picture as picture {gap}'."
+        elif picture and picture.is_file():
             overlay = Mp.overlay_of({"overlay": self.overlay_entry()})
             if overlay and not overlay["path"].is_file():
                 overlay = None
-            args = (picture, self.rel, (self.fx.get(), self.fy.get()), self.resize.get(), overlay)
+            beside = Mp.beside_of({"beside": self.beside_entry()})
+            if beside and not all(b["path"].is_file() for b in beside):
+                beside = None
+            args = (picture, self.rel, (self.fx.get(), self.fy.get()), self.resize.get(), overlay, beside)
             if exact:
                 data, note = R.render(*args)
                 result = load_picture_bytes(data)
@@ -348,19 +395,43 @@ class Editor(tk.Toplevel):
         field.bind("<FocusOut>", commit)
         return frame
 
+    def show_layout(self) -> None:
+        """Show the controls of the chosen layout only (the cell keeps its size)."""
+        mode = self.mode.get()
+        shown = {"overlay": "overlay", "beside2": "beside", "beside3": "beside"}.get(mode, "single")
+        for key, frame in self.layout_frames.items():
+            frame.grid(row=0, column=0, sticky="nw") if key == shown else frame.grid_remove()
+        for n, row in enumerate(self.beside_rows):  # picture 3 only in 3 side by side
+            row.grid() if n < BESIDE_COUNT.get(mode, 0) else row.grid_remove()
+
+    def layout_changed(self) -> None:
+        self.show_layout()
+        self.preview()
+
     def overlay_entry(self) -> dict | None:
-        """The overlay as mapping.json keeps it ({source, scale, at}), None without one."""
-        if not self.overlay:
+        """The overlay as mapping.json keeps it ({source, scale, at}), None without one or in another layout."""
+        if self.mode.get() != "overlay" or not self.overlay:
             return None
         return {"source": self.overlay, "scale": round(self.ov["scale"].get(), 3),
                 "at": [round(self.ov["x"].get(), 3), round(self.ov["y"].get(), 3)]}
+
+    def missing_slot(self) -> int | None:
+        """The number (2 or 3) of the first picture the side by side layout still lacks, None if it has all."""
+        return next((n + 2 for n in range(BESIDE_COUNT.get(self.mode.get(), 0)) if not self.beside[n]), None)
+
+    def beside_entry(self) -> list[dict] | None:
+        """The pictures next to the first as mapping.json keeps them ({source, focus}), None in another layout or while one is missing."""
+        count = BESIDE_COUNT.get(self.mode.get(), 0)
+        if not count or self.missing_slot():
+            return None
+        return [{"source": self.beside[n], "focus": [round(v.get(), 3) for v in self.beside_focus[n]]} for n in range(count)]
 
     def set_overlay(self) -> None:
         self.overlay = self.chosen
         self.preview()
 
-    def remove_overlay(self) -> None:
-        self.overlay = None
+    def set_beside(self, n: int) -> None:
+        self.beside[n] = self.chosen
         self.preview()
 
     def choose(self, sprite_id: str) -> None:
@@ -381,10 +452,15 @@ class Editor(tk.Toplevel):
 
     # --- changes ------------------------------------------------------------------------------------------------
     def use(self) -> None:
-        if self.rel and self.chosen:
-            Mp.set_source(self.rel, self.chosen, (self.fx.get(), self.fy.get()), resize=self.resize.get(),
-                          overlay=self.overlay_entry())
-            self.changed()
+        if not (self.rel and self.chosen):
+            return
+        gap = self.missing_slot()
+        if gap:
+            self.heading.set(f"{self.rel}: choose picture {gap} first (nothing written).")
+            return
+        Mp.set_source(self.rel, self.chosen, (self.fx.get(), self.fy.get()), resize=self.resize.get(),
+                      overlay=self.overlay_entry(), beside=self.beside_entry())
+        self.changed()
 
     def no_original(self) -> None:
         if self.rel:
