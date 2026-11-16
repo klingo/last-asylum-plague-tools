@@ -40,8 +40,12 @@ def list_weeks(directory: Path = C.DATA_DIR) -> list[str]:
 
 
 def load(week: str, directory: Path = C.DATA_DIR) -> dict | None:
-    path = week_path(week, directory)
-    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+    """The week's file, found among the files that exist: `week` is only compared with their names, never made into
+    a path (the viewer server passes it on from a request)."""
+    for path in sorted(directory.glob("*-W*.json")) if directory.exists() else []:
+        if path.stem == week:
+            return json.loads(path.read_text(encoding="utf-8"))
+    return None
 
 
 def dumps(week: dict) -> str:

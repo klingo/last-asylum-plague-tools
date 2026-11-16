@@ -1,9 +1,9 @@
 import json
-import re
 import shutil
 import subprocess
 
 import pytest
+from html_scripts import inline_script
 
 import state as S
 import text_browser as TB
@@ -56,7 +56,7 @@ def test_the_page_script_and_the_data_files_are_valid_javascript(tmp_path, monke
     monkeypatch.setattr(TM, "load", lambda: {})
     TB.write(tmp_path / "texts")
     script = tmp_path / "page.js"
-    script.write_text(re.search(r"<script>([\s\S]*?)</script>", TB.PAGE).group(1), encoding="utf-8")
+    script.write_text(inline_script(TB.PAGE), encoding="utf-8")
     for file in (script, tmp_path / "texts" / "ids.js", tmp_path / "texts" / "en.js"):
         result = subprocess.run([node, "--check", str(file)], capture_output=True, text=True)
         assert result.returncode == 0, result.stderr

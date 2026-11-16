@@ -67,17 +67,18 @@ def test_build_command_for_each_button():
 
 def test_the_page_script_is_valid_javascript(tmp_path):
     """The page is a Python string: a newline escape in it once broke the whole script."""
-    import re
     import shutil
     import subprocess
 
     import pytest
 
+    from html_scripts import inline_script
+
     node = shutil.which("node")
     if node is None:
         pytest.skip("node is not installed")
     script = tmp_path / "page.js"
-    script.write_text(re.search(r"<script>([\s\S]*?)</script>", G.PAGE).group(1), encoding="utf-8")
+    script.write_text(inline_script(G.PAGE), encoding="utf-8")
     result = subprocess.run([node, "--check", str(script)], capture_output=True, text=True)
     assert result.returncode == 0, result.stderr
 

@@ -24,6 +24,9 @@ PAGE_FILES = {"/": "index.html", "/index.html": "index.html", "/i18n.js": "i18n.
 
 
 def make_handler(directory: Path, viewer_dir: Path) -> type[http.server.BaseHTTPRequestHandler]:
+    def languages() -> dict[str, Path]:
+        return {path.stem: path for path in (viewer_dir / "i18n").glob("*.json")}
+
     class Handler(http.server.BaseHTTPRequestHandler):
         def reply(self, status: int, body: bytes, kind: str) -> None:
             self.send_response(status)
@@ -41,8 +44,10 @@ def make_handler(directory: Path, viewer_dir: Path) -> type[http.server.BaseHTTP
             if path in PAGE_FILES:
                 kind = "text/javascript" if path.endswith(".js") else "text/html"
                 self.reply(200, (viewer_dir / PAGE_FILES[path]).read_bytes(), kind + "; charset=utf-8")
-            elif LANGUAGE_FILE.match(path) and (viewer_dir / path[1:]).is_file():
-                self.reply(200, (viewer_dir / path[1:]).read_bytes(), "application/json; charset=utf-8")
+            elif LANGUAGE_FILE.match(path) and LANGUAGE_FILE.match(path).group(1) in languages():
+                # the file is one that exists (found by listing the folder), not a path made from the request
+                language = languages()[LANGUAGE_FILE.match(path).group(1)]
+                self.reply(200, language.read_bytes(), "application/json; charset=utf-8")
             elif path == "/api/weeks.json":
                 self.json(list(reversed(store.list_weeks(directory))))
             elif WEEK_FILE.match(path):

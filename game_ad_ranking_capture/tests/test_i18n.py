@@ -11,6 +11,7 @@ import pytest
 
 import config as C
 import viewer_server
+from html_helpers import body_text, inline_scripts
 from test_screens_capture import fetch
 
 LANGUAGES = ("en", "de", "ru")
@@ -92,11 +93,10 @@ def test_the_page_uses_exactly_the_texts_that_exist():
 
 
 def test_no_text_of_the_page_is_hard_coded():
-    script = re.search(r"<script>([\s\S]*?)</script>", PAGE).group(1)
+    script = inline_scripts(PAGE)[0]
     for word in ("Player", "Alliance", "Total", "Average", "Median", "preliminary", "Nobody", "No rankings"):
         assert f'"{word}' not in script and f"'{word}" not in script, word
-    body = re.search(r"<body>([\s\S]*?)<script", PAGE).group(1)
-    assert not re.search(r">\s*[A-Za-z]{3,}", body), "a text in the markup that is not a data-i18n element"
+    assert body_text(PAGE) == [], "a text in the markup: it belongs in the language files (data-i18n)"
 
 
 # -- the helpers, run in Node

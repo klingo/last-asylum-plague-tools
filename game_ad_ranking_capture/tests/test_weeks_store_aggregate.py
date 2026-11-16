@@ -139,6 +139,17 @@ def test_an_empty_name_is_stored_as_a_question_mark():
     assert week["days"]["mon"]["rows"][0]["name"] == "?"
 
 
+def test_a_week_is_found_among_the_files_never_built_into_a_path(tmp_path):
+    (tmp_path / "data").mkdir()
+    outside = tmp_path / "2026-W47.json"  # next to the data folder, not in it
+    outside.write_text('{"week": "outside"}', encoding="utf-8")
+    week = store.new_week("2026-W47", date(2026, 11, 16))
+    store.save(week, tmp_path / "data")
+    assert store.load("2026-W47", tmp_path / "data")["week"] == "2026-W47"
+    for hostile in ("../2026-W47", "..\\2026-W47", "2026-W47/../../2026-W47", str(tmp_path / "2026-W47"), "*", ""):
+        assert store.load(hostile, tmp_path / "data") is None, hostile
+
+
 def test_the_stored_names_are_as_scanned_and_corrections_apply_when_the_table_is_built():
     week = stored_week(mon=[(1, "paaT", 9), (2, "", 8)], tue=[(1, "paaT", 7), (2, "", 6)])
     for entry in week["days"].values():

@@ -1,5 +1,4 @@
 import json
-import re
 import shutil
 import subprocess
 import urllib.error
@@ -20,6 +19,7 @@ import store
 import viewer_server
 import weeks
 from helpers import HEIGHT, WIDTH, word
+from html_helpers import inline_scripts
 from scan import DayScan
 
 
@@ -309,7 +309,7 @@ def test_the_viewer_script_is_valid_javascript(tmp_path):
         pytest.skip("node is not installed")
     page = (C.VIEWER_DIR / "index.html").read_text(encoding="utf-8")
     script = tmp_path / "page.js"
-    script.write_text(re.search(r"<script>([\s\S]*?)</script>", page).group(1), encoding="utf-8")
+    script.write_text(inline_scripts(page)[0], encoding="utf-8")
     result = subprocess.run([node, "--check", str(script)], capture_output=True, text=True)
     assert result.returncode == 0, result.stderr
 
