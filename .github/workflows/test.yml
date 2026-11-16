@@ -23,7 +23,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                tool: [game_asset_extractor, mahjong_minigame_helper]
+                tool: [game_asset_extractor, mahjong_minigame_helper, game_ad_ranking_capture]
         defaults:
             run:
                 working-directory: ${{ matrix.tool }}

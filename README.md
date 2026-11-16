@@ -7,6 +7,7 @@ of the webapp and never deployed with it.
 | ------------------------- | --------------------------------------------------------------------------------------------------- |
 | `game_asset_extractor/`   | Takes the game's pictures from BlueStacks (ADB) and makes the webapp's images from them.            |
 | `mahjong_minigame_helper/`| Reads the Halloween Ball (mahjong) minigame's board and suggests the next move.                      |
+| `game_ad_ranking_capture/`| Reads the Alliance Duel's daily ranking from the game (ADB + OCR) into weekly files and shows it.     |
 
 Each tool has its own `requirements.txt` and `.venv`; see its README (or the top of `main.py`).
 

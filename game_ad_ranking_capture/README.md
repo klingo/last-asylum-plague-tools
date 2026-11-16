@@ -1,0 +1,76 @@
+# Game AD Ranking Capture
+
+Reads the **Alliance Duel** daily ranking of *Last Asylum: Plague* from BlueStacks (ADB screenshots + OCR), stores it as
+one file per calendar week and shows it in a local browser page: points per day, total, average and median per player,
+with a "My alliance" filter. A local helper; nothing is sent anywhere. Its only input to the game is taps and swipes.
+
+## Use
+
+Double-click **`start_gui.bat`**: it creates `.venv` if missing, runs `pip install -r requirements.txt` on every start
+(offline it warns and goes on) and opens the window. The first scan downloads the OCR models (about 30 MB).
+
+In the window:
+
+1. **Checks** run when it opens (adb, device, game, the screen the game shows): everything should say OK. BlueStacks needs
+   *Settings > Advanced > Android Debug Bridge* switched on and the game running.
+2. **Scan** opens the Rank screen by itself (from the map, or from wherever the game is) and reads every ticked day that has
+   data. **Do not touch the emulator while it runs.** One day with 160 players takes about 3.5 minutes. **Stop** ends it
+   after the current page; days already read stay.
+3. **Open rankings in browser** shows the weekly files. **Open data folder** opens `data/`.
+
+Command line (from this folder): `.venv/Scripts/python main.py check | capture [--days mon,tue] [--force] | status | view`.
+
+## How it works
+
+- **Navigation** (`screens.py`): every screen is recognised by its text; the Duel's icon on the map (no text) by matching
+  `templates/duel_icon.png`. Each step is checked, an unknown screen is left with the on-screen back arrow (never the Android
+  back key), and after a few of those it stops with a message instead of tapping around.
+- **Days**: Monday to Saturday (the Duel has no Sunday). A day tab the game does not switch to has **no data yet**.
+  A day's numbers are **preliminary** until its game day has ended: the game's day changes at the 02:00 UTC reset (server
+  time is UTC-2), i.e. 03:00 CET / 04:00 CEST, so Monday's list is final from Tuesday 03:00 CET on. A preliminary day is
+  recorded (marked `final: false`, "prelim." in the viewer) and read again by every scan. A day is **final** once a
+  complete scan of it *started* after its game day ended (a scan that runs across the reset does not count); final days are
+  skipped (`--force` / "Read final days again" reads them again), so a run only fills in missing and preliminary days.
+- **Reading a list** (`scan.py`, `rows.py`): scroll to the top, read a page, swipe, repeat until two swipes bring nothing new
+  (the list ends at the last player with points, at most 200). Pages are merged by rank. The swipe length is measured from
+  where the same cards sit on two pages, so a skipped card is noticed and read again. Ranks 1-3 are medals: they get their
+  rank from the card below. The points are the anchor of each row; name, alliance and rank are found around them.
+  From about rank 105 on the game shows "Not ranked" instead of a number: those players are read all the same (name, alliance,
+  points), placed by a card the earlier pages already read, and numbered by their position in the list, which is by points
+  (highest first, the last one has the last rank).
+- **OCR**: RapidOCR. Latin names and digits are read well; rows with an empty or unsure name are read again with a Cyrillic
+  model. A name made of square symbols (`■□■`, the game's stand-in for characters its font lacks) is no text to any
+  model: when both engines found no name, the name line is searched for solid and outlined squares (`symbols.py`). Anything
+  still unreadable is stored as `?` and goes to the review list.
+
+## Files
+
+- `data/<year>-W<week>.json`: one calendar week (ISO), committed. `{week, start, meta: {my_name, my_alliance, my_tag},
+  days: {mon: {date, captured_at, final, complete, rows: [{rank, name, alliance, tag, points}]}}}`, one row per line so a
+  diff shows what changed. `complete: false` means the list was not read to its end.
+- `corrections.json`: two sections, applied when the viewer builds its table. The weekly files keep the names as scanned,
+  so an edit takes effect on the next reload, also for days that are final and never scanned again.
+  - `"corrections"`: `"misread": "right"` replaces that text wherever it is a name, alliance or tag (the game's font makes
+    `I` and `l` look the same: `"SolM": "SoIM"`); `"<week>/<day>/<rank>": "name"` sets the name of one card, e.g.
+    `"2026-W47/mon/18": "Name"` for a name the OCR could not read (stored as `?`).
+  - `"aliases"`: a player who **renamed**. `"OldName": "NewName"` makes every card named OldName, in every week, a card of
+    NewName, so the days before and after the rename are one player in the table (total, average and median over all
+    of them). Look-alike spellings of OldName match too, and renames can be chained (`"A": "B", "B": "C"`).
+- `review/<week>/<day>/rank-<n>.png` (git-ignored): pictures of the cards the OCR was unsure about, to check by eye.
+
+## Viewer
+
+Week selector (newest first), **My alliance** (the alliance of your own pinned row), sortable columns. A player missing from
+a day's list shows `-` and is left out of average and median (not counted as 0). The same player read with `I` one day and
+`l` another is one player. Days that are still preliminary are marked "prelim." in orange.
+
+**Colours**: the daily points, the Average and the Median are coloured by the Duel's 9 daily reward phases (`PHASES` in
+`config.py`: 38'000, 145'000, 550'000, 650'000, 1'020'000, 2'280'000, 2'630'000, 3'620'000, 7'190'000). It is a scale, not
+bands: **red** at phase 5 (1'020'000) and below, **amber** at phase 7 (2'630'000), **green** at phase 9 (7'190'000) and
+above, blended in between (`COLOR_SCALE`; the legend in the header shows it). A cell's tooltip names the phase it
+reaches. The Total is not coloured: it is not a day's points. If the game changes a phase's points, change `PHASES`.
+
+## Tests
+
+`.venv/Scripts/python -m pytest -q`: small inline data, a fake game that scrolls a virtual list, and two real screenshots
+(`tests/fixtures`) for the OCR; no game or device needed. The OCR tests skip themselves when the models cannot be loaded.

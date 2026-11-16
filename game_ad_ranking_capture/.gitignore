@@ -1,0 +1,5 @@
+# crops of rows the OCR was unsure about (local, for checking by eye); data/ is NOT ignored: the weekly files are committed
+review/
+__pycache__/
+.pytest_cache/
+.venv/
