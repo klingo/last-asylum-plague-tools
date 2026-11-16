@@ -291,10 +291,11 @@ def test_the_viewer_serves_the_page_the_week_list_and_a_table(tmp_path):
     server, url = viewer_server.start(tmp_path)
     try:
         assert b"Alliance Duel rankings" in fetch(url)[1]
-        assert json.loads(fetch(url + "api/weeks")[1]) == ["2026-W47"]
-        table = json.loads(fetch(url + "api/week/2026-W47")[1])
+        assert json.loads(fetch(url + "api/weeks.json")[1]) == ["2026-W47"]
+        table = json.loads(fetch(url + "api/week/2026-W47.json")[1])
         assert table["players"][0]["total"] == 100 and table["my_alliance"] == "Mice"
-        for bad in ("api/week/2026-W01", "api/week/..%2F..%2Fsecret", "api/week/2026-W4x", "elsewhere"):
+        unknown = ("api/week/2026-W01.json", "api/week/..%2F..%2Fsecret.json", "api/week/2026-W4x.json")
+        for bad in (*unknown, "api/week/2026-W47", "elsewhere"):
             with pytest.raises(urllib.error.HTTPError) as error:
                 fetch(url + bad)
             assert error.value.code == 404

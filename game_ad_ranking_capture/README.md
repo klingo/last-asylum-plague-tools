@@ -107,6 +107,21 @@ bands: **red** at phase 5 (1'020'000) and below, **amber** at phase 7 (2'630'000
 above, blended in between (`COLOR_SCALE`; the legend in the header shows it). A cell's tooltip names the phase it
 reaches. The Total is not coloured: it is not a day's points. If the game changes a phase's points, change `PHASES`.
 
+## Publishing to GitHub Pages
+
+`export.py` (`python export.py [--out DIR]`, default `site/`, git-ignored) writes the viewer as a static site: the page,
+`api/weeks.json` and one `api/week/<week>.json` table per week, with the corrections, aliases and member lists applied. It
+needs nothing but Python (no OpenCV, no OCR). The page is the same as the local one: it fetches those files with relative
+URLs, which are also the routes of the local server, so it works below `/<repository>/` too.
+
+`.github/workflows/pages.yml` (repository root) builds and deploys it on **every push to `main`** (and by hand, "Run
+workflow"), so the site always shows what was pushed last. One-time setup: *Settings > Pages > Build and deployment >
+Source: GitHub Actions*. The site is at `https://<owner>.github.io/<repository>/`.
+
+**It is public**: the tables hold the names of the players of both alliances. The page carries `noindex` (a request to search
+engines, not a protection), and GitHub Pages of a private repository needs a plan that includes it and is still reachable by
+anyone with the link unless the plan restricts access.
+
 ## Tests
 
 `.venv/Scripts/python -m pytest -q`: small inline data, a fake game that scrolls a virtual list, and two real screenshots

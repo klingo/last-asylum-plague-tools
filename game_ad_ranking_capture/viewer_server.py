@@ -1,7 +1,8 @@
 """The local server behind the viewer: `viewer/index.html` plus two JSON routes, on this computer only (127.0.0.1).
 
-`/api/weeks` lists the weeks that have a file (newest first), `/api/week/<year>-W<week>` is that week's table
-(`aggregate.week_table`). The page itself only filters and sorts. Shared by `main.py view` and the window's button.
+`/api/weeks.json` lists the weeks that have a file (newest first), `/api/week/<year>-W<week>.json` is that week's table
+(`aggregate.week_table`). The page itself only filters and sorts. The routes are the files `export.py` writes for the
+static site, so the same page works here and on GitHub Pages. Shared by `main.py view` and the window's button.
 """
 
 from __future__ import annotations
@@ -16,7 +17,8 @@ import aggregate
 import config as C
 import store
 
-WEEK_ID = re.compile(r"^\d{4}-W\d{2}$")  # the only thing a request may name: no path can be built from it
+# the only week a request may name: no path is ever built from the request
+WEEK_FILE = re.compile(r"^/api/week/(\d{4}-W\d{2})\.json$")
 
 
 def make_handler(directory: Path, viewer_dir: Path) -> type[http.server.BaseHTTPRequestHandler]:
@@ -37,10 +39,10 @@ def make_handler(directory: Path, viewer_dir: Path) -> type[http.server.BaseHTTP
             if path in ("/", "/index.html"):
                 page = (viewer_dir / "index.html").read_bytes()
                 self.reply(200, page, "text/html; charset=utf-8")
-            elif path == "/api/weeks":
+            elif path == "/api/weeks.json":
                 self.json(list(reversed(store.list_weeks(directory))))
-            elif path.startswith("/api/week/") and WEEK_ID.match(path[len("/api/week/") :]):
-                week = store.load(path[len("/api/week/") :], directory)
+            elif WEEK_FILE.match(path):
+                week = store.load(WEEK_FILE.match(path).group(1), directory)
                 if week is None:
                     self.reply(404, b"no such week", "text/plain")
                 else:

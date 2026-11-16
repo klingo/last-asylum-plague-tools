@@ -29,7 +29,7 @@ Run from the tool's own folder, with its venv (`.venv/Scripts/python`; set it up
 `.venv/Scripts/python -m pip install -r requirements.txt`; use `python -m pip`, a moved venv's `pip.exe` points at the old path).
 
 ```bash
-.venv/Scripts/python -m pytest -q          # the tool's tests (game_asset_extractor: 218, mahjong_minigame_helper: 64, game_ad_ranking_capture: 84)
+.venv/Scripts/python -m pytest -q          # the tool's tests (game_asset_extractor: 218, mahjong_minigame_helper: 64, game_ad_ranking_capture: 89)
 .venv/Scripts/python main.py --help        # the CLI (game_asset_extractor and game_ad_ranking_capture: also gui.py / start_gui.bat; mahjong: gui.py)
 ```
 
@@ -97,6 +97,10 @@ webapp checkout and a small screen: tests stub the webapp's folder and size the 
   `ocr.py` is RapidOCR (default engine, plus a Cyrillic one only for rows the first could not read; `symbols.py` reads names
   made of square symbols by shape). `gui.py` is the
   window (`start_gui.bat` makes the venv, installs the requirements, starts it); a task thread must not touch Tk.
+  `export.py` writes the viewer as a static site (stdlib + the table modules only, the publish workflow installs nothing);
+  `.github/workflows/pages.yml` deploys it on every push to `main`. The page and `viewer_server.py` share the relative
+  routes `api/weeks.json` and `api/week/<week>.json`. The published tables hold other players' names: keep it that way
+  only on purpose.
   The viewer colours the daily points, average and median by the Duel's 9 reward phases (`config.PHASES`, `COLOR_SCALE`;
   position on the scale computed in `aggregate.py`, the page only maps it to a colour).
 - The only game input is taps and swipes: never start a capture (or anything that taps) unless asked, and never while the

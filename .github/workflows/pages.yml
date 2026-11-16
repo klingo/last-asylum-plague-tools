@@ -1,0 +1,60 @@
+name: Publish the rankings
+
+# Every push to main publishes the Alliance Duel rankings (game_ad_ranking_capture/data) as a static site to GitHub Pages:
+# the viewer's page and one table per week, built by `export.py`, which needs nothing installed beyond Python itself.
+# One-time setup in the repository: Settings > Pages > Build and deployment > Source: GitHub Actions.
+on:
+    push:
+        branches: [main]
+    workflow_dispatch: {}
+
+# Least privilege: the build only reads the repository; the deployment alone may write to Pages.
+permissions:
+    contents: read
+
+# Only one deployment at a time; a newer push cancels one that is still running.
+concurrency:
+    group: pages
+    cancel-in-progress: true
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        # `pages: read`: configure-pages looks up the site's settings.
+        permissions:
+            contents: read
+            pages: read
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v7
+
+            - name: Setup Python
+              uses: actions/setup-python@v7
+              with:
+                  python-version: '3.12'
+
+            - name: Build the site
+              working-directory: game_ad_ranking_capture
+              run: python export.py --out ../_site
+
+            - name: Setup Pages
+              uses: actions/configure-pages@v6
+
+            - name: Upload Pages artifact
+              uses: actions/upload-pages-artifact@v5
+              with:
+                  path: _site
+
+    deploy:
+        needs: [build]
+        runs-on: ubuntu-latest
+        permissions:
+            pages: write
+            id-token: write
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v5

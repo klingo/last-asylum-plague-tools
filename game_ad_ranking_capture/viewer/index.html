@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><title>Alliance Duel rankings</title>
+<meta name="robots" content="noindex, nofollow">
 <style>
 body { font: 14px/1.4 system-ui, sans-serif; margin: 0; background: #1b1d22; color: #e6e6e6; }
 header { position: sticky; top: 0; z-index: 2; background: #23262d; padding: 10px 14px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; border-bottom: 1px solid #000; }
@@ -174,14 +175,14 @@ function render() {
 }
 
 async function load(week) {
-  const response = await fetch("/api/week/" + week);
+  const response = await fetch("api/week/" + week + ".json");   // relative: also works under /<repo>/ on GitHub Pages
   state.data = await response.json();
   el("mineText").textContent = state.data.my_alliance ? "My alliance (" + state.data.my_alliance + ")" : "My alliance";
   render();
 }
 
 async function start() {
-  const weeks = await (await fetch("/api/weeks")).json();
+  const weeks = await (await fetch("api/weeks.json")).json();
   if (!weeks.length) {
     showMessage("No rankings yet: run a scan from the window first.");
     return;
