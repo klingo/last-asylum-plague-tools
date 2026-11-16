@@ -3,9 +3,15 @@
 Left: the webapp's texts with their status (filter and search above; a click on a column heading sorts, again: the other
 way round). Right, for the selected one: its text in every language of the webapp next to what the game says (the chosen
 game text, written the webapp's way; a difference is marked), then the closest game texts (the same English first, then
-near ones: a possible typo) and a search over all game texts in any language. "Use this text" maps it, "Own text" marks it
-as having no original in the game. Every change is written to text_mapping.json at once; nothing in the webapp changes until
-Sync texts.
+near ones: a possible typo; a text the game puts together in its code, `Lv.3 Sharp Beak`, shows as the template of its parts)
+and a search over all game texts in any language. The chosen game text is a template in a field of its own (see
+`text_mapping.parse_template`): a click on a text puts it there, with "Compose" on it is added to what the field says, and
+the field can be written by hand (`[[id|0=119.5h]]` fills the game placeholder `{0}`, text between the `[[ ]]` is literal).
+Game texts and your own words mix freely (`[[id]] (needs 3 shards)`), but the literal text is the same in every language
+(only a fill can differ: `|de:0=...`), may not hold `[[`, `]]` or `|`, and a template needs at least one game text (a text
+that is all yours is an "Own text").
+"Use this text" maps what the field says, "Own text" marks it as having no original in the game. Every change is written to
+text_mapping.json at once; nothing in the webapp changes until Sync texts.
 """
 
 from __future__ import annotations
@@ -23,7 +29,7 @@ COLOURS = {"official": "#1b7f3b", "to sync": "#b36b00", "mismatch": "#b00020", "
 NOTES = {
     "official": "The webapp says what the game says in every language.",
     "to sync": "Mapped: Sync texts writes the game's wording into the webapp (the differences are marked).",
-    "mismatch": "The placeholders of the webapp's English and the game's do not pair up: nothing is synced.",
+    "mismatch": "The placeholders of the webapp's English and the game's do not pair up: nothing is synced. Fill one the game's code fills: [[id|0=119.5h]].",
     "missing": "The mapped game text is no longer in the extracted texts: choose another or clear it.",
     "suggested": "The game has this English text; 'Use this text' (or 'Map all suggested') maps it.",
     "ambiguous": "The game has this English text with different translations: pick the right one.",
@@ -31,6 +37,8 @@ NOTES = {
     "unmapped": "Nothing like it in the game: search below, or mark it as the webapp's own text.",
     "none": "Marked as the webapp's own text: nothing is synced.",
 }
+HINT = ("Mix game texts and your own words: [[id]] your words [[id|0=3]]. |0=3 fills the game's {0} (|de:0=3 for German only); "
+        "your own words are the same in every language. With Compose on, a click adds the text to the template.")
 DIFFERS, SAME, BLANK = "#fff0d0", "white", "#f0f0f0"
 TEXT_WIDTH, TEXT_HEIGHT = 46, 5  # characters, lines: a webapp text and the game's, side by side
 LIST_HEIGHT = 8
@@ -60,7 +68,7 @@ class Editor(tk.Toplevel):
         self.on_change = on_change
         self.game: TM.Game | None = None
         self.location: str | None = None
-        self.chosen: str | None = None
+        self.parts: list | None = None  # what the template says (None: nothing, or something that is not valid)
         self.sort: tuple[str, bool] | None = None  # (column, descending); None: the order of the data
         self.status_note = ""  # what the selected text's status means
         self.cand_ids: list[str] = []
@@ -121,6 +129,18 @@ class Editor(tk.Toplevel):
             for column, widget in enumerate(self.boxes[lang], 1):
                 widget.grid(row=row, column=column, padx=3, pady=2)
 
+        pick = ttk.Frame(right)
+        pick.pack(anchor="w", fill="x", pady=(8, 2))
+        ttk.Label(pick, text="Game text (template)").pack(side="left")
+        self.compose = tk.BooleanVar(value=False)
+        inert(ttk.Checkbutton(pick, text="Compose: a click adds the text", variable=self.compose)).pack(side="right")
+        self.template = tk.StringVar()
+        self.template.trace_add("write", lambda *a: self.preview())
+        self.entry = ttk.Entry(right, textvariable=self.template)
+        self.entry.pack(anchor="w", fill="x")
+        hint = tk.Label(right, text=HINT, foreground="#555", justify="left", anchor="nw", height=3)
+        hint.pack(anchor="w")
+
         ttk.Label(right, text="Closest game texts (click to choose)").pack(anchor="w", pady=(8, 2))
         self.cands = tk.Listbox(right, height=LIST_HEIGHT, width=2 * TEXT_WIDTH, exportselection=False)
         self.cands.pack(anchor="w", fill="x")
@@ -149,7 +169,7 @@ class Editor(tk.Toplevel):
         # The panel is as wide as the two text boxes and stays so: a long location must not widen it (the list would shrink and
         # everything shift while moving through the rows); the labels wrap at that width.
         self.update_idletasks()
-        for label in (heading, note, summary):
+        for label in (heading, note, hint, summary):
             label.configure(wraplength=grid.winfo_reqwidth())
         self.update_idletasks()
         right.configure(width=grid.winfo_reqwidth(), height=right.winfo_reqheight())
@@ -244,39 +264,56 @@ class Editor(tk.Toplevel):
         self.location = picked[0]
         row = next(r for r in self.table if r["location"] == self.location)
         node = self.texts[self.location]
-        self.chosen = row["source"]
         self.heading.set(f"{self.location}   [{row['status']}]")
         self.status_note = NOTES[row["status"]]
         found = TM.candidates(node, self.game, self.langs)
         self.cand_ids = [c["id"] for c in found]
         self.cands.delete(0, "end")
         for c in found:
-            self.cands.insert("end", f"{c['score']:>3}%  {c['id']}   {(self.game.text('en', c['id']) or '')[:60]!r}")
-        self.preview()
+            english = self.game.text("en", c["id"]) or TM.compose(c["parts"], self.game, "en") or ""
+            self.cands.insert("end", f"{c['score']:>3}%  {c['id']}   {english[:60]!r}")
+        self.template.set(row["source"] or "")  # shows the previews
+        self.entry.icursor("end")  # where Compose adds the next text
 
     # --- previews -----------------------------------------------------------------------------------------------
     def preview(self) -> None:
-        """The webapp's text and the chosen game text, language by language; what Sync would change is marked."""
+        """The webapp's text and the game text the template says, language by language; what Sync would change is marked.
+        Without a valid template (`self.parts`) "Use this text" does nothing."""
         if self.location is None:
             return
-        node = self.texts[self.location]
-        found = TM.targets(node, self.chosen, self.game, self.langs) if self.chosen else {}
+        node, template, problem = self.texts[self.location], self.template.get(), ""
+        self.parts = None
+        if template.strip():
+            try:
+                self.parts = TM.parse_template(template)
+            except ValueError as error:
+                problem = str(error)
+        found = TM.targets(node, self.parts, self.game, self.langs) if self.parts else {}
+        if self.parts and not found:
+            problem, self.parts = "A game text of the template is not in the game.", None
         for lang, (webapp, game) in self.boxes.items():
             show(webapp, node.get(lang, ""), SAME if node.get(lang) else BLANK)
             if lang not in found:
-                show(game, "(no game text)" if self.chosen else "", BLANK)
+                show(game, "(no game text)" if template.strip() else "", BLANK)
             elif found[lang] is None:
                 show(game, "(the placeholders do not pair up)", DIFFERS)
             else:
                 show(game, found[lang], SAME if found[lang] == node.get(lang, "") else DIFFERS)
-        tail = f"  Chosen: {self.chosen}" if self.chosen else ""
-        self.note.set(self.status_note + tail)
+        self.note.set(f"{self.status_note}  {problem}" if problem else self.status_note)
 
     def pick(self, box: tk.Listbox, ids: list[str]) -> None:
+        """A click on a game text: it is the template, or (Compose) is added where the cursor is."""
         picked = box.curselection()
         if picked:
-            self.chosen = ids[picked[0]]
-            self.preview()
+            text = ids[picked[0]]
+            if not self.compose.get():
+                self.template.set(text)
+                return
+            current = self.template.get().strip()
+            if TM.TEXT_ID.fullmatch(current):  # a game text on its own is its id: it becomes the first part
+                self.template.set(f"[[{current}]]")
+                self.entry.icursor("end")
+            self.entry.insert("insert", f"[[{text}]]" if TM.TEXT_ID.fullmatch(text) else text)
 
     def search_texts(self) -> None:
         self.result_ids = self.game.search(self.search.get())
@@ -286,13 +323,13 @@ class Editor(tk.Toplevel):
 
     # --- changes ------------------------------------------------------------------------------------------------
     def use(self) -> None:
-        if self.location and self.chosen:
-            TM.set_source(self.location, self.chosen)
+        if self.location and self.parts:
+            TM.set_entry(self.location, self.parts)
             self.changed(self.location)
 
     def own_text(self) -> None:
         if self.location:
-            TM.set_source(self.location, None)
+            TM.set_entry(self.location, None)
             self.changed(self.location)
 
     def clear(self) -> None:

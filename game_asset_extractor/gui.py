@@ -71,7 +71,10 @@ TIPS = {
     "texts": "Opens every extracted game text in the browser (out/texts/index.html): search all folders or one, in every language "
              "the game has downloaded, and see which texts a game version added or changed.",
     "text_mapping": "Which game text each of the webapp's texts (names and descriptions in the data files) is. Confirm the "
-                    "suggestions, check near matches (a typo?), pick another text, or mark a text as the webapp's own.",
+                    "suggestions, check near matches (a typo?), pick another text, or mark a text as the webapp's own. A text the "
+                    "game puts together in its code (Lv.3 Sharp Beak, a name with a value after it, a placeholder it fills) or that "
+                    "mixes game texts with your own words is a template: [[game text id]] [[id|0=3]] your own text. Turn Compose on "
+                    "to add each clicked game text to it; your own text is the same in every language.",
     "text_preview": "Lists every text Sync texts would change in the webapp's data files (the game's wording, English too, and the "
                     "translations the webapp lacks or has wrong). Writes nothing.",
     "text_sync": "Writes the game's wording and translations of every mapped text into the webapp's data files (data/*.json of "

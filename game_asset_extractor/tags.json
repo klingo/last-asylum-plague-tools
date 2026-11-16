@@ -345,6 +345,9 @@
  "pictures/Zombie_AllianceBattleIcon/icon_wannengsuipian_chengse": [
   "shard"
  ],
+ "pictures/Zombie_AllianceWarIcon/pic_lmjj_jz_shuishanghuati": [
+  "territory skin"
+ ],
  "pictures/Zombie_AreaReward1/pic_kaidi_boss_16": [
   "demon"
  ],
@@ -1574,7 +1577,7 @@
   "sanctuary skin"
  ],
  "pictures/Zombie_ItemIcon144/icon_Item_Skin_Castle8_shuishanghuati": [
-  "sanctuary skin"
+  "territory skin"
  ],
  "pictures/Zombie_ItemIcon144/icon_awaken_suipian_09": [
   "arthur",
@@ -1847,6 +1850,15 @@
  ],
  "pictures/Zombie_ItemIcon144/icon_lianmmengliwubox06": [
   "chest"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_liaotianqipao3": [
+  "chat bubble"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_liaotianqipao4": [
+  "chat bubble"
+ ],
+ "pictures/Zombie_ItemIcon144/icon_liaotianqipao5": [
+  "chat bubble"
  ],
  "pictures/Zombie_ItemIcon144/icon_lz_jinengchongzhishu": [
   "lord"

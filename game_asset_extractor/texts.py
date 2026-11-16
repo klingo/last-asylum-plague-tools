@@ -9,7 +9,8 @@ plain text in two shapes, one folder per language (`en`, `de`, ...):
 A text has one id in every language: `language/<File>:<key>` or `tables/<Table>:<row>.<field>`. Newlines are written
 `\\n`, Lua also escapes quotes. The texts carry NGUI markup (`[c][ec413a]red[-][/c]`, `[b]`) and numbered placeholders
 (`{0}`); `clean` takes the markup off, `norm` makes the key texts are compared by, `adapt` gives a game text the
-webapp's placeholder names.
+webapp's placeholder names. The unit of a number is often added by the game's code (`+{0}` where the webapp says
+`+{value}%`): a `%` right after a placeholder is not part of the key, and `adapt` puts the webapp's back.
 
 `out/texts.json` is what the pictures' `added` / `changed` runs are for the pictures: for every text and language the
 hash of its raw text and the extract run that first saw it (`added`) and last changed it (`changed`, 0 = never), so the
@@ -33,6 +34,7 @@ LANGUAGE_DIR, TABLE_DIR = "language_F", "basedb_F"
 FOLDERS = {LANGUAGE_DIR: "language", TABLE_DIR: "tables"}  # the game's folder -> the first part of a text id
 MARKUP = re.compile(r"\[(?:/?[cbius]|-|[0-9A-Fa-f]{6}(?:[0-9A-Fa-f]{2})?)\]")
 PLACEHOLDER = re.compile(r"\{[^{}]*\}")
+PLACEHOLDER_UNIT = re.compile(r"(\{[^{}]*\})(\s?%)?")  # a placeholder (1) and the `%` the text itself has after it, if any (2)
 ROW = re.compile(r'^\t\["(.*?)"\] = \{(.*)\},$')
 FIELD = re.compile(r'\["(\w+)"\] = "((?:[^"\\]|\\.)*)"')
 ESCAPE = re.compile(r"\\(.)")
@@ -100,8 +102,8 @@ def clean(text: str) -> str:
 
 def norm(text: str) -> str:
     """The key two texts are called the same by: clean, lower case, one space between words, a typographic apostrophe
-    as a plain one, every placeholder as `{}`."""
-    text = PLACEHOLDER.sub("{}", clean(text).replace("’", "'"))
+    as a plain one, every placeholder (with a `%` after it) as `{}`."""
+    text = PLACEHOLDER_UNIT.sub("{}", clean(text).replace("’", "'"))
     return " ".join(text.lower().split())
 
 
@@ -113,16 +115,23 @@ def placeholders(text: str) -> list[str]:
 def adapt(game: str, game_en: str, webapp_en: str) -> str | None:
     """`game` (a game text in any language, with its English `game_en`) cleaned, with the game's placeholders (`{0}`,
     `{1}`) named as the webapp's English `webapp_en` names its own (`{value}`), paired by their order in the two English
-    texts. None when they do not pair up: the texts have a different number of placeholders (or the game text has one
-    its English does not)."""
+    texts. A number the webapp writes with a `%` (`{value}%`) gets it where the game's text has none (the game's code
+    adds the unit); a `%` the game has stays as the game writes it. None when the placeholders do not pair up: the texts
+    have a different number of placeholders (or the game text has one its English does not)."""
     game_names, webapp_names = placeholders(clean(game_en)), placeholders(clean(webapp_en))
     if len(game_names) != len(webapp_names):
         return None
     rename = dict(zip(game_names, webapp_names))
+    percent = set(re.findall(r"(\{[^{}]*\})%", clean(webapp_en)))
     text = clean(game)
     if any(name not in rename for name in placeholders(text)):
         return None
-    return PLACEHOLDER.sub(lambda m: rename[m.group(0)], text)
+
+    def put(match: re.Match) -> str:
+        name = rename[match.group(1)]
+        return name + (match.group(2) or ("%" if name in percent else ""))
+
+    return PLACEHOLDER_UNIT.sub(put, text)
 
 
 # --- when did a text appear or change ------------------------------------------------------------------------------

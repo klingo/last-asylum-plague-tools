@@ -17,7 +17,7 @@ TEXTS = {
 @pytest.fixture
 def editor(root, monkeypatch, tmp_path):
     saved = tmp_path / "text_mapping.json"
-    for name in ("set_source", "clear", "accept_suggestions"):  # every change goes to a scratch file, never the real mapping
+    for name in ("set_entry", "clear", "accept_suggestions"):  # every change goes to a scratch file, never the real mapping
         original = getattr(TM, name)
         monkeypatch.setattr(TM, name, lambda *a, _o=original, **k: _o(*a, **k, path=saved))
     load = TM.load
@@ -172,3 +172,43 @@ def test_mapping_one_text_redoes_only_its_row_and_tells_the_window_the_new_count
     assert editor.tree.set("pack_data:items.gold.name", "status") == "suggested" and "suggested 2" in told[-1]
     editor.accept_all()  # several texts: everything is read again
     assert len(editor.reloads) == reloads + 1 and "Official 1 of 5" in told[-1] and "to sync 1" in told[-1]
+
+
+def test_the_template_field_shows_the_game_text_and_previews_what_it_says(editor):
+    editor.tree.selection_set("pack_data:items.sword.name")
+    editor.update()
+    assert editor.template.get() == "tables/Item:sword.name"
+    editor.template.set("[[tables/Item:chest.name]]")
+    assert editor.parts == [{"source": "tables/Item:chest.name"}] and box_text(editor.boxes["de"][1]) == "Raben-Truhe"
+    editor.template.set("[[tables/Item:chest.name")
+    assert editor.parts is None and "not closed" in editor.note.get() and box_text(editor.boxes["de"][1]) == "(no game text)"
+    editor.use()  # nothing valid to map
+    assert "pack_data:items.sword.name" not in editor.mapping
+    editor.template.set("[[tables/Item:gone]]")
+    assert editor.parts is None and "not in the game" in editor.note.get()
+
+
+def test_use_maps_what_the_template_says_with_its_fill(editor):
+    editor.tree.selection_set("pack_data:items.own.name")
+    editor.update()
+    editor.template.set("[[tables/Item:sword.name|0=3]] 5")
+    editor.use()
+    assert editor.mapping["pack_data:items.own.name"] == {"parts": [{"source": "tables/Item:sword.name", "fill": {"0": "3"}}, " 5"]}
+    assert editor.tree.set("pack_data:items.own.name", "status") == "to sync"
+
+
+def test_compose_adds_a_clicked_text_to_the_template_else_it_replaces_it(editor):
+    editor.tree.selection_set("pack_data:items.sword.name")
+    editor.update()
+    editor.search.set("morgen")
+    editor.results.selection_set(0)
+    editor.compose.set(True)
+    editor.pick(editor.results, editor.result_ids)  # the id on its own becomes the first part
+    assert editor.template.get() == "[[tables/Item:sword.name]][[tables/Item:sword.name]]"
+    editor.compose.set(False)
+    editor.pick(editor.results, editor.result_ids)
+    assert editor.template.get() == "tables/Item:sword.name"
+
+
+def test_the_window_hints_at_templates_under_the_field(editor):
+    assert [w for w in widgets(editor) if w.winfo_class() == "Label" and w.cget("text") == TG.HINT]

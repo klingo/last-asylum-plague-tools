@@ -2,14 +2,26 @@
  "events:event_rotations.alliance_duel.phases[construction].earn_points[1].text": {
   "source": "tables/PointSource:12031.pointSourceText"
  },
+ "events:event_rotations.alliance_duel.phases[construction].earn_points[2].text": {
+  "source": "tables/GoToTarget:commander_1603.name"
+ },
  "events:event_rotations.alliance_duel.phases[construction].name": {
   "source": "tables/AllianceCompetitionStage:102.rightEntryName"
  },
  "events:event_rotations.alliance_duel.phases[heroes].name": {
   "source": "tables/AllianceCompetitionStage:104.rightEntryName"
  },
+ "events:event_rotations.alliance_duel.phases[raid_the_enemy].earn_points[1].text": {
+  "source": "tables/GoToTarget:commander_1603.name"
+ },
+ "events:event_rotations.alliance_duel.phases[raid_the_enemy].earn_points[2].text": {
+  "source": "tables/GoToTarget:commander_1605.name"
+ },
  "events:event_rotations.alliance_duel.phases[raid_the_enemy].earn_points[4].text": {
   "source": "tables/PointSource:1403.pointSourceText"
+ },
+ "events:event_rotations.alliance_duel.phases[raid_the_enemy].earn_points[7].text": {
+  "source": "tables/GoToTarget:commander_1627.name"
  },
  "events:event_rotations.alliance_duel.phases[raid_the_enemy].name": {
   "source": "tables/AllianceCompetitionStage:106.rightEntryName"
@@ -47,11 +59,23 @@
  "events:event_rotations.alliance_duel.phases[research].earn_points[7].text": {
   "source": "tables/PointSource:13012.pointSourceText"
  },
+ "events:event_rotations.alliance_duel.phases[research].earn_points[8].text": {
+  "source": "tables/GoToTarget:commander_1605.name"
+ },
  "events:event_rotations.alliance_duel.phases[research].name": {
   "source": "tables/AllianceCompetitionStage:103.rightEntryName"
  },
+ "events:event_rotations.alliance_duel.phases[war_preparation].earn_points[5].text": {
+  "source": "tables/GoToTarget:commander_1605.name"
+ },
+ "events:event_rotations.alliance_duel.phases[war_preparation].earn_points[6].text": {
+  "source": "tables/GoToTarget:commander_1603.name"
+ },
  "events:event_rotations.alliance_duel.phases[war_preparation].name": {
   "source": "tables/AllianceCompetitionStage:105.rightEntryName"
+ },
+ "events:event_rotations.survival_battle.phases[build_territory].earn_points[1].text": {
+  "source": "tables/GoToTarget:commander_1603.name"
  },
  "events:event_rotations.survival_battle.phases[build_territory].name": {
   "source": "tables/ActivityDisplay:100201.name"
@@ -61,6 +85,12 @@
  },
  "events:event_rotations.survival_battle.phases[enhance_raven].earn_points[1].text": {
   "source": "tables/PointSource:1706.pointSourceText"
+ },
+ "events:event_rotations.survival_battle.phases[technology_research].earn_points[1].text": {
+  "source": "tables/GoToTarget:commander_1605.name"
+ },
+ "events:events.blades_out.name": {
+  "source": "tables/ActivityDisplay:45001051.name"
  },
  "events:events.canyon_conquest.name": {
   "source": "tables/ActivityDisplay:10102011.name"
@@ -113,6 +143,9 @@
  "events:events.kingdom_war.name": {
   "source": "tables/ActivityDisplay:5900201.name"
  },
+ "events:events.mystic_cabinet.name": {
+  "source": "tables/GiftBase:891000001.giftName"
+ },
  "events:events.pandemic_experience.name": {
   "source": "tables/ActivityDisplay:3900101.name"
  },
@@ -122,17 +155,29 @@
  "events:events.recluse_merchant.name": {
   "source": "tables/ActivityDisplay:6000101.name"
  },
+ "events:events.royal_city_scramble.name": {
+  "source": "tables/ActivityDisplay:5900101.name"
+ },
  "events:events.shadow_blight.name": {
   "source": "tables/ActivityDisplay:4800101.name"
  },
  "events:events.strange_bazaar.name": {
   "source": "tables/ActivityDisplay:4500104.name"
  },
+ "events:events.surprise_encounter.name": {
+  "source": "tables/ActivityDisplay:4500103.name"
+ },
+ "events:events.survival_battle.name": {
+  "source": "tables/ActivityDisplay:100001.name"
+ },
  "events:events.thief_hunt.name": {
   "source": "tables/ActivityDisplay:4500106.name"
  },
  "events:events.wandering_phantom.name": {
   "source": "tables/ActivityDisplay:4500107.name"
+ },
+ "events:events.weekly_special.name": {
+  "source": "tables/ActivityDisplay:8100101.name"
  },
  "events:kingdom_war.weeks[finals].name": {
   "source": "language/lang_abc:cross_match_tips5"
@@ -146,11 +191,20 @@
  "hero_skills:heroes.annie.awakening_skills[0].description": {
   "source": "tables/HeroAwakenShow:21.awakenSkillDesc"
  },
+ "hero_skills:heroes.annie.awakening_skills[0].name": {
+  "source": "tables/HeroAwakenShow:21.awakenSkillName"
+ },
  "hero_skills:heroes.annie.awakening_skills[1].description": {
   "source": "tables/HeroAwakenShow:22.awakenSkillDesc"
  },
+ "hero_skills:heroes.annie.awakening_skills[1].name": {
+  "source": "tables/HeroAwakenShow:22.awakenSkillName"
+ },
  "hero_skills:heroes.annie.awakening_skills[2].description": {
   "source": "tables/HeroAwakenShow:23.awakenSkillDesc"
+ },
+ "hero_skills:heroes.annie.awakening_skills[2].name": {
+  "source": "tables/HeroAwakenShow:23.awakenSkillName"
  },
  "hero_skills:heroes.annie.awakening_skills[4].description": {
   "source": "tables/HeroAwakenShow:25.awakenSkillDesc"
@@ -158,8 +212,74 @@
  "hero_skills:heroes.annie.awakening_skills[4].name": {
   "source": "tables/HeroAwakenShow:25.awakenSkillName"
  },
+ "hero_skills:heroes.annie.awakening_skills[soul_of_warlock].description": {
+  "source": "tables/HeroAwakenShow:24.awakenSkillDesc"
+ },
+ "hero_skills:heroes.annie.awakening_skills[soul_of_warlock].name": {
+  "source": "tables/HeroAwakenShow:24.awakenSkillName"
+ },
+ "hero_skills:heroes.annie.note": {
+  "source": null
+ },
+ "hero_skills:heroes.annie.skills.active.name": {
+  "source": "tables/HeroSkillBase:5001130.skillName"
+ },
+ "hero_skills:heroes.annie.skills.auto_attack.name": {
+  "source": "tables/HeroSkillBase:5001110.skillName"
+ },
+ "hero_skills:heroes.annie.skills.passive.name": {
+  "source": "tables/HeroSkillBase:5001140.skillName"
+ },
+ "hero_skills:heroes.annie.skills.ultimate.name": {
+  "source": "tables/HeroSkillBase:5001120.skillName"
+ },
+ "hero_skills:heroes.arthur.skills.active.name": {
+  "source": "tables/HeroSkillBase:1000730.skillName"
+ },
+ "hero_skills:heroes.arthur.skills.auto_attack.name": {
+  "source": "tables/HeroSkillBase:1000710.skillName"
+ },
+ "hero_skills:heroes.arthur.skills.passive.name": {
+  "source": "tables/HeroSkillBase:1000740.skillName"
+ },
+ "hero_skills:heroes.arthur.skills.ultimate.name": {
+  "source": "tables/HeroSkillBase:1000720.skillName"
+ },
+ "hero_skills:heroes.bell.note": {
+  "source": null
+ },
+ "hero_skills:heroes.bell.skills.active.name": {
+  "source": "tables/HeroSkillBase:5000830.skillName"
+ },
+ "hero_skills:heroes.bell.skills.auto_attack.name": {
+  "source": "tables/HeroSkillBase:5000810.skillName"
+ },
+ "hero_skills:heroes.bell.skills.passive.name": {
+  "source": "tables/HeroSkillBase:5000840.skillName"
+ },
+ "hero_skills:heroes.bell.skills.ultimate.name": {
+  "source": "tables/HeroSkillBase:5000820.skillName"
+ },
+ "hero_skills:heroes.billy.note": {
+  "source": null
+ },
+ "hero_skills:heroes.billy.skills.active.name": {
+  "source": "tables/HeroSkillBase:5000930.skillName"
+ },
+ "hero_skills:heroes.billy.skills.auto_attack.name": {
+  "source": "tables/HeroSkillBase:5000910.skillName"
+ },
+ "hero_skills:heroes.billy.skills.passive.name": {
+  "source": "tables/HeroSkillBase:5000940.skillName"
+ },
+ "hero_skills:heroes.billy.skills.ultimate.name": {
+  "source": "tables/HeroSkillBase:5000920.skillName"
+ },
  "hero_skills:heroes.cynthia.awakening_skills[0].description": {
   "source": "tables/HeroAwakenShow:16.awakenSkillDesc"
+ },
+ "hero_skills:heroes.cynthia.awakening_skills[0].name": {
+  "source": "tables/HeroAwakenShow:16.awakenSkillName"
  },
  "hero_skills:heroes.cynthia.awakening_skills[1].description": {
   "source": "tables/HeroAwakenShow:17.awakenSkillDesc"
@@ -179,6 +299,270 @@
  "hero_skills:heroes.cynthia.awakening_skills[moons_blessing].name": {
   "source": "tables/HeroAwakenShow:20.awakenSkillName"
  },
+ "hero_skills:heroes.cynthia.skills.active.name": {
+  "source": "tables/HeroSkillBase:5000630.skillName"
+ },
+ "hero_skills:heroes.cynthia.skills.auto_attack.name": {
+  "source": "tables/HeroSkillBase:5000610.skillName"
+ },
+ "hero_skills:heroes.cynthia.skills.passive.name": {
+  "source": "tables/HeroSkillBase:5000640.skillName"
+ },
+ "hero_skills:heroes.cynthia.skills.ultimate.name": {
+  "source": "tables/HeroSkillBase:5000620.skillName"
+ },
+ "hero_skills:heroes.daskal.skills.active.name": {
+  "source": "tables/HeroSkillBase:5000130.skillName"
+ },
+ "hero_skills:heroes.daskal.skills.auto_attack.name": {
+  "source": "tables/HeroSkillBase:5000110.skillName"
+ },
+ "hero_skills:heroes.daskal.skills.passive.name": {
+  "source": "tables/HeroSkillBase:5000140.skillName"
+ },
+ "hero_skills:heroes.daskal.skills.ultimate.name": {
+  "source": "tables/HeroSkillBase:5000120.skillName"
+ },
+ "hero_skills:heroes.daskal.weapon.bonuses[0].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10007.name"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.daskal.weapon.bonuses[1].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10005.name"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.daskal.weapon.bonuses[2].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10006.name"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.daskal.weapon.bonuses[3].text": {
+  "parts": [
+   "[",
+   {
+    "source": "tables/HeroSkillBase:5000114.skillName"
+   },
+   "] ",
+   {
+    "source": "tables/HeroSkillBase:5000114.effectDesc"
+   }
+  ]
+ },
+ "hero_skills:heroes.daskal.weapon.bonuses[4].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10025.buttonName1"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.daskal.weapon.bonuses[5].text": {
+  "parts": [
+   "[",
+   {
+    "source": "tables/HeroSkillBase:5000144.skillName"
+   },
+   "] ",
+   {
+    "source": "tables/HeroSkillBase:5000144.effectDesc"
+   }
+  ]
+ },
+ "hero_skills:heroes.daskal.weapon.bonuses[6].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10024.buttonName1"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.daskal.weapon.bonuses[7].text": {
+  "parts": [
+   "[",
+   {
+    "source": "tables/HeroSkillBase:5000134.skillName"
+   },
+   "] ",
+   {
+    "source": "tables/HeroSkillBase:5000134.effectDesc"
+   }
+  ]
+ },
+ "hero_skills:heroes.daskal.weapon.bonuses[8].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10017.name"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.daskal.weapon.bonuses[9].text": {
+  "parts": [
+   "[",
+   {
+    "source": "tables/HeroSkillBase:5000122.skillName"
+   },
+   "] ",
+   {
+    "source": "tables/HeroSkillBase:5000122.effectDesc"
+   }
+  ]
+ },
+ "hero_skills:heroes.daskal.weapon.name": {
+  "source": "tables/HeroInfo:50001.ueName"
+ },
+ "hero_skills:heroes.harper.skills.active.name": {
+  "source": "tables/HeroSkillBase:5000230.skillName"
+ },
+ "hero_skills:heroes.harper.skills.auto_attack.name": {
+  "source": "tables/HeroSkillBase:5000210.skillName"
+ },
+ "hero_skills:heroes.harper.skills.passive.name": {
+  "source": "tables/HeroSkillBase:5000240.skillName"
+ },
+ "hero_skills:heroes.harper.skills.ultimate.name": {
+  "source": "tables/HeroSkillBase:5000220.skillName"
+ },
+ "hero_skills:heroes.joker.note": {
+  "source": null
+ },
+ "hero_skills:heroes.joker.skills.active.name": {
+  "source": "tables/HeroSkillBase:5001230.skillName"
+ },
+ "hero_skills:heroes.joker.skills.auto_attack.name": {
+  "source": "tables/HeroSkillBase:5001210.skillName"
+ },
+ "hero_skills:heroes.joker.skills.passive.name": {
+  "source": "tables/HeroSkillBase:5001240.skillName"
+ },
+ "hero_skills:heroes.joker.skills.ultimate.name": {
+  "source": "tables/HeroSkillBase:5001220.skillName"
+ },
+ "hero_skills:heroes.louis.note": {
+  "source": null
+ },
+ "hero_skills:heroes.louis.skills.active.name": {
+  "source": "tables/HeroSkillBase:5000530.skillName"
+ },
+ "hero_skills:heroes.louis.skills.auto_attack.name": {
+  "source": "tables/HeroSkillBase:5000510.skillName"
+ },
+ "hero_skills:heroes.louis.skills.passive.name": {
+  "source": "tables/HeroSkillBase:5000540.skillName"
+ },
+ "hero_skills:heroes.louis.skills.ultimate.name": {
+  "source": "tables/HeroSkillBase:5000520.skillName"
+ },
+ "hero_skills:heroes.louis.weapon.bonuses[0].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10007.name"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.louis.weapon.bonuses[1].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10005.name"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.louis.weapon.bonuses[2].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10006.name"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.louis.weapon.bonuses[3].text": {
+  "parts": [
+   "[",
+   {
+    "source": "tables/HeroSkillBase:5000514.skillName"
+   },
+   "] ",
+   {
+    "source": "tables/HeroSkillBase:5000514.effectDesc"
+   }
+  ]
+ },
+ "hero_skills:heroes.louis.weapon.bonuses[4].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10025.name"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.louis.weapon.bonuses[5].text": {
+  "parts": [
+   "[",
+   {
+    "source": "tables/HeroSkillBase:5000544.skillName"
+   },
+   "] ",
+   {
+    "source": "tables/HeroSkillBase:5000544.effectDesc"
+   }
+  ]
+ },
+ "hero_skills:heroes.louis.weapon.bonuses[6].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10024.name"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.louis.weapon.bonuses[7].text": {
+  "parts": [
+   "[",
+   {
+    "source": "tables/HeroSkillBase:5000534.skillName"
+   },
+   "] ",
+   {
+    "source": "tables/HeroSkillBase:5000534.effectDesc"
+   }
+  ]
+ },
+ "hero_skills:heroes.louis.weapon.bonuses[8].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10017.name"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.louis.weapon.bonuses[9].text": {
+  "parts": [
+   "[",
+   {
+    "source": "tables/HeroSkillBase:5000524.skillName"
+   },
+   "] ",
+   {
+    "source": "tables/HeroSkillBase:5000524.effectDesc"
+   }
+  ]
+ },
+ "hero_skills:heroes.louis.weapon.name": {
+  "source": "tables/HeroInfo:50005.ueName"
+ },
  "hero_skills:heroes.marlena.awakening_skills[0].description": {
   "source": "tables/HeroAwakenShow:6.awakenSkillDesc"
  },
@@ -197,11 +581,206 @@
  "hero_skills:heroes.marlena.awakening_skills[4].name": {
   "source": "tables/HeroAwakenShow:10.awakenSkillName"
  },
+ "hero_skills:heroes.marlena.awakening_skills[soul_of_warrior].description": {
+  "source": "tables/HeroAwakenShow:9.awakenSkillDesc"
+ },
+ "hero_skills:heroes.marlena.awakening_skills[soul_of_warrior].name": {
+  "source": "tables/HeroAwakenShow:9.awakenSkillName"
+ },
  "hero_skills:heroes.marlena.awakening_skills[war_gods_will].description": {
   "source": "tables/HeroAwakenShow:8.awakenSkillDesc"
  },
  "hero_skills:heroes.marlena.awakening_skills[war_gods_will].name": {
   "source": "tables/HeroAwakenShow:8.awakenSkillName"
+ },
+ "hero_skills:heroes.nicole.note": {
+  "source": null
+ },
+ "hero_skills:heroes.nicole.skills.active.name": {
+  "source": "tables/HeroSkillBase:5001330.skillName"
+ },
+ "hero_skills:heroes.nicole.skills.auto_attack.name": {
+  "source": "tables/HeroSkillBase:5001310.skillName"
+ },
+ "hero_skills:heroes.nicole.skills.passive.name": {
+  "source": "tables/HeroSkillBase:5001340.skillName"
+ },
+ "hero_skills:heroes.nicole.skills.ultimate.name": {
+  "source": "tables/HeroSkillBase:5001320.skillName"
+ },
+ "hero_skills:heroes.redlady.skills.active.name": {
+  "source": "tables/HeroSkillBase:5000730.skillName"
+ },
+ "hero_skills:heroes.redlady.skills.auto_attack.name": {
+  "source": "tables/HeroSkillBase:5000710.skillName"
+ },
+ "hero_skills:heroes.redlady.skills.passive.name": {
+  "source": "tables/HeroSkillBase:5000740.skillName"
+ },
+ "hero_skills:heroes.redlady.skills.ultimate.name": {
+  "source": "tables/HeroSkillBase:5000720.skillName"
+ },
+ "hero_skills:heroes.shadow.note": {
+  "source": null
+ },
+ "hero_skills:heroes.shadow.skills.active.name": {
+  "source": "tables/HeroSkillBase:5000430.skillName"
+ },
+ "hero_skills:heroes.shadow.skills.auto_attack.name": {
+  "source": "tables/HeroSkillBase:5000410.skillName"
+ },
+ "hero_skills:heroes.shadow.skills.passive.name": {
+  "source": "tables/HeroSkillBase:5000440.skillName"
+ },
+ "hero_skills:heroes.shadow.skills.ultimate.name": {
+  "source": "tables/HeroSkillBase:5000420.skillName"
+ },
+ "hero_skills:heroes.ulfrid.note": {
+  "source": null
+ },
+ "hero_skills:heroes.ulfrid.skills.active.description": {
+  "source": "tables/HeroSkillBase:5001030.skillDesc"
+ },
+ "hero_skills:heroes.ulfrid.skills.active.name": {
+  "source": "tables/HeroSkillBase:5001030.skillName"
+ },
+ "hero_skills:heroes.ulfrid.skills.auto_attack.description": {
+  "source": "tables/HeroSkillBase:5001010.skillDesc"
+ },
+ "hero_skills:heroes.ulfrid.skills.auto_attack.name": {
+  "source": "tables/HeroSkillBase:5001010.skillName"
+ },
+ "hero_skills:heroes.ulfrid.skills.auto_attack.star_bonuses[0].text": {
+  "source": "tables/HeroSkillBase:5001011.effectDesc"
+ },
+ "hero_skills:heroes.ulfrid.skills.auto_attack.star_bonuses[1].text": {
+  "source": "tables/HeroSkillBase:5001012.effectDesc"
+ },
+ "hero_skills:heroes.ulfrid.skills.auto_attack.star_bonuses[2].text": {
+  "source": "tables/HeroSkillBase:5001013.effectDesc"
+ },
+ "hero_skills:heroes.ulfrid.skills.passive.description": {
+  "source": "tables/HeroSkillBase:5000940.skillDesc"
+ },
+ "hero_skills:heroes.ulfrid.skills.passive.name": {
+  "source": "tables/HeroSkillBase:5001040.skillName"
+ },
+ "hero_skills:heroes.ulfrid.skills.ultimate.description": {
+  "source": "tables/HeroSkillBase:5001020.skillDesc"
+ },
+ "hero_skills:heroes.ulfrid.skills.ultimate.name": {
+  "source": "tables/HeroSkillBase:5001020.skillName"
+ },
+ "hero_skills:heroes.ulfrid.weapon.bonuses[0].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10007.name"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.ulfrid.weapon.bonuses[1].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10005.name"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.ulfrid.weapon.bonuses[2].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10006.name"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.ulfrid.weapon.bonuses[3].text": {
+  "parts": [
+   "[",
+   {
+    "source": "tables/HeroSkillBase:5001014.skillName"
+   },
+   "] ",
+   {
+    "source": "tables/HeroSkillBase:5001014.effectDesc"
+   }
+  ]
+ },
+ "hero_skills:heroes.ulfrid.weapon.bonuses[4].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10025.buttonName1"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.ulfrid.weapon.bonuses[5].text": {
+  "parts": [
+   "[",
+   {
+    "source": "tables/HeroSkillBase:5001044.skillName"
+   },
+   "] ",
+   {
+    "source": "tables/HeroSkillBase:5001044.effectDesc"
+   }
+  ]
+ },
+ "hero_skills:heroes.ulfrid.weapon.bonuses[6].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10024.buttonName1"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.ulfrid.weapon.bonuses[7].text": {
+  "parts": [
+   "[",
+   {
+    "source": "tables/HeroSkillBase:5001034.skillName"
+   },
+   "] ",
+   {
+    "source": "tables/HeroSkillBase:5001034.effectDesc"
+   }
+  ]
+ },
+ "hero_skills:heroes.ulfrid.weapon.bonuses[8].text": {
+  "parts": [
+   {
+    "source": "tables/DefineBenefit:10017.name"
+   },
+   " 10.00%"
+  ]
+ },
+ "hero_skills:heroes.ulfrid.weapon.bonuses[9].text": {
+  "parts": [
+   "[",
+   {
+    "source": "tables/HeroSkillBase:5001024.skillName"
+   },
+   "] ",
+   {
+    "source": "tables/HeroSkillBase:5001024.effectDesc"
+   }
+  ]
+ },
+ "hero_skills:heroes.ulfrid.weapon.name": {
+  "source": "tables/HeroInfo:50010.ueName"
+ },
+ "hero_skills:heroes.zoya.skills.active.name": {
+  "source": "tables/HeroSkillBase:5000330.skillName"
+ },
+ "hero_skills:heroes.zoya.skills.auto_attack.name": {
+  "source": "tables/HeroSkillBase:5000310.skillName"
+ },
+ "hero_skills:heroes.zoya.skills.passive.name": {
+  "source": "tables/HeroSkillBase:5000340.skillName"
+ },
+ "hero_skills:heroes.zoya.skills.ultimate.name": {
+  "source": "tables/HeroSkillBase:5000320.skillName"
  },
  "lord_specialty:lords.handyman.description": {
   "source": "tables/LordJob:1.desc"
@@ -344,6 +923,9 @@
  "lord_specialty:lords.legion_commander.talents[full_power_buff].name": {
   "source": "tables/LordJobSkill:2015.name"
  },
+ "lord_specialty:lords.legion_commander.talents[hold_the_line].description": {
+  "source": "tables/LordJobSkill:2019.desc"
+ },
  "lord_specialty:lords.legion_commander.talents[hold_the_line].name": {
   "source": "tables/LordJobSkill:2019.name"
  },
@@ -356,8 +938,14 @@
  "lord_specialty:lords.legion_commander.talents[rally_guardian].name": {
   "source": "tables/LordJobSkill:2020.name"
  },
+ "lord_specialty:lords.legion_commander.talents[reinforcement_enhance].description": {
+  "source": "tables/LordJobSkill:2016.desc"
+ },
  "lord_specialty:lords.legion_commander.talents[reinforcement_enhance].name": {
   "source": "tables/LordJobSkill:2016.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[reinforcement_speedup].description": {
+  "source": "tables/LordJobSkill:2012.desc"
  },
  "lord_specialty:lords.legion_commander.talents[reinforcement_speedup].name": {
   "source": "tables/LordJobSkill:2012.name"
@@ -370,6 +958,9 @@
  },
  "lord_specialty:lords.legion_commander.talents[team_raid].name": {
   "source": "tables/LordJobSkill:2013.name"
+ },
+ "lord_specialty:lords.legion_commander.talents[territory_raid].description": {
+  "source": "tables/LordJobSkill:2021.desc"
  },
  "lord_specialty:lords.legion_commander.talents[territory_raid].name": {
   "source": "tables/LordJobSkill:2021.name"
@@ -389,6 +980,9 @@
  "lord_specialty:lords.legion_commander.talents[weakened].name": {
   "source": "tables/LordJobSkill:2017.name"
  },
+ "pack_data:exchange_shops.alliance_shop.name": {
+  "source": "tables/ArenaActivityShop:15.shopName"
+ },
  "pack_data:exchange_shops.halloween_bazaar_shop.name": {
   "source": "tables/ActivityDisplay:8200503.name"
  },
@@ -401,6 +995,9 @@
  "pack_data:exchange_shops.starry_bazaar.name": {
   "source": "tables/ActivityDisplay:8200403.name"
  },
+ "pack_data:exchange_shops.stone_blade_exchange_shop.name": {
+  "source": "tables/ActivityTabShow:401.name"
+ },
  "pack_data:exchange_shops.strange_bazaar_shop.name": {
   "source": "tables/ActivityDisplay:4500104.name"
  },
@@ -409,6 +1006,51 @@
  },
  "pack_data:exchange_shops.vip_shop.name": {
   "source": "tables/ArenaActivityShop:2.shopName"
+ },
+ "pack_data:heroes.annie.name": {
+  "source": "tables/HeroInfo:112001.name"
+ },
+ "pack_data:heroes.arthur.name": {
+  "source": "tables/HeroInfo:10007.name"
+ },
+ "pack_data:heroes.bell.name": {
+  "source": "tables/HeroInfo:131005.name"
+ },
+ "pack_data:heroes.billy.name": {
+  "source": "tables/HeroInfo:132004.name"
+ },
+ "pack_data:heroes.cynthia.name": {
+  "source": "tables/HeroInfo:131002.name"
+ },
+ "pack_data:heroes.daskal.name": {
+  "source": "tables/HeroInfo:133004.name"
+ },
+ "pack_data:heroes.harper.name": {
+  "source": "tables/HeroInfo:133003.name"
+ },
+ "pack_data:heroes.joker.name": {
+  "source": "tables/HeroInfo:132002.name"
+ },
+ "pack_data:heroes.louis.name": {
+  "source": "tables/HeroInfo:131004.name"
+ },
+ "pack_data:heroes.marlena.name": {
+  "source": "tables/HeroInfo:133002.name"
+ },
+ "pack_data:heroes.nicole.name": {
+  "source": "tables/HeroInfo:132005.name"
+ },
+ "pack_data:heroes.redlady.name": {
+  "source": "tables/HeroInfo:131003.name"
+ },
+ "pack_data:heroes.shadow.name": {
+  "source": "tables/HeroInfo:131001.name"
+ },
+ "pack_data:heroes.ulfrid.name": {
+  "source": "tables/HeroInfo:132003.name"
+ },
+ "pack_data:heroes.zoya.name": {
+  "source": "tables/HeroInfo:133005.name"
  },
  "pack_data:items.alliance_coins.name": {
   "source": "language/Common:UNION_COIN"
@@ -430,6 +1072,9 @@
  },
  "pack_data:items.antitoxin_level_supply_ur.name": {
   "source": "tables/Item:item_castleBox_HeroEXP_4.name"
+ },
+ "pack_data:items.awaken_shard_choice_chest.name": {
+  "source": "tables/Item:item_box_hero_awaken_optional_only_1.name"
  },
  "pack_data:items.basic_gear_supply.name": {
   "source": "tables/Item:item_equipment_materialBox_1.name"
@@ -494,11 +1139,23 @@
  "pack_data:items.dwarven_pickaxe.name": {
   "source": "tables/Item:item_activity_flipCard.name"
  },
+ "pack_data:items.excl_weapon_shard_choice_chest.name": {
+  "source": "tables/Item:item_box_hero_ue_optional_1.name"
+ },
  "pack_data:items.exclusive_weapon_omni_shard.name": {
   "source": "tables/Item:item_ue_universalFragment.name"
  },
  "pack_data:items.fantasy_city.name": {
   "source": "tables/Item:item_cityskin_huanxiangzhicheng_permanent.name"
+ },
+ "pack_data:items.frenzied_flock_iv_ranger.name": {
+  "source": "tables/Item:item_wingman_props_6.name"
+ },
+ "pack_data:items.frenzied_flock_iv_warlock.name": {
+  "source": "tables/Item:item_wingman_props_10.name"
+ },
+ "pack_data:items.frenzied_flock_iv_warrior.name": {
+  "source": "tables/Item:item_wingman_props_2.name"
  },
  "pack_data:items.gear_blueprint_mr.name": {
   "source": "tables/Item:item_equipment_equipmentDrawing_mythology.name"
@@ -514,6 +1171,24 @@
  },
  "pack_data:items.grain.name": {
   "source": "language/Item:public_food"
+ },
+ "pack_data:items.grain_level_supply_sr.name": {
+  "source": "tables/Item:item_castleBox_Food_2.name"
+ },
+ "pack_data:items.grain_level_supply_ssr.name": {
+  "source": "tables/Item:item_castleBox_Food_3.name"
+ },
+ "pack_data:items.grain_level_supply_ur.name": {
+  "source": "tables/Item:item_castleBox_Food_4.name"
+ },
+ "pack_data:items.guard_of_nature_iv_ranger.name": {
+  "source": "tables/Item:item_wingman_props_5.name"
+ },
+ "pack_data:items.guard_of_nature_iv_warlock.name": {
+  "source": "tables/Item:item_wingman_props_9.name"
+ },
+ "pack_data:items.guard_of_nature_iv_warrior.name": {
+  "source": "tables/Item:item_wingman_props_1.name"
  },
  "pack_data:items.haunting_shadows_permanent.name": {
   "source": "tables/Item:item_atmosphereSkin_halloween_permanent.name"
@@ -536,9 +1211,6 @@
  "pack_data:items.hero_awaken_omni_shard.name": {
   "source": "tables/Item:item_Awaken_universalFragment.name"
  },
- "pack_data:items.hero_awaken_shard.name": {
-  "source": null
- },
  "pack_data:items.holy_sword_loot.name": {
   "source": "tables/Item:item_activity_prepare_randomBox_2.name"
  },
@@ -551,11 +1223,98 @@
  "pack_data:items.lion_coin.description": {
   "source": "tables/Item:item_activity_shop_invasion.description"
  },
+ "pack_data:items.lion_coin.name": {
+  "source": "tables/Item:item_activity_shop_invasion.name"
+ },
  "pack_data:items.lv1_alliance_chest.name": {
   "source": "tables/UnionGiftCfg:1001.name"
  },
+ "pack_data:items.lv1_attackers_claw.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "1"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_5_1.name"
+   }
+  ]
+ },
+ "pack_data:items.lv1_eye_of_perception.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "1"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_6_1.name"
+   }
+  ]
+ },
+ "pack_data:items.lv1_feather_of_the_night.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "1"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_2_1.name"
+   }
+  ]
+ },
+ "pack_data:items.lv1_heart_of_wisdom.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "1"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_1_1.name"
+   }
+  ]
+ },
  "pack_data:items.lv1_raven_gear_chest.name": {
   "source": "tables/Item:item_drone_componentBox_1.name"
+ },
+ "pack_data:items.lv1_sharp_beak.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "1"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_3_1.name"
+   }
+  ]
+ },
+ "pack_data:items.lv1_tail_of_wind.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "1"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_4_1.name"
+   }
+  ]
  },
  "pack_data:items.lv2_alliance_chest.name": {
   "source": "tables/UnionGiftCfg:1002.name"
@@ -563,8 +1322,92 @@
  "pack_data:items.lv3_alliance_chest.name": {
   "source": "tables/UnionGiftCfg:1003.name"
  },
+ "pack_data:items.lv3_attackers_claw.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "3"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_5_1.name"
+   }
+  ]
+ },
+ "pack_data:items.lv3_eye_of_perception.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "3"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_6_1.name"
+   }
+  ]
+ },
+ "pack_data:items.lv3_feather_of_the_night.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "3"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_2_1.name"
+   }
+  ]
+ },
+ "pack_data:items.lv3_heart_of_wisdom.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "3"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_1_1.name"
+   }
+  ]
+ },
  "pack_data:items.lv3_raven_gear_chest.name": {
   "source": "tables/Item:item_drone_componentBox_3.name"
+ },
+ "pack_data:items.lv3_sharp_beak.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "3"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_3_1.name"
+   }
+  ]
+ },
+ "pack_data:items.lv3_tail_of_wind.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "3"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_4_1.name"
+   }
+  ]
  },
  "pack_data:items.lv4_alliance_chest.name": {
   "source": "tables/UnionGiftCfg:1004.name"
@@ -572,8 +1415,95 @@
  "pack_data:items.lv5_alliance_chest.name": {
   "source": "tables/UnionGiftCfg:1005.name"
  },
+ "pack_data:items.lv5_attackers_claw.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "5"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_5_1.name"
+   }
+  ]
+ },
+ "pack_data:items.lv5_eye_of_perception.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "5"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_6_1.name"
+   }
+  ]
+ },
+ "pack_data:items.lv5_feather_of_the_night.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "5"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_2_1.name"
+   }
+  ]
+ },
+ "pack_data:items.lv5_heart_of_wisdom.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "5"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_1_1.name"
+   }
+  ]
+ },
  "pack_data:items.lv5_raven_gear_chest.name": {
   "source": "tables/Item:item_drone_componentBox_5.name"
+ },
+ "pack_data:items.lv5_raven_gear_choice_chest.name": {
+  "source": "tables/Item:item_drone_componentChooseBox_1.name"
+ },
+ "pack_data:items.lv5_sharp_beak.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "5"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_3_1.name"
+   }
+  ]
+ },
+ "pack_data:items.lv5_tail_of_wind.name": {
+  "parts": [
+   {
+    "source": "language/Common:TxtLv",
+    "fill": {
+     "0": "5"
+    }
+   },
+   " ",
+   {
+    "source": "tables/Item:item_uav_component_4_1.name"
+   }
+  ]
  },
  "pack_data:items.lv6_alliance_chest.name": {
   "source": "tables/UnionGiftCfg:1006.name"
@@ -599,8 +1529,20 @@
  "pack_data:items.mr_sword.name": {
   "source": "tables/EquipmentBase:100501.pro_name"
  },
+ "pack_data:items.mystic_cabin_permanent.name": {
+  "source": "tables/Item:RNS_item_cityskin_shuishanghuati_permanent.name"
+ },
  "pack_data:items.mythic_era_reward.name": {
   "source": "tables/Item:season_finish_hero_awake_box.name"
+ },
+ "pack_data:items.protective_charm_iv_ranger.name": {
+  "source": "tables/Item:item_wingman_props_8.name"
+ },
+ "pack_data:items.protective_charm_iv_warlock.name": {
+  "source": "tables/Item:item_wingman_props_12.name"
+ },
+ "pack_data:items.protective_charm_iv_warrior.name": {
+  "source": "tables/Item:item_wingman_props_4.name"
  },
  "pack_data:items.pumpkin_ghost.name": {
   "source": "tables/Item:item_decor_1018.name"
@@ -620,6 +1562,9 @@
  "pack_data:items.raven_essence.name": {
   "source": "tables/Item:item_drone_part.name"
  },
+ "pack_data:items.raven_evolve_guide.name": {
+  "source": "tables/Item:item_fighter_jet_experience_card_1.name"
+ },
  "pack_data:items.raven_fruit.name": {
   "source": "tables/Item:item_drone_data.name"
  },
@@ -638,6 +1583,9 @@
  "pack_data:items.refined_iron.name": {
   "source": "tables/Item:item_equip_produce_materials_04.name"
  },
+ "pack_data:items.research_speedup.name": {
+  "source": "language/lang_abc:backpack_statistics_speedup_research"
+ },
  "pack_data:items.research_tome.name": {
   "source": "tables/Item:item_decor_1014.name"
  },
@@ -653,14 +1601,29 @@
  "pack_data:items.resource_supply_ur.name": {
   "source": "tables/Item:item_optionalBox_Resource4.name"
  },
+ "pack_data:items.reversal_power_iv_ranger.name": {
+  "source": "tables/Item:item_wingman_props_7.name"
+ },
+ "pack_data:items.reversal_power_iv_warlock.name": {
+  "source": "tables/Item:item_wingman_props_11.name"
+ },
+ "pack_data:items.reversal_power_iv_warrior.name": {
+  "source": "tables/Item:item_wingman_props_3.name"
+ },
  "pack_data:items.rock_loot.name": {
   "source": "tables/Item:item_activity_prepare_randomBox_3.name"
  },
  "pack_data:items.secret_reward.name": {
   "source": "tables/Item:item_secret_rescue_random_box.name"
  },
+ "pack_data:items.shield.name": {
+  "source": "tables/HomeCircularMenuList:CityGain.btnName"
+ },
  "pack_data:items.skill_badge.name": {
   "source": "tables/Item:item_HeroSkill_Book.name"
+ },
+ "pack_data:items.speedup.name": {
+  "source": "language/Bag:speedup_general"
  },
  "pack_data:items.speedup_supply.name": {
   "source": "tables/Item:item_Box_SpeedBox_5m.name"
@@ -695,11 +1658,17 @@
  "pack_data:items.stamina.name": {
   "source": "tables/ItemIcon:6.name"
  },
+ "pack_data:items.star_moon_sigil.name": {
+  "source": "tables/Item:mid_autumn_market_money.name"
+ },
  "pack_data:items.stone_blade.name": {
   "source": "tables/Item:item_activity_shop_prepare.name"
  },
  "pack_data:items.strange_coin.name": {
   "source": "tables/Item:item_activity_shop_market.name"
+ },
+ "pack_data:items.study_scroll.name": {
+  "source": "tables/GiftBase:900903001.giftName"
  },
  "pack_data:items.surprise_emblem.name": {
   "source": "tables/Item:item_activity_airDrop.name"
@@ -764,6 +1733,12 @@
  "pack_data:items.ur_gauntlets.name": {
   "source": "tables/Item:item_equipment_coat_legendary.name"
  },
+ "pack_data:items.ur_hero_and_awaken_choice_chest.name": {
+  "source": "tables/Item:item_box_hero_awaken_optional.name"
+ },
+ "pack_data:items.ur_hero_choice_chest.name": {
+  "source": "tables/Item:item_box_hero_optional_1.name"
+ },
  "pack_data:items.ur_hero_omni_shard.name": {
   "source": "tables/Item:item_Material_universalFragment_5.name"
  },
@@ -779,6 +1754,77 @@
  "pack_data:packages.awaken_shard.name": {
   "source": "language/Mall:daily_tab_3"
  },
+ "pack_data:packages.awakening_special_pack.name": {
+  "source": "tables/GiftBase:800014016.giftName"
+ },
+ "pack_data:packages.blades_out_deluxe_pack.name": {
+  "source": "tables/GiftBase:901100012.giftName"
+ },
+ "pack_data:packages.blades_out_premium_pack.name": {
+  "source": "tables/GiftBase:901100014.giftName"
+ },
+ "pack_data:packages.blades_out_rare_pack.name": {
+  "source": "tables/GiftBase:901100013.giftName"
+ },
+ "pack_data:packages.blades_out_select_pack.name": {
+  "source": "tables/GiftBase:901100011.giftName"
+ },
+ "pack_data:packages.blades_out_ultimate_pack.name": {
+  "source": "tables/GiftBase:901100015.giftName"
+ },
+ "pack_data:packages.builders_hammer_pack.name": {
+  "source": "tables/GiftBase:900902601.giftName"
+ },
+ "pack_data:packages.building_speedup_pack.name": {
+  "source": "tables/GiftBase:800001006.giftName"
+ },
+ "pack_data:packages.building_upgrade_pack.name": {
+  "source": "tables/GiftBase:900901001.giftName"
+ },
+ "pack_data:packages.calendar_gift_gear_pack.name": {
+  "parts": [
+   {
+    "source": "tables/ShopBase:90210.shopName"
+   },
+   ": ",
+   {
+    "source": "tables/GiftBase:8001002.giftName"
+   }
+  ]
+ },
+ "pack_data:packages.calendar_gift_hero_pack.name": {
+  "parts": [
+   {
+    "source": "tables/ShopBase:90210.shopName"
+   },
+   ": ",
+   {
+    "source": "tables/GiftBase:8001001.giftName"
+   }
+  ]
+ },
+ "pack_data:packages.calendar_gift_inscription_pack.name": {
+  "parts": [
+   {
+    "source": "tables/ShopBase:90210.shopName"
+   },
+   ": ",
+   {
+    "source": "tables/GiftBase:8001004.giftName"
+   }
+  ]
+ },
+ "pack_data:packages.calendar_gift_raven_pack.name": {
+  "parts": [
+   {
+    "source": "tables/ShopBase:90210.shopName"
+   },
+   ": ",
+   {
+    "source": "tables/GiftBase:8001003.giftName"
+   }
+  ]
+ },
  "pack_data:packages.copper_coin_pack_24h.name": {
   "source": "tables/GiftBase:901600002.giftName"
  },
@@ -787,6 +1833,39 @@
  },
  "pack_data:packages.copper_coin_pack_72h.name": {
   "source": "tables/GiftBase:901600003.giftName"
+ },
+ "pack_data:packages.curio_boost.name": {
+  "source": "tables/GiftBase:900903002.giftName"
+ },
+ "pack_data:packages.curio_pack.name": {
+  "source": "tables/GiftBase:900901091.giftName"
+ },
+ "pack_data:packages.curio_pack_pack.name": {
+  "source": "tables/GiftBase:900901091.giftName"
+ },
+ "pack_data:packages.develop_territory.name": {
+  "source": "tables/GiftBase:900903010.giftName"
+ },
+ "pack_data:packages.development_pack.name": {
+  "source": "tables/GiftBase:800001001.giftName"
+ },
+ "pack_data:packages.diamond_100.name": {
+  "source": "tables/Item:item_Box_gem_100.name"
+ },
+ "pack_data:packages.diamond_1000.name": {
+  "source": "tables/Item:item_Box_gem_1000.name"
+ },
+ "pack_data:packages.diamond_10000.name": {
+  "source": "tables/Item:item_Box_gem_10000.name"
+ },
+ "pack_data:packages.diamond_2000.name": {
+  "source": "tables/Item:item_Box_gem_2000.name"
+ },
+ "pack_data:packages.diamond_5000.name": {
+  "source": "tables/Item:item_Box_gem_5000.name"
+ },
+ "pack_data:packages.dragon_blood_pack.name": {
+  "source": "tables/GiftBase:800012001.giftName"
  },
  "pack_data:packages.dwarven_mine_exquisite_pack.name": {
   "source": "tables/GiftBase:901300002.giftName"
@@ -803,17 +1882,89 @@
  "pack_data:packages.dwarven_mine_ultimate_pack.name": {
   "source": "tables/GiftBase:901300005.giftName"
  },
+ "pack_data:packages.enhance_heroes.name": {
+  "source": "tables/GiftBase:900901041.giftName"
+ },
  "pack_data:packages.enhance_might.name": {
   "source": "tables/GiftBase:900903008.giftName"
+ },
+ "pack_data:packages.enhancement_special_pack.name": {
+  "source": "tables/GiftBase:800006001.giftName"
+ },
+ "pack_data:packages.epigraph_pass.name": {
+  "source": "tables/ActivityDisplay:3100400.name"
  },
  "pack_data:packages.era_of_revival_raven_essence_weekly_pass.name": {
   "source": "tables/GiftBase:300000018.giftName"
  },
+ "pack_data:packages.exclusive_weapon.name": {
+  "source": "tables/GiftBase:900903016.giftName"
+ },
+ "pack_data:packages.exclusive_weapon_pack.name": {
+  "source": "tables/GiftBase:800015001.giftName"
+ },
+ "pack_data:packages.exclusive_weapon_pass.name": {
+  "source": "tables/GiftBase:900903016.giftName"
+ },
+ "pack_data:packages.exp_special_pack.name": {
+  "source": "tables/GiftBase:800000011.giftName"
+ },
  "pack_data:packages.falcon_tower_pass.name": {
   "source": "tables/ActivityDisplay:3100000.name"
  },
+ "pack_data:packages.gear_enhancement.name": {
+  "source": "tables/GiftBase:900901061.giftName"
+ },
  "pack_data:packages.gear_pass.name": {
   "source": "tables/ActivityDisplay:3100100.name"
+ },
+ "pack_data:packages.halloween_ball_mystery_shop_lv5_raven_gear_choice_chest_iii.name": {
+  "parts": [
+   {
+    "source": "tables/GiftBase:998002211.giftName"
+   },
+   " III"
+  ]
+ },
+ "pack_data:packages.halloween_ball_mystery_shop_raven_essence_ii.name": {
+  "parts": [
+   {
+    "source": "tables/GiftBase:998002110.giftName"
+   },
+   " II"
+  ]
+ },
+ "pack_data:packages.halloween_ball_mystery_shop_raven_essence_iii.name": {
+  "parts": [
+   {
+    "source": "tables/GiftBase:998002111.giftName"
+   },
+   " III"
+  ]
+ },
+ "pack_data:packages.halloween_ball_mystery_shop_ur_hero_omni_shard_i.name": {
+  "parts": [
+   {
+    "source": "tables/GiftBase:998002009.giftName"
+   },
+   " I"
+  ]
+ },
+ "pack_data:packages.halloween_ball_mystery_shop_ur_hero_omni_shard_ii.name": {
+  "parts": [
+   {
+    "source": "tables/GiftBase:998002010.giftName"
+   },
+   " II"
+  ]
+ },
+ "pack_data:packages.halloween_ball_mystery_shop_ur_hero_omni_shard_iii.name": {
+  "parts": [
+   {
+    "source": "tables/GiftBase:998002011.giftName"
+   },
+   " III"
+  ]
  },
  "pack_data:packages.halloween_ball_trick_or_treat.name": {
   "source": "tables/ActivityDisplay:8200502.name"
@@ -821,8 +1972,35 @@
  "pack_data:packages.hero_awaken.name": {
   "source": "tables/GiftBase:900903015.giftName"
  },
+ "pack_data:packages.hero_exclusive_weapon_pack.name": {
+  "parts": [
+   "<",
+   {
+    "source": "language/Hero:hero_hero"
+   },
+   "> ",
+   {
+    "source": "tables/GiftBase:800015001.giftName"
+   }
+  ]
+ },
+ "pack_data:packages.hero_growth_pack.name": {
+  "source": "tables/GiftBase:910901071.giftName"
+ },
  "pack_data:packages.hero_promotion.name": {
   "source": "tables/GiftBase:900903005.giftName"
+ },
+ "pack_data:packages.hero_special_pack.name": {
+  "source": "tables/GiftBase:800003006.giftName"
+ },
+ "pack_data:packages.heroes_assemble.name": {
+  "source": "tables/ActivityDisplay:3002100.name"
+ },
+ "pack_data:packages.login_rewards.name": {
+  "source": "tables/GiftBase:311000001.giftName"
+ },
+ "pack_data:packages.might_special_pack.name": {
+  "source": "tables/GiftBase:800006006.giftName"
  },
  "pack_data:packages.moon_coin_deluxe_pack.name": {
   "source": "tables/GiftBase:997002005.giftName"
@@ -845,6 +2023,75 @@
  "pack_data:packages.moon_coin_value_pack.name": {
   "source": "tables/GiftBase:997002002.giftName"
  },
+ "pack_data:packages.mystic_cabinet_i.name": {
+  "parts": [
+   {
+    "source": "tables/GiftBase:891000001.giftName"
+   },
+   " I"
+  ]
+ },
+ "pack_data:packages.mystic_cabinet_ii.name": {
+  "parts": [
+   {
+    "source": "tables/GiftBase:891000002.giftName"
+   },
+   " II"
+  ]
+ },
+ "pack_data:packages.mystic_cabinet_iii.name": {
+  "parts": [
+   {
+    "source": "tables/GiftBase:891000003.giftName"
+   },
+   " III"
+  ]
+ },
+ "pack_data:packages.premium_grain_pack.name": {
+  "source": "tables/GiftBase:910901081.giftName"
+ },
+ "pack_data:packages.premium_herb_pack.name": {
+  "source": "tables/GiftBase:910901101.giftName"
+ },
+ "pack_data:packages.premium_monthly_pass.name": {
+  "source": "tables/ShopBase:90060.shopName"
+ },
+ "pack_data:packages.premium_timber_pack.name": {
+  "source": "tables/GiftBase:910901091.giftName"
+ },
+ "pack_data:packages.quick_research_pack.name": {
+  "source": "tables/GiftBase:800002001.giftName"
+ },
+ "pack_data:packages.raven_epigraph.name": {
+  "source": "tables/GiftBase:900903013.giftName"
+ },
+ "pack_data:packages.raven_epigraph_offer.name": {
+  "source": "tables/GiftBase:800000021.giftName"
+ },
+ "pack_data:packages.raven_essence.name": {
+  "source": "tables/GiftBase:900901051.giftName"
+ },
+ "pack_data:packages.raven_essence_pack.name": {
+  "source": "tables/GiftBase:900901051.giftName"
+ },
+ "pack_data:packages.raven_evolve_guide.name": {
+  "source": "tables/GiftBase:900901081.giftName"
+ },
+ "pack_data:packages.raven_gear.name": {
+  "source": "tables/GiftBase:900901071.giftName"
+ },
+ "pack_data:packages.raven_gear_pack.name": {
+  "source": "tables/GiftBase:900901071.giftName"
+ },
+ "pack_data:packages.raven_gear_special_pack.name": {
+  "source": "tables/GiftBase:800002011.giftName"
+ },
+ "pack_data:packages.raven_growth_pack.name": {
+  "source": "tables/GiftBase:800000001.giftName"
+ },
+ "pack_data:packages.ravens_might.name": {
+  "source": "tables/ActivityDisplay:3002200.name"
+ },
  "pack_data:packages.recluse_coin_deluxe_pack.name": {
   "source": "tables/GiftBase:996005002.giftName"
  },
@@ -859,6 +2106,21 @@
  },
  "pack_data:packages.recluse_coin_supreme_pack.name": {
   "source": "tables/GiftBase:996005005.giftName"
+ },
+ "pack_data:packages.research_pack.name": {
+  "source": "tables/GiftBase:900901011.giftName"
+ },
+ "pack_data:packages.research_special_pack.name": {
+  "source": "tables/GiftBase:800002006.giftName"
+ },
+ "pack_data:packages.research_tome_pack.name": {
+  "source": "tables/GiftBase:900902701.giftName"
+ },
+ "pack_data:packages.resource_special_pack.name": {
+  "source": "tables/GiftBase:800002016.giftName"
+ },
+ "pack_data:packages.speedup_special_pack.name": {
+  "source": "tables/GiftBase:800004006.giftName"
  },
  "pack_data:packages.stamina_discount_pack.name": {
   "source": "tables/GiftBase:900903009.giftName"
@@ -878,6 +2140,9 @@
  "pack_data:packages.strange_bazaar_ultimate_pack.name": {
   "source": "tables/GiftBase:901200005.giftName"
  },
+ "pack_data:packages.study_scroll.name": {
+  "source": "tables/GiftBase:900903001.giftName"
+ },
  "pack_data:packages.surprise_encounter_exquisite_pack.name": {
   "source": "tables/GiftBase:901400002.giftName"
  },
@@ -893,8 +2158,29 @@
  "pack_data:packages.surprise_encounter_ultimate_pack.name": {
   "source": "tables/GiftBase:901400005.giftName"
  },
+ "pack_data:packages.survivor_pack.name": {
+  "source": "tables/GiftBase:900901031.giftName"
+ },
+ "pack_data:packages.tempered_arms.name": {
+  "source": "tables/ActivityDisplay:3002300.name"
+ },
+ "pack_data:packages.troop_training_pack.name": {
+  "source": "tables/GiftBase:900901021.giftName"
+ },
+ "pack_data:packages.twin_dragon_brooch_pack.name": {
+  "source": "tables/GiftBase:800013001.giftName"
+ },
+ "pack_data:packages.universal_speedup_pack.name": {
+  "source": "tables/GiftBase:900904021.giftName"
+ },
+ "pack_data:packages.ur_blueprint_offer.name": {
+  "source": "tables/GiftBase:800011011.giftName"
+ },
  "pack_data:packages.ur_gear_crafting.name": {
   "source": "tables/GiftBase:900903007.giftName"
+ },
+ "pack_data:packages.value_gear_pack.name": {
+  "source": "tables/GiftBase:910901001.giftName"
  },
  "pack_data:packages.weekly_grain_pass.name": {
   "source": "tables/GiftBase:300000016.giftName"
@@ -905,8 +2191,62 @@
  "pack_data:packages.weekly_hero_exp_pass.name": {
   "source": "tables/GiftBase:300000013.giftName"
  },
+ "pack_data:packages.weekly_pass.name": {
+  "source": "tables/ShopBase:90070.shopName"
+ },
+ "pack_data:packages.weekly_special.name": {
+  "source": "tables/ShopBase:90090.shopName"
+ },
  "pack_data:packages.weekly_timber_pass.name": {
   "source": "tables/GiftBase:300000015.giftName"
+ },
+ "pack_data:spend_reward_tracks.ancient_recipe_antitoxin.name": {
+  "parts": [
+   {
+    "source": "tables/ActivityDisplay:900203.name"
+   },
+   " (",
+   {
+    "source": "tables/ItemIcon:5.name"
+   },
+   ")"
+  ]
+ },
+ "pack_data:spend_reward_tracks.ancient_recipe_gearstone.name": {
+  "parts": [
+   {
+    "source": "tables/ActivityDisplay:900203.name"
+   },
+   " (",
+   {
+    "source": "tables/Item:item_equipment_enhanceStone.name"
+   },
+   ")"
+  ]
+ },
+ "pack_data:spend_reward_tracks.artisans_request_gearstone.name": {
+  "parts": [
+   {
+    "source": "tables/ActivityDisplay:900205.name"
+   },
+   " (",
+   {
+    "source": "tables/Item:item_equipment_enhanceStone.name"
+   },
+   ")"
+  ]
+ },
+ "pack_data:spend_reward_tracks.artisans_request_tempered_steel.name": {
+  "parts": [
+   {
+    "source": "tables/ActivityDisplay:900205.name"
+   },
+   " (",
+   {
+    "source": "tables/Item:item_equip_produce_materials_05.name"
+   },
+   ")"
+  ]
  },
  "pack_data:spend_reward_tracks.halloween_cookie.name": {
   "source": "tables/ActivityDisplay:8200507.name"

@@ -115,3 +115,17 @@ def test_current_index_makes_one_in_the_current_run_when_there_is_none(out, tmp_
     assert index["first"] == 4 and marks(index, "language/Item:gold") == {"en": [4, 0]}
     write_game(tmp_path, {"language_F/en/Item.txt": "KEY,Chinese\ngold,Gold\nore,Ore\n"})
     assert "language/Item:ore" not in T.current_index(tmp_path)["texts"]  # the saved one is used: extract updates it
+
+
+def test_norm_ignores_a_percent_after_a_placeholder_only():
+    assert T.norm("Casualty Rate +{value}% when") == T.norm("casualty rate +{0} when")
+    assert T.norm("Casualty Rate +{0} % when") == T.norm("Casualty Rate +{0} when")
+    assert T.norm("Gain 5% more") != T.norm("Gain 5 more")
+
+
+def test_adapt_gives_a_number_the_webapp_writes_with_a_percent_its_unit():
+    assert T.adapt("Verlustrate +{0} beim", "Casualty Rate +{0} when", "Casualty Rate +{value}% when") == "Verlustrate +{value}% beim"
+    assert T.adapt("{0} und {1}", "{0} and {1}", "{a}% and {b}") == "{a}% und {b}"  # per placeholder
+    assert T.adapt("Rate +{0}% x", "Rate +{0}% x", "Rate +{value}% x") == "Rate +{value}% x"  # not twice
+    assert T.adapt("Rate +{0} % x", "Rate +{0}% x", "Rate +{value}% x") == "Rate +{value} % x"  # the game's own stays
+    assert T.adapt("Rate +{0} x", "Rate +{0} x", "Rate +{value} x") == "Rate +{value} x"  # the webapp has no unit: none added

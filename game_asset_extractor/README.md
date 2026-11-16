@@ -63,6 +63,13 @@ switch the game to another language once and Download & extract it). A text's id
     *ambiguous* (several translations: pick one), *near* (a typo? the closest game texts are offered, never taken without you)
     or *unmapped*; mark a text of the webapp's own (a guide note) as **Own text**. **Map all suggested** takes the clear ones
     at once (`main.py text-map --accept`).
+    Some texts the game puts together in its code. A `%` the webapp has after a placeholder (`+{value}%`) is kept where the
+    game's text has `+{0}`. A text that is made of game texts (`Lv.3 Sharp Beak` = `Lv.{0}` + `Sharp Beak`, `Hero DMG Dealt↑
+    10.00%` = a game text + the number) is *suggested* as such. A placeholder the game fills in code (`CD: {0}`) is filled by
+    you. Both are a **template** in the editor's field: `[[language/Common:TxtLv|0=3]] [[tables/Item:...name]]` (`|0=3` fills
+    `{0}`, `|de:0=3,5` for one language; text outside the `[[ ]]` is literal and the same in every language). A click on a
+    game text puts it in the field; with **Compose** on it is added to what is there. The mapping then holds `parts`
+    instead of a `source`.
 11. **Sync texts** writes the game's wording and translations of every mapped text into the webapp's data files, in **every**
     webapp language, English included (markup taken off, `{0}` named as the webapp names its placeholders; a text whose
     placeholders do not pair up is skipped), then formats the files with the webapp's own prettier so git shows only the

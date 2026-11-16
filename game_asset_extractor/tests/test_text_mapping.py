@@ -85,10 +85,10 @@ def test_search_looks_in_ids_and_every_language_and_needs_two_letters(game):
 
 def test_targets_write_the_game_text_the_webapps_way(game):
     node = {"en": "Grants {amount} antitoxin.", "de": ""}
-    assert TM.targets(node, "tables/Item:grant.description", game, LANGS) == {
+    assert TM.targets(node, TM.single("tables/Item:grant.description"), game, LANGS) == {
         "en": "Grants {amount} Antitoxin.", "de": "Gewährt {amount} Gegengift."}
-    assert TM.targets({"en": "Grants antitoxin"}, "tables/Item:grant.description", game, LANGS) == {"en": None, "de": None}
-    assert TM.targets(node, "tables/Item:gone", game, LANGS) == {}
+    assert TM.targets({"en": "Grants antitoxin"}, TM.single("tables/Item:grant.description"), game, LANGS) == {"en": None, "de": None}
+    assert TM.targets(node, TM.single("tables/Item:gone"), game, LANGS) == {}
 
 
 def test_a_translation_the_webapp_already_has_decides_between_two_game_texts(game):
@@ -138,7 +138,7 @@ def test_accept_suggestions_maps_only_the_clear_ones_and_keeps_what_was_mapped(g
              {"location": "c", "status": "ambiguous", "source": "y"}, {"location": "d", "status": "near", "source": "z"}]
     assert TM.accept_suggestions(table, path) == 1
     assert Mp.load(path) == {"a": {"source": "tables/Item:gold.name"}, "b": {"source": None}}
-    TM.set_source("c", "tables/Act:1.typeDesc", path)
+    TM.set_entry("c", TM.single("tables/Act:1.typeDesc"), path)
     TM.clear("a", path)
     TM.clear("nothing", path)
     assert TM.load(path) == {"b": {"source": None}, "c": {"source": "tables/Act:1.typeDesc"}}
@@ -225,3 +225,157 @@ def test_a_failing_prettier_is_reported(checkout, game, monkeypatch):
     monkeypatch.setattr(TM.subprocess, "run", lambda command, **kw: type("R", (), {"returncode": 2, "stderr": "boom", "stdout": ""})())
     with pytest.raises(RuntimeError, match="boom"):
         run_sync(checkout, game, apply=True)
+
+
+# --- texts the game puts together in its code -----------------------------------------------------------------------
+BUILT_EN = {
+    "language/Common:TxtLv": "Lv.{0}",
+    "language/Alliance:lv": "Lv.{0}",
+    "tables/Item:beak_1.name": "Sharp Beak",
+    "tables/Item:beak_2.name": "Sharp Beak",
+    "tables/Benefit:1.name": "Hero DMG Dealt↑",
+    "tables/Skill:1.desc": "Casualty Rate +{0} when burning",
+    "tables/Skill:2.desc": "Obtain 1 random survivor. CD: {0}",
+    "tables/Skill:3.desc": "Up {0}",
+    "tables/Skill:4.name": "Now",
+}
+BUILT_DE = {
+    "language/Common:TxtLv": "Lv.{0}",
+    "language/Alliance:lv": "Lv.{0}",
+    "tables/Item:beak_1.name": "Scharfer Schnabel",
+    "tables/Item:beak_2.name": "Scharfer Schnabel",
+    "tables/Benefit:1.name": "Verursachter Held-SCH↑",
+    "tables/Skill:1.desc": "Verlustrate +{0} beim Brennen",
+    "tables/Skill:2.desc": "Erhalte 1 zufälligen Überlebenden. AZ: {0}",
+    "tables/Skill:3.desc": "Hoch {0}",
+    "tables/Skill:4.name": "Jetzt",
+}
+LEVEL = {"source": "language/Common:TxtLv", "fill": {"0": "3"}}
+BEAK = {"source": "tables/Item:beak_1.name"}
+
+
+@pytest.fixture
+def built():
+    return TM.Game({"en": BUILT_EN, "de": BUILT_DE})
+
+
+def test_a_template_says_the_parts_and_a_single_game_text_is_its_id():
+    template = "[[language/Common:TxtLv|0=3|de:0=3,5]] [[tables/Item:beak_1.name]]"
+    parts = TM.parse_template(template)
+    assert parts == [{"source": "language/Common:TxtLv", "fill": {"0": "3", "de:0": "3,5"}}, " ", BEAK]
+    assert TM.template_of(parts) == template
+    assert TM.parse_template(" tables/Item:gold.name ") == TM.single("tables/Item:gold.name")
+    assert TM.template_of(TM.single("tables/Item:gold.name")) == "tables/Item:gold.name"
+    assert TM.template_of([{"source": "a:b", "fill": {"0": "1"}}]) == "[[a:b|0=1]]"  # a fill needs the brackets
+
+
+def test_an_entry_is_short_for_one_game_text_and_has_parts_for_more():
+    assert TM.entry_of(TM.single("tables/Item:gold.name")) == {"source": "tables/Item:gold.name"}
+    assert TM.entry_of([{"source": "a:b", "fill": {"0": "1"}}]) == {"source": "a:b", "fill": {"0": "1"}}
+    parts = [LEVEL, " ", BEAK]
+    assert TM.entry_of(parts) == {"parts": parts}
+    assert [TM.parts_of(TM.entry_of(p)) for p in (parts, TM.single("a:b"))] == [parts, TM.single("a:b")]
+    assert TM.parts_of({"source": None}) is None
+
+
+@pytest.mark.parametrize("template", ["[[tables/Item:x", "just text", "[[tables/Item:x|0]]", "[[tables/Item:x]] ]]", ""])
+def test_a_template_that_is_none_is_refused(template):
+    with pytest.raises(ValueError):
+        TM.parse_template(template)
+
+
+def test_compose_fills_the_placeholders_per_language_and_names_the_others_by_the_part(built):
+    filled = [{"source": "tables/Skill:2.desc", "fill": {"0": "119.5h", "de:0": "119,5 Std."}}]
+    assert TM.compose(filled, built, "en") == "Obtain 1 random survivor. CD: 119.5h"
+    assert TM.compose(filled, built, "de") == "Erhalte 1 zufälligen Überlebenden. AZ: 119,5 Std."
+    assert TM.compose([{"source": "language/Common:TxtLv"}, " ", {"source": "tables/Skill:2.desc"}], built, "en") \
+        == "Lv.{0@0} Obtain 1 random survivor. CD: {0@2}"
+    assert TM.compose([BEAK, {"source": "tables/Item:gone"}], built, "en") is None
+    assert TM.compose([BEAK], TM.Game({"en": BUILT_EN}), "de") is None  # no text in that language
+
+
+def test_the_unit_the_games_code_adds_is_kept(built):
+    node = {"en": "Casualty Rate +{value}% when burning", "de": ""}
+    [found] = TM.candidates(node, built, LANGS)
+    assert found["id"] == "tables/Skill:1.desc" and found["clear"]
+    assert found["targets"] == {"en": "Casualty Rate +{value}% when burning", "de": "Verlustrate +{value}% beim Brennen"}
+
+
+def test_a_placeholder_the_games_code_fills_is_a_mismatch_until_it_is_filled(built):
+    node = {"en": "Obtain 1 random survivor.", "de": ""}
+    assert TM.targets(node, TM.single("tables/Skill:2.desc"), built, LANGS) == {"en": None, "de": None}
+    assert [(c["id"], c["exact"]) for c in TM.candidates(node, built, LANGS)] == [("tables/Skill:2.desc", False)]  # a near one
+    entry = {"source": "tables/Skill:2.desc", "fill": {"0": "119.5h", "de:0": "119,5 Std."}}
+    assert TM.status_of(node, {"source": "tables/Skill:2.desc"}, built, LANGS) == ("mismatch", "tables/Skill:2.desc")
+    assert TM.status_of(node, entry, built, LANGS) == ("to sync", "[[tables/Skill:2.desc|0=119.5h|de:0=119,5 Std.]]")
+    assert TM.targets(node, TM.parts_of(entry), built, LANGS) == {
+        "en": "Obtain 1 random survivor. CD: 119.5h", "de": "Erhalte 1 zufälligen Überlebenden. AZ: 119,5 Std."}
+
+
+def test_a_game_text_and_the_number_after_it_is_a_composition(built):
+    node = {"en": "Hero DMG Dealt↑ 10.00%", "de": ""}
+    [found] = TM.candidates(node, built, LANGS)
+    assert found["id"] == "[[tables/Benefit:1.name]] 10.00%" and found["clear"] and found["exact"]
+    assert found["targets"] == {"en": "Hero DMG Dealt↑ 10.00%", "de": "Verursachter Held-SCH↑ 10.00%"}
+    assert TM.status_of(node, None, built, LANGS) == ("suggested", "[[tables/Benefit:1.name]] 10.00%")
+
+
+def test_a_text_with_numbers_next_to_a_game_text_is_a_composition_either_way_round(built):
+    first = TM.candidates({"en": "Lv.3 Sharp Beak", "de": ""}, built, LANGS)
+    assert [c["id"] for c in first] == ["[[language/Common:TxtLv|0=3]] [[tables/Item:beak_1.name]]"]  # the same text once
+    assert first[0]["targets"] == {"en": "Lv.3 Sharp Beak", "de": "Lv.3 Scharfer Schnabel"}
+    [second] = TM.candidates({"en": "Sharp Beak Lv.3", "de": ""}, built, LANGS)
+    assert second["id"] == "[[tables/Item:beak_1.name]] [[language/Common:TxtLv|0=3]]"
+
+
+@pytest.mark.parametrize("english", [
+    "Lv.3 Unknown",  # the other side is no game text
+    "Hero Gold 3x",  # no number to fill or to add
+    "10.00%",  # a number alone is any text that is only a placeholder
+    "Up 10% Now",  # the game's `Up {0}` has no unit: the English would not be the webapp's
+])
+def test_a_text_the_parts_do_not_make_is_not_a_composition(built, english):
+    assert TM.compositions({"en": english, "de": ""}, built, LANGS) == []
+
+
+def test_a_composition_is_ambiguous_when_the_game_says_it_differently_and_the_webapp_does_not_say_which():
+    en = {**BUILT_EN, "tables/Benefit:2.name": "Hero DMG Dealt↑"}
+    de = {**BUILT_DE, "tables/Benefit:2.name": "Schaden↑"}
+    game = TM.Game({"en": en, "de": de})
+    found = TM.candidates({"en": "Hero DMG Dealt↑ 10.00%", "de": ""}, game, LANGS)
+    assert [c["clear"] for c in found] == [False, False] and len(found) == 2
+    found = TM.candidates({"en": "Hero DMG Dealt↑ 10.00%", "de": "Schaden↑ 10.00%"}, game, LANGS)
+    assert found[0]["id"] == "[[tables/Benefit:2.name]] 10.00%" and found[0]["clear"]
+
+
+def test_a_common_ui_string_comes_before_one_of_a_screen(built):
+    assert sorted(built.exact("Lv.{0}"), key=TM.rank) == ["language/Common:TxtLv", "language/Alliance:lv"]
+    assert sorted(["language/Alliance:lv", "tables/Item:x", "language/Common:y"], key=TM.rank) == [
+        "tables/Item:x", "language/Common:y", "language/Alliance:lv"]
+
+
+def test_a_composed_entry_is_official_to_sync_or_missing(built):
+    node = {"en": "Lv.3 Sharp Beak", "de": "Lv.3 Scharfer Schnabel"}
+    entry = {"parts": [LEVEL, " ", BEAK]}
+    template = "[[language/Common:TxtLv|0=3]] [[tables/Item:beak_1.name]]"
+    assert TM.status_of(node, entry, built, LANGS) == ("official", template)
+    assert TM.status_of({**node, "de": "Lv.3 Schnabel"}, entry, built, LANGS)[0] == "to sync"
+    assert TM.status_of(node, {"parts": [{"source": "tables/Item:gone"}, " 5"]}, built, LANGS) == ("missing", "[[tables/Item:gone]] 5")
+
+
+def test_accept_suggestions_takes_a_composition_as_parts_and_used_lists_every_part(tmp_path):
+    path = tmp_path / "text_mapping.json"
+    table = [{"location": "a", "status": "suggested", "source": "[[language/Common:TxtLv|0=3]] [[tables/Item:beak_1.name]]"}]
+    assert TM.accept_suggestions(table, path) == 1
+    assert Mp.load(path) == {"a": {"parts": [LEVEL, " ", BEAK]}}
+    TM.set_entry("b", TM.single("tables/Item:beak_1.name"), path)
+    TM.set_entry("c", None, path)
+    assert TM.used(TM.load(path)) == {"language/Common:TxtLv": ["a"], "tables/Item:beak_1.name": ["a", "b"]}
+
+
+def test_plan_writes_a_composition_in_every_language(built):
+    done = TM.plan({"x": {"parts": [LEVEL, " ", BEAK]}, "y": {"parts": [{"source": "tables/Item:gone"}, " 5"]}},
+                   {"x": {"en": "lv.3 sharp beak", "de": ""}, "y": {"en": "Gone 5"}}, built, LANGS)
+    assert [(d["location"], d["lang"], d["action"], d["new"]) for d in done] == [
+        ("x", "en", "write", "Lv.3 Sharp Beak"), ("x", "de", "write", "Lv.3 Scharfer Schnabel"), ("y", "", "skipped", "")]
+    assert done[-1]["note"] == "[[tables/Item:gone]] 5 is not in the extracted texts"
