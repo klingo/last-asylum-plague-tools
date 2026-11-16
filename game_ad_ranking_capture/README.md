@@ -101,6 +101,17 @@ alliance; players the lists do not know (other alliances) have none. A member wh
 a day's list shows `-` and is left out of average and median (not counted as 0). The same player read with `I` one day and
 `l` another is one player. Days that are still preliminary are marked "preliminary" in orange (hover for the explanation).
 
+**Languages**: English, German and Russian. The page starts in the browser's language (the first of its preferred
+languages that is supported, else English); a small selector in the top-right corner changes it and the choice is
+remembered in the browser. The texts are in `viewer/i18n/en.json`, `de.json` and `ru.json` (English is the source and the
+fallback for a missing text); `viewer/i18n.js` holds the language choice and the lookup. Numbers are written the same way
+in every language (`20'000`), dates and plural forms (`1 игрок`, `2 игрока`, `5 игроков`) follow the language. The event's name
+is translated: German (Allianz-Duell) is the game's own text; Russian (Дуэль альянсов) is not from the game, whose Russian texts
+are not extracted, so correct it if the game words it differently.
+A new language: its file in `viewer/i18n/`, an entry in `LANGUAGES` (`i18n.js`) and its plural forms in
+`tests/test_i18n.py`; the test checks that every file has exactly the keys, placeholders and plural forms it needs, and that
+the page uses no text that is not in the files.
+
 **Colours**: the daily points, the Average and the Median are coloured by the Duel's 9 daily reward phases (`PHASES` in
 `config.py`: 38'000, 145'000, 550'000, 650'000, 1'020'000, 2'280'000, 2'630'000, 3'620'000, 7'190'000). It is a scale, not
 bands: **red** at phase 5 (1'020'000) and below, **amber** at phase 7 (2'630'000), **green** at phase 9 (7'190'000) and

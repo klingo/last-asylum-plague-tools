@@ -35,6 +35,10 @@ def test_the_site_has_the_page_the_week_list_and_a_table_per_week(tmp_path):
         "api/week/2026-W46.json",
         "api/week/2026-W47.json",
         "api/weeks.json",
+        "i18n.js",
+        "i18n/de.json",
+        "i18n/en.json",
+        "i18n/ru.json",
         "index.html",
     ]
     weeks = json.loads((out / "api" / "weeks.json").read_text(encoding="utf-8"))

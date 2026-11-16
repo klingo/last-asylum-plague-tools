@@ -1,0 +1,60 @@
+{
+  "page": {
+    "title": "Allianz-Duell: Ranglisten"
+  },
+  "header": {
+    "week": "Woche",
+    "mine": "Meine Allianz",
+    "mine_named": "Meine Allianz ({name})",
+    "language": "Sprache"
+  },
+  "col": {
+    "player": "Spieler",
+    "rank": "Rang",
+    "rank_title": "Allianzrang (R5 ist der höchste), aus der Mitgliederliste",
+    "alliance": "Allianz",
+    "total": "Gesamt",
+    "average": "Durchschnitt",
+    "median": "Median"
+  },
+  "weekday": {
+    "mon": "Mo",
+    "tue": "Di",
+    "wed": "Mi",
+    "thu": "Do",
+    "fri": "Fr",
+    "sat": "Sa"
+  },
+  "day": {
+    "preliminary": "vorläufig",
+    "preliminary_title": "Vorläufig: Der Spieltag ist noch nicht zu Ende (oder wurde nach seinem Ende nicht mehr gelesen), daher können sich diese Zahlen noch ändern"
+  },
+  "color": {
+    "red": "rot",
+    "amber": "bernstein",
+    "green": "grün"
+  },
+  "legend": {
+    "step": "{color} ~ Phase {phase} ({points})"
+  },
+  "cell": {
+    "phase": "Phase {phase} von {total} (ab {points})",
+    "below": "Unter Phase 1",
+    "filled": "Nicht in der Rangliste dieses Tages: Allianzmitglied mit 0 Punkten"
+  },
+  "info": {
+    "players": {
+      "one": "{n} Spieler",
+      "other": "{n} Spieler"
+    },
+    "preliminary": "vorläufig: {days}",
+    "zero_members": {
+      "one": "{n} Mitglied mit 0 Punkten (kursiv)",
+      "other": "{n} Mitglieder mit 0 Punkten (kursiv)"
+    }
+  },
+  "msg": {
+    "none": "Noch keine Ranglisten: Starte zuerst einen Scan im Fenster.",
+    "nobody": "Keine Spieler vorhanden."
+  }
+}

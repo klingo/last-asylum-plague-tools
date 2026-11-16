@@ -127,7 +127,6 @@ def week_table(
         "days": days,
         "dates": {day: week["days"][day]["date"] for day in days},
         "final": {day: week["days"][day]["final"] for day in days},
-        "filled": sum(len(entry["filled"]) for entry in table),
         "phases": list(C.PHASES),
         "scale": [{"color": color, "phase": number, "points": C.PHASES[number - 1]} for color, number in C.COLOR_SCALE],
         "players": table,

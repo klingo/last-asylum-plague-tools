@@ -1,9 +1,10 @@
 """The viewer as a static site (for GitHub Pages): `python export.py [--out DIR]`, default `site/`.
 
-Writes `index.html` (the viewer's page) and the files the page fetches, `api/weeks.json` (newest first) and
-`api/week/<year>-W<week>.json` (one table per week, from `aggregate.week_table`, with `corrections.json` and the member
-lists applied), plus `.nojekyll`. These are the same routes the local server answers, so the page is the same in both
-places, and it fetches them with relative URLs, so it also works below `/<repository>/`.
+Writes `index.html` (the viewer's page), `i18n.js` and `i18n/<language>.json` (its languages), and the files the page
+fetches: `api/weeks.json` (newest first) and `api/week/<year>-W<week>.json` (one table per week, from
+`aggregate.week_table`, with `corrections.json` and the member lists applied), plus `.nojekyll`. These are the same
+routes the local server answers, so the page is the same in both places, and it fetches them with relative URLs, so it
+also works below `/<repository>/`.
 
 Standard library and the table modules only (no OpenCV, no OCR): the publishing workflow runs it without installing
 anything. The tables hold the player names of both alliances; the page asks search engines not to index it, which is a
@@ -32,12 +33,17 @@ def export_site(out: Path, data_dir: Path | None = None, viewer_dir: Path | None
     data_dir, viewer_dir = data_dir or C.DATA_DIR, viewer_dir or C.VIEWER_DIR
     if out.exists():
         shutil.rmtree(out)
-    out.mkdir(parents=True)
-    written = [out / "index.html", out / ".nojekyll", out / "api" / "weeks.json"]
-    shutil.copyfile(viewer_dir / "index.html", written[0])
-    written[1].write_text("", encoding="utf-8")  # no Jekyll processing of the files
+    (out / "i18n").mkdir(parents=True)
+    written = [out / "index.html", out / "i18n.js", out / ".nojekyll"]
+    shutil.copyfile(viewer_dir / "index.html", out / "index.html")
+    shutil.copyfile(viewer_dir / "i18n.js", out / "i18n.js")
+    (out / ".nojekyll").write_text("", encoding="utf-8")  # no Jekyll processing of the files
+    for language in sorted((viewer_dir / "i18n").glob("*.json")):  # the languages of the page
+        shutil.copyfile(language, out / "i18n" / language.name)
+        written.append(out / "i18n" / language.name)
     weeks = list(reversed(store.list_weeks(data_dir)))
-    write_json(written[2], weeks)
+    write_json(out / "api" / "weeks.json", weeks)
+    written.append(out / "api" / "weeks.json")
     for week in weeks:
         path = out / "api" / "week" / f"{week}.json"
         write_json(path, aggregate.week_table(store.load(week, data_dir)))
@@ -50,7 +56,8 @@ def main() -> None:
     parser.add_argument("--out", type=Path, default=C.HERE / "site", help="the folder to write (replaced if it exists)")
     args = parser.parse_args()
     written = export_site(args.out)
-    print(f"{len(written) - 3} week(s) written to {args.out} ({len(written)} files).")
+    weeks = sum(1 for path in written if path.parent.name == "week")
+    print(f"{weeks} week(s) written to {args.out} ({len(written)} files).")
 
 
 if __name__ == "__main__":

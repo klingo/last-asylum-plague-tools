@@ -27,25 +27,30 @@ tr.mine td.name { color: #6cc070; }
 .tag { color: #8a93a0; }
 #legend { display: flex; gap: 12px; align-items: center; color: #9aa; font-size: 12px; }
 #legend span { padding: 1px 8px; border-radius: 3px; color: #e6e6e6; }
+#lang { font-size: 12px; padding: 3px 6px; }
 </style></head>
 <body>
 <header>
-  <label>Week <select id="week"></select></label>
-  <label><input type="checkbox" id="mine"> <span id="mineText">My alliance</span></label>
+  <label><span data-i18n="header.week"></span> <select id="week"></select></label>
+  <label><input type="checkbox" id="mine"> <span id="mineText"></span></label>
   <span id="legend"></span>
   <span id="info"></span>
+  <select id="lang"></select>
 </header>
 <div id="message" hidden></div>
 <table id="table" hidden><thead></thead><tbody></tbody></table>
+<script src="i18n.js"></script>
 <script>
-const DAY_NAMES = { mon: "Mon", tue: "Tue", wed: "Wed", thu: "Thu", fri: "Fri", sat: "Sat" };
-const state = { data: null, sortKey: "total", ascending: false };
+const DAYS = ["mon", "tue", "wed", "thu", "fri", "sat"];
+// dicts: the loaded language files by code; empty: the "no rankings yet" message is showing
+const state = { data: null, sortKey: "total", ascending: false, lang: "en", dicts: {}, empty: false };
 
 const el = (id) => document.getElementById(id);
+const t = (key, vars) => translate(state.dicts, state.lang, key, vars);
 const fmt = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "'");
 const rankNumber = (rank) => (rank ? Number(rank.slice(1)) : null);   // "R4" -> 4: R5 is the highest
 const get = (player, key) =>
-  key === "alliance_rank" ? rankNumber(player.alliance_rank) : DAY_NAMES[key] ? player.points[key] : player[key];
+  key === "alliance_rank" ? rankNumber(player.alliance_rank) : DAYS.includes(key) ? player.points[key] : player[key];
 
 function showMessage(text) {
   el("message").textContent = text;
@@ -63,7 +68,7 @@ function visiblePlayers() {
     if (x === y) return 0;
     if (x === null || x === undefined) return 1;   // a missing value always goes last
     if (y === null || y === undefined) return -1;
-    return typeof x === "string" ? sign * x.localeCompare(y) : sign * (x - y);
+    return typeof x === "string" ? sign * x.localeCompare(y, state.lang) : sign * (x - y);
   });
 }
 
@@ -78,10 +83,10 @@ function cell(row, text, className, value, key, player) {
   if (player && player.heat[key] !== null && player.heat[key] !== undefined) {
     td.style.background = tint(player.heat[key]);
     const phase = player.phase[key], phases = state.data.phases;
-    td.title = phase ? "Phase " + phase + " of " + phases.length + " (from " + fmt(phases[phase - 1]) + ")" : "Below phase 1";
+    td.title = phase ? t("cell.phase", { phase, total: phases.length, points: fmt(phases[phase - 1]) }) : t("cell.below");
     if (player.filled.includes(key)) {
       td.classList.add("filled");
-      td.title = "Not in this day's ranking: an alliance member with 0 points";
+      td.title = t("cell.filled");
     }
   }
   row.appendChild(td);
@@ -94,7 +99,7 @@ function legend() {
   for (const step of state.data.scale) {
     const item = document.createElement("span");
     item.style.background = tint(step.color === "red" ? 0 : step.color === "amber" ? 0.5 : 1);
-    item.textContent = step.color + " ~ phase " + step.phase + " (" + fmt(step.points) + ")";
+    item.textContent = t("legend.step", { color: t("color." + step.color), phase: step.phase, points: fmt(step.points) });
     box.appendChild(item);
   }
 }
@@ -129,17 +134,17 @@ function head(columns) {
 function render() {
   const data = state.data;
   if (!data) return;
-  const columns = [{ key: "rank", label: "#" }, { key: "name", label: "Player", text: true },
-    { key: "alliance_rank", label: "Rank", left: true, title: "Alliance rank (R5 is the highest), from the member list" },
-    { key: "alliance", label: "Alliance", text: true }];
+  const columns = [{ key: "rank", label: "#" }, { key: "name", label: t("col.player"), text: true },
+    { key: "alliance_rank", label: t("col.rank"), left: true, title: t("col.rank_title") },
+    { key: "alliance", label: t("col.alliance"), text: true }];
   for (const day of data.days) {
     columns.push({
-      key: day, label: DAY_NAMES[day], live: !data.final[day],
-      sub: data.dates[day].slice(5) + (data.final[day] ? "" : " preliminary"),
-      title: data.final[day] ? "" : "Preliminary: the game day has not ended yet (or was not read after it ended), so these numbers can still change",
+      key: day, label: t("weekday." + day), live: !data.final[day],
+      sub: shortDate(data.dates[day]) + (data.final[day] ? "" : " " + t("day.preliminary")),
+      title: data.final[day] ? "" : t("day.preliminary_title"),
     });
   }
-  columns.push({ key: "total", label: "Total" }, { key: "average", label: "Average" }, { key: "median", label: "Median" });
+  columns.push({ key: "total", label: t("col.total") }, { key: "average", label: t("col.average") }, { key: "median", label: t("col.median") });
   const thead = document.querySelector("#table thead");
   thead.replaceChildren(head(columns.map((c) => (c.key === "rank" ? { ...c, key: "total" } : c))));
   const players = visiblePlayers();
@@ -167,24 +172,62 @@ function render() {
     cell(tr, fmt(player.median), "num", player.median, "median", player);
     tbody.appendChild(tr);
   });
-  const live = data.days.filter((d) => !data.final[d]).map((d) => DAY_NAMES[d]);
-  el("info").textContent = players.length + " players" + (live.length ? " | preliminary: " + live.join(", ") : "")
-    + (data.filled ? " | " + data.filled + " zero days from the member list (italic)" : "");
+  const live = data.days.filter((d) => !data.final[d]).map((d) => t("weekday." + d));
+  const info = [t("info.players", { n: players.length })];
+  if (live.length) info.push(t("info.preliminary", { days: live.join(", ") }));
+  const zeroMembers = players.filter((player) => player.filled.length).length;   // the ones with an italic cell
+  if (zeroMembers) info.push(t("info.zero_members", { n: zeroMembers }));
+  el("info").textContent = info.join(" | ");
   legend();
-  showMessage(players.length ? "" : "Nobody to show.");
+  showMessage(players.length ? "" : t("msg.nobody"));
 }
 
 async function load(week) {
   const response = await fetch("api/week/" + week + ".json");   // relative: also works under /<repo>/ on GitHub Pages
   state.data = await response.json();
-  el("mineText").textContent = state.data.my_alliance ? "My alliance (" + state.data.my_alliance + ")" : "My alliance";
+  applyTexts();
+  render();
+}
+
+// the date without its year, in the order of the language (16.11. or 11/16)
+const shortDate = (iso) => new Date(iso + "T12:00:00").toLocaleDateString(state.lang, { day: "numeric", month: "numeric" });
+
+// the texts that render() does not rebuild: the labels of the page, its title, the language selector
+function applyTexts() {
+  document.documentElement.lang = state.lang;
+  document.title = t("page.title");
+  document.querySelectorAll("[data-i18n]").forEach((node) => { node.textContent = t(node.dataset.i18n); });
+  const data = state.data;
+  el("mineText").textContent = data && data.my_alliance ? t("header.mine_named", { name: data.my_alliance }) : t("header.mine");
+  el("lang").title = t("header.language");
+  el("lang").value = state.lang;
+  if (state.empty) showMessage(t("msg.none"));
+}
+
+// Changes the language: loads its file (one that cannot be loaded leaves the language in use) and redraws.
+async function setLanguage(lang) {
+  if (!state.dicts[lang]) {
+    try {
+      state.dicts[lang] = await (await fetch("i18n/" + lang + ".json")).json();
+    } catch (error) {
+      return;
+    }
+  }
+  state.lang = lang;
+  applyTexts();
   render();
 }
 
 async function start() {
+  state.dicts.en = await (await fetch("i18n/en.json")).json();   // English first: the others fall back to it
+  const lang = el("lang");
+  for (const [code, name] of LANGUAGES) lang.add(new Option(name, code));
+  lang.onchange = () => { localStorage.setItem("adr_lang", lang.value); setLanguage(lang.value); };
+  await setLanguage(pickLanguage(localStorage.getItem("adr_lang"), navigator.languages || [navigator.language]));
   const weeks = await (await fetch("api/weeks.json")).json();
   if (!weeks.length) {
-    showMessage("No rankings yet: run a scan from the window first.");
+    state.empty = true;
+    applyTexts();
     return;
   }
   const select = el("week");

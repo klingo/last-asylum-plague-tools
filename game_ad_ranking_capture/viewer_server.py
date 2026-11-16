@@ -17,8 +17,10 @@ import aggregate
 import config as C
 import store
 
-# the only week a request may name: no path is ever built from the request
+# the only things a request may name: no path is ever built from the request
 WEEK_FILE = re.compile(r"^/api/week/(\d{4}-W\d{2})\.json$")
+LANGUAGE_FILE = re.compile(r"^/i18n/([a-z]{2})\.json$")
+PAGE_FILES = {"/": "index.html", "/index.html": "index.html", "/i18n.js": "i18n.js"}  # the page and its helper
 
 
 def make_handler(directory: Path, viewer_dir: Path) -> type[http.server.BaseHTTPRequestHandler]:
@@ -36,9 +38,11 @@ def make_handler(directory: Path, viewer_dir: Path) -> type[http.server.BaseHTTP
 
         def do_GET(self) -> None:  # noqa: N802
             path = self.path.split("?", 1)[0]
-            if path in ("/", "/index.html"):
-                page = (viewer_dir / "index.html").read_bytes()
-                self.reply(200, page, "text/html; charset=utf-8")
+            if path in PAGE_FILES:
+                kind = "text/javascript" if path.endswith(".js") else "text/html"
+                self.reply(200, (viewer_dir / PAGE_FILES[path]).read_bytes(), kind + "; charset=utf-8")
+            elif LANGUAGE_FILE.match(path) and (viewer_dir / path[1:]).is_file():
+                self.reply(200, (viewer_dir / path[1:]).read_bytes(), "application/json; charset=utf-8")
             elif path == "/api/weeks.json":
                 self.json(list(reversed(store.list_weeks(directory))))
             elif WEEK_FILE.match(path):

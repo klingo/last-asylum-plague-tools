@@ -1,0 +1,60 @@
+{
+  "page": {
+    "title": "Alliance Duel rankings"
+  },
+  "header": {
+    "week": "Week",
+    "mine": "My alliance",
+    "mine_named": "My alliance ({name})",
+    "language": "Language"
+  },
+  "col": {
+    "player": "Player",
+    "rank": "Rank",
+    "rank_title": "Alliance rank (R5 is the highest), from the member list",
+    "alliance": "Alliance",
+    "total": "Total",
+    "average": "Average",
+    "median": "Median"
+  },
+  "weekday": {
+    "mon": "Mon",
+    "tue": "Tue",
+    "wed": "Wed",
+    "thu": "Thu",
+    "fri": "Fri",
+    "sat": "Sat"
+  },
+  "day": {
+    "preliminary": "preliminary",
+    "preliminary_title": "Preliminary: the game day has not ended yet (or was not read after it ended), so these numbers can still change"
+  },
+  "color": {
+    "red": "red",
+    "amber": "amber",
+    "green": "green"
+  },
+  "legend": {
+    "step": "{color} ~ phase {phase} ({points})"
+  },
+  "cell": {
+    "phase": "Phase {phase} of {total} (from {points})",
+    "below": "Below phase 1",
+    "filled": "Not in this day's ranking: an alliance member with 0 points"
+  },
+  "info": {
+    "players": {
+      "one": "{n} player",
+      "other": "{n} players"
+    },
+    "preliminary": "preliminary: {days}",
+    "zero_members": {
+      "one": "{n} member with zero points (italic)",
+      "other": "{n} members with zero points (italic)"
+    }
+  },
+  "msg": {
+    "none": "No rankings yet: run a scan from the window first.",
+    "nobody": "Nobody to show."
+  }
+}

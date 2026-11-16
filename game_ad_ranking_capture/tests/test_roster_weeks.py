@@ -88,7 +88,7 @@ def test_players_outside_the_alliance_or_before_the_first_list_stay_as_they_are(
     later = R.Roster()
     snapshot(later, "2026-11-24", ["Ann", "Bob"])  # the first list is from the next week: this week has none
     table = aggregate.week_table(week, corrections.Corrections(), later)
-    assert table["filled"] == 0 and "Bob" not in [p["name"] for p in table["players"]]
+    assert not any(p["filled"] for p in table["players"]) and "Bob" not in [p["name"] for p in table["players"]]
 
 
 def test_a_list_is_stored_from_the_day_it_was_read_with_the_changes_since_the_one_before(monkeypatch, tmp_path):
