@@ -30,6 +30,8 @@ class Screen(Enum):
     MAP = "the map"
     DUEL = "the Alliance Duel"
     RANK = "the Duel's Rank screen"
+    ALLIANCE = "the Alliance page"
+    MEMBERS = "the Alliance Members screen"
     OTHER = "another screen"
 
 
@@ -44,7 +46,11 @@ def identify(words: list[Word], height: int) -> Screen:
         return Screen.RANK
     if "alliance duel" in top:
         return Screen.DUEL
-    if "squad" in texts and texts & {"hero", "territory"}:
+    if "alliance members" in top:
+        return Screen.MEMBERS
+    if "alliance" in top and "alliance shop" in texts:
+        return Screen.ALLIANCE
+    if len(texts & {"squad", "hero", "territory", "mail", "bag"}) >= 2:  # the map's own buttons: it is a busy picture
         return Screen.MAP
     return Screen.OTHER
 
@@ -99,31 +105,59 @@ class Navigator:
         height, width = frame.shape[:2]
         self.device.tap(C.BACK_ARROW[0] * width, C.BACK_ARROW[1] * height)
 
-    def open_rank(self) -> tuple[np.ndarray, list[Word]]:
-        """Gets from wherever the game is to the Rank screen; returns its frame and words."""
+    def _reach(self, target: Screen, steps: dict, failure: str) -> tuple[np.ndarray, list[Word]]:
+        """Gets from wherever the game is to `target`: `steps` says what to do on a screen on the way (a function of
+        the frame and its words), any other screen is left with the back arrow, a few times at most."""
         backs = 0
         for _ in range(MAX_STEPS):
             frame, words, screen = self.look()
-            height = frame.shape[0]
-            if screen is Screen.RANK:
+            if screen is target:
                 return frame, words
             self.progress(f"The game shows {screen.value}.")
-            if screen is Screen.DUEL:
-                button = [w for w in words if w.text.strip().lower() == "rank" and w.cy > 0.85 * height]
-                if not button:
-                    raise NavigationError("The Alliance Duel is open, but its Rank button was not found.")
-                self.device.tap(button[0].cx, button[0].cy - 0.025 * height)  # the trophy above the label
-            elif screen is Screen.MAP:
-                icon = find_duel_icon(frame, self.template)
-                if icon is None:
-                    raise NavigationError("The Alliance Duel's icon was not found on the map (is the event running?).")
-                self.device.tap(*icon)
+            if screen in steps:
+                steps[screen](frame, words)
             else:
                 backs += 1
                 if backs > MAX_BACKS:
                     raise NavigationError("Could not get back to the map from the screen the game is showing.")
                 self.tap_back(frame)
-        raise NavigationError("The Rank screen was not reached.")
+        raise NavigationError(failure)
+
+    def _tap_duel_icon(self, frame: np.ndarray, words: list[Word]) -> None:
+        icon = find_duel_icon(frame, self.template)
+        if icon is None:
+            raise NavigationError("The Alliance Duel's icon was not found on the map (is the event running?).")
+        self.device.tap(*icon)
+
+    def _tap_rank_button(self, frame: np.ndarray, words: list[Word]) -> None:
+        button = [w for w in words if w.text.strip().lower() == "rank" and w.cy > 0.85 * frame.shape[0]]
+        if not button:
+            raise NavigationError("The Alliance Duel is open, but its Rank button was not found.")
+        self.device.tap(button[0].cx, button[0].cy - 0.025 * frame.shape[0])  # the trophy above the label
+
+    def _tap_alliance(self, frame: np.ndarray, words: list[Word]) -> None:
+        height, width = frame.shape[:2]
+        self.device.tap(C.ALLIANCE_BUTTON[0] * width, C.ALLIANCE_BUTTON[1] * height)
+
+    def _tap_members(self, frame: np.ndarray, words: list[Word]) -> None:
+        height, width = frame.shape[:2]
+        label = [w for w in words if w.text.strip().lower() == "members" and 0.5 * height < w.cy < 0.7 * height]
+        x, y = (
+            (label[0].cx, label[0].cy - 0.01 * height)
+            if label
+            else (C.MEMBERS_BUTTON[0] * width, C.MEMBERS_BUTTON[1] * height)
+        )
+        self.device.tap(x, y)
+
+    def open_rank(self) -> tuple[np.ndarray, list[Word]]:
+        """Gets from wherever the game is to the Rank screen; returns its frame and words."""
+        steps = {Screen.DUEL: self._tap_rank_button, Screen.MAP: self._tap_duel_icon}
+        return self._reach(Screen.RANK, steps, "The Rank screen was not reached.")
+
+    def open_members(self) -> tuple[np.ndarray, list[Word]]:
+        """Gets from wherever the game is to the Alliance Members screen."""
+        steps = {Screen.MAP: self._tap_alliance, Screen.ALLIANCE: self._tap_members}
+        return self._reach(Screen.MEMBERS, steps, "The Alliance Members screen was not reached.")
 
     def select_day(self, day: str, tabs: dict[str, Word]) -> np.ndarray | None:
         """Taps the day's tab; its frame once the tab is selected, None if the game did not switch (no data yet)."""

@@ -10,15 +10,25 @@ The daily points, the average and the median are put on a colour scale from the 
 (`config.PHASES`, `config.COLOR_SCALE`): `heat` is 0 (red) at the first anchor's points, 0.5 (amber) at the second's, 1
 (green) at the third's and above, blended in between; `phase` is how many of the 9 phases the points reach. The total
 has none: it is not a day's points.
+
+A member's alliance rank (R5 .. R1) comes from the member list (the latest day's list that has them); players the
+lists do not know, such as those of other alliances, have none.
+
+An alliance member (`roster.py`) who is not in a day's ranking made 0 points that day: the ranking only lists players
+with points. Such a member gets 0 for the day, counted in the average and the median (`filled` lists those days);
+members of an older roster snapshot are only counted from the day it was valid. Other alliances' players stay as
+they are.
 """
 
 from __future__ import annotations
 
 import statistics
 from collections import Counter
+from datetime import date
 
 import config as C
 import corrections
+import roster as roster_file
 from store import UNREADABLE, spelling_key
 
 
@@ -41,8 +51,11 @@ def heat(points: int | None) -> float | None:
     return 1.0
 
 
-def week_table(week: dict, fixes: corrections.Corrections | None = None) -> dict:
+def week_table(
+    week: dict, fixes: corrections.Corrections | None = None, roster: roster_file.Roster | None = None
+) -> dict:
     fixes = fixes or corrections.load()
+    roster = roster if roster is not None else roster_file.load()
     days = [day for day in C.DAYS if day in week["days"] and week["days"][day]["rows"]]
     players: dict[str, dict] = {}
     for day in days:
@@ -51,11 +64,40 @@ def week_table(week: dict, fixes: corrections.Corrections | None = None) -> dict
             # a name the OCR could not read says nothing about who it is: such a card is a player of its own that day
             key = f"?{day}{row['rank']}" if row["name"] == UNREADABLE else spelling_key(row["name"])
             player = players.setdefault(
-                key, {"spellings": Counter(), "alliance": "", "tag": "", "points": dict.fromkeys(days)}
+                key,
+                {
+                    "spellings": Counter(),
+                    "alliance": "",
+                    "tag": "",
+                    "points": dict.fromkeys(days),
+                    "filled": [],
+                    "rank": "",
+                },
             )
             player["spellings"][row["name"]] += 1
             player["alliance"], player["tag"] = row["alliance"], row["tag"]
             player["points"][day] = row["points"]
+    mine = (fixes.fix(week["meta"].get("my_alliance", "")), fixes.fix(week["meta"].get("my_tag", "")))
+    for day in days:
+        for member in roster.members_on(date.fromisoformat(week["days"][day]["date"])):
+            name = fixes.rename(fixes.fix(member["name"]))
+            if name == UNREADABLE:
+                continue  # a member whose name could not be read cannot be matched with anyone
+            player = players.setdefault(
+                spelling_key(name),
+                {
+                    "spellings": Counter({name: 1}),
+                    "alliance": mine[0],
+                    "tag": mine[1],
+                    "points": dict.fromkeys(days),
+                    "filled": [],
+                    "rank": "",
+                },
+            )
+            player["rank"] = member["rank"]  # the days run in order: the latest list that has the member decides
+            if player["points"][day] is None:
+                player["points"][day] = 0
+                player["filled"].append(day)
     table = []
     for player in players.values():
         values = [points for points in player["points"].values() if points is not None]
@@ -64,11 +106,13 @@ def week_table(week: dict, fixes: corrections.Corrections | None = None) -> dict
                 "name": player["spellings"].most_common(1)[0][0],
                 "alliance": player["alliance"],
                 "tag": player["tag"],
+                "alliance_rank": player["rank"],
                 "points": player["points"],
                 "total": sum(values),
                 "average": round(statistics.mean(values)),
                 "median": round(statistics.median(values)),
                 "days": len(values),
+                "filled": player["filled"],
             }
         )
         shown = {**table[-1]["points"], "average": table[-1]["average"], "median": table[-1]["median"]}
@@ -83,6 +127,7 @@ def week_table(week: dict, fixes: corrections.Corrections | None = None) -> dict
         "days": days,
         "dates": {day: week["days"][day]["date"] for day in days},
         "final": {day: week["days"][day]["final"] for day in days},
+        "filled": sum(len(entry["filled"]) for entry in table),
         "phases": list(C.PHASES),
         "scale": [{"color": color, "phase": number, "points": C.PHASES[number - 1]} for color, number in C.COLOR_SCALE],
         "players": table,

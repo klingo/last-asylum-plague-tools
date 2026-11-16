@@ -11,6 +11,7 @@ DATA_DIR = HERE / "data"  # one file per calendar week, committed
 REVIEW_DIR = HERE / "review"  # crops of uncertain rows, git-ignored
 TEMPLATES_DIR = HERE / "templates"
 VIEWER_DIR = HERE / "viewer"
+ROSTER_DIR = DATA_DIR / "members"  # the alliance's member lists, one file per calendar week
 CORRECTIONS = HERE / "corrections.json"  # {"misread name": "right name"}, applied when a day is stored
 
 PACKAGE = "com.phs.global"  # Last Asylum: Plague
@@ -37,6 +38,8 @@ SWIPE_MS = 900  # a slow swipe: little fling, so the list moves about the same e
 
 # -- Rank screen layout (fractions of the frame)
 BACK_ARROW = (0.083, 0.029)  # (x of width, y of height)
+ALLIANCE_BUTTON = (0.917, 0.719)  # the map's Alliance button (no OCR needed: it is a fixed part of the screen)
+MEMBERS_BUTTON = (0.804, 0.583)  # the Alliance page's Alliance Members button
 LIST_TOP = 0.238  # the list's visible area, between the column heads and the pinned own row
 LIST_BOTTOM = 0.800
 SWIPE_ROWS = 3.5  # cards the list is moved per swipe (five are fully visible at once, so a card is read twice)

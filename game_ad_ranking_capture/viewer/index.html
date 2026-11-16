@@ -17,7 +17,9 @@ th.live small { color: #d9a441; }
 th.sorted .label::after { content: " \25BC"; font-size: 10px; }   /* on the label, so it stays on the first line */
 th.sorted.asc .label::after { content: " \25B2"; }
 td.none { color: #555; }
+td.filled { font-style: italic; color: #b8b8b8; }
 td.rank { color: #8a93a0; text-align: right; }
+td.arank { color: #8a93a0; text-align: left; }
 td.total { font-weight: 600; }
 tr:hover td { background: #262a32; }
 tr.mine td.name { color: #6cc070; }
@@ -40,7 +42,9 @@ const state = { data: null, sortKey: "total", ascending: false };
 
 const el = (id) => document.getElementById(id);
 const fmt = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "'");
-const get = (player, key) => (DAY_NAMES[key] ? player.points[key] : player[key]);
+const rankNumber = (rank) => (rank ? Number(rank.slice(1)) : null);   // "R4" -> 4: R5 is the highest
+const get = (player, key) =>
+  key === "alliance_rank" ? rankNumber(player.alliance_rank) : DAY_NAMES[key] ? player.points[key] : player[key];
 
 function showMessage(text) {
   el("message").textContent = text;
@@ -74,6 +78,10 @@ function cell(row, text, className, value, key, player) {
     td.style.background = tint(player.heat[key]);
     const phase = player.phase[key], phases = state.data.phases;
     td.title = phase ? "Phase " + phase + " of " + phases.length + " (from " + fmt(phases[phase - 1]) + ")" : "Below phase 1";
+    if (player.filled.includes(key)) {
+      td.classList.add("filled");
+      td.title = "Not in this day's ranking: an alliance member with 0 points";
+    }
   }
   row.appendChild(td);
   return td;
@@ -94,7 +102,8 @@ function head(columns) {
   const tr = document.createElement("tr");
   for (const column of columns) {
     const th = document.createElement("th");
-    th.className = column.text ? "text" : "";
+    th.className = column.text || column.left ? "text" : "";
+    if (column.title) th.title = column.title;
     if (state.sortKey === column.key) th.className += " sorted" + (state.ascending ? " asc" : "");
     if (column.live) th.className += " live";
     const label = document.createElement("span");
@@ -119,9 +128,15 @@ function head(columns) {
 function render() {
   const data = state.data;
   if (!data) return;
-  const columns = [{ key: "rank", label: "#" }, { key: "name", label: "Player", text: true }, { key: "alliance", label: "Alliance", text: true }];
+  const columns = [{ key: "rank", label: "#" }, { key: "name", label: "Player", text: true },
+    { key: "alliance_rank", label: "Rank", left: true, title: "Alliance rank (R5 is the highest), from the member list" },
+    { key: "alliance", label: "Alliance", text: true }];
   for (const day of data.days) {
-    columns.push({ key: day, label: DAY_NAMES[day], sub: data.dates[day].slice(5) + (data.final[day] ? "" : " prelim."), live: !data.final[day] });
+    columns.push({
+      key: day, label: DAY_NAMES[day], live: !data.final[day],
+      sub: data.dates[day].slice(5) + (data.final[day] ? "" : " preliminary"),
+      title: data.final[day] ? "" : "Preliminary: the game day has not ended yet (or was not read after it ended), so these numbers can still change",
+    });
   }
   columns.push({ key: "total", label: "Total" }, { key: "average", label: "Average" }, { key: "median", label: "Median" });
   const thead = document.querySelector("#table thead");
@@ -134,6 +149,7 @@ function render() {
     if (player.alliance === data.my_alliance && player.tag === data.my_tag) tr.className = "mine";
     cell(tr, index + 1, "rank");
     cell(tr, player.name, "text name");
+    cell(tr, player.alliance_rank, "arank");
     const alliance = cell(tr, player.alliance, "text");
     if (player.tag) {
       const tag = document.createElement("span");
@@ -151,7 +167,8 @@ function render() {
     tbody.appendChild(tr);
   });
   const live = data.days.filter((d) => !data.final[d]).map((d) => DAY_NAMES[d]);
-  el("info").textContent = players.length + " players" + (live.length ? " | preliminary: " + live.join(", ") : "");
+  el("info").textContent = players.length + " players" + (live.length ? " | preliminary: " + live.join(", ") : "")
+    + (data.filled ? " | " + data.filled + " zero days from the member list (italic)" : "");
   legend();
   showMessage(players.length ? "" : "Nobody to show.");
 }

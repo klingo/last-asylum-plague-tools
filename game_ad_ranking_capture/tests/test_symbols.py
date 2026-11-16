@@ -63,3 +63,15 @@ def test_the_scanner_uses_it_only_when_the_ocr_found_no_name():
     assert scan.Scanner(None, named, NoWords()).read_page(symbol_card).rows[0].name == "Dend1s"
     blank = frame_with(np.full((182, WIDTH, 3), (235, 222, 214), np.uint8))
     assert scan.Scanner(None, Reads(nameless), NoWords()).read_page(blank).rows[0].flags == ["no name"]
+
+
+def test_a_members_name_of_squares_is_read_beside_the_gender_icon():
+    import members as M
+    from ocr import Word
+
+    frame = np.zeros((HEIGHT, WIDTH, 3), np.uint8)
+    frame[1460:1642] = cv2.imread(str(FIXTURES / "member_symbol_card.png"))
+    lv = Word("Lv.30", 0.9, 210, 1540, 345, 1570)  # the card's level line, as the OCR finds it
+    assert M.read_name(frame, [], lv, 0, None) == ("■□■", [])
+    blank = np.zeros((HEIGHT, WIDTH, 3), np.uint8)
+    assert M.read_name(blank, [], lv, 0, None) == ("?", ["no name"])  # nothing there: unreadable, not invented

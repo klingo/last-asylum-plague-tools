@@ -63,8 +63,6 @@ def test_a_week_file_is_deterministic_and_round_trips(tmp_path):
     assert path.read_text(encoding="utf-8") == text  # saving twice changes nothing
 
 
-
-
 def test_alliance_spellings_become_the_most_common_one(tmp_path, monkeypatch):
     monkeypatch.setattr(C, "CORRECTIONS", tmp_path / "none.json")
     mixed = [
@@ -166,7 +164,12 @@ def test_a_rename_in_the_middle_of_the_week_is_one_player_through_an_alias(tmp_p
     table = aggregate.week_table(week, corrections.load(fixes))
     robert = table["players"][0]
     assert (robert["name"], robert["points"], robert["total"], robert["average"], robert["median"]) == (
-        "Robert", {"mon": 100, "tue": 300}, 400, 200, 200)
+        "Robert",
+        {"mon": 100, "tue": 300},
+        400,
+        200,
+        200,
+    )
     assert [p["name"] for p in table["players"]] == ["Robert", "Cy"]
 
 

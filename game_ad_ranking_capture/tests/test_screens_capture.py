@@ -169,7 +169,8 @@ def test_a_capture_reads_final_and_live_days_and_skips_what_is_not_there(tmp_pat
         return capture.run_capture(
             FakeClockDevice(),
             progress=lambda text: None,
-            directory=tmp_path, review_directory=tmp_path / "review",
+            directory=tmp_path,
+            review_directory=tmp_path / "review",
             primary=object(),
             secondary=object(),
             **kwargs
@@ -205,7 +206,8 @@ def test_final_days_are_skipped_until_forced_and_incomplete_scans_never_replace_
                 FakeClockDevice(),
                 days=("mon", "tue"),
                 progress=lambda t: None,
-                directory=tmp_path, review_directory=tmp_path / "review",
+                directory=tmp_path,
+                review_directory=tmp_path / "review",
                 primary=object(),
                 secondary=object(),
                 **kwargs
@@ -230,7 +232,8 @@ def test_a_stop_request_ends_the_capture_before_the_next_day(tmp_path, monkeypat
         FakeClockDevice(),
         progress=lambda t: None,
         should_stop=lambda: True,
-        directory=tmp_path, review_directory=tmp_path / "review",
+        directory=tmp_path,
+        review_directory=tmp_path / "review",
         primary=object(),
         secondary=object(),
     )

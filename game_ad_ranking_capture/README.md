@@ -16,9 +16,11 @@ In the window:
 2. **Scan** opens the Rank screen by itself (from the map, or from wherever the game is) and reads every ticked day that has
    data. **Do not touch the emulator while it runs.** One day with 160 players takes about 3.5 minutes. **Stop** ends it
    after the current page; days already read stay.
-3. **Open rankings in browser** shows the weekly files. **Open data folder** opens `data/`.
+3. **Scan alliance members** reads the alliance's member list (Alliance > Alliance Members) for the zero-point days, see
+   below. Run it when someone joined or left, not every day.
+4. **Open rankings in browser** shows the weekly files. **Open data folder** opens `data/`.
 
-Command line (from this folder): `.venv/Scripts/python main.py check | capture [--days mon,tue] [--force] | status | view`.
+Command line (from this folder): `.venv/Scripts/python main.py check | capture [--days mon,tue] [--force] | members [--since DATE] | status | view`.
 
 ## How it works
 
@@ -28,7 +30,7 @@ Command line (from this folder): `.venv/Scripts/python main.py check | capture [
 - **Days**: Monday to Saturday (the Duel has no Sunday). A day tab the game does not switch to has **no data yet**.
   A day's numbers are **preliminary** until its game day has ended: the game's day changes at the 02:00 UTC reset (server
   time is UTC-2), i.e. 03:00 CET / 04:00 CEST, so Monday's list is final from Tuesday 03:00 CET on. A preliminary day is
-  recorded (marked `final: false`, "prelim." in the viewer) and read again by every scan. A day is **final** once a
+  recorded (marked `final: false`, "preliminary" in the viewer) and read again by every scan. A day is **final** once a
   complete scan of it *started* after its game day ended (a scan that runs across the reset does not count); final days are
   skipped (`--force` / "Read final days again" reads them again), so a run only fills in missing and preliminary days.
 - **Reading a list** (`scan.py`, `rows.py`): scroll to the top, read a page, swipe, repeat until two swipes bring nothing new
@@ -56,13 +58,48 @@ Command line (from this folder): `.venv/Scripts/python main.py check | capture [
   - `"aliases"`: a player who **renamed**. `"OldName": "NewName"` makes every card named OldName, in every week, a card of
     NewName, so the days before and after the rename are one player in the table (total, average and median over all
     of them). Look-alike spellings of OldName match too, and renames can be chained (`"A": "B", "B": "C"`).
+- `members/<year>-W<week>.json`: the alliance's member lists, one file per calendar week (see **Members** below).
 - `review/<week>/<day>/rank-<n>.png` (git-ignored): pictures of the cards the OCR was unsure about, to check by eye.
+
+## Members: the zero-point days
+
+A member with 0 points on a day is not in the Duel's ranking, so the ranking alone cannot show who contributed nothing.
+`members` (or the window's **Scan alliance members**) reads the alliance's member list, which is only needed when someone
+joined or left, and the viewer then counts every member missing from a day's ranking as **0 points** for that day (in
+italics, with a tooltip): the zeros are part of the average and the median, the day gets the lowest colour. Players of other
+alliances are not touched.
+
+- The screen shows the leader pinned at the top and the other members as cards in two columns, **grouped by rank, each group
+  foldable**. A folded group shows no cards: the scan reads every group header's arrow (up = folded) and opens the folded
+  ones (they stay open in the game). The cards of a group must add up to the group's count and everything to the member
+  count at the top of the screen; a list that does not add up is **not stored** (a wrong list would put wrong zeros in the
+  table).
+- This screen only takes a drag that starts on a card: a swipe that starts on a rank header or in the gap between two rows
+  does nothing. A swipe that moved nothing is repeated from other start heights, and only counts as the end of the list when
+  every one of them failed.
+- **One file per calendar week**, like the points files: `data/members/<year>-W<week>.json` holds that week's lists
+  `{since, scanned_at, total, members: [{name, rank}]}`. A list is valid from its `since` day (the game day it was read,
+  or `--since YYYY-MM-DD` when the change is known to be older; the date can also be edited in the file) until the next one.
+  Reading the list again on the same day replaces it, and the scan says who **joined or left** since the list before.
+- **Which list a day uses**: the most recent list valid by that day, so a week without a list of its own uses the latest
+  earlier one (you only read the list when someone joined or left) and a joiner counts from the list on, a leaver only up
+  to it. If there is none, the earliest list of the same calendar week (a first list read on Wednesday also covers Monday
+  and Tuesday); else the day has no member list and gets no zeros, so weeks before the first list stay as they are.
+- The zeros are worked out when the table is built, never written into the weekly points files: a corrected or backfilled
+  list changes the history at once.
+- **The ranking tells when the list is out of date.** After each ranking scan, players of your alliance who are not in the
+  list that applies are reported as probably joined, and listed members who appear under another alliance as probably left
+  ("Read the member list again"): you do not have to remember to re-scan.
+- Member names are matched like the ranking's names (look-alike characters, case, `corrections.json` and aliases), so a
+  renamed member is one player. A member whose name could not be read (`?`) cannot be matched and is left out.
 
 ## Viewer
 
-Week selector (newest first), **My alliance** (the alliance of your own pinned row), sortable columns. A player missing from
+Week selector (newest first), **My alliance** (the alliance of your own pinned row), sortable columns. The **Rank** column
+(R5 is the highest, sorted R5 first) is the member's alliance rank from the member list, so it is there for your own
+alliance; players the lists do not know (other alliances) have none. A member who left keeps the last rank known. A player missing from
 a day's list shows `-` and is left out of average and median (not counted as 0). The same player read with `I` one day and
-`l` another is one player. Days that are still preliminary are marked "prelim." in orange.
+`l` another is one player. Days that are still preliminary are marked "preliminary" in orange (hover for the explanation).
 
 **Colours**: the daily points, the Average and the Median are coloured by the Duel's 9 daily reward phases (`PHASES` in
 `config.py`: 38'000, 145'000, 550'000, 650'000, 1'020'000, 2'280'000, 2'630'000, 3'620'000, 7'190'000). It is a scale, not

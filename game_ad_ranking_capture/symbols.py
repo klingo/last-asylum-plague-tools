@@ -22,11 +22,30 @@ MIN_BLOB = 0.004  # blobs smaller than this fraction of the width are specks, no
 
 
 def read_squares(frame: np.ndarray, card_cy: float) -> str:
-    """The square symbols on the name line of the card centred at `card_cy`, '' if it is not made only of them."""
+    """The square symbols on the name line of the ranking card centred at `card_cy`; '' if there are other shapes."""
     height, width = frame.shape[:2]
-    top = max(round(card_cy - 0.040 * height), 0)
     left, right = round(C.NAME_COLUMN[0] * width), round(C.NAME_COLUMN[1] * width)
-    line = frame[top : round(card_cy - 0.006 * height), left:right]
+    return read_squares_in(frame, max(round(card_cy - 0.040 * height), 0), round(card_cy - 0.006 * height), left, right)
+
+
+def classify(ink: np.ndarray, x: int, y: int, w: int, h: int, area: int, width: int) -> str:
+    """`■` for a solid square blob, `□` for an outlined one, '' for any other shape."""
+    if not (SIZE[0] * width <= w <= SIZE[1] * width and SQUARE[0] <= w / h <= SQUARE[1]):
+        return ""
+    fill = area / (w * h)
+    inside = ink[y + h // 4 : y + h - h // 4, x + w // 4 : x + w - w // 4]
+    if fill >= SOLID:
+        return "■"
+    return "□" if OUTLINE[0] <= fill <= OUTLINE[1] and inside.mean() < 0.1 else ""
+
+
+def read_squares_in(frame: np.ndarray, top: int, bottom: int, left: int, right: int, icon_width: int = 0) -> str:
+    """The square symbols in that part of the frame (a name line), '' if it holds anything but squares.
+
+    `icon_width`: the first pixels of the line may hold an icon (the gender sign beside a member's name): a shape that
+    is not square and lies within them is ignored."""
+    width = frame.shape[1]
+    line = frame[top:bottom, left:right]
     if line.size == 0:
         return ""
     grey = cv2.cvtColor(line, cv2.COLOR_BGR2GRAY)
@@ -38,14 +57,10 @@ def read_squares(frame: np.ndarray, card_cy: float) -> str:
             continue  # a speck
         if x == 0 or y == 0 or x + w >= ink.shape[1] or y + h >= ink.shape[0]:
             continue  # cut by the line's edge: the avatar's frame or the card's border, not a glyph
-        if not (SIZE[0] * width <= w <= SIZE[1] * width and SQUARE[0] <= w / h <= SQUARE[1]):
+        symbol = classify(ink, x, y, w, h, area, width)
+        if symbol:
+            glyphs.append((x, symbol))
+        elif x + w > icon_width:
             return ""  # something that is not a square symbol: not a name made of them
-        fill = area / (w * h)
-        inside = ink[y + h // 4 : y + h - h // 4, x + w // 4 : x + w - w // 4]
-        if fill >= SOLID:
-            glyphs.append((x, "■"))
-        elif OUTLINE[0] <= fill <= OUTLINE[1] and inside.mean() < 0.1:
-            glyphs.append((x, "□"))
-        else:
-            return ""
+        # else: the icon beside the name (what is in its place and is not a clean square)
     return "".join(symbol for _, symbol in sorted(glyphs))

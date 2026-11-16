@@ -13,15 +13,19 @@ from __future__ import annotations
 import shutil
 from collections.abc import Callable
 from dataclasses import dataclass, field
+from datetime import date
 from pathlib import Path
 
 import cv2
 
 import config as C
+import corrections
+import roster as roster_file
 import store
 import weeks
 from device import AdbDevice
 from ocr import Ocr
+from members import MemberScan, MemberScanner
 from scan import Scanner
 from screens import Navigator, day_tabs
 
@@ -66,6 +70,7 @@ def run_capture(
     should_stop: Callable[[], bool] = lambda: False,
     directory: Path = C.DATA_DIR,
     review_directory: Path = C.REVIEW_DIR,
+    roster_directory: Path | None = None,
     primary: Ocr | None = None,
     secondary: Ocr | None = None,
 ) -> list[DayResult]:
@@ -98,7 +103,17 @@ def run_capture(
             progress(f"{C.DAY_LABELS[day]}: reading the list ...")
             started = weeks.now_utc()  # a day is final only if the scan began after its game day ended
             results.append(
-                store_day(week, day, monday, scanner.scan_day(), week_name, directory, started, review_directory)
+                store_day(
+                    week,
+                    day,
+                    monday,
+                    scanner.scan_day(),
+                    week_name,
+                    directory,
+                    started,
+                    review_directory,
+                    roster_directory,
+                )
             )
         progress(results[-1].line())
     navigator.go_home()
@@ -106,7 +121,15 @@ def run_capture(
 
 
 def store_day(
-    week: dict, day: str, monday, scan, week_name: str, directory: Path, started, review_directory: Path
+    week: dict,
+    day: str,
+    monday,
+    scan,
+    week_name: str,
+    directory: Path,
+    started,
+    review_directory: Path,
+    roster_directory: Path | None = None,
 ) -> DayResult:
     if not scan.rows:
         return DayResult(day, "empty")
@@ -120,4 +143,38 @@ def store_day(
         stored = next((r for r in week["days"][day]["rows"] if r["rank"] == scan.me["rank"]), scan.me)
         week["meta"] = {"my_name": stored["name"], "my_alliance": stored["alliance"], "my_tag": stored["tag"]}
     store.save(week, directory)
-    return DayResult(day, "scanned", len(scan.rows), scan.complete, scan.warnings, len(scan.review))
+    members = roster_file.load(roster_directory).members_on(weeks.day_date(monday, day))
+    fixes = corrections.load()
+    mine = (fixes.fix(week["meta"].get("my_alliance", "")), fixes.fix(week["meta"].get("my_tag", "")))
+    hints = roster_file.hints(week["days"][day]["rows"], members, week_name, day, fixes, mine)
+    return DayResult(day, "scanned", len(scan.rows), scan.complete, [*scan.warnings, *hints], len(scan.review))
+
+
+def run_members(
+    device: AdbDevice,
+    since: date | None = None,
+    progress: Callable[[str], None] = print,
+    should_stop: Callable[[], bool] = lambda: False,
+    roster_directory: Path | None = None,
+    primary: Ocr | None = None,
+    secondary: Ocr | None = None,
+) -> tuple[MemberScan, bool]:
+    """Reads the alliance's member list (folded rank groups are opened) and stores it in the week file of `since`, the
+    day it is valid from (default: today's game day). Returns the scan, with who joined or left since the list that
+    applied before, and whether it was stored: a list that does not add up to the member count the screen shows is not
+    stored, a wrong roster would put wrong zeros in the table."""
+    primary, secondary = primary or Ocr(), secondary or Ocr(cyrillic=True)
+    navigator = Navigator(device, primary, progress)
+    navigator.open_members()
+    scan = MemberScanner(device, primary, secondary, progress, should_stop).scan()
+    navigator.go_home()
+    roster = roster_file.load(roster_directory)
+    reliable = scan.complete and scan.total is not None and len(scan.members) == scan.total
+    if reliable:
+        valid_from = since or weeks.game_date(weeks.now_utc())
+        scan.joined, scan.left = roster_file.changes(roster.members_on(valid_from), scan.members)
+        if not roster.members_on(valid_from):
+            scan.joined = scan.left = []  # the first list: nothing to compare with
+        roster.add(valid_from, weeks.now_utc(), scan.members, scan.total)
+        roster_file.save(roster, roster_directory)
+    return scan, reliable

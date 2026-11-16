@@ -29,7 +29,7 @@ Run from the tool's own folder, with its venv (`.venv/Scripts/python`; set it up
 `.venv/Scripts/python -m pip install -r requirements.txt`; use `python -m pip`, a moved venv's `pip.exe` points at the old path).
 
 ```bash
-.venv/Scripts/python -m pytest -q          # the tool's tests (game_asset_extractor: 218, mahjong_minigame_helper: 64, game_ad_ranking_capture: 60)
+.venv/Scripts/python -m pytest -q          # the tool's tests (game_asset_extractor: 218, mahjong_minigame_helper: 64, game_ad_ranking_capture: 84)
 .venv/Scripts/python main.py --help        # the CLI (game_asset_extractor and game_ad_ranking_capture: also gui.py / start_gui.bat; mahjong: gui.py)
 ```
 
@@ -90,6 +90,10 @@ webapp checkout and a small screen: tests stub the webapp's folder and size the 
 - Pipeline: `device.py` (ADB frames, taps, swipes) > `screens.py` (which screen, map -> Duel icon -> Rank -> day tab) >
   `scan.py` (one day's list: swipe, `rows.py` reads a page, merge by rank; self-calibrating swipe length) > `capture.py`
   (all days, writes the week file) > `store.py` / `corrections.py` / `aggregate.py` > `viewer_server.py` + `viewer/index.html`.
+  `members.py` + `roster.py` read the alliance's member list (Alliance Members screen, folded rank groups opened) into
+  `data/members/<year>-W<week>.json` (one file per week; a day uses the latest list valid by then, weeks before the first list
+  get none; after a ranking scan `roster.hints` reports names that do not match the list); `aggregate.py` counts a member missing from a day's ranking as 0 points. The screen only takes a drag
+  that starts on a card: swipes that start on a header or in a gap are retried from other heights.
   `ocr.py` is RapidOCR (default engine, plus a Cyrillic one only for rows the first could not read; `symbols.py` reads names
   made of square symbols by shape). `gui.py` is the
   window (`start_gui.bat` makes the venv, installs the requirements, starts it); a task thread must not touch Tk.

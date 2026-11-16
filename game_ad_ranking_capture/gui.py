@@ -80,9 +80,16 @@ class App:
         buttons.pack(fill="x", pady=(8, 0))
         self.scan_button = ttk.Button(buttons, text="Scan", command=self.start_scan)
         self.stop_button = ttk.Button(buttons, text="Stop", command=self.stop_scan, state="disabled")
+        self.members_button = ttk.Button(buttons, text="Scan alliance members", command=self.start_members)
         self.browser_button = ttk.Button(buttons, text="Open rankings in browser", command=self.open_browser)
         self.folder_button = ttk.Button(buttons, text="Open data folder", command=self.open_folder)
-        for button in (self.scan_button, self.stop_button, self.browser_button, self.folder_button):
+        for button in (
+            self.scan_button,
+            self.stop_button,
+            self.members_button,
+            self.browser_button,
+            self.folder_button,
+        ):
             button.pack(side="left", padx=(0, 6))
 
         self.log_box = scrolledtext.ScrolledText(frame, height=16, font=("Consolas", 9), wrap="none")
@@ -118,6 +125,7 @@ class App:
     def set_busy(self, busy: bool, scanning: bool = False) -> None:
         self.check_button.config(state="disabled" if busy else "normal")
         self.scan_button.config(state="disabled" if busy else "normal")
+        self.members_button.config(state="disabled" if busy else "normal")
         self.stop_button.config(state="normal" if busy and scanning else "disabled")
 
     def log(self, text: str) -> None:
@@ -156,6 +164,30 @@ class App:
             return capture.run_capture(AdbDevice(serial, adb), days, force, self.say, self.stop_flag.is_set)
 
         self.background(work, self.show_results, scanning=True)
+
+    def start_members(self) -> None:
+        adb, serial = self.device()
+        self.stop_flag.clear()
+
+        def work():
+            return capture.run_members(AdbDevice(serial, adb), None, self.say, self.stop_flag.is_set)
+
+        self.background(work, self.show_members, scanning=True)
+
+    def show_members(self, result) -> None:
+        scan, stored = result
+        ranks: dict[str, int] = {}
+        for member in scan.members:
+            ranks[member["rank"]] = ranks.get(member["rank"], 0) + 1
+        self.log("")
+        self.log(
+            f"{len(scan.members)} members ({', '.join(f'{r} {n}' for r, n in sorted(ranks.items(), reverse=True))})"
+        )
+        if scan.expanded:
+            self.log(f"Folded groups opened: {', '.join(scan.expanded)} (they stay open in the game)")
+        for warning in scan.warnings:
+            self.log(f"    ! {warning}")
+        self.log("Stored in data/members/." if stored else "NOT stored: the list does not add up to the member count.")
 
     def stop_scan(self) -> None:
         self.stop_flag.set()
