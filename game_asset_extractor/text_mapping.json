@@ -179,6 +179,18 @@
  "events:events.weekly_special.name": {
   "source": "tables/ActivityDisplay:8100101.name"
  },
+ "events:kingdom_war.origin_of_the_curse.phases[contest].name": {
+  "source": "tables/VolcanoStage:2.name"
+ },
+ "events:kingdom_war.origin_of_the_curse.phases[preparation].name": {
+  "source": "tables/VolcanoStage:3.name"
+ },
+ "events:kingdom_war.origin_of_the_curse.phases[preview].name": {
+  "source": "tables/VolcanoStage:1.name"
+ },
+ "events:kingdom_war.origin_of_the_curse.phases[results].name": {
+  "source": "tables/VolcanoStage:5.name"
+ },
  "events:kingdom_war.weeks[finals].name": {
   "source": "language/lang_abc:cross_match_tips5"
  },
@@ -815,11 +827,20 @@
  "lord_specialty:lords.handyman.talents[free_research].name": {
   "source": "tables/LordJobSkill:1006.name"
  },
+ "lord_specialty:lords.handyman.talents[healing_force].description": {
+  "source": "tables/LordJobSkill:1017.desc"
+ },
  "lord_specialty:lords.handyman.talents[healing_force].name": {
   "source": "tables/LordJobSkill:1017.name"
  },
+ "lord_specialty:lords.handyman.talents[help_building].description": {
+  "source": "tables/LordJobSkill:1013.desc"
+ },
  "lord_specialty:lords.handyman.talents[help_building].name": {
   "source": "tables/LordJobSkill:1013.name"
+ },
+ "lord_specialty:lords.handyman.talents[help_research].description": {
+  "source": "tables/LordJobSkill:1014.desc"
  },
  "lord_specialty:lords.handyman.talents[help_research].name": {
   "source": "tables/LordJobSkill:1014.name"
