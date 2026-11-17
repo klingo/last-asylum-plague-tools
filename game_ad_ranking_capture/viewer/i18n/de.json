@@ -18,12 +18,12 @@
     "median": "Median"
   },
   "weekday": {
-    "mon": "Mo",
-    "tue": "Di",
-    "wed": "Mi",
-    "thu": "Do",
-    "fri": "Fr",
-    "sat": "Sa"
+    "mon": "Montag",
+    "tue": "Dienstag",
+    "wed": "Mittwoch",
+    "thu": "Donnerstag",
+    "fri": "Freitag",
+    "sat": "Samstag"
   },
   "day": {
     "scanned": "Zuletzt gescannt: {time}",

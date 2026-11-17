@@ -1,6 +1,6 @@
 """The viewer as a static site (for GitHub Pages): `python export.py [--out DIR]`, default `site/`.
 
-Writes `index.html` (the viewer's page), `i18n.js` and `i18n/<language>.json` (its languages), and the files the page
+Writes `index.html` (the viewer's page), `i18n.js`, `i18n/<language>.json` (its languages), `assets/*.png` (its icons), and the files the page
 fetches: `api/weeks.json` (newest first) and `api/week/<year>-W<week>.json` (one table per week, from
 `aggregate.week_table`, with `corrections.json` and the member lists applied), plus `.nojekyll`. These are the same
 routes the local server answers, so the page is the same in both places, and it fetches them with relative URLs, so it
@@ -41,6 +41,10 @@ def export_site(out: Path, data_dir: Path | None = None, viewer_dir: Path | None
     for language in sorted((viewer_dir / "i18n").glob("*.json")):  # the languages of the page
         shutil.copyfile(language, out / "i18n" / language.name)
         written.append(out / "i18n" / language.name)
+    (out / "assets").mkdir()
+    for image in sorted((viewer_dir / "assets").glob("*.png")):  # the icons of the page
+        shutil.copyfile(image, out / "assets" / image.name)
+        written.append(out / "assets" / image.name)
     weeks = list(reversed(store.list_weeks(data_dir)))
     write_json(out / "api" / "weeks.json", weeks)
     written.append(out / "api" / "weeks.json")

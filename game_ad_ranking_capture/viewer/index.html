@@ -18,6 +18,7 @@ th.live small { color: #d9a441; }
 th.sorted .label::after { content: " \25BC"; font-size: 10px; }   /* on the label, so it stays on the first line */
 th.sorted.asc .label::after { content: " \25B2"; }
 td.none { color: #555; }
+img.status { float: left; height: 16px; margin-top: 2px; }   /* the icon of the own alliance's daily cells */
 td.filled { font-style: italic; color: #b8b8b8; }
 td.rank { color: #8a93a0; text-align: right; }
 td.arank { color: #8a93a0; text-align: left; }
@@ -93,6 +94,17 @@ function cell(row, text, className, value, key, player) {
   return td;
 }
 
+// red below the first phase of the colour scale, green from its last, amber in between (phases 5 and 9 today)
+function statusIcon(phase) {
+  const scale = state.data.scale;
+  const color = phase >= scale[scale.length - 1].phase ? "green" : phase < scale[0].phase ? "red" : "amber";
+  const img = document.createElement("img");
+  img.className = "status";
+  img.src = "assets/" + color + ".png";   // relative: also works under /<repo>/ on GitHub Pages
+  img.alt = "";
+  return img;
+}
+
 function legend() {
   const box = el("legend");
   box.replaceChildren();
@@ -153,7 +165,8 @@ function render() {
   tbody.replaceChildren();
   players.forEach((player, index) => {
     const tr = document.createElement("tr");
-    if (player.alliance === data.my_alliance && player.tag === data.my_tag) tr.className = "mine";
+    const mine = player.alliance === data.my_alliance && player.tag === data.my_tag;
+    if (mine) tr.className = "mine";
     cell(tr, index + 1, "rank");
     cell(tr, player.name, "text name");
     cell(tr, player.alliance_rank, "arank");
@@ -166,7 +179,8 @@ function render() {
     }
     for (const day of data.days) {
       const value = player.points[day];
-      cell(tr, value === null ? "-" : fmt(value), "num" + (value === null ? " none" : ""), value, day, player);
+      const td = cell(tr, value === null ? "-" : fmt(value), "num" + (value === null ? " none" : ""), value, day, player);
+      if (mine && value !== null) td.prepend(statusIcon(player.phase[day]));
     }
     cell(tr, fmt(player.total), "num total", player.total);
     cell(tr, fmt(player.average), "num", player.average, "average", player);

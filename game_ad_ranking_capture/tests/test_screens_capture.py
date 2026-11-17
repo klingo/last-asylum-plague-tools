@@ -294,7 +294,8 @@ def test_the_viewer_serves_the_page_the_week_list_and_a_table(tmp_path):
         assert json.loads(fetch(url + "api/weeks.json")[1]) == ["2026-W47"]
         table = json.loads(fetch(url + "api/week/2026-W47.json")[1])
         assert table["players"][0]["total"] == 100 and table["my_alliance"] == "Mice"
-        unknown = ("api/week/2026-W01.json", "api/week/..%2F..%2Fsecret.json", "api/week/2026-W4x.json")
+        assert fetch(url + "assets/green.png")[1].startswith(b"\x89PNG")
+        unknown = ("assets/nope.png", "api/week/2026-W01.json", "api/week/..%2F..%2Fsecret.json", "api/week/2026-W4x.json")
         for bad in (*unknown, "api/week/2026-W47", "elsewhere"):
             with pytest.raises(urllib.error.HTTPError) as error:
                 fetch(url + bad)

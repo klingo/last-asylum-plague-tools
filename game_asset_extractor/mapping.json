@@ -2091,6 +2091,18 @@
   "source": "pictures/BigBg/banner027",
   "synced": "e138ba13c0de514fc6dd087fe02261f4"
  },
+ "test/amber.png": {
+  "source": "pictures/Zombie_March/pic_cz_jinggao_huang",
+  "synced": "ea8676235b557927519c8bf01169cacb"
+ },
+ "test/green.png": {
+  "source": "pictures/Zombie_March/pic_cz_jinggao_lv",
+  "synced": "ffccef78a6d54c1cce839583ba7e8011"
+ },
+ "test/red.png": {
+  "source": "pictures/Zombie_March/pic_cz_jinggao",
+  "synced": "248c691f18bbe34536845a967a045942"
+ },
  "ui/banknote.png": {
   "source": "pictures/Zombie_ItemIcon144/icon_wangguojinquan",
   "synced": "fda2c2376577496cca0a8607bd9ae2c3"

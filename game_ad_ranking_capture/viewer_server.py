@@ -20,12 +20,16 @@ import store
 # the only things a request may name: no path is ever built from the request
 WEEK_FILE = re.compile(r"^/api/week/(\d{4}-W\d{2})\.json$")
 LANGUAGE_FILE = re.compile(r"^/i18n/([a-z]{2})\.json$")
+ASSET_FILE = re.compile(r"^/assets/([a-z]+)\.png$")
 PAGE_FILES = {"/": "index.html", "/index.html": "index.html", "/i18n.js": "i18n.js"}  # the page and its helper
 
 
 def make_handler(directory: Path, viewer_dir: Path) -> type[http.server.BaseHTTPRequestHandler]:
     def languages() -> dict[str, Path]:
         return {path.stem: path for path in (viewer_dir / "i18n").glob("*.json")}
+
+    def icons() -> dict[str, Path]:
+        return {path.stem: path for path in (viewer_dir / "assets").glob("*.png")}
 
     class Handler(http.server.BaseHTTPRequestHandler):
         def reply(self, status: int, body: bytes, kind: str) -> None:
@@ -48,6 +52,8 @@ def make_handler(directory: Path, viewer_dir: Path) -> type[http.server.BaseHTTP
                 # the file is one that exists (found by listing the folder), not a path made from the request
                 language = languages()[LANGUAGE_FILE.match(path).group(1)]
                 self.reply(200, language.read_bytes(), "application/json; charset=utf-8")
+            elif ASSET_FILE.match(path) and ASSET_FILE.match(path).group(1) in icons():
+                self.reply(200, icons()[ASSET_FILE.match(path).group(1)].read_bytes(), "image/png")
             elif path == "/api/weeks.json":
                 self.json(list(reversed(store.list_weeks(directory))))
             elif WEEK_FILE.match(path):
