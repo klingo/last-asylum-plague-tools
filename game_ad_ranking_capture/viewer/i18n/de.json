@@ -26,6 +26,7 @@
     "sat": "Sa"
   },
   "day": {
+    "scanned": "Zuletzt gescannt: {time}",
     "preliminary": "vorläufig",
     "preliminary_title": "Vorläufig: Der Spieltag ist noch nicht zu Ende (oder wurde nach seinem Ende nicht mehr gelesen), daher können sich diese Zahlen noch ändern"
   },
@@ -48,6 +49,7 @@
       "other": "{n} Spieler"
     },
     "preliminary": "vorläufig: {days}",
+    "scanned": "letzter Scan: {time}",
     "zero_members": {
       "one": "{n} Mitglied mit 0 Punkten (kursiv)",
       "other": "{n} Mitglieder mit 0 Punkten (kursiv)"

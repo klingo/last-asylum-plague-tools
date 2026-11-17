@@ -99,7 +99,8 @@ Week selector (newest first), **My alliance** (the alliance of your own pinned r
 (R5 is the highest, sorted R5 first) is the member's alliance rank from the member list, so it is there for your own
 alliance; players the lists do not know (other alliances) have none. A member who left keeps the last rank known. A player missing from
 a day's list shows `-` and is left out of average and median (not counted as 0). The same player read with `I` one day and
-`l` another is one player. Days that are still preliminary are marked "preliminary" in orange (hover for the explanation).
+`l` another is one player. Days that are still preliminary are marked "preliminary" in orange (hover for the explanation). The info line under the table shows when the last scan was
+taken, and hovering a day's heading shows when that day was scanned (both in the viewer's local time).
 
 **Languages**: English, German and Russian. The page starts in the browser's language (the first of its preferred
 languages that is supported, else English); a small selector in the top-right corner changes it and the choice is

@@ -104,6 +104,7 @@ def test_the_table_has_points_per_day_total_average_and_median(tmp_path, monkeyp
     )
     assert (bob["points"]["wed"], bob["total"], bob["average"], bob["median"], bob["days"]) == (None, 90, 45, 45, 2)
     assert table["final"] == {"mon": True, "tue": True, "wed": False}
+    assert table["captured_at"]["wed"] == "2026-11-18T12:00:00Z"
 
 
 def test_median_of_an_even_number_of_days_is_rounded(tmp_path, monkeypatch):

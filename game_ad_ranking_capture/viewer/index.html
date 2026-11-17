@@ -141,7 +141,8 @@ function render() {
     columns.push({
       key: day, label: t("weekday." + day), live: !data.final[day],
       sub: shortDate(data.dates[day]) + (data.final[day] ? "" : " " + t("day.preliminary")),
-      title: data.final[day] ? "" : t("day.preliminary_title"),
+      title: [t("day.scanned", { time: moment(data.captured_at[day]) }), data.final[day] ? "" : t("day.preliminary_title")]
+        .filter(Boolean).join("\n"),
     });
   }
   columns.push({ key: "total", label: t("col.total") }, { key: "average", label: t("col.average") }, { key: "median", label: t("col.median") });
@@ -175,6 +176,8 @@ function render() {
   const live = data.days.filter((d) => !data.final[d]).map((d) => t("weekday." + d));
   const info = [t("info.players", { n: players.length })];
   if (live.length) info.push(t("info.preliminary", { days: live.join(", ") }));
+  const latest = Object.values(data.captured_at).sort().pop();   // ISO times in UTC sort as text
+  if (latest) info.push(t("info.scanned", { time: moment(latest) }));
   const zeroMembers = players.filter((player) => player.filled.length).length;   // the ones with an italic cell
   if (zeroMembers) info.push(t("info.zero_members", { n: zeroMembers }));
   el("info").textContent = info.join(" | ");
@@ -191,6 +194,9 @@ async function load(week) {
 
 // the date without its year, in the order of the language (16.11. or 11/16)
 const shortDate = (iso) => new Date(iso + "T12:00:00").toLocaleDateString(state.lang, { day: "numeric", month: "numeric" });
+
+// a UTC timestamp as the viewer's local date and time, in the order of the language (17.11., 19:04)
+const moment = (iso) => new Date(iso).toLocaleString(state.lang, { day: "numeric", month: "numeric", hour: "2-digit", minute: "2-digit" });
 
 // the texts that render() does not rebuild: the labels of the page, its title, the language selector
 function applyTexts() {

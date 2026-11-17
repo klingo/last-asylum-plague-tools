@@ -26,6 +26,7 @@
     "sat": "Sat"
   },
   "day": {
+    "scanned": "Last scanned: {time}",
     "preliminary": "preliminary",
     "preliminary_title": "Preliminary: the game day has not ended yet (or was not read after it ended), so these numbers can still change"
   },
@@ -48,6 +49,7 @@
       "other": "{n} players"
     },
     "preliminary": "preliminary: {days}",
+    "scanned": "last scan: {time}",
     "zero_members": {
       "one": "{n} member with zero points (italic)",
       "other": "{n} members with zero points (italic)"
