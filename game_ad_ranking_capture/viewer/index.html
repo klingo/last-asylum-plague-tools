@@ -178,7 +178,10 @@ function renderCompare() {
   const sides = [...groups.values()]
     .map((group) => {
       const totals = group.players.map((player) => player.total);
-      return { ...group, total: sum(totals), average: Math.round(sum(totals) / totals.length), median: Math.round(median(totals)) };
+      // the other alliance's members that are not in any list have 0 points: the count the week file knows of them
+      const unseen = !group.mine && data.my_alliance ? Math.max(0, (data.opponent_members || 0) - totals.length) : 0;
+      totals.push(...Array(unseen).fill(0));
+      return { ...group, members: totals.length, total: sum(totals), average: Math.round(sum(totals) / totals.length), median: Math.round(median(totals)) };
     })
     .sort((a, b) => b.mine - a.mine || b.total - a.total)
     .slice(0, 2);
@@ -197,7 +200,7 @@ function renderCompare() {
   sides.forEach((side, index) => {
     const head = add(stats, (side.tag ? "[" + side.tag + "] " : "") + side.alliance, "head s" + index);
     const members = document.createElement("small");
-    members.textContent = t("compare.members", { n: side.players.length });
+    members.textContent = t("compare.members", { n: side.members });
     head.appendChild(members);
   });
   const bar = shareBar(sides.map((side) => side.total));

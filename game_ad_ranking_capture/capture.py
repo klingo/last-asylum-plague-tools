@@ -141,7 +141,7 @@ def store_day(
     store.put_day(week, day, monday, scan.rows, started, final, scan.complete)
     if scan.me:  # the own row as it was stored (corrected, spelled like the rest of the alliance)
         stored = next((r for r in week["days"][day]["rows"] if r["rank"] == scan.me["rank"]), scan.me)
-        week["meta"] = {"my_name": stored["name"], "my_alliance": stored["alliance"], "my_tag": stored["tag"]}
+        week["meta"].update(my_name=stored["name"], my_alliance=stored["alliance"], my_tag=stored["tag"])  # keeps what was added by hand
     store.save(week, directory)
     members = roster_file.load(roster_directory).members_on(weeks.day_date(monday, day))
     fixes = corrections.load()

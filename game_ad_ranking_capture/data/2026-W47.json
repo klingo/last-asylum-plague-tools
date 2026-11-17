@@ -1,7 +1,7 @@
 {
   "week": "2026-W47",
   "start": "2026-11-16",
-  "meta": {"my_name": "Klingo", "my_alliance": "SwarmOfInfectedMice", "my_tag": "SolM"},
+  "meta": {"my_name": "Klingo", "my_alliance": "SwarmOfInfectedMice", "my_tag": "SolM", "opponent_members":  100},
   "days": {
     "mon": {
       "date": "2026-11-16",

@@ -1,9 +1,10 @@
 """The weekly files: `data/<year>-W<week>.json`, one per calendar week, written so a git diff shows what changed.
 
 A week is `{"week", "start", "meta": {"my_name", "my_alliance", "my_tag"}, "days": {"mon": {"date", "captured_at",
-"final", "complete", "rows": [{"rank", "name", "alliance", "tag", "points"}]}}}`. Rows are kept sorted by rank, one per
-line. The names are as the OCR read them (`corrections.py` fixes them when the table is built); `canonicalize` makes
-every spelling of one alliance (the OCR reads `SoIM` as `SolM` now and then) the one that was read most often.
+"final", "complete", "rows": [{"rank", "name", "alliance", "tag", "points"}]}}}`. `meta` may also hold
+`"opponent_members"`, entered by hand: the other alliance's member count, for the members that are in no list (0
+points); a scan leaves it alone. Rows are kept sorted by rank, one per line. The names are as the OCR read them
+(`corrections.py` fixes them when the table is built); `canonicalize` makes every spelling of one alliance (the OCR reads `SoIM` as `SolM` now and then) the one that was read most often.
 """
 
 from __future__ import annotations

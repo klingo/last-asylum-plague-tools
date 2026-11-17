@@ -217,7 +217,11 @@ def test_final_days_are_skipped_until_forced_and_incomplete_scans_never_replace_
     assert [r.status for r in run().values()] == ["scanned", "scanned"]
     assert all(store.load("2026-W47", tmp_path)["days"][d]["final"] for d in ("mon", "tue"))
     assert [r.status for r in run().values()] == ["final", "final"] and len(FakeScanner.scans) == 2
+    by_hand = store.load("2026-W47", tmp_path)
+    by_hand["meta"]["opponent_members"] = 100
+    store.save(by_hand, tmp_path)
     assert [r.status for r in run(force=True).values()] == ["scanned", "scanned"] and len(FakeScanner.scans) == 4
+    assert store.load("2026-W47", tmp_path)["meta"]["opponent_members"] == 100  # a scan keeps what was entered by hand
     FakeScanner.complete = False
     assert [r.status for r in run(force=True).values()] == ["kept", "kept"]
     assert store.load("2026-W47", tmp_path)["days"]["mon"]["rows"][0]["points"] == 30  # the third scan, not the fourth
