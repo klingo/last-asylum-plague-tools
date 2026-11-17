@@ -51,8 +51,20 @@
     "preliminary": "vorläufig: {days}",
     "scanned": "letzter Scan: {time}",
     "zero_members": {
-      "one": "{n} Mitglied mit 0 Punkten (kursiv)",
-      "other": "{n} Mitglieder mit 0 Punkten (kursiv)"
+      "one": "{n} Mitglied mit 0 Punkten",
+      "other": "{n} Mitglieder mit 0 Punkten"
+    }
+  },
+  "compare": {
+    "score": "Spielstand",
+    "score_title": "Einen Tag zu gewinnen gibt Punkte: Montag {first}, Samstag {last}, jeder andere Tag {other}. Nur beendete Tage zählen.",
+    "total": "Punkte gesamt",
+    "average": "Durchschnitt pro Mitglied",
+    "median": "Median pro Mitglied",
+    "versus": "{a} gegen {b}",
+    "members": {
+      "one": "{n} Mitglied",
+      "other": "{n} Mitglieder"
     }
   },
   "msg": {

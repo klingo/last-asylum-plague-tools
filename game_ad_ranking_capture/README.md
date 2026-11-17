@@ -104,6 +104,11 @@ taken, and hovering a day's heading shows when that day was scanned (both in the
 (`viewer/assets/`): `red.png` below phase 5, `green.png` from phase 9, `amber.png` in between (the first and last phase
 of the colour scale in `config.py`).
 
+Above the table, a box compares the two alliances (yours blue, the other red; the "My alliance" filter does not change
+it). Left: the points of the week so far with each one's share, and the average and median per member (a member's total
+for the week; your alliance counts its roster members with 0 points, the other only the players the lists show). Right:
+the same share bar for every day (all weekdays are listed, a day without data has no bar; hover a bar for the two point totals), with `win.png` on the side of the winner of a finished day. In the middle the score: a won day gives points (Monday 1, Saturday 4, the other days 2), only finished days count, yours first; whoever reaches 7 of the 13 points has won and gets `win.png` beside their tag.
+
 **Languages**: English, German and Russian. The page starts in the browser's language (the first of its preferred
 languages that is supported, else English); a small selector in the top-right corner changes it and the choice is
 remembered in the browser. The texts are in `viewer/i18n/en.json`, `de.json` and `ru.json` (English is the source and the

@@ -38,6 +38,7 @@ def test_the_site_has_the_page_the_week_list_and_a_table_per_week(tmp_path):
         "assets/amber.png",
         "assets/green.png",
         "assets/red.png",
+        "assets/win.png",
         "i18n.js",
         "i18n/de.json",
         "i18n/en.json",

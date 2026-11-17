@@ -51,8 +51,20 @@
     "preliminary": "preliminary: {days}",
     "scanned": "last scan: {time}",
     "zero_members": {
-      "one": "{n} member with zero points (italic)",
-      "other": "{n} members with zero points (italic)"
+      "one": "{n} member with zero points",
+      "other": "{n} members with zero points"
+    }
+  },
+  "compare": {
+    "score": "Score",
+    "score_title": "Winning a day gives points: Monday {first}, Saturday {last}, every other day {other}. Only finished days count.",
+    "total": "Total points",
+    "average": "Average per member",
+    "median": "Median per member",
+    "versus": "{a} vs. {b}",
+    "members": {
+      "one": "{n} member",
+      "other": "{n} members"
     }
   },
   "msg": {

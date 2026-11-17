@@ -29,6 +29,31 @@ tr.mine td.name { color: #6cc070; }
 #legend { display: flex; gap: 12px; align-items: center; color: #9aa; font-size: 12px; }
 #legend span { padding: 1px 8px; border-radius: 3px; color: #e6e6e6; }
 #lang { font-size: 12px; padding: 3px 6px; }
+#compare { display: flex; flex-wrap: wrap; gap: 10px 48px; padding: 8px 14px; font-variant-numeric: tabular-nums; }
+#compare .stats { display: grid; grid-template-columns: max-content minmax(0, 1fr) minmax(0, 1fr); gap: 3px 24px; align-content: start; flex: 1 1 460px; max-width: 640px; }
+#compare .days { display: grid; grid-template-columns: max-content 52px minmax(120px, 1fr) 52px; gap: 3px 6px; align-content: start; flex: 0 1 420px; }
+#compare .stats > div { text-align: right; white-space: nowrap; }
+#compare .label { text-align: left; color: #9aa; }
+#compare .head { font-weight: 600; }
+#compare .head small { display: block; font-weight: normal; color: #8a93a0; }
+#compare .s0.head { color: #6aa0d8; }
+#compare .s1.head { color: #e0685f; }
+#compare .score { margin: 0 auto; align-self: center; text-align: center; }
+#compare .score .label { text-align: center; }
+#compare .score .value { font-size: 28px; font-weight: 600; line-height: 1.2; }
+#compare .score .short { font-size: 14px; font-weight: normal; }
+#compare .score .s0 { color: #6aa0d8; }
+#compare .score .s1 { color: #e0685f; }
+#compare .lead { font-weight: 600; }
+#compare .bar { display: flex; height: 18px; border-radius: 3px; overflow: hidden; }
+#compare .stats .bar { grid-column: 2 / 4; }
+#compare .bar span { box-sizing: border-box; padding: 0 6px; overflow: hidden; font-size: 12px; line-height: 18px; color: #111; }
+#compare .bar .s0 { background: #6aa0d8; }
+#compare .bar .s1 { background: #e0685f; text-align: right; }
+#compare .days .win { display: flex; align-items: center; }
+#compare .days .win.s0 { justify-content: flex-end; }
+#compare .days img { height: 18px; }
+#compare .score img { height: 24px; vertical-align: middle; margin: 0 8px; }
 </style></head>
 <body>
 <header>
@@ -38,11 +63,14 @@ tr.mine td.name { color: #6cc070; }
   <span id="info"></span>
   <select id="lang"></select>
 </header>
+<div id="compare" hidden></div>
 <div id="message" hidden></div>
 <table id="table" hidden><thead></thead><tbody></tbody></table>
 <script src="i18n.js"></script>
 <script>
 const DAYS = ["mon", "tue", "wed", "thu", "fri", "sat"];
+const WIN_POINTS = { mon: 1, tue: 2, wed: 2, thu: 2, fri: 2, sat: 4 };   // what winning a day gives
+const WIN_SCORE = 7;   // the points that win the duel (of the 13 there are)
 // dicts: the loaded language files by code; empty: the "no rankings yet" message is showing
 const state = { data: null, sortKey: "total", ascending: false, lang: "en", dicts: {}, empty: false };
 
@@ -103,6 +131,115 @@ function statusIcon(phase) {
   img.src = "assets/" + color + ".png";   // relative: also works under /<repo>/ on GitHub Pages
   img.alt = "";
   return img;
+}
+
+const sum = (values) => values.reduce((a, b) => a + b, 0);
+function median(values) {
+  const sorted = values.slice().sort((a, b) => a - b), middle = sorted.length >> 1;
+  return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
+}
+
+function winIcon() {
+  const img = document.createElement("img");
+  img.src = "assets/win.png";   // relative: also works under /<repo>/ on GitHub Pages
+  img.alt = "";
+  return img;
+}
+
+// The bar that splits 100 % between two values (the share of each, rounded so that the two make 100); none without points.
+function shareBar(values) {
+  const both = values[0] + values[1];
+  if (!both) return null;
+  const first = Math.round((100 * values[0]) / both), shares = [first, 100 - first];
+  const bar = document.createElement("div");
+  bar.className = "bar";
+  values.forEach((_, index) => {
+    const part = document.createElement("span");
+    part.className = "s" + index;
+    part.style.width = shares[index] + "%";
+    part.textContent = shares[index] + "%";
+    bar.appendChild(part);
+  });
+  return bar;
+}
+
+// The two alliances side by side, the own one first (blue, the other red). Left: their points of the week so far
+// with the share of the two, and what a member has on average and in the middle. Right: the same share bar for every
+// day, the winner of a finished day marked. Every player of the table counts, the "my alliance" filter does not.
+function renderCompare() {
+  const box = el("compare"), data = state.data;
+  const groups = new Map();
+  for (const player of data.players) {
+    if (!player.alliance) continue;
+    const key = [player.alliance, player.tag].join("|");
+    if (!groups.has(key)) groups.set(key, { alliance: player.alliance, tag: player.tag, players: [], mine: player.alliance === data.my_alliance && player.tag === data.my_tag });
+    groups.get(key).players.push(player);
+  }
+  const sides = [...groups.values()]
+    .map((group) => {
+      const totals = group.players.map((player) => player.total);
+      return { ...group, total: sum(totals), average: Math.round(sum(totals) / totals.length), median: Math.round(median(totals)) };
+    })
+    .sort((a, b) => b.mine - a.mine || b.total - a.total)
+    .slice(0, 2);
+  box.replaceChildren();
+  box.hidden = sides.length < 2;
+  if (box.hidden) return;
+  const add = (parent, text, className) => {
+    const div = document.createElement("div");
+    div.className = className || "";
+    div.textContent = text;
+    parent.appendChild(div);
+    return div;
+  };
+  const stats = add(box, "", "stats");
+  add(stats, "", "label");
+  sides.forEach((side, index) => {
+    const head = add(stats, (side.tag ? "[" + side.tag + "] " : "") + side.alliance, "head s" + index);
+    const members = document.createElement("small");
+    members.textContent = t("compare.members", { n: side.players.length });
+    head.appendChild(members);
+  });
+  const bar = shareBar(sides.map((side) => side.total));
+  if (bar) stats.appendChild(bar);
+  const rows = [["total", t("compare.total")], ["average", t("compare.average")], ["median", t("compare.median")]];
+  for (const [key, label] of rows) {
+    add(stats, label, "label");
+    sides.forEach((side, index) => {
+      const lead = side[key] > sides[1 - index][key];   // the higher one is bold
+      add(stats, fmt(side[key]), lead ? "lead" : "");
+    });
+  }
+  const score = add(box, "", "score");   // between the two halves, filled in once the days are counted
+  const days = add(box, "", "days");
+  const won = [0, 0];   // the points of the days each side won
+  for (const day of DAYS) {   // every weekday has its row; a day without data yet has no bar
+    const points = data.days.includes(day) ? sides.map((side) => sum(side.players.map((player) => player.points[day] || 0))) : [0, 0];
+    const dayBar = shareBar(points);
+    if (dayBar) dayBar.title = t("compare.versus", { a: fmt(points[0]), b: fmt(points[1]) });
+    add(days, t("weekday." + day), "label");
+    const winner = dayBar && data.final[day] && points[0] !== points[1] ? (points[0] > points[1] ? 0 : 1) : -1;   // only a finished day has one
+    if (winner >= 0) won[winner] += WIN_POINTS[day];
+    sides.forEach((_, index) => {
+      const cell = add(days, "", "win s" + index);
+      if (index === winner) {
+        cell.appendChild(winIcon());
+      }
+      if (index === 0) days.appendChild(dayBar || document.createElement("div"));
+    });
+  }
+  score.title = t("compare.score_title", { first: WIN_POINTS.mon, last: WIN_POINTS.sat, other: WIN_POINTS.tue });
+  add(score, t("compare.score"), "label");
+  const value = add(score, "", "value");
+  const part = (text, className) => { add(value, text, className).style.display = "inline"; };
+  const duelWon = won.findIndex((points) => points >= WIN_SCORE);   // the duel is decided: its winner gets the icon
+  if (duelWon === 0) value.appendChild(winIcon());
+  part(sides[0].tag || sides[0].alliance, "short s0");
+  part(" " + won[0], "s0");
+  value.append(" : ");
+  part(won[1] + " ", "s1");
+  part(sides[1].tag || sides[1].alliance, "short s1");
+  if (duelWon === 1) value.appendChild(winIcon());
 }
 
 function legend() {
@@ -196,6 +333,7 @@ function render() {
   if (zeroMembers) info.push(t("info.zero_members", { n: zeroMembers }));
   el("info").textContent = info.join(" | ");
   legend();
+  renderCompare();
   showMessage(players.length ? "" : t("msg.nobody"));
 }
 

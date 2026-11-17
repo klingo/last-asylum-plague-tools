@@ -149,8 +149,8 @@ def test_texts_are_found_filled_and_pluralised_in_node():
         "My alliance (Mice)",
         "1 player", "0 players", "2 players",
         "1 игрок", "2 игрока", "5 игроков", "21 игрок", "11 игроков", "112 игроков",
-        "1 Mitglied mit 0 Punkten (kursiv)",
-        "12 Mitglieder mit 0 Punkten (kursiv)",
+        "1 Mitglied mit 0 Punkten",
+        "12 Mitglieder mit 0 Punkten",
         "no.such.key", "red ~ phase 5 ({points})",
     ]  # fmt: skip
 
