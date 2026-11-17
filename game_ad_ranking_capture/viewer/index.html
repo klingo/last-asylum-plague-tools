@@ -10,7 +10,7 @@ label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
 #message { padding: 24px 14px; color: #c9a227; }
 table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
 th, td { padding: 5px 10px; border-bottom: 1px solid #2c2f37; white-space: nowrap; }
-th { position: sticky; top: 49px; background: #23262d; text-align: right; cursor: pointer; user-select: none; z-index: 1; }
+th { position: sticky; top: var(--header-height, 49px); background: #23262d; text-align: right; cursor: pointer; user-select: none; z-index: 1; }
 th.text, td.text { text-align: left; }
 td.num { text-align: right; }
 th small { display: block; font-weight: normal; color: #8a93a0; }
@@ -238,7 +238,17 @@ async function setLanguage(lang) {
   render();
 }
 
+// The header wraps onto more lines when its texts are long (info line, language), so the column heads stick below
+// its real height: a fixed offset would leave the top of the heads hidden behind it.
+function trackHeaderHeight() {
+  const header = document.querySelector("header");
+  const set = () => document.documentElement.style.setProperty("--header-height", header.offsetHeight + "px");
+  new ResizeObserver(set).observe(header);
+  set();
+}
+
 async function start() {
+  trackHeaderHeight();
   state.dicts.en = await (await fetch("i18n/en.json")).json();   // English first: the others fall back to it
   const lang = el("lang");
   for (const [code, name] of LANGUAGES) lang.add(new Option(name, code));
