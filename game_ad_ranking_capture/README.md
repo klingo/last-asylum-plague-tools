@@ -1,7 +1,7 @@
 # Game AD Ranking Capture
 
 Reads the **Alliance Duel** daily ranking of *Last Asylum: Plague* from BlueStacks (ADB screenshots + OCR), stores it as
-one file per calendar week and shows it in a local browser page: points per day, total, average and median per player,
+one file per calendar week and shows it in a local browser page: points per day, total and average per player,
 with a "My alliance" filter. A local helper; nothing is sent anywhere. Its only input to the game is taps and swipes.
 
 ## Use
@@ -56,7 +56,7 @@ Command line (from this folder): `.venv/Scripts/python main.py check | capture [
     `I` and `l` look the same: `"SolM": "SoIM"`); `"<week>/<day>/<rank>": "name"` sets the name of one card, e.g.
     `"2026-W47/mon/18": "Name"` for a name the OCR could not read (stored as `?`).
   - `"aliases"`: a player who **renamed**. `"OldName": "NewName"` makes every card named OldName, in every week, a card of
-    NewName, so the days before and after the rename are one player in the table (total, average and median over all
+    NewName, so the days before and after the rename are one player in the table (total and average over all
     of them). Look-alike spellings of OldName match too, and renames can be chained (`"A": "B", "B": "C"`).
 - `members/<year>-W<week>.json`: the alliance's member lists, one file per calendar week (see **Members** below).
 - `review/<week>/<day>/rank-<n>.png` (git-ignored): pictures of the cards the OCR was unsure about, to check by eye.
@@ -66,7 +66,7 @@ Command line (from this folder): `.venv/Scripts/python main.py check | capture [
 A member with 0 points on a day is not in the Duel's ranking, so the ranking alone cannot show who contributed nothing.
 `members` (or the window's **Scan alliance members**) reads the alliance's member list, which is only needed when someone
 joined or left, and the viewer then counts every member missing from a day's ranking as **0 points** for that day (in
-italics, with a tooltip): the zeros are part of the average and the median, the day gets the lowest colour. Players of other
+italics, with a tooltip): the zeros are part of the average, the day gets the lowest colour. Players of other
 alliances are not touched.
 
 - The screen shows the leader pinned at the top and the other members as cards in two columns, **grouped by rank, each group
@@ -98,7 +98,7 @@ alliances are not touched.
 Week selector (newest first), **My alliance** (the alliance of your own pinned row), sortable columns. The **Rank** column
 (R5 is the highest, sorted R5 first) is the member's alliance rank from the member list, so it is there for your own
 alliance; players the lists do not know (other alliances) have none. A member who left keeps the last rank known. A player missing from
-a day's list shows `-` and is left out of average and median (not counted as 0). The same player read with `I` one day and
+a day's list shows `-` and is left out of the average (not counted as 0). The same player read with `I` one day and
 `l` another is one player. Days that are still preliminary are marked "preliminary" in orange (hover for the explanation). The info line under the table shows when the last scan was
 taken, and hovering a day's heading shows when that day was scanned (both in the viewer's local time). On your own alliance's rows every daily cell has a small icon on the left
 (`viewer/assets/`): `red.png` below phase 5, `green.png` from phase 9, `amber.png` in between (the first and last phase
@@ -121,7 +121,7 @@ A new language: its file in `viewer/i18n/`, an entry in `LANGUAGES` (`i18n.js`) 
 `tests/test_i18n.py`; the test checks that every file has exactly the keys, placeholders and plural forms it needs, and that
 the page uses no text that is not in the files.
 
-**Colours**: the daily points, the Average and the Median are coloured by the Duel's 9 daily reward phases (`PHASES` in
+**Colours**: the daily points and the Average are coloured by the Duel's 9 daily reward phases (`PHASES` in
 `config.py`: 38'000, 145'000, 550'000, 650'000, 1'020'000, 2'280'000, 2'630'000, 3'620'000, 7'190'000). It is a scale, not
 bands: **red** at phase 5 (1'020'000) and below, **amber** at phase 7 (2'630'000), **green** at phase 9 (7'190'000) and
 above, blended in between (`COLOR_SCALE`; the legend in the header shows it). A cell's tooltip names the phase it

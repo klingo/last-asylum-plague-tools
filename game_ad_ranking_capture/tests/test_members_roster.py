@@ -58,7 +58,7 @@ def test_a_member_missing_from_a_days_ranking_gets_zero_for_that_day():
     assert by_name["Bob"]["points"] == {"mon": 0, "tue": 1_000_000} and by_name["Bob"]["filled"] == ["mon"]
     assert by_name["Cy"]["points"] == {"mon": 0, "tue": 0} and by_name["Cy"]["filled"] == ["mon", "tue"]
     assert by_name["Ann"]["filled"] == [] and by_name["Cy"]["total"] == 0
-    assert (by_name["Bob"]["average"], by_name["Bob"]["median"]) == (500_000, 500_000)  # the 0 counts
+    assert by_name["Bob"]["average"] == 500_000  # the 0 counts
     assert by_name["Cy"]["heat"]["mon"] == 0.0 and by_name["Cy"]["phase"]["mon"] == 0
     assert (by_name["Cy"]["alliance"], by_name["Cy"]["tag"]) == ("Mice", "SolM")
     assert sum(len(p["filled"]) for p in table["players"]) == 3

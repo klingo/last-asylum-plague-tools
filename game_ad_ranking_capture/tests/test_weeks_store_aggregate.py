@@ -83,7 +83,7 @@ def test_spelling_key_merges_look_alikes():
     assert store.spelling_key("Sauron") != store.spelling_key("Sauron2")
 
 
-def test_the_table_has_points_per_day_total_average_and_median(tmp_path, monkeypatch):
+def test_the_table_has_points_per_day_total_and_average(tmp_path, monkeypatch):
     monkeypatch.setattr(C, "CORRECTIONS", tmp_path / "none.json")
     week = store.new_week("2026-W47", date(2026, 11, 16))
     week["meta"] = {"my_alliance": "Mice", "my_tag": "SoIM"}
@@ -95,28 +95,18 @@ def test_the_table_has_points_per_day_total_average_and_median(tmp_path, monkeyp
     table = aggregate.week_table(week)
     assert table["days"] == ["mon", "tue", "wed"] and table["my_alliance"] == "Mice"
     ann, bob = table["players"]
-    assert (ann["name"], ann["points"], ann["total"], ann["average"], ann["median"]) == (
+    assert (ann["name"], ann["points"], ann["total"], ann["average"]) == (
         "Bella1401",
         {"mon": 100, "tue": 300, "wed": 200},
         600,
         200,
-        200,
     )
-    assert (bob["points"]["wed"], bob["total"], bob["average"], bob["median"], bob["days"]) == (None, 90, 45, 45, 2)
+    assert (bob["points"]["wed"], bob["total"], bob["average"], bob["days"]) == (None, 90, 45, 2)
     assert table["final"] == {"mon": True, "tue": True, "wed": False}
     assert table["captured_at"]["wed"] == "2026-11-18T12:00:00Z"
     assert table["opponent_members"] is None
     week["meta"]["opponent_members"] = 100
     assert aggregate.week_table(week)["opponent_members"] == 100
-
-
-def test_median_of_an_even_number_of_days_is_rounded(tmp_path, monkeypatch):
-    monkeypatch.setattr(C, "CORRECTIONS", tmp_path / "none.json")
-    week = store.new_week("2026-W47", date(2026, 11, 16))
-    for day, points in (("mon", 10), ("tue", 21), ("wed", 40), ("thu", 100)):
-        store.put_day(week, day, date(2026, 11, 16), rows((1, "Ann", points)), utc(2026, 11, 30), True, True)
-    player = aggregate.week_table(week)["players"][0]
-    assert (player["total"], player["average"], player["median"]) == (171, 43, 30)
 
 
 def test_putting_a_day_replaces_an_earlier_scan_of_it(tmp_path, monkeypatch):
@@ -178,11 +168,10 @@ def test_a_rename_in_the_middle_of_the_week_is_one_player_through_an_alias(tmp_p
     fixes.write_text(json.dumps({"aliases": {"Bob": "Robert"}}), encoding="utf-8")
     table = aggregate.week_table(week, corrections.load(fixes))
     robert = table["players"][0]
-    assert (robert["name"], robert["points"], robert["total"], robert["average"], robert["median"]) == (
+    assert (robert["name"], robert["points"], robert["total"], robert["average"]) == (
         "Robert",
         {"mon": 100, "tue": 300},
         400,
-        200,
         200,
     )
     assert [p["name"] for p in table["players"]] == ["Robert", "Cy"]

@@ -68,7 +68,7 @@ def test_placeholders_are_the_same_in_every_language_and_no_text_is_empty():
 
 def test_a_translation_is_not_a_copy_of_english_unless_the_word_is_the_same():
     english = entries(load("en"))
-    same = {"de": {"col.median"}, "ru": set()}  # words that really are the same
+    same = {"de": set(), "ru": set()}  # words that really are the same
     for language in LANGUAGES[1:]:
         for key, value in entries(load(language)).items():
             if isinstance(value, str) and key not in same[language]:

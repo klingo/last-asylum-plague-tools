@@ -14,8 +14,7 @@
     "rank_title": "Alliance rank (R5 is the highest), from the member list",
     "alliance": "Alliance",
     "total": "Total",
-    "average": "Average",
-    "median": "Median"
+    "average": "Average"
   },
   "weekday": {
     "mon": "Monday",

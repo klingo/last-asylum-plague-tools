@@ -297,7 +297,7 @@ function render() {
         .filter(Boolean).join("\n"),
     });
   }
-  columns.push({ key: "total", label: t("col.total") }, { key: "average", label: t("col.average") }, { key: "median", label: t("col.median") });
+  columns.push({ key: "total", label: t("col.total") }, { key: "average", label: t("col.average") });
   const thead = document.querySelector("#table thead");
   thead.replaceChildren(head(columns.map((c) => (c.key === "rank" ? { ...c, key: "total" } : c))));
   const players = visiblePlayers();
@@ -324,7 +324,6 @@ function render() {
     }
     cell(tr, fmt(player.total), "num total", player.total);
     cell(tr, fmt(player.average), "num", player.average, "average", player);
-    cell(tr, fmt(player.median), "num", player.median, "median", player);
     tbody.appendChild(tr);
   });
   const live = data.days.filter((d) => !data.final[d]).map((d) => t("weekday." + d));
