@@ -2091,6 +2091,106 @@
   "source": "pictures/BigBg/banner027",
   "synced": "e138ba13c0de514fc6dd087fe02261f4"
  },
+ "raven/epigraphs/badges/frenzied_flock.png": {
+  "source": "pictures/Zombie_UAVSkillClip/ico_wy_01_1",
+  "synced": "e7070269b48b82cf301e882f5231541e"
+ },
+ "raven/epigraphs/badges/guard_of_nature.png": {
+  "source": "pictures/Zombie_UAVSkillClip/ico_wy_01_4",
+  "synced": "24326bca7ba36ecd4dc252403fe24e64"
+ },
+ "raven/epigraphs/badges/protective_charm.png": {
+  "source": "pictures/Zombie_UAVSkillClip/ico_wy_01_2",
+  "synced": "bd47e094f8d439da4a39dafb19cae7a3"
+ },
+ "raven/epigraphs/badges/reversal_power.png": {
+  "source": "pictures/Zombie_UAVSkillClip/ico_wy_01_3",
+  "synced": "4c1c55d9485b948a9445d2d8ae781100"
+ },
+ "raven/epigraphs/board/frame.png": {
+  "source": "pictures/Zombie_UAVSkillClip/ico_wy_02_0",
+  "synced": "e7e009e7ead2aeccdc2bddc827047f2e"
+ },
+ "raven/epigraphs/board/triangle.png": {
+  "source": "pictures/Zombie_UAVSkillClip/ico_wy_mwdi",
+  "synced": "c5e5886674def476f5f5c631dc464cc2"
+ },
+ "raven/epigraphs/gems/max.png": {
+  "source": "pictures/Zombie_UAVSkillClip/pro_wymw_sx_bar_04",
+  "synced": "302ada724c49043142d11280a7bf8689"
+ },
+ "raven/epigraphs/gems/off.png": {
+  "source": "pictures/Zombie_UAVSkillClip/pro_wymw_sx_bar_d02",
+  "synced": "adcb3aa422834af969a7c049b71651e1"
+ },
+ "raven/epigraphs/gems/on.png": {
+  "source": "pictures/Zombie_UAVSkillClip/pro_wymw_sx_bar_02",
+  "synced": "7d4ef4a9f8f3fd585b2039c496e5e1e9"
+ },
+ "raven/epigraphs/ranger/frenzied_flock_iv.png": {
+  "source": "pictures/Zombie_ItemIcon144/Icon_Item_drone07",
+  "synced": "378322b51339a8e22575c898110568b0"
+ },
+ "raven/epigraphs/ranger/guard_of_nature_iv.png": {
+  "source": "pictures/Zombie_ItemIcon144/Icon_Item_drone10",
+  "synced": "d89d81ba5997914d5fe52fb764036c8b"
+ },
+ "raven/epigraphs/ranger/protective_charm.png": {
+  "source": "pictures/Zombie_ItemIcon144/Icon_Item_drone01",
+  "synced": "7c54f389ccbe89e26ee3c5537e40337d"
+ },
+ "raven/epigraphs/ranger/protective_charm_iv.png": {
+  "source": "pictures/Zombie_ItemIcon144/Icon_Item_drone01",
+  "synced": "7c54f389ccbe89e26ee3c5537e40337d"
+ },
+ "raven/epigraphs/ranger/reversal_power.png": {
+  "source": "pictures/Zombie_ItemIcon144/Icon_Item_drone04",
+  "synced": "02315cb8c0dae8eec7f9e785b862f328"
+ },
+ "raven/epigraphs/ranger/reversal_power_iv.png": {
+  "source": "pictures/Zombie_ItemIcon144/Icon_Item_drone04",
+  "synced": "02315cb8c0dae8eec7f9e785b862f328"
+ },
+ "raven/epigraphs/rarity/ssr.png": {
+  "source": "pictures/Zombie_UAVSkillClip/frame_wymw_kuang_03",
+  "synced": "ccad6b8e9704ede376a0b7390659e93a"
+ },
+ "raven/epigraphs/rarity/ur.png": {
+  "source": "pictures/Zombie_UAVSkillClip/frame_wymw_kuang_04",
+  "synced": "9645fbe70a7d0333b1ee403adab3b9c6"
+ },
+ "raven/epigraphs/warlock/frenzied_flock_iv.png": {
+  "source": "pictures/Zombie_ItemIcon144/Icon_Item_drone08",
+  "synced": "e311dfcb975bbed97b2bbdb5fa66a953"
+ },
+ "raven/epigraphs/warlock/guard_of_nature_iv.png": {
+  "source": "pictures/Zombie_ItemIcon144/Icon_Item_drone11",
+  "synced": "762d1da64f48b30f08ca7e4f8dc7cb1a"
+ },
+ "raven/epigraphs/warlock/protective_charm_iv.png": {
+  "source": "pictures/Zombie_ItemIcon144/Icon_Item_drone02",
+  "synced": "6e726968b6eaa08d98d0692125f227bc"
+ },
+ "raven/epigraphs/warlock/reversal_power_iv.png": {
+  "source": "pictures/Zombie_ItemIcon144/Icon_Item_drone05",
+  "synced": "8301d84ae84291599cede3b40d66c059"
+ },
+ "raven/epigraphs/warrior/frenzied_flock_iv.png": {
+  "source": "pictures/Zombie_ItemIcon144/Icon_Item_drone09",
+  "synced": "18f2562fee6aab779d249a10a452a787"
+ },
+ "raven/epigraphs/warrior/guard_of_nature_iv.png": {
+  "source": "pictures/Zombie_ItemIcon144/Icon_Item_drone12",
+  "synced": "e40d0ac4aa9f95c3a0c9412ca7a9657c"
+ },
+ "raven/epigraphs/warrior/protective_charm_iv.png": {
+  "source": "pictures/Zombie_ItemIcon144/Icon_Item_drone03",
+  "synced": "23e65bba7d8d10386eef2f913f658752"
+ },
+ "raven/epigraphs/warrior/reversal_power_iv.png": {
+  "source": "pictures/Zombie_ItemIcon144/Icon_Item_drone06",
+  "synced": "82cc2f1399408a58ae67c539b090ecd7"
+ },
  "test/amber.png": {
   "source": "pictures/Zombie_March/pic_cz_jinggao_huang",
   "synced": "ea8676235b557927519c8bf01169cacb"

@@ -14,6 +14,24 @@
  "pictures/EliminateMaster/icon_zuanshi": [
   "diamond"
  ],
+ "pictures/HeroAwaken/hero_yxjx_1": [
+  "marlena"
+ ],
+ "pictures/HeroAwaken/hero_yxjx_1_2": [
+  "marlena"
+ ],
+ "pictures/HeroAwaken/hero_yxjx_2": [
+  "cynthia"
+ ],
+ "pictures/HeroAwaken/hero_yxjx_2_2": [
+  "cynthia"
+ ],
+ "pictures/HeroAwaken/hero_yxjx_3": [
+  "annie"
+ ],
+ "pictures/HeroAwaken/hero_yxjx_3_2": [
+  "annie"
+ ],
  "pictures/HeroHonor/pic_card5_04_sj": [
   "claire",
   "hero"
@@ -159,6 +177,15 @@
  ],
  "pictures/MiddleAges_CastleGain/Icon_Item_Shield": [
   "shield"
+ ],
+ "pictures/MiddleAges_Era2Achievement/pic_shidai2_banner1": [
+  "season 2"
+ ],
+ "pictures/MiddleAges_Era2Achievement/pic_shidai2_banner2": [
+  "season 2"
+ ],
+ "pictures/MiddleAges_Era2Achievement/pic_shidai2_diban1": [
+  "season 2"
  ],
  "pictures/Middle_Hotel/icon_tongbi": [
   "copper"
@@ -2827,6 +2854,63 @@
  ],
  "pictures/Zombie_UAVSkillClip/Icon_item_UAVSkillChip_05": [
   "chest"
+ ],
+ "pictures/Zombie_UAVSkillClip/btn_wy_yeqian2": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/frame_wymw_kuang_01": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/frame_wymw_kuang_02": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/frame_wymw_kuang_03": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/frame_wymw_kuang_04": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/ico_wy_01_1": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/ico_wy_01_2": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/ico_wy_01_3": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/ico_wy_01_4": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/ico_wy_02_0": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/ico_wy_02_1": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/ico_wy_02_2": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/ico_wy_02_3": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/ico_wy_02_4": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/ico_wy_mwdi": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/pic_wy_jiahao": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/pro_wymw_sx_bar_02": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/pro_wymw_sx_bar_04": [
+  "epigraph"
+ ],
+ "pictures/Zombie_UAVSkillClip/pro_wymw_sx_bar_d02": [
+  "epigraph"
  ],
  "pictures/Zombie_Vip/pic_vip_chengse": [
   "vip"
