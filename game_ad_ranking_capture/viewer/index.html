@@ -402,8 +402,9 @@ async function start() {
   }
   const select = el("week");
   for (const week of weeks) select.add(new Option(week, week));
+  el("mine").checked = localStorage.getItem("adr_mine") === "1";
   select.onchange = () => load(select.value);
-  el("mine").onchange = render;
+  el("mine").onchange = () => { localStorage.setItem("adr_mine", el("mine").checked ? "1" : "0"); render(); };
   await load(weeks[0]);
 }
 
