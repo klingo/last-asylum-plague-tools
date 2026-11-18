@@ -37,6 +37,7 @@ SWIPE_X, SWIPE_LENGTH = 0.25, 0.33  # where a swipe is (of the frame's width) an
 STARTS = (0.90, 0.86, 0.94, 0.82)
 SCROLLED = 1.5  # grey levels the scrolling part differs by after a swipe that moved it
 MAX_PAGES = 60
+MAX_UP_BATCHES = 15  # one swipe from each start height per batch
 MAX_EXPANDS = 8
 MIN_SCORE = 0.5  # OCR boxes below this are noise (the gender icon, the card's border)
 
@@ -191,11 +192,18 @@ class MemberScanner:
         return after, False
 
     def to_top(self) -> np.ndarray:
+        """Fast swipes from every start height in turn, then one look at the screen: nothing is read on the way up. A
+        batch that moved nothing means every start was tried: the top."""
         frame = self.device.settled()
-        for _ in range(MAX_PAGES):
-            frame, scrolled = self.push(frame, down=True)
-            if not scrolled:
-                break
+        height, width = frame.shape[:2]
+        x = SWIPE_X * width
+        for _ in range(MAX_UP_BATCHES):
+            for start in STARTS:
+                self.device.swipe(x, (start - SWIPE_LENGTH) * height, x, start * height, C.FLING_MS)
+            after = self.device.settled()
+            if not moved(frame, after):
+                return after
+            frame = after
         return frame
 
     def scan(self) -> MemberScan:

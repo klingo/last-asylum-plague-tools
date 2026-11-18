@@ -1,12 +1,12 @@
-"""A week file -> the table the viewer shows: points per day, total, average and median per player.
+"""A week file -> the table the viewer shows: points per day, total and average per player.
 
 A player is one `spelling_key` of the name (the OCR may read the same name with an `I` one day and an `l` another),
 shown with the spelling read most often, after `corrections.py` has fixed the OCR's misreadings and joined a player's
 old and new names (a rename). A player who is not in a day's list has no points for that day (`None`, shown
-as a dash): such a day is left out of the average and the median, not counted as 0. The alliance is the one of the
+as a dash): such a day is left out of the average, not counted as 0. The alliance is the one of the
 player's latest day.
 
-The daily points, the average and the median are put on a colour scale from the Duel's daily reward phases
+The daily points and the average are put on a colour scale from the Duel's daily reward phases
 (`config.PHASES`, `config.COLOR_SCALE`): `heat` is 0 (red) at the first anchor's points, 0.5 (amber) at the second's, 1
 (green) at the third's and above, blended in between; `phase` is how many of the 9 phases the points reach. The total
 has none: it is not a day's points.
@@ -15,7 +15,7 @@ A member's alliance rank (R5 .. R1) comes from the member list (the latest day's
 lists do not know, such as those of other alliances, have none.
 
 An alliance member (`roster.py`) who is not in a day's ranking made 0 points that day: the ranking only lists players
-with points. Such a member gets 0 for the day, counted in the average and the median (`filled` lists those days);
+with points. Such a member gets 0 for the day, counted in the average (`filled` lists those days);
 members of an older roster snapshot are only counted from the day it was valid. Other alliances' players stay as
 they are.
 """
@@ -110,12 +110,11 @@ def week_table(
                 "points": player["points"],
                 "total": sum(values),
                 "average": round(statistics.mean(values)),
-                "median": round(statistics.median(values)),
                 "days": len(values),
                 "filled": player["filled"],
             }
         )
-        shown = {**table[-1]["points"], "average": table[-1]["average"], "median": table[-1]["median"]}
+        shown = {**table[-1]["points"], "average": table[-1]["average"]}
         table[-1]["heat"] = {key: heat(value) for key, value in shown.items()}
         table[-1]["phase"] = {key: phase(value) for key, value in shown.items()}
     table.sort(key=lambda entry: (-entry["total"], entry["name"].lower()))

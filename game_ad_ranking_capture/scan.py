@@ -22,7 +22,7 @@ import rows as R
 import symbols
 from device import STABLE, difference
 
-MAX_UP_SWIPES = 80  # from the bottom of a 200 row list, four rows a swipe, is about 50
+MAX_UP_BATCHES = 20  # from the bottom of a 200 row list, four rows a swipe, is about 50 swipes: 13 batches
 READ_TRIES = 3  # times a page without readable ranks is looked at before it is given up
 MAX_UNREADABLE = 4  # such pages per day before the scan stops as incomplete
 MAX_RECOVERIES = 8  # swipes back per day after a skipped card (the first swipe is a guess, the rest are measured)
@@ -87,16 +87,18 @@ class Scanner:
         return page, frame
 
     # -- moving
-    def swipe(self, frame: np.ndarray, rows: float) -> None:
+    def swipe(self, frame: np.ndarray, rows: float, ms: int = C.SWIPE_MS) -> None:
         """Moves the list by about `rows` cards (negative: back towards the top)."""
         height, width = frame.shape[:2]
         start = (C.LIST_BOTTOM - 0.05) * height if rows > 0 else (C.LIST_TOP + 0.05) * height
-        self.device.swipe(width / 2, start, width / 2, start - rows * C.ROW_PITCH * height)
+        self.device.swipe(width / 2, start, width / 2, start - rows * C.ROW_PITCH * height, ms)
 
     def to_top(self) -> np.ndarray:
+        """Fast swipes, several between two looks at the screen: the way up needs no reading, only the top."""
         previous = self.device.settled()
-        for _ in range(MAX_UP_SWIPES):
-            self.swipe(previous, -(C.SWIPE_ROWS + 1))
+        for _ in range(MAX_UP_BATCHES):
+            for _ in range(C.FLING_BATCH):
+                self.swipe(previous, -(C.SWIPE_ROWS + 1), C.FLING_MS)
             frame = self.device.settled()
             if difference(previous, frame) < STABLE:
                 return frame

@@ -33,7 +33,7 @@ Command line (from this folder): `.venv/Scripts/python main.py check | capture [
   recorded (marked `final: false`, "preliminary" in the viewer) and read again by every scan. A day is **final** once a
   complete scan of it *started* after its game day ended (a scan that runs across the reset does not count); final days are
   skipped (`--force` / "Read final days again" reads them again), so a run only fills in missing and preliminary days.
-- **Reading a list** (`scan.py`, `rows.py`): scroll to the top, read a page, swipe, repeat until two swipes bring nothing new
+- **Reading a list** (`scan.py`, `rows.py`): scroll to the top (fast swipes, several between two looks at the screen, nothing read on the way), read a page, swipe, repeat until two swipes bring nothing new
   (the list ends at the last player with points, at most 200). Pages are merged by rank. The swipe length is measured from
   where the same cards sit on two pages, so a skipped card is noticed and read again. Ranks 1-3 are medals: they get their
   rank from the card below. The points are the anchor of each row; name, alliance and rank are found around them.

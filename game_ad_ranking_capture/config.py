@@ -35,6 +35,8 @@ SETTLE_TRIES = 12  # frames compared while waiting for the screen to stop moving
 SETTLE_PAUSE = 0.35
 TAP_PAUSE = 1.2  # after a tap: the game lags
 SWIPE_MS = 900  # a slow swipe: little fling, so the list moves about the same every time
+FLING_MS = 100  # a fast swipe, to get back to the top: the list flies on after the finger, nothing is read on the way
+FLING_BATCH = 4  # flings in a row before the screen is looked at to see whether the top is reached
 
 # -- Rank screen layout (fractions of the frame)
 BACK_ARROW = (0.083, 0.029)  # (x of width, y of height)
