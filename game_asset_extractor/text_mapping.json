@@ -1499,7 +1499,7 @@
   "source": "tables/Item:item_drone_componentBox_5.name"
  },
  "pack_data:items.lv5_raven_gear_choice_chest.name": {
-  "source": "tables/Item:item_drone_componentChooseBox_1.name"
+  "source": "tables/Item:item_drone_componentChooseBox_5.name"
  },
  "pack_data:items.lv5_sharp_beak.name": {
   "parts": [
