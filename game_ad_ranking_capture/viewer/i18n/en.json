@@ -2,6 +2,16 @@
   "page": {
     "title": "Alliance Duel rankings"
   },
+  "nav": {
+    "overview": "Overview",
+    "details": "Details"
+  },
+  "overview": {
+    "title": "Alliance Duel overview",
+    "week": "Week {n}",
+    "in_progress": "In progress",
+    "in_progress_title": "Not every day of this week is finished yet, so the score and the points can still change"
+  },
   "header": {
     "week": "Week",
     "mine": "My alliance",

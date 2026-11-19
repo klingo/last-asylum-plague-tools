@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Alliance Duel overview</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body { font: 14px/1.4 system-ui, sans-serif; margin: 0; background: #1b1d22; color: #e6e6e6; }
+header { background: #23262d; padding: 10px 14px; display: flex; gap: 14px; align-items: center; border-bottom: 1px solid #000; }
+h1 { font-size: 16px; margin: 0; }
+select { background: #14161a; color: inherit; border: 1px solid #444; border-radius: 4px; padding: 3px 6px; font: 12px/1.4 inherit; margin-left: auto; }
+a { color: #6aa0d8; text-decoration: none; }
+a:hover { text-decoration: underline; }
+#message { padding: 24px 14px; color: #c9a227; }
+#weeks { display: flex; flex-direction: column; gap: 12px; padding: 14px; max-width: 1300px; margin: 0 auto; }
+a.week { display: flex; flex-wrap: wrap; gap: 10px 40px; align-items: center; padding: 12px 18px; background: #23262d; border: 1px solid #2c2f37; border-radius: 6px; color: inherit; font-variant-numeric: tabular-nums; }
+a.week:hover { background: #262a32; border-color: #444; text-decoration: none; }
+.when { flex: 0 0 150px; }
+.when .nr { font-size: 18px; font-weight: 600; }
+.when .dates { color: #9aa; }
+.when .live { display: inline-block; margin-top: 4px; padding: 1px 8px; border-radius: 3px; font-size: 12px; background: #4a3a14; color: #d9a441; }
+.duel { flex: 1 1 440px; display: flex; align-items: center; justify-content: center; gap: 14px; }
+.duel .side { flex: 1 1 0; min-width: 0; }
+.duel .side.s0 { text-align: right; color: #6aa0d8; }
+.duel .side.s1 { text-align: left; color: #e0685f; }
+.duel .tag { font-weight: 600; }
+.duel .name { font-size: 12px; overflow-wrap: break-word; }
+.duel .score { font-size: 34px; font-weight: 700; line-height: 1.2; white-space: nowrap; }
+.duel .score .s0 { color: #6aa0d8; }
+.duel .score .s1 { color: #e0685f; }
+.duel img { height: 28px; flex: none; }
+.duel .icon { width: 80px; flex: none; display: flex; }
+.duel .icon.s0 { justify-content: flex-end; }
+.stats { flex: 1 1 360px; max-width: 400px; display: grid; grid-template-columns: max-content minmax(0, 1fr) minmax(0, 1fr); gap: 3px 20px; align-content: start; }
+.stats > div { text-align: right; white-space: nowrap; }
+.stats .label { text-align: left; color: #9aa; }
+.stats .s0.head { color: #6aa0d8; font-weight: 600; }
+.stats .s1.head { color: #e0685f; font-weight: 600; }
+.stats .lead { font-weight: 600; }
+@media (max-width: 640px) {
+  #weeks { padding: 10px; }
+  a.week { padding: 10px 12px; gap: 10px 20px; }
+  .when { flex-basis: 100%; display: flex; gap: 4px 12px; align-items: baseline; flex-wrap: wrap; }
+  .when .live { margin-top: 0; }
+  .duel { flex-basis: 100%; gap: 8px; }
+  .duel .name { overflow-wrap: anywhere; }
+  .duel .icon { width: auto; }   /* only the winner's takes room */
+  .duel img { height: 20px; }
+  .duel .score { font-size: 28px; }
+  .stats { flex-basis: 100%; max-width: none; gap: 3px 12px; }
+}
+</style></head>
+<body>
+<header>
+  <a href="index.html" data-i18n="nav.details"></a>
+  <h1 data-i18n="overview.title"></h1>
+  <select id="lang"></select>
+</header>
+<div id="message" hidden></div>
+<div id="weeks"></div>
+<script src="i18n.js"></script>
+<script src="compare.js"></script>
+<script>
+// dicts: the loaded language files by code; weeks: the week tables of the API, newest first
+const state = { lang: "en", dicts: {}, weeks: null };
+
+const el = (id) => document.getElementById(id);
+const t = (key, vars) => translate(state.dicts, state.lang, key, vars);
+
+function add(parent, text, className, tag = "div") {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  node.textContent = text;
+  parent.appendChild(node);
+  return node;
+}
+
+// The place for the winner's icon beside a side (kept free on the other, so the score stays in the middle)
+function winIcon(className, show) {
+  const box = document.createElement("span");
+  box.className = "icon " + className;
+  if (show) {
+    const img = document.createElement("img");
+    img.src = "assets/win.png";   // relative: also works under /<repo>/ on GitHub Pages
+    img.alt = "";
+    box.appendChild(img);
+  }
+  return box;
+}
+
+// Monday to Saturday of the week, without a repeated month or year (Nov 16 - 21, 2026), in the order of the language
+function dateRange(start) {
+  const from = new Date(start + "T12:00:00"), to = new Date(from);
+  to.setDate(to.getDate() + DAYS.length - 1);
+  return new Intl.DateTimeFormat(state.lang, { day: "numeric", month: "short", year: "numeric" }).formatRange(from, to);
+}
+
+// One week as a panel that opens its details: the calendar week and its days, the two alliances with the score of the
+// duel (the icon at the side of the winner), their points, and what a member has on average and in the middle.
+function panel(data) {
+  const sides = compareSides(data);
+  const link = document.createElement("a");
+  link.className = "week";
+  link.href = "index.html?week=" + encodeURIComponent(data.week);   // the details page selects this week
+  const duel = sides.length === 2 ? duelDays(data, sides) : null;
+  const when = add(link, "", "when");
+  add(when, t("overview.week", { n: Number(data.week.split("-W")[1]) }), "nr");
+  add(when, dateRange(data.start), "dates");
+  const done = duel && DAYS.every((day) => data.days.includes(day) && data.final[day]);
+  if (!done) add(when, t("overview.in_progress"), "live").title = t("overview.in_progress_title");
+  if (!duel) return link;
+  const row = add(link, "", "duel");
+  const side = (index) => {
+    const box = add(row, "", "side s" + index);
+    add(box, sides[index].tag || sides[index].alliance, "tag");
+    if (sides[index].tag) add(box, sides[index].alliance, "name");
+  };
+  row.appendChild(winIcon("s0", duel.winner === 0));
+  side(0);
+  const score = add(row, "", "score");
+  add(score, duel.won[0], "s0", "span");
+  score.append(" : ");
+  add(score, duel.won[1], "s1", "span");
+  side(1);
+  row.appendChild(winIcon("s1", duel.winner === 1));
+  const stats = add(link, "", "stats");
+  add(stats, "", "label");
+  sides.forEach((s, index) => add(stats, t("compare.members", { n: s.members }), "head s" + index));
+  for (const [key, label] of [["total", t("compare.total")], ["average", t("compare.average")], ["median", t("compare.median")]]) {
+    add(stats, label, "label");
+    sides.forEach((s, index) => add(stats, fmt(s[key]), s[key] > sides[1 - index][key] ? "lead" : ""));   // the higher one is bold
+  }
+  return link;
+}
+
+function render() {
+  if (!state.weeks) return;
+  el("weeks").replaceChildren(...state.weeks.map(panel));
+}
+
+// the texts that render() does not rebuild: the labels of the page, its title, the language selector
+function applyTexts() {
+  document.documentElement.lang = state.lang;
+  document.title = t("overview.title");
+  document.querySelectorAll("[data-i18n]").forEach((node) => { node.textContent = t(node.dataset.i18n); });
+  el("lang").title = t("header.language");
+  el("lang").value = state.lang;
+  el("message").textContent = t("msg.none");
+  el("message").hidden = !state.weeks || state.weeks.length > 0;
+}
+
+// Changes the language: loads its file (one that cannot be loaded leaves the language in use) and redraws.
+async function setLanguage(lang) {
+  if (!state.dicts[lang]) {
+    try {
+      state.dicts[lang] = await (await fetch("i18n/" + lang + ".json")).json();
+    } catch (error) {
+      return;
+    }
+  }
+  state.lang = lang;
+  applyTexts();
+  render();
+}
+
+async function start() {
+  state.dicts.en = await (await fetch("i18n/en.json")).json();   // English first: the others fall back to it
+  const lang = el("lang");
+  for (const [code, name] of LANGUAGES) lang.add(new Option(name, code));
+  lang.onchange = () => { localStorage.setItem("adr_lang", lang.value); setLanguage(lang.value); };   // the details page's choice
+  const names = await (await fetch("api/weeks.json")).json();
+  state.weeks = await Promise.all(names.map(async (week) => (await fetch("api/week/" + week + ".json")).json()));
+  await setLanguage(pickLanguage(localStorage.getItem("adr_lang"), navigator.languages || [navigator.language]));
+}
+
+start();
+</script>
+</body></html>

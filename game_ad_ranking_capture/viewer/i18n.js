@@ -1,7 +1,10 @@
 "use strict";
-// The viewer's languages and the pure helpers around them (no DOM: tests/test_i18n.py runs them in Node).
+// The viewer's languages, the number format and the pure helpers around them (no DOM: tests/test_i18n.py runs them in Node).
 // A language is a file i18n/<code>.json; English is the one every other falls back to.
 const LANGUAGES = [["en", "English"], ["de", "Deutsch"], ["ru", "Русский"]];
+
+// A number with apostrophe thousands, the same in every language: 20'000
+const fmt = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "'");
 
 // The language to start in: a saved choice, else the first browser language that is supported, else English.
 function pickLanguage(saved, preferred) {
@@ -33,4 +36,4 @@ function translate(dicts, lang, key, vars = {}) {
   return text.replace(/\{(\w+)\}/g, (match, name) => (name in vars ? String(vars[name]) : match));
 }
 
-if (typeof module !== "undefined") module.exports = { LANGUAGES, pickLanguage, lookup, translate };
+if (typeof module !== "undefined") module.exports = { LANGUAGES, fmt, pickLanguage, lookup, translate };

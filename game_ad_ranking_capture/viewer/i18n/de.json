@@ -2,6 +2,16 @@
   "page": {
     "title": "Allianz-Duell: Ranglisten"
   },
+  "nav": {
+    "overview": "Übersicht",
+    "details": "Details"
+  },
+  "overview": {
+    "title": "Allianz-Duell: Übersicht",
+    "week": "Woche {n}",
+    "in_progress": "Läuft noch",
+    "in_progress_title": "Noch nicht jeder Tag dieser Woche ist beendet, Spielstand und Punkte können sich also noch ändern"
+  },
   "header": {
     "week": "Woche",
     "mine": "Meine Allianz",

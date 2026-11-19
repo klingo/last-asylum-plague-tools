@@ -17,6 +17,7 @@ from test_screens_capture import fetch
 LANGUAGES = ("en", "de", "ru")
 PLURAL_FORMS = {"en": {"one", "other"}, "de": {"one", "other"}, "ru": {"one", "few", "many", "other"}}
 PAGE = (C.VIEWER_DIR / "index.html").read_text(encoding="utf-8")
+OVERVIEW = (C.VIEWER_DIR / "overview.html").read_text(encoding="utf-8")
 
 
 def load(language: str) -> dict:
@@ -68,7 +69,7 @@ def test_placeholders_are_the_same_in_every_language_and_no_text_is_empty():
 
 def test_a_translation_is_not_a_copy_of_english_unless_the_word_is_the_same():
     english = entries(load("en"))
-    same = {"de": set(), "ru": set()}  # words that really are the same
+    same = {"de": {"nav.details"}, "ru": set()}  # words that really are the same
     for language in LANGUAGES[1:]:
         for key, value in entries(load(language)).items():
             if isinstance(value, str) and key not in same[language]:
@@ -77,8 +78,9 @@ def test_a_translation_is_not_a_copy_of_english_unless_the_word_is_the_same():
 
 def used_keys() -> tuple[set[str], set[str]]:
     """(the keys the page asks for by name, the groups it asks for with a computed key such as "weekday." + day)."""
-    asked = set(re.findall(r'\bt\("([\w.]+)"', PAGE)) | set(re.findall(r'data-i18n="([\w.]+)"', PAGE))
-    groups = set(re.findall(r'\bt\("([\w]+\.)" \+', PAGE))
+    both = PAGE + OVERVIEW
+    asked = set(re.findall(r'\bt\("([\w.]+)"', both)) | set(re.findall(r'data-i18n="([\w.]+)"', both))
+    groups = set(re.findall(r'\bt\("([\w]+\.)" \+', both))
     return {key for key in asked if key not in groups}, groups
 
 
@@ -93,10 +95,11 @@ def test_the_page_uses_exactly_the_texts_that_exist():
 
 
 def test_no_text_of_the_page_is_hard_coded():
-    script = inline_scripts(PAGE)[0]
-    for word in ("Player", "Alliance", "Total", "Average", "Median", "preliminary", "Nobody", "No rankings"):
-        assert f'"{word}' not in script and f"'{word}" not in script, word
-    assert body_text(PAGE) == [], "a text in the markup: it belongs in the language files (data-i18n)"
+    for page in (PAGE, OVERVIEW):
+        script = inline_scripts(page)[0]
+        for word in ("Player", "Alliance", "Total", "Average", "Median", "preliminary", "Nobody", "No rankings", "Week", "In progress"):
+            assert f'"{word}' not in script and f"'{word}" not in script, word
+        assert body_text(page) == [], "a text in the markup: it belongs in the language files (data-i18n)"
 
 
 # -- the helpers, run in Node

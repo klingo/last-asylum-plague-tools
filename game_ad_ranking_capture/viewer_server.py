@@ -21,7 +21,7 @@ import store
 WEEK_FILE = re.compile(r"^/api/week/(\d{4}-W\d{2})\.json$")
 LANGUAGE_FILE = re.compile(r"^/i18n/([a-z]{2})\.json$")
 ASSET_FILE = re.compile(r"^/assets/([a-z]+)\.png$")
-PAGE_FILES = {"/": "index.html", "/index.html": "index.html", "/i18n.js": "i18n.js"}  # the page and its helper
+PAGE_FILES = {"/": "index.html"} | {f"/{name}": name for name in C.VIEWER_FILES}  # the pages and their scripts
 
 
 def make_handler(directory: Path, viewer_dir: Path) -> type[http.server.BaseHTTPRequestHandler]:

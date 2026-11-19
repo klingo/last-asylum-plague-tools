@@ -11,6 +11,7 @@ DATA_DIR = HERE / "data"  # one file per calendar week, committed
 REVIEW_DIR = HERE / "review"  # crops of uncertain rows, git-ignored
 TEMPLATES_DIR = HERE / "templates"
 VIEWER_DIR = HERE / "viewer"
+VIEWER_FILES = ("index.html", "overview.html", "i18n.js", "compare.js")  # the pages and scripts the viewer serves and the export copies
 ROSTER_DIR = DATA_DIR / "members"  # the alliance's member lists, one file per calendar week
 CORRECTIONS = HERE / "corrections.json"  # {"misread name": "right name"}, applied when a day is stored
 

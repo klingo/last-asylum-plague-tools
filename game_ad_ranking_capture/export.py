@@ -1,6 +1,6 @@
 """The viewer as a static site (for GitHub Pages): `python export.py [--out DIR]`, default `site/`.
 
-Writes `index.html` (the viewer's page), `i18n.js`, `i18n/<language>.json` (its languages), `assets/*.png` (its icons), and the files the page
+Writes `index.html` and `overview.html` (the viewer's pages), `i18n.js`, `compare.js`, `i18n/<language>.json` (its languages), `assets/*.png` (its icons), and the files the page
 fetches: `api/weeks.json` (newest first) and `api/week/<year>-W<week>.json` (one table per week, from
 `aggregate.week_table`, with `corrections.json` and the member lists applied), plus `.nojekyll`. These are the same
 routes the local server answers, so the page is the same in both places, and it fetches them with relative URLs, so it
@@ -34,9 +34,9 @@ def export_site(out: Path, data_dir: Path | None = None, viewer_dir: Path | None
     if out.exists():
         shutil.rmtree(out)
     (out / "i18n").mkdir(parents=True)
-    written = [out / "index.html", out / "i18n.js", out / ".nojekyll"]
-    shutil.copyfile(viewer_dir / "index.html", out / "index.html")
-    shutil.copyfile(viewer_dir / "i18n.js", out / "i18n.js")
+    written = [out / name for name in C.VIEWER_FILES] + [out / ".nojekyll"]
+    for name in C.VIEWER_FILES:
+        shutil.copyfile(viewer_dir / name, out / name)
     (out / ".nojekyll").write_text("", encoding="utf-8")  # no Jekyll processing of the files
     for language in sorted((viewer_dir / "i18n").glob("*.json")):  # the languages of the page
         shutil.copyfile(language, out / "i18n" / language.name)

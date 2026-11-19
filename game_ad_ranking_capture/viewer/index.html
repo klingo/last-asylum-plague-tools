@@ -7,6 +7,8 @@ body { font: 14px/1.4 system-ui, sans-serif; margin: 0; background: #1b1d22; col
 header { position: sticky; top: 0; z-index: 2; background: #23262d; padding: 10px 14px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; border-bottom: 1px solid #000; }
 select { background: #14161a; color: inherit; border: 1px solid #444; border-radius: 4px; padding: 5px 8px; font: inherit; }
 label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
+a { color: #6aa0d8; text-decoration: none; }
+a:hover { text-decoration: underline; }
 #info { margin-left: auto; color: #9aa; }
 #message { padding: 24px 14px; color: #c9a227; }
 table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
@@ -82,6 +84,7 @@ tr.mine td.name { color: #6cc070; }
 </style></head>
 <body>
 <header>
+  <a id="nav" href="overview.html" data-i18n="nav.overview"></a>
   <label><span data-i18n="header.week"></span> <select id="week"></select></label>
   <span id="legend"></span>
   <label><input type="checkbox" id="mine"> <span id="mineText"></span></label>
@@ -92,16 +95,13 @@ tr.mine td.name { color: #6cc070; }
 <div id="message" hidden></div>
 <div id="tablebox"><table id="table" hidden><thead></thead><tbody></tbody></table></div>
 <script src="i18n.js"></script>
+<script src="compare.js"></script>
 <script>
-const DAYS = ["mon", "tue", "wed", "thu", "fri", "sat"];
-const WIN_POINTS = { mon: 1, tue: 2, wed: 2, thu: 2, fri: 2, sat: 4 };   // what winning a day gives
-const WIN_SCORE = 7;   // the points that win the duel (of the 13 there are)
 // dicts: the loaded language files by code; empty: the "no rankings yet" message is showing
 const state = { data: null, sortKey: "total", ascending: false, lang: "en", dicts: {}, empty: false };
 
 const el = (id) => document.getElementById(id);
 const t = (key, vars) => translate(state.dicts, state.lang, key, vars);
-const fmt = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "'");
 const rankNumber = (rank) => (rank ? Number(rank.slice(1)) : null);   // "R4" -> 4: R5 is the highest
 const get = (player, key) =>
   key === "alliance_rank" ? rankNumber(player.alliance_rank) : DAYS.includes(key) ? player.points[key] : player[key];
@@ -158,12 +158,6 @@ function statusIcon(phase) {
   return img;
 }
 
-const sum = (values) => values.reduce((a, b) => a + b, 0);
-function median(values) {
-  const sorted = values.slice().sort((a, b) => a - b), middle = sorted.length >> 1;
-  return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
-}
-
 function winIcon() {
   const img = document.createElement("img");
   img.src = "assets/win.png";   // relative: also works under /<repo>/ on GitHub Pages
@@ -189,27 +183,12 @@ function shareBar(values) {
 }
 
 // The two alliances side by side, the own one first (blue, the other red). Left: their points of the week so far
-// with the share of the two, what a member has on average and in the middle, and how many have 0 points in total. Right: the same share bar for every
-// day, the winner of a finished day marked. Every player of the table counts, the "my alliance" filter does not.
+// with the share of the two, and what a member has on average and in the middle, and how many have 0 points in total.
+// Right: the same share bar for every day, the winner of a finished day marked. Every player of the table counts, the
+// "my alliance" filter does not. The numbers come from compare.js.
 function renderCompare() {
   const box = el("compare"), data = state.data;
-  const groups = new Map();
-  for (const player of data.players) {
-    if (!player.alliance) continue;
-    const key = [player.alliance, player.tag].join("|");
-    if (!groups.has(key)) groups.set(key, { alliance: player.alliance, tag: player.tag, players: [], mine: player.alliance === data.my_alliance && player.tag === data.my_tag });
-    groups.get(key).players.push(player);
-  }
-  const sides = [...groups.values()]
-    .map((group) => {
-      const totals = group.players.map((player) => player.total);
-      // the other alliance's members that are not in any list have 0 points: the count the week file knows of them
-      const unseen = !group.mine && data.my_alliance ? Math.max(0, (data.opponent_members || 0) - totals.length) : 0;
-      totals.push(...Array(unseen).fill(0));
-      return { ...group, members: totals.length, zero: totals.filter((points) => points === 0).length, total: sum(totals), average: Math.round(sum(totals) / totals.length), median: Math.round(median(totals)) };
-    })
-    .sort((a, b) => b.mine - a.mine || b.total - a.total)
-    .slice(0, 2);
+  const sides = compareSides(data);
   box.replaceChildren();
   box.hidden = sides.length < 2;
   if (box.hidden) return;
@@ -238,16 +217,13 @@ function renderCompare() {
       add(stats, fmt(side[key]), lead ? "lead" : "");
     });
   }
-  const score = add(box, "", "score");   // between the two halves, filled in once the days are counted
+  const score = add(box, "", "score");   // between the two halves
   const days = add(box, "", "days");
-  const won = [0, 0];   // the points of the days each side won
-  for (const day of DAYS) {   // every weekday has its row; a day without data yet has no bar
-    const points = data.days.includes(day) ? sides.map((side) => sum(side.players.map((player) => player.points[day] || 0))) : [0, 0];
+  const duel = duelDays(data, sides);
+  for (const { day, points, winner } of duel.days) {
     const dayBar = shareBar(points);
     if (dayBar) dayBar.title = t("compare.versus", { a: fmt(points[0]), b: fmt(points[1]) });
     add(days, t("weekday." + day), "label");
-    const winner = dayBar && data.final[day] && points[0] !== points[1] ? (points[0] > points[1] ? 0 : 1) : -1;   // only a finished day has one
-    if (winner >= 0) won[winner] += WIN_POINTS[day];
     sides.forEach((_, index) => {
       const cell = add(days, "", "win s" + index);
       if (index === winner) {
@@ -260,14 +236,13 @@ function renderCompare() {
   add(score, t("compare.score"), "label");
   const value = add(score, "", "value");
   const part = (text, className) => { add(value, text, className).style.display = "inline"; };
-  const duelWon = won.findIndex((points) => points >= WIN_SCORE);   // the duel is decided: its winner gets the icon
-  if (duelWon === 0) value.appendChild(winIcon());
+  if (duel.winner === 0) value.appendChild(winIcon());   // the duel is decided: its winner gets the icon
   part(sides[0].tag || sides[0].alliance, "short s0");
-  part(" " + won[0], "s0");
+  part(" " + duel.won[0], "s0");
   value.append(" : ");
-  part(won[1] + " ", "s1");
+  part(duel.won[1] + " ", "s1");
   part(sides[1].tag || sides[1].alliance, "short s1");
-  if (duelWon === 1) value.appendChild(winIcon());
+  if (duel.winner === 1) value.appendChild(winIcon());
 }
 
 function legend() {
@@ -429,10 +404,13 @@ async function start() {
   }
   const select = el("week");
   for (const week of weeks) select.add(new Option(week, week));
+  const wanted = new URLSearchParams(location.search).get("week");   // the overview links to a week
+  const first = weeks.includes(wanted) ? wanted : weeks[0];
+  select.value = first;
   el("mine").checked = localStorage.getItem("adr_mine") === "1";
   select.onchange = () => load(select.value);
   el("mine").onchange = () => { localStorage.setItem("adr_mine", el("mine").checked ? "1" : "0"); render(); };
-  await load(weeks[0]);
+  await load(first);
 }
 
 start();

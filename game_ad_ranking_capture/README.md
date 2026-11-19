@@ -110,6 +110,11 @@ for the week; your alliance counts its roster members with 0 points, the other t
 you enter `"opponent_members": 100` in the week file's `meta` by hand, nameless members with 0 points up to that count). Right:
 the same share bar for every day (all weekdays are listed, a day without data has no bar; hover a bar for the two point totals), with `win.png` on the side of the winner of a finished day. In the middle the score: a won day gives points (Monday 1, Saturday 4, the other days 2), only finished days count, yours first; whoever reaches 7 of the 13 points has won and gets `win.png` beside their tag.
 
+**Overview** (`overview.html`, the "Overview" link in the details page's header): one panel per week, newest first: the
+calendar week and its dates, the two alliances with the score of the duel (`win.png` beside the winner once it is decided,
+"In progress" while a day is not finished), and their total points and average / median per member. A panel opens the
+details page (`index.html?week=<week>`) with that week selected. The numbers are the compare box's (`viewer/compare.js`).
+
 **Languages**: English, German and Russian. The page starts in the browser's language (the first of its preferred
 languages that is supported, else English); a small selector in the top-right corner changes it and the choice is
 remembered in the browser. The texts are in `viewer/i18n/en.json`, `de.json` and `ru.json` (English is the source and the
@@ -129,7 +134,7 @@ reaches. The Total is not coloured: it is not a day's points. If the game change
 
 ## Publishing to GitHub Pages
 
-`export.py` (`python export.py [--out DIR]`, default `site/`, git-ignored) writes the viewer as a static site: the page,
+`export.py` (`python export.py [--out DIR]`, default `site/`, git-ignored) writes the viewer as a static site: the pages (`index.html`, `overview.html`) and their scripts,
 `api/weeks.json` and one `api/week/<week>.json` table per week, with the corrections, aliases and member lists applied. It
 needs nothing but Python (no OpenCV, no OCR). The page is the same as the local one: it fetches those files with relative
 URLs, which are also the routes of the local server, so it works below `/<repository>/` too.
