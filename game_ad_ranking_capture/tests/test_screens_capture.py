@@ -374,7 +374,8 @@ def test_the_viewer_serves_the_page_the_week_list_and_a_table(tmp_path):
     week_file(tmp_path)
     server, url = viewer_server.start(tmp_path)
     try:
-        assert b"Alliance Duel rankings" in fetch(url)[1]
+        assert b"Alliance Duel overview" in fetch(url)[1]  # the start page
+        assert b"Alliance Duel rankings" in fetch(url + "details.html")[1]
         assert json.loads(fetch(url + "api/weeks.json")[1]) == ["2026-W47"]
         table = json.loads(fetch(url + "api/week/2026-W47.json")[1])
         assert table["players"][0]["total"] == 100 and table["my_alliance"] == "Mice"
@@ -392,11 +393,12 @@ def test_the_viewer_script_is_valid_javascript(tmp_path):
     node = shutil.which("node")
     if node is None:
         pytest.skip("node is not installed")
-    page = (C.VIEWER_DIR / "index.html").read_text(encoding="utf-8")
-    script = tmp_path / "page.js"
-    script.write_text(inline_scripts(page)[0], encoding="utf-8")
-    result = subprocess.run([node, "--check", str(script)], capture_output=True, text=True)
-    assert result.returncode == 0, result.stderr
+    for name in ("index.html", "details.html"):
+        page = (C.VIEWER_DIR / name).read_text(encoding="utf-8")
+        script = tmp_path / f"{name}.js"
+        script.write_text(inline_scripts(page)[0], encoding="utf-8")
+        result = subprocess.run([node, "--check", str(script)], capture_output=True, text=True)
+        assert result.returncode == 0, f"{name}: {result.stderr}"
 
 
 def test_the_window_opens_and_closes():

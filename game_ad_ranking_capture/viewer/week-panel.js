@@ -49,7 +49,7 @@ function weekPanel(data, { t, lang, detailed = false, link = false }) {
   const sides = compareSides(data);
   const panel = document.createElement(link ? "a" : "div");
   panel.className = "week" + (detailed ? " detailed" : "");
-  if (link) panel.href = "index.html?week=" + encodeURIComponent(data.week);   // the details page selects this week
+  if (link) panel.href = "details.html?week=" + encodeURIComponent(data.week);   // the details page selects this week
   const duel = sides.length === 2 ? duelDays(data, sides) : null;
   const when = add(panel, "", "when");
   add(when, t("duel.week", { n: Number(data.week.split("-W")[1]) }), "nr");

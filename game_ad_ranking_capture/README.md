@@ -123,10 +123,10 @@ alliance counts its roster members with 0 points, the other the players the list
 right (below the stats on a narrower window) the weekdays underneath each other, one share bar each (a day without data has no
 bar; hover a bar for the two point totals), with `win.png` on the side of the winner of a finished day.
 
-**Overview** (`overview.html`, the "Overview" link in the details page's header): one panel per week, newest first: the
+**Overview** (`index.html`, the start page; the "Overview" link in the details page's header): one panel per week, newest first: the
 calendar week and its dates, the two alliances with the score of the duel (`win.png` beside the winner once it is decided,
 "In progress" while a day is not finished), and their total points and average / median per member. A panel opens the
-details page (`index.html?week=<week>`) with that week selected. The panel is the same as the details page's (`viewer/week-panel.js`, `week-panel.css`), without the days and the share bar; the numbers come from `viewer/compare.js`.
+details page (`details.html?week=<week>`) with that week selected. The panel is the same as the details page's (`viewer/week-panel.js`, `week-panel.css`), without the days and the share bar; the numbers come from `viewer/compare.js`.
 
 **Languages**: English, German and Russian. The page starts in the browser's language (the first of its preferred
 languages that is supported, else English); a small selector in the top-right corner changes it and the choice is
@@ -147,7 +147,7 @@ reaches. The Total is not coloured: it is not a day's points. If the game change
 
 ## Publishing to GitHub Pages
 
-`export.py` (`python export.py [--out DIR]`, default `site/`, git-ignored) writes the viewer as a static site: the pages (`index.html`, `overview.html`) and their scripts,
+`export.py` (`python export.py [--out DIR]`, default `site/`, git-ignored) writes the viewer as a static site: the pages (`index.html`, `details.html`) and their scripts,
 `api/weeks.json` and one `api/week/<week>.json` table per week, with the corrections, aliases and member lists applied. It
 needs nothing but Python (no OpenCV, no OCR). The page is the same as the local one: it fetches those files with relative
 URLs, which are also the routes of the local server, so it works below `/<repository>/` too.

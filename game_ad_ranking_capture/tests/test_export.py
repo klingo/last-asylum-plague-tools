@@ -41,12 +41,12 @@ def test_the_site_has_the_page_the_week_list_and_a_table_per_week(tmp_path):
         "assets/win.png",
         "base.css",
         "compare.js",
+        "details.html",
         "i18n.js",
         "i18n/de.json",
         "i18n/en.json",
         "i18n/ru.json",
         "index.html",
-        "overview.html",
         "week-panel.css",
         "week-panel.js",
     ]
@@ -55,10 +55,10 @@ def test_the_site_has_the_page_the_week_list_and_a_table_per_week(tmp_path):
     table = json.loads((out / "api" / "week" / "2026-W47.json").read_text(encoding="utf-8"))
     assert table["players"][0]["name"] == "Ann" and table["players"][0]["total"] == 8_000_000
     assert table == aggregate.week_table(store.load("2026-W47", tmp_path / "data"))
-    page = (out / "index.html").read_text(encoding="utf-8")
+    page = (out / "details.html").read_text(encoding="utf-8")
     assert 'fetch("api/weeks.json")' in page and "api/week/" in page and 'name="robots" content="noindex' in page
     assert "fetch(\"/" not in page  # relative URLs only: the site may live below /<repository>/
-    assert 'href="overview.html"' in page and "index.html?week=" in (out / "week-panel.js").read_text(encoding="utf-8")
+    assert 'href="index.html"' in page and "details.html?week=" in (out / "week-panel.js").read_text(encoding="utf-8")
 
 
 def test_an_older_export_is_replaced_and_no_data_gives_an_empty_site(tmp_path):

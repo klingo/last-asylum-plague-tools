@@ -1,4 +1,4 @@
-"""The local server behind the viewer: `viewer/index.html` plus two JSON routes, on this computer only (127.0.0.1).
+"""The local server behind the viewer: its pages (`viewer/*.html`) plus two JSON routes, on this computer only (127.0.0.1).
 
 `/api/weeks.json` lists the weeks that have a file (newest first), `/api/week/<year>-W<week>.json` is that week's table
 (`aggregate.week_table`). The page itself only filters and sorts. The routes are the files `export.py` writes for the

@@ -16,8 +16,8 @@ from test_screens_capture import fetch
 
 LANGUAGES = ("en", "de", "ru")
 PLURAL_FORMS = {"en": {"one", "other"}, "de": {"one", "other"}, "ru": {"one", "few", "many", "other"}}
-PAGE = (C.VIEWER_DIR / "index.html").read_text(encoding="utf-8")
-OVERVIEW = (C.VIEWER_DIR / "overview.html").read_text(encoding="utf-8")
+PAGE = (C.VIEWER_DIR / "details.html").read_text(encoding="utf-8")
+OVERVIEW = (C.VIEWER_DIR / "index.html").read_text(encoding="utf-8")
 PANEL = (C.VIEWER_DIR / "week-panel.js").read_text(encoding="utf-8")
 
 

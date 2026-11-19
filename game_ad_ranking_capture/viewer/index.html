@@ -1,258 +1,46 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>Alliance Duel rankings</title>
+<html lang="en"><head><meta charset="utf-8"><title>Alliance Duel overview</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="base.css">
 <link rel="stylesheet" href="week-panel.css">
 <style>
 #message { padding: 24px 14px; color: #c9a227; }
-table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
-th, td { padding: 5px 10px; border-bottom: 1px solid #2c2f37; white-space: nowrap; }
-th { position: sticky; top: var(--header-height, 49px); background: #23262d; text-align: right; cursor: pointer; user-select: none; z-index: 1; }
-th.text, td.text { text-align: left; }
-td.num { text-align: right; }
-th small { display: block; font-weight: normal; color: #8a93a0; }
-th.live small { color: #d9a441; }
-th.sorted .label::after { content: " \25BC"; font-size: 10px; }   /* on the label, so it stays on the first line */
-th.sorted.asc .label::after { content: " \25B2"; }
-td.none { color: #555; }
-img.status { float: left; height: 16px; margin-top: 2px; }   /* the icon of the own alliance's daily cells */
-td.filled { font-style: italic; color: #b8b8b8; }
-td.rank { color: #8a93a0; text-align: right; }
-td.arank { color: #8a93a0; text-align: left; }
-td.total { font-weight: 600; }
-tr:hover td { background: #262a32; }
-tr.mine td.name { color: #6cc070; }
-.tag { color: #8a93a0; }
-#legend { display: flex; gap: 12px; align-items: center; color: #9aa; font-size: 12px; }
-#legend span { padding: 1px 8px; border-radius: 3px; color: #e6e6e6; }
-#compare { margin: 0 14px; }
-/* phones: the header scrolls away, the table scrolls on its own (the column heads stick to its top), the week panel is one column */
-@media (max-width: 640px) {
-  #legend { flex-wrap: wrap; gap: 6px; }
-  #legend span { padding: 1px 6px; }
-  #tablebox { max-height: 100dvh; overflow: auto; }   /* the table scrolls on its own, both ways, its heads stick to its top */
-  th { top: 0; }
-  th, td { padding: 6px 16px; }
-  td.num { position: relative; padding-left: 38px; }   /* room for the status icon in every cell, so the numbers line up with or without it */
-  td.tagged .aname { display: none; }
-  img.status { position: absolute; left: 12px; top: 50%; float: none; margin: -8px 0 0; }
-  th:nth-child(1), td:nth-child(1), th:nth-child(3), td:nth-child(3) { display: none; }   /* the # and the alliance rank */
-  th:nth-child(2), td:nth-child(2) { position: sticky; left: 0; }   /* the player's name stays in view while the table scrolls sideways */
-  th:nth-child(2) { z-index: 2; }
-  td:nth-child(2) { background: #1b1d22; z-index: 1; }
-  #compare { margin: 0 10px; }
-}
+#weeks { display: flex; flex-direction: column; gap: 12px; padding: 14px; max-width: 1300px; margin: 0 auto; }
+@media (max-width: 640px) { #weeks { padding: 10px; } }
 </style></head>
 <body>
 <header>
   <h1 data-i18n="header.title"></h1>
-  <nav><a href="overview.html" data-i18n="nav.overview"></a> <span class="current" data-i18n="nav.details"></span></nav>
+  <nav><span class="current" data-i18n="nav.overview"></span> <a href="details.html" data-i18n="nav.details"></a></nav>
   <select id="lang"></select>
 </header>
-<div class="toolbar">
-  <label><span data-i18n="header.week"></span> <select id="week"></select></label>
-  <span id="info" class="info"></span>
-</div>
-<div id="compare" hidden></div>
-<div class="toolbar">
-  <label><input type="checkbox" id="mine"> <span id="mineText"></span></label>
-  <span id="legend"></span>
-</div>
 <div id="message" hidden></div>
-<div id="tablebox"><table id="table" hidden><thead></thead><tbody></tbody></table></div>
+<div id="weeks"></div>
 <script src="i18n.js"></script>
 <script src="compare.js"></script>
 <script src="week-panel.js"></script>
 <script>
-// dicts: the loaded language files by code; empty: the "no rankings yet" message is showing
-const state = { data: null, sortKey: "total", ascending: false, lang: "en", dicts: {}, empty: false };
+// dicts: the loaded language files by code; weeks: the week tables of the API, newest first
+const state = { lang: "en", dicts: {}, weeks: null };
 
 const el = (id) => document.getElementById(id);
 const t = (key, vars) => translate(state.dicts, state.lang, key, vars);
-const rankNumber = (rank) => (rank ? Number(rank.slice(1)) : null);   // "R4" -> 4: R5 is the highest
-const get = (player, key) =>
-  key === "alliance_rank" ? rankNumber(player.alliance_rank) : DAYS.includes(key) ? player.points[key] : player[key];
-
-function showMessage(text) {
-  el("message").textContent = text;
-  el("message").hidden = !text;
-  el("table").hidden = !!text;
-}
-
-function visiblePlayers() {
-  const data = state.data;
-  let players = data.players;
-  if (el("mine").checked) players = players.filter((p) => p.alliance === data.my_alliance && p.tag === data.my_tag);
-  const key = state.sortKey, sign = state.ascending ? 1 : -1;
-  return players.slice().sort((a, b) => {
-    const x = get(a, key), y = get(b, key);
-    if (x === y) return 0;
-    if (x === null || x === undefined) return 1;   // a missing value always goes last
-    if (y === null || y === undefined) return -1;
-    return typeof x === "string" ? sign * x.localeCompare(y, state.lang) : sign * (x - y);
-  });
-}
-
-// heat 0 = red, 0.5 = amber, 1 = green (see aggregate.py): the hue runs red 0 -> amber 45 -> green 130
-const tint = (heat) => "hsl(" + Math.round(heat < 0.5 ? 90 * heat : 45 + 170 * (heat - 0.5)) + ", 32%, 25%)";
-
-function cell(row, text, className, value, key, player) {
-  const td = document.createElement("td");
-  td.className = className;
-  td.textContent = text;
-  if (value !== null && value !== undefined) td.dataset.value = value;
-  if (player && player.heat[key] !== null && player.heat[key] !== undefined) {
-    td.style.background = tint(player.heat[key]);
-    const phase = player.phase[key], phases = state.data.phases;
-    td.title = phase ? t("cell.phase", { phase, total: phases.length, points: fmt(phases[phase - 1]) }) : t("cell.below");
-    if (player.filled.includes(key)) {
-      td.classList.add("filled");
-      td.title = t("cell.filled");
-    }
-  }
-  row.appendChild(td);
-  return td;
-}
-
-// red below the first phase of the colour scale, green from its last, amber in between (phases 5 and 9 today)
-function statusIcon(phase) {
-  const scale = state.data.scale;
-  const color = phase >= scale[scale.length - 1].phase ? "green" : phase < scale[0].phase ? "red" : "amber";
-  const img = document.createElement("img");
-  img.className = "status";
-  img.src = "assets/" + color + ".png";   // relative: also works under /<repo>/ on GitHub Pages
-  img.alt = "";
-  return img;
-}
-
-// The top of the page: the week's duel as a panel (week-panel.js), the same as the overview's rows with the days and the
-// share of the points added. Every player of the table counts, the "my alliance" filter does not.
-function renderCompare() {
-  const box = el("compare"), data = state.data;
-  box.hidden = compareSides(data).length < 2;
-  box.replaceChildren(...(box.hidden ? [] : [weekPanel(data, { t, lang: state.lang, detailed: true })]));
-}
-
-function legend() {
-  const box = el("legend");
-  box.replaceChildren();
-  for (const step of state.data.scale) {
-    const item = document.createElement("span");
-    item.style.background = tint(step.color === "red" ? 0 : step.color === "amber" ? 0.5 : 1);
-    item.textContent = t("legend.step", { color: t("color." + step.color), phase: step.phase, points: fmt(step.points) });
-    box.appendChild(item);
-  }
-}
-
-function head(columns) {
-  const tr = document.createElement("tr");
-  for (const column of columns) {
-    const th = document.createElement("th");
-    th.className = column.text || column.left ? "text" : "";
-    if (column.title) th.title = column.title;
-    if (state.sortKey === column.key) th.className += " sorted" + (state.ascending ? " asc" : "");
-    if (column.live) th.className += " live";
-    const label = document.createElement("span");
-    label.className = "label";
-    label.textContent = column.label;
-    th.appendChild(label);
-    if (column.sub) {
-      const small = document.createElement("small");
-      small.textContent = column.sub;
-      th.appendChild(small);
-    }
-    th.onclick = () => {
-      state.ascending = state.sortKey === column.key ? !state.ascending : !!column.text;
-      state.sortKey = column.key;
-      render();
-    };
-    tr.appendChild(th);
-  }
-  return tr;
-}
 
 function render() {
-  const data = state.data;
-  if (!data) return;
-  const columns = [{ key: "rank", label: "#" }, { key: "name", label: t("col.player"), text: true },
-    { key: "alliance_rank", label: t("col.rank"), left: true, title: t("col.rank_title") },
-    { key: "alliance", label: t("col.alliance"), text: true }];
-  for (const day of data.days) {
-    columns.push({
-      key: day, label: t("weekday." + day), live: !data.final[day],
-      sub: shortDate(data.dates[day]) + (data.final[day] ? "" : " " + t("day.preliminary")),
-      title: [t("day.scanned", { time: moment(data.captured_at[day]) }), data.final[day] ? "" : t("day.preliminary_title")]
-        .filter(Boolean).join("\n"),
-    });
-  }
-  columns.push({ key: "total", label: t("col.total") }, { key: "average", label: t("col.average") });
-  const thead = document.querySelector("#table thead");
-  thead.replaceChildren(head(columns.map((c) => (c.key === "rank" ? { ...c, key: "total" } : c))));
-  const players = visiblePlayers();
-  const tbody = document.querySelector("#table tbody");
-  tbody.replaceChildren();
-  players.forEach((player, index) => {
-    const tr = document.createElement("tr");
-    const mine = player.alliance === data.my_alliance && player.tag === data.my_tag;
-    if (mine) tr.className = "mine";
-    cell(tr, index + 1, "rank");
-    cell(tr, player.name, "text name");
-    cell(tr, player.alliance_rank, "arank");
-    const alliance = cell(tr, player.alliance, "text");
-    if (player.tag) {   // on phones only the tag shows (.tagged .aname is hidden there)
-      const tag = document.createElement("span");
-      tag.className = "tag";
-      tag.textContent = "[" + player.tag + "] ";
-      const name = document.createElement("span");
-      name.className = "aname";
-      name.textContent = player.alliance;
-      alliance.className += " tagged";
-      alliance.replaceChildren(tag, name);
-    }
-    for (const day of data.days) {
-      const value = player.points[day];
-      const td = cell(tr, value === null ? "-" : fmt(value), "num" + (value === null ? " none" : ""), value, day, player);
-      if (mine && value !== null) td.prepend(statusIcon(player.phase[day]));
-    }
-    cell(tr, fmt(player.total), "num total", player.total);
-    cell(tr, fmt(player.average), "num", player.average, "average", player);
-    tbody.appendChild(tr);
-  });
-  const live = data.days.filter((d) => !data.final[d]).map((d) => t("weekday." + d));
-  const info = [];
-  if (live.length) info.push(t("info.preliminary", { days: live.join(", ") }));
-  const latest = Object.values(data.captured_at).sort().pop();   // ISO times in UTC sort as text
-  if (latest) info.push(t("info.scanned", { time: moment(latest) }));
-  el("info").textContent = info.join(" | ");
-  legend();
-  renderCompare();
-  showMessage(players.length ? "" : t("msg.nobody"));
+  if (!state.weeks) return;
+  el("weeks").replaceChildren(...state.weeks.map((data) => weekPanel(data, { t, lang: state.lang, link: true })));
 }
-
-async function load(week) {
-  const response = await fetch("api/week/" + week + ".json");   // relative: also works under /<repo>/ on GitHub Pages
-  state.data = await response.json();
-  applyTexts();
-  render();
-}
-
-// the date without its year, in the order of the language (16. Nov or Nov 16)
-const shortDate = (iso) => new Date(iso + "T12:00:00").toLocaleDateString(state.lang, { day: "numeric", month: "short" });
-
-// a UTC timestamp as the viewer's local date and time, in the order of the language (17.11., 19:04)
-const moment = (iso) => new Date(iso).toLocaleString(state.lang, { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
 
 // the texts that render() does not rebuild: the labels of the page, its title, the language selector
 function applyTexts() {
   document.documentElement.lang = state.lang;
-  document.title = t("page.title");
+  document.title = t("overview.title");
   document.querySelectorAll("[data-i18n]").forEach((node) => { node.textContent = t(node.dataset.i18n); });
-  const data = state.data;
-  el("mineText").textContent = data && data.my_alliance ? t("header.mine_named", { name: data.my_alliance }) : t("header.mine");
   el("lang").title = t("header.language");
   el("lang").value = state.lang;
-  if (state.empty) showMessage(t("msg.none"));
+  el("message").textContent = t("msg.none");
+  el("message").hidden = !state.weeks || state.weeks.length > 0;
 }
 
 // Changes the language: loads its file (one that cannot be loaded leaves the language in use) and redraws.
@@ -269,37 +57,14 @@ async function setLanguage(lang) {
   render();
 }
 
-// The header wraps onto more lines when its texts are long (info line, language), so the column heads stick below
-// its real height: a fixed offset would leave the top of the heads hidden behind it.
-function trackHeaderHeight() {
-  const header = document.querySelector("header");
-  const set = () => document.documentElement.style.setProperty("--header-height", header.offsetHeight + "px");
-  new ResizeObserver(set).observe(header);
-  set();
-}
-
 async function start() {
-  trackHeaderHeight();
   state.dicts.en = await (await fetch("i18n/en.json")).json();   // English first: the others fall back to it
   const lang = el("lang");
   for (const [code, name] of LANGUAGES) lang.add(new Option(name, code));
-  lang.onchange = () => { localStorage.setItem("adr_lang", lang.value); setLanguage(lang.value); };
+  lang.onchange = () => { localStorage.setItem("adr_lang", lang.value); setLanguage(lang.value); };   // the details page's choice
+  const names = await (await fetch("api/weeks.json")).json();
+  state.weeks = await Promise.all(names.map(async (week) => (await fetch("api/week/" + week + ".json")).json()));
   await setLanguage(pickLanguage(localStorage.getItem("adr_lang"), navigator.languages || [navigator.language]));
-  const weeks = await (await fetch("api/weeks.json")).json();
-  if (!weeks.length) {
-    state.empty = true;
-    applyTexts();
-    return;
-  }
-  const select = el("week");
-  for (const week of weeks) select.add(new Option(week, week));
-  const wanted = new URLSearchParams(location.search).get("week");   // the overview links to a week
-  const first = weeks.includes(wanted) ? wanted : weeks[0];
-  select.value = first;
-  el("mine").checked = localStorage.getItem("adr_mine") === "1";
-  select.onchange = () => load(select.value);
-  el("mine").onchange = () => { localStorage.setItem("adr_mine", el("mine").checked ? "1" : "0"); render(); };
-  await load(first);
 }
 
 start();

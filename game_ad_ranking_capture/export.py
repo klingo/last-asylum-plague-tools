@@ -1,6 +1,6 @@
 """The viewer as a static site (for GitHub Pages): `python export.py [--out DIR]`, default `site/`.
 
-Writes `index.html` and `overview.html` (the viewer's pages), `i18n.js`, `compare.js`, `i18n/<language>.json` (its languages), `assets/*.png` (its icons), and the files the page
+Writes `index.html` (the overview) and `details.html` (the viewer's pages), `i18n.js`, `compare.js`, `i18n/<language>.json` (its languages), `assets/*.png` (its icons), and the files the page
 fetches: `api/weeks.json` (newest first) and `api/week/<year>-W<week>.json` (one table per week, from
 `aggregate.week_table`, with `corrections.json` and the member lists applied), plus `.nojekyll`. These are the same
 routes the local server answers, so the page is the same in both places, and it fetches them with relative URLs, so it
