@@ -48,11 +48,7 @@
       "other": "{n} Spieler"
     },
     "preliminary": "vorläufig: {days}",
-    "scanned": "letzter Scan: {time}",
-    "zero_members": {
-      "one": "{n} Mitglied mit 0 Punkten",
-      "other": "{n} Mitglieder mit 0 Punkten"
-    }
+    "scanned": "letzter Scan: {time}"
   },
   "compare": {
     "score": "Spielstand",
@@ -60,6 +56,7 @@
     "total": "Punkte gesamt",
     "average": "Durchschnitt pro Mitglied",
     "median": "Median pro Mitglied",
+    "zero_members": "Mitglieder mit 0 Punkten",
     "versus": "{a} gegen {b}",
     "members": {
       "one": "{n} Mitglied",

@@ -138,7 +138,7 @@ def test_texts_are_found_filled_and_pluralised_in_node():
           t("en", "info.players", {{n: 1}}), t("en", "info.players", {{n: 0}}), t("en", "info.players", {{n: 2}}),
           t("ru", "info.players", {{n: 1}}), t("ru", "info.players", {{n: 2}}), t("ru", "info.players", {{n: 5}}),
           t("ru", "info.players", {{n: 21}}), t("ru", "info.players", {{n: 11}}), t("ru", "info.players", {{n: 112}}),
-          t("de", "info.zero_members", {{n: 1}}), t("de", "info.zero_members", {{n: 12}}),
+          t("de", "compare.members", {{n: 1}}), t("de", "compare.members", {{n: 12}}),
           t("ru", "no.such.key"), t("en", "legend.step", {{color: "red", phase: 5}})
         ]))"""
     program = f"const I = require({str(C.VIEWER_DIR / 'i18n.js')!r});\n{script}"
@@ -149,8 +149,8 @@ def test_texts_are_found_filled_and_pluralised_in_node():
         "My alliance (Mice)",
         "1 player", "0 players", "2 players",
         "1 игрок", "2 игрока", "5 игроков", "21 игрок", "11 игроков", "112 игроков",
-        "1 Mitglied mit 0 Punkten",
-        "12 Mitglieder mit 0 Punkten",
+        "1 Mitglied",
+        "12 Mitglieder",
         "no.such.key", "red ~ phase 5 ({points})",
     ]  # fmt: skip
 

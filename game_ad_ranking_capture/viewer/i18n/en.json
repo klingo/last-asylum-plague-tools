@@ -48,11 +48,7 @@
       "other": "{n} players"
     },
     "preliminary": "preliminary: {days}",
-    "scanned": "last scan: {time}",
-    "zero_members": {
-      "one": "{n} member with zero points",
-      "other": "{n} members with zero points"
-    }
+    "scanned": "last scan: {time}"
   },
   "compare": {
     "score": "Score",
@@ -60,6 +56,7 @@
     "total": "Total points",
     "average": "Average per member",
     "median": "Median per member",
+    "zero_members": "Members with 0 points",
     "versus": "{a} vs. {b}",
     "members": {
       "one": "{n} member",
