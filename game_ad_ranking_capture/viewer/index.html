@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><title>Alliance Duel rankings</title>
 <meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body { font: 14px/1.4 system-ui, sans-serif; margin: 0; background: #1b1d22; color: #e6e6e6; }
 header { position: sticky; top: 0; z-index: 2; background: #23262d; padding: 10px 14px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; border-bottom: 1px solid #000; }
@@ -54,6 +55,30 @@ tr.mine td.name { color: #6cc070; }
 #compare .days .win.s0 { justify-content: flex-end; }
 #compare .days img { height: 18px; }
 #compare .score img { height: 24px; vertical-align: middle; margin: 0 8px; }
+/* phones: the header scrolls away, the table scrolls on its own (the column heads stick to its top), the compare box is one column */
+@media (max-width: 640px) {
+  body { font-size: 13px; }
+  header { position: static; padding: 8px 10px; gap: 8px 12px; }
+  #info { flex-basis: 100%; margin-left: 0; font-size: 12px; }
+  #legend { flex-wrap: wrap; gap: 6px; }
+  #legend span { padding: 1px 6px; }
+  #tablebox { max-height: 100dvh; overflow: auto; }   /* the table scrolls on its own, both ways, its heads stick to its top */
+  th { top: 0; }
+  th, td { padding: 6px 16px; }
+  td.num { position: relative; padding-left: 38px; }   /* room for the status icon in every cell, so the numbers line up with or without it */
+  td.tagged .aname { display: none; }
+  img.status { position: absolute; left: 12px; top: 50%; float: none; margin: -8px 0 0; }
+  th:nth-child(1), td:nth-child(1), th:nth-child(3), td:nth-child(3) { display: none; }   /* the # and the alliance rank */
+  th:nth-child(2), td:nth-child(2) { position: sticky; left: 0; }   /* the player's name stays in view while the table scrolls sideways */
+  th:nth-child(2) { z-index: 2; }
+  td:nth-child(2) { background: #1b1d22; z-index: 1; }
+  #compare { padding: 8px 10px; gap: 12px; }
+  #compare .stats { flex-basis: 100%; max-width: none; gap: 3px 12px; }
+  #compare .stats > div { white-space: normal; overflow-wrap: anywhere; }
+  #compare .days { flex-basis: 100%; }
+  #compare .score { order: -1; flex-basis: 100%; }
+  #compare .score .value { font-size: 32px; }
+}
 </style></head>
 <body>
 <header>
@@ -65,7 +90,7 @@ tr.mine td.name { color: #6cc070; }
 </header>
 <div id="compare" hidden></div>
 <div id="message" hidden></div>
-<table id="table" hidden><thead></thead><tbody></tbody></table>
+<div id="tablebox"><table id="table" hidden><thead></thead><tbody></tbody></table></div>
 <script src="i18n.js"></script>
 <script>
 const DAYS = ["mon", "tue", "wed", "thu", "fri", "sat"];
@@ -311,11 +336,15 @@ function render() {
     cell(tr, player.name, "text name");
     cell(tr, player.alliance_rank, "arank");
     const alliance = cell(tr, player.alliance, "text");
-    if (player.tag) {
+    if (player.tag) {   // on phones only the tag shows (.tagged .aname is hidden there)
       const tag = document.createElement("span");
       tag.className = "tag";
       tag.textContent = "[" + player.tag + "] ";
-      alliance.prepend(tag);
+      const name = document.createElement("span");
+      name.className = "aname";
+      name.textContent = player.alliance;
+      alliance.className += " tagged";
+      alliance.replaceChildren(tag, name);
     }
     for (const day of data.days) {
       const value = player.points[day];
