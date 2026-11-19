@@ -287,6 +287,9 @@
  "hero_skills:heroes.billy.skills.ultimate.name": {
   "source": "tables/HeroSkillBase:5000920.skillName"
  },
+ "hero_skills:heroes.billy.weapon.name": {
+  "source": "tables/HeroInfo:50009.ueName"
+ },
  "hero_skills:heroes.cynthia.awakening_skills[0].description": {
   "source": "tables/HeroAwakenShow:16.awakenSkillDesc"
  },
@@ -632,6 +635,9 @@
  "hero_skills:heroes.redlady.skills.ultimate.name": {
   "source": "tables/HeroSkillBase:5000720.skillName"
  },
+ "hero_skills:heroes.redlady.weapon.name": {
+  "source": "tables/HeroInfo:50007.ueName"
+ },
  "hero_skills:heroes.shadow.note": {
   "source": null
  },
@@ -793,6 +799,9 @@
  },
  "hero_skills:heroes.zoya.skills.ultimate.name": {
   "source": "tables/HeroSkillBase:5000320.skillName"
+ },
+ "hero_skills:heroes.zoya.weapon.name": {
+  "source": "tables/HeroInfo:50003.ueName"
  },
  "lord_specialty:lords.handyman.description": {
   "source": "tables/LordJob:1.desc"

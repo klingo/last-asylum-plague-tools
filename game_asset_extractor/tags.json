@@ -2224,18 +2224,22 @@
   "exclusive weapon"
  ],
  "pictures/Zombie_ItemIcon144/icon_ue_50001": [
+  "daskal",
   "exclusive weapon"
  ],
  "pictures/Zombie_ItemIcon144/icon_ue_50005": [
-  "exclusive weapon"
+  "exclusive weapon",
+  "louis"
  ],
  "pictures/Zombie_ItemIcon144/icon_ue_50006": [
   "exclusive weapon"
  ],
  "pictures/Zombie_ItemIcon144/icon_ue_50010": [
-  "exclusive weapon"
+  "exclusive weapon",
+  "ulfrid"
  ],
  "pictures/Zombie_ItemIcon144/icon_ue_50011": [
+  "annie",
   "exclusive weapon"
  ],
  "pictures/Zombie_ItemIcon144/icon_ue_zixuanbox_1": [
@@ -2289,12 +2293,15 @@
   "chest"
  ],
  "pictures/Zombie_ItemIcon144/icon_zhuanwusuipian_50001": [
+  "daskal",
   "weapon shard"
  ],
  "pictures/Zombie_ItemIcon144/icon_zhuanwusuipian_50005": [
+  "louis",
   "weapon shard"
  ],
  "pictures/Zombie_ItemIcon144/icon_zhuanwusuipian_50010": [
+  "ulfrid",
   "weapon shard"
  ],
  "pictures/Zombie_ItemIcon144/icon_zhuanwutongyong": [
