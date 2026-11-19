@@ -43,11 +43,7 @@
     "filled": "Not in this day's ranking: an alliance member with 0 points"
   },
   "info": {
-    "players": {
-      "one": "{n} player",
-      "other": "{n} players"
-    },
-    "preliminary": "preliminary: {days}",
+    "preliminary": "Preliminary points: {days}",
     "scanned": "last scan: {time}"
   },
   "compare": {

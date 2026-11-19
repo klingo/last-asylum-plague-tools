@@ -135,9 +135,9 @@ def test_texts_are_found_filled_and_pluralised_in_node():
         console.log(JSON.stringify([
           t("en", "col.player"), t("de", "col.player"), t("ru", "col.player"),
           t("en", "header.mine_named", {{name: "Mice"}}),
-          t("en", "info.players", {{n: 1}}), t("en", "info.players", {{n: 0}}), t("en", "info.players", {{n: 2}}),
-          t("ru", "info.players", {{n: 1}}), t("ru", "info.players", {{n: 2}}), t("ru", "info.players", {{n: 5}}),
-          t("ru", "info.players", {{n: 21}}), t("ru", "info.players", {{n: 11}}), t("ru", "info.players", {{n: 112}}),
+          t("en", "compare.members", {{n: 1}}), t("en", "compare.members", {{n: 0}}), t("en", "compare.members", {{n: 2}}),
+          t("ru", "compare.members", {{n: 1}}), t("ru", "compare.members", {{n: 2}}), t("ru", "compare.members", {{n: 5}}),
+          t("ru", "compare.members", {{n: 21}}), t("ru", "compare.members", {{n: 11}}), t("ru", "compare.members", {{n: 112}}),
           t("de", "compare.members", {{n: 1}}), t("de", "compare.members", {{n: 12}}),
           t("ru", "no.such.key"), t("en", "legend.step", {{color: "red", phase: 5}})
         ]))"""
@@ -147,8 +147,8 @@ def test_texts_are_found_filled_and_pluralised_in_node():
     assert json.loads(done.stdout) == [
         "Player", "Spieler", "Игрок",
         "My alliance (Mice)",
-        "1 player", "0 players", "2 players",
-        "1 игрок", "2 игрока", "5 игроков", "21 игрок", "11 игроков", "112 игроков",
+        "1 member", "0 members", "2 members",
+        "1 участник", "2 участника", "5 участников", "21 участник", "11 участников", "112 участников",
         "1 Mitglied",
         "12 Mitglieder",
         "no.such.key", "red ~ phase 5 ({points})",

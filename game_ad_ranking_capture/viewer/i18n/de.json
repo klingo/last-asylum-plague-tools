@@ -43,11 +43,7 @@
     "filled": "Nicht in der Rangliste dieses Tages: Allianzmitglied mit 0 Punkten"
   },
   "info": {
-    "players": {
-      "one": "{n} Spieler",
-      "other": "{n} Spieler"
-    },
-    "preliminary": "vorläufig: {days}",
+    "preliminary": "Vorläufige Punkte: {days}",
     "scanned": "letzter Scan: {time}"
   },
   "compare": {

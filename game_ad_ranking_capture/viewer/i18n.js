@@ -14,7 +14,7 @@ function pickLanguage(saved, preferred) {
   return "en";
 }
 
-// dict["info"]["players"] for "info.players"
+// dict["info"]["scanned"] for "info.scanned"
 function lookup(dict, key) {
   return key.split(".").reduce((node, part) => (node !== null && typeof node === "object" ? node[part] : undefined), dict);
 }
