@@ -1,5 +1,5 @@
 "use strict";
-// The duel between the two alliances of a week table, worked out for the details page's compare box and the overview
+// The duel between the two alliances of a week table, worked out for the week panel (the details page's top and the overview)
 // (no DOM: tests/test_compare.py runs it in Node). `data` is a week table of the API (`aggregate.week_table`).
 const DAYS = ["mon", "tue", "wed", "thu", "fri", "sat"];
 const WIN_POINTS = { mon: 1, tue: 2, wed: 2, thu: 2, fri: 2, sat: 4 };   // what winning a day gives

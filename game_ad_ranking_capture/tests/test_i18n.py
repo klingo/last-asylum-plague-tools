@@ -18,6 +18,7 @@ LANGUAGES = ("en", "de", "ru")
 PLURAL_FORMS = {"en": {"one", "other"}, "de": {"one", "other"}, "ru": {"one", "few", "many", "other"}}
 PAGE = (C.VIEWER_DIR / "index.html").read_text(encoding="utf-8")
 OVERVIEW = (C.VIEWER_DIR / "overview.html").read_text(encoding="utf-8")
+PANEL = (C.VIEWER_DIR / "week-panel.js").read_text(encoding="utf-8")
 
 
 def load(language: str) -> dict:
@@ -78,7 +79,7 @@ def test_a_translation_is_not_a_copy_of_english_unless_the_word_is_the_same():
 
 def used_keys() -> tuple[set[str], set[str]]:
     """(the keys the page asks for by name, the groups it asks for with a computed key such as "weekday." + day)."""
-    both = PAGE + OVERVIEW
+    both = PAGE + OVERVIEW + PANEL
     asked = set(re.findall(r'\bt\("([\w.]+)"', both)) | set(re.findall(r'data-i18n="([\w.]+)"', both))
     groups = set(re.findall(r'\bt\("([\w]+\.)" \+', both))
     return {key for key in asked if key not in groups}, groups

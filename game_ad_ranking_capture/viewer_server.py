@@ -46,7 +46,7 @@ def make_handler(directory: Path, viewer_dir: Path) -> type[http.server.BaseHTTP
         def do_GET(self) -> None:  # noqa: N802
             path = self.path.split("?", 1)[0]
             if path in PAGE_FILES:
-                kind = "text/javascript" if path.endswith(".js") else "text/html"
+                kind = {".js": "text/javascript", ".css": "text/css"}.get(Path(path).suffix, "text/html")
                 self.reply(200, (viewer_dir / PAGE_FILES[path]).read_bytes(), kind + "; charset=utf-8")
             elif LANGUAGE_FILE.match(path) and LANGUAGE_FILE.match(path).group(1) in languages():
                 # the file is one that exists (found by listing the folder), not a path made from the request

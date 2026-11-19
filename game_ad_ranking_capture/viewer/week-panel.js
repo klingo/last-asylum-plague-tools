@@ -1,0 +1,100 @@
+"use strict";
+// The week's duel as a panel: the overview's rows and the top of the details page (week-panel.css; needs i18n.js and
+// compare.js loaded first). The calendar week and its dates, the two alliances with the score of the duel (the icon beside
+// the winner), and their points with what a member has on average and in the middle. `detailed` adds the share bar of the
+// points, the members with 0 points and every day's bar; `link` makes the panel a link to the details of the week.
+
+function add(parent, text, className, tag = "div") {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  node.textContent = text;
+  parent.appendChild(node);
+  return node;
+}
+
+function winImage() {
+  const img = document.createElement("img");
+  img.src = "assets/win.png";   // relative: also works under /<repo>/ on GitHub Pages
+  img.alt = "";
+  return img;
+}
+
+// The place for the winner's icon beside a side (kept free on the other, so the score stays in the middle)
+function winIcon(className, show) {
+  const box = document.createElement("span");
+  box.className = "icon " + className;
+  if (show) box.appendChild(winImage());
+  return box;
+}
+
+// The bar that splits 100 % between two values (the share of each, rounded so that the two make 100); none without points.
+function shareBar(values) {
+  const both = values[0] + values[1];
+  if (!both) return null;
+  const first = Math.round((100 * values[0]) / both), shares = [first, 100 - first];
+  const bar = document.createElement("div");
+  bar.className = "bar";
+  values.forEach((_, index) => { add(bar, shares[index] + "%", "s" + index, "span").style.width = shares[index] + "%"; });
+  return bar;
+}
+
+// Monday to Saturday of the week, without a repeated month or year (Nov 16 - 21, 2026), in the order of the language
+function dateRange(start, lang) {
+  const from = new Date(start + "T12:00:00"), to = new Date(from);
+  to.setDate(to.getDate() + DAYS.length - 1);
+  return new Intl.DateTimeFormat(lang, { day: "numeric", month: "short", year: "numeric" }).formatRange(from, to);
+}
+
+function weekPanel(data, { t, lang, detailed = false, link = false }) {
+  const sides = compareSides(data);
+  const panel = document.createElement(link ? "a" : "div");
+  panel.className = "week";
+  if (link) panel.href = "index.html?week=" + encodeURIComponent(data.week);   // the details page selects this week
+  const duel = sides.length === 2 ? duelDays(data, sides) : null;
+  const when = add(panel, "", "when");
+  add(when, t("duel.week", { n: Number(data.week.split("-W")[1]) }), "nr");
+  add(when, dateRange(data.start, lang), "dates");
+  const done = duel && DAYS.every((day) => data.days.includes(day) && data.final[day]);
+  if (!done) add(when, t("duel.in_progress"), "live").title = t("duel.in_progress_title");
+  if (!duel) return panel;
+  const row = add(panel, "", "duel");
+  row.title = t("compare.score_title", { first: WIN_POINTS.mon, last: WIN_POINTS.sat, other: WIN_POINTS.tue });
+  const side = (index) => {
+    const box = add(row, "", "side s" + index);
+    add(box, sides[index].tag || sides[index].alliance, "tag");
+    if (sides[index].tag) add(box, sides[index].alliance, "name");
+  };
+  row.appendChild(winIcon("s0", duel.winner === 0));
+  side(0);
+  const score = add(row, "", "score");
+  add(score, duel.won[0], "s0", "span");
+  score.append(" : ");
+  add(score, duel.won[1], "s1", "span");
+  side(1);
+  row.appendChild(winIcon("s1", duel.winner === 1));
+  const stats = add(panel, "", "stats");
+  add(stats, "", "label");
+  sides.forEach((s, index) => add(stats, t("compare.members", { n: s.members }), "head s" + index));
+  const bar = detailed && shareBar(sides.map((s) => s.total));
+  if (bar) stats.appendChild(bar);
+  const rows = [["total", t("compare.total")], ["average", t("compare.average")], ["median", t("compare.median")]];
+  if (detailed) rows.push(["zero", t("compare.zero_members")]);
+  for (const [key, label] of rows) {
+    add(stats, label, "label");
+    sides.forEach((s, index) => add(stats, fmt(s[key]), s[key] > sides[1 - index][key] ? "lead" : ""));   // the higher one is bold
+  }
+  if (detailed) {   // the days underneath each other, to compare them: the weekday, the share bar, the icon beside the winner
+    const days = add(panel, "", "days");
+    for (const { day, points, winner } of duel.days) {
+      const dayBar = shareBar(points);
+      if (dayBar) dayBar.title = t("compare.versus", { a: fmt(points[0]), b: fmt(points[1]) });
+      add(days, t("weekday." + day), "label");
+      sides.forEach((_, index) => {
+        const cell = add(days, "", "win s" + index);
+        if (index === winner) cell.appendChild(winImage());
+        if (index === 0) days.appendChild(dayBar || document.createElement("div"));
+      });
+    }
+  }
+  return panel;
+}

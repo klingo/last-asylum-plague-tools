@@ -7,12 +7,15 @@
     "details": "Details"
   },
   "overview": {
-    "title": "Alliance Duel overview",
+    "title": "Alliance Duel overview"
+  },
+  "duel": {
     "week": "Week {n}",
     "in_progress": "In progress",
     "in_progress_title": "Not every day of this week is finished yet, so the score and the points can still change"
   },
   "header": {
+    "title": "Alliance Duel",
     "week": "Week",
     "mine": "My alliance",
     "mine_named": "My alliance ({name})",
@@ -57,7 +60,6 @@
     "scanned": "last scan: {time}"
   },
   "compare": {
-    "score": "Score",
     "score_title": "Winning a day gives points: Monday {first}, Saturday {last}, every other day {other}. Only finished days count.",
     "total": "Total points",
     "average": "Average per member",

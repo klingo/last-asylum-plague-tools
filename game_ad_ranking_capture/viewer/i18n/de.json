@@ -7,12 +7,15 @@
     "details": "Details"
   },
   "overview": {
-    "title": "Allianz-Duell: Übersicht",
+    "title": "Allianz-Duell: Übersicht"
+  },
+  "duel": {
     "week": "Woche {n}",
     "in_progress": "Läuft noch",
     "in_progress_title": "Noch nicht jeder Tag dieser Woche ist beendet, Spielstand und Punkte können sich also noch ändern"
   },
   "header": {
+    "title": "Allianz-Duell",
     "week": "Woche",
     "mine": "Meine Allianz",
     "mine_named": "Meine Allianz ({name})",
@@ -57,7 +60,6 @@
     "scanned": "letzter Scan: {time}"
   },
   "compare": {
-    "score": "Spielstand",
     "score_title": "Einen Tag zu gewinnen gibt Punkte: Montag {first}, Samstag {last}, jeder andere Tag {other}. Nur beendete Tage zählen.",
     "total": "Punkte gesamt",
     "average": "Durchschnitt pro Mitglied",

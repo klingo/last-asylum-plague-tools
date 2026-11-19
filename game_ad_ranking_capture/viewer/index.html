@@ -2,14 +2,9 @@
 <html lang="en"><head><meta charset="utf-8"><title>Alliance Duel rankings</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="week-panel.css">
 <style>
-body { font: 14px/1.4 system-ui, sans-serif; margin: 0; background: #1b1d22; color: #e6e6e6; }
-header { position: sticky; top: 0; z-index: 2; background: #23262d; padding: 10px 14px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; border-bottom: 1px solid #000; }
-select { background: #14161a; color: inherit; border: 1px solid #444; border-radius: 4px; padding: 5px 8px; font: inherit; }
-label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
-a { color: #6aa0d8; text-decoration: none; }
-a:hover { text-decoration: underline; }
-#info { margin-left: auto; color: #9aa; }
 #message { padding: 24px 14px; color: #c9a227; }
 table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
 th, td { padding: 5px 10px; border-bottom: 1px solid #2c2f37; white-space: nowrap; }
@@ -31,37 +26,9 @@ tr.mine td.name { color: #6cc070; }
 .tag { color: #8a93a0; }
 #legend { display: flex; gap: 12px; align-items: center; color: #9aa; font-size: 12px; }
 #legend span { padding: 1px 8px; border-radius: 3px; color: #e6e6e6; }
-#lang { font-size: 12px; padding: 3px 6px; }
-#compare { display: flex; flex-wrap: wrap; gap: 10px 48px; padding: 8px 14px; font-variant-numeric: tabular-nums; }
-#compare .stats { display: grid; grid-template-columns: max-content minmax(0, 1fr) minmax(0, 1fr); gap: 3px 24px; align-content: start; flex: 1 1 460px; max-width: 640px; }
-#compare .days { display: grid; grid-template-columns: max-content 52px minmax(120px, 1fr) 52px; gap: 3px 6px; align-content: start; flex: 0 1 420px; }
-#compare .stats > div { text-align: right; white-space: nowrap; }
-#compare .label { text-align: left; color: #9aa; }
-#compare .head { font-weight: 600; }
-#compare .head small { display: block; font-weight: normal; color: #8a93a0; }
-#compare .s0.head { color: #6aa0d8; }
-#compare .s1.head { color: #e0685f; }
-#compare .score { margin: 0 auto; align-self: center; text-align: center; }
-#compare .score .label { text-align: center; }
-#compare .score .value { font-size: 40px; font-weight: 700; line-height: 1.2; }
-#compare .score .short { font-size: 14px; font-weight: normal; }
-#compare .score .s0 { color: #6aa0d8; }
-#compare .score .s1 { color: #e0685f; }
-#compare .lead { font-weight: 600; }
-#compare .bar { display: flex; height: 18px; border-radius: 3px; overflow: hidden; }
-#compare .stats .bar { grid-column: 2 / 4; }
-#compare .bar span { box-sizing: border-box; padding: 0 6px; overflow: hidden; font-size: 12px; line-height: 18px; color: #111; }
-#compare .bar .s0 { background: #6aa0d8; }
-#compare .bar .s1 { background: #e0685f; text-align: right; }
-#compare .days .win { display: flex; align-items: center; }
-#compare .days .win.s0 { justify-content: flex-end; }
-#compare .days img { height: 18px; }
-#compare .score img { height: 24px; vertical-align: middle; margin: 0 8px; }
-/* phones: the header scrolls away, the table scrolls on its own (the column heads stick to its top), the compare box is one column */
+#compare { margin: 0 14px; }
+/* phones: the header scrolls away, the table scrolls on its own (the column heads stick to its top), the week panel is one column */
 @media (max-width: 640px) {
-  body { font-size: 13px; }
-  header { position: static; padding: 8px 10px; gap: 8px 12px; }
-  #info { flex-basis: 100%; margin-left: 0; font-size: 12px; }
   #legend { flex-wrap: wrap; gap: 6px; }
   #legend span { padding: 1px 6px; }
   #tablebox { max-height: 100dvh; overflow: auto; }   /* the table scrolls on its own, both ways, its heads stick to its top */
@@ -74,28 +41,29 @@ tr.mine td.name { color: #6cc070; }
   th:nth-child(2), td:nth-child(2) { position: sticky; left: 0; }   /* the player's name stays in view while the table scrolls sideways */
   th:nth-child(2) { z-index: 2; }
   td:nth-child(2) { background: #1b1d22; z-index: 1; }
-  #compare { padding: 8px 10px; gap: 12px; }
-  #compare .stats { flex-basis: 100%; max-width: none; gap: 3px 12px; }
-  #compare .stats > div { white-space: normal; overflow-wrap: anywhere; }
-  #compare .days { flex-basis: 100%; }
-  #compare .score { order: -1; flex-basis: 100%; }
-  #compare .score .value { font-size: 32px; }
+  #compare { margin: 0 10px; }
 }
 </style></head>
 <body>
 <header>
-  <a id="nav" href="overview.html" data-i18n="nav.overview"></a>
-  <label><span data-i18n="header.week"></span> <select id="week"></select></label>
-  <span id="legend"></span>
-  <label><input type="checkbox" id="mine"> <span id="mineText"></span></label>
-  <span id="info"></span>
+  <h1 data-i18n="header.title"></h1>
+  <nav><a href="overview.html" data-i18n="nav.overview"></a> <span class="current" data-i18n="nav.details"></span></nav>
   <select id="lang"></select>
 </header>
+<div class="toolbar">
+  <label><span data-i18n="header.week"></span> <select id="week"></select></label>
+  <span id="info" class="info"></span>
+</div>
 <div id="compare" hidden></div>
+<div class="toolbar">
+  <label><input type="checkbox" id="mine"> <span id="mineText"></span></label>
+  <span id="legend"></span>
+</div>
 <div id="message" hidden></div>
 <div id="tablebox"><table id="table" hidden><thead></thead><tbody></tbody></table></div>
 <script src="i18n.js"></script>
 <script src="compare.js"></script>
+<script src="week-panel.js"></script>
 <script>
 // dicts: the loaded language files by code; empty: the "no rankings yet" message is showing
 const state = { data: null, sortKey: "total", ascending: false, lang: "en", dicts: {}, empty: false };
@@ -158,91 +126,12 @@ function statusIcon(phase) {
   return img;
 }
 
-function winIcon() {
-  const img = document.createElement("img");
-  img.src = "assets/win.png";   // relative: also works under /<repo>/ on GitHub Pages
-  img.alt = "";
-  return img;
-}
-
-// The bar that splits 100 % between two values (the share of each, rounded so that the two make 100); none without points.
-function shareBar(values) {
-  const both = values[0] + values[1];
-  if (!both) return null;
-  const first = Math.round((100 * values[0]) / both), shares = [first, 100 - first];
-  const bar = document.createElement("div");
-  bar.className = "bar";
-  values.forEach((_, index) => {
-    const part = document.createElement("span");
-    part.className = "s" + index;
-    part.style.width = shares[index] + "%";
-    part.textContent = shares[index] + "%";
-    bar.appendChild(part);
-  });
-  return bar;
-}
-
-// The two alliances side by side, the own one first (blue, the other red). Left: their points of the week so far
-// with the share of the two, and what a member has on average and in the middle, and how many have 0 points in total.
-// Right: the same share bar for every day, the winner of a finished day marked. Every player of the table counts, the
-// "my alliance" filter does not. The numbers come from compare.js.
+// The top of the page: the week's duel as a panel (week-panel.js), the same as the overview's rows with the days and the
+// share of the points added. Every player of the table counts, the "my alliance" filter does not.
 function renderCompare() {
   const box = el("compare"), data = state.data;
-  const sides = compareSides(data);
-  box.replaceChildren();
-  box.hidden = sides.length < 2;
-  if (box.hidden) return;
-  const add = (parent, text, className) => {
-    const div = document.createElement("div");
-    div.className = className || "";
-    div.textContent = text;
-    parent.appendChild(div);
-    return div;
-  };
-  const stats = add(box, "", "stats");
-  add(stats, "", "label");
-  sides.forEach((side, index) => {
-    const head = add(stats, (side.tag ? "[" + side.tag + "] " : "") + side.alliance, "head s" + index);
-    const members = document.createElement("small");
-    members.textContent = t("compare.members", { n: side.members });
-    head.appendChild(members);
-  });
-  const bar = shareBar(sides.map((side) => side.total));
-  if (bar) stats.appendChild(bar);
-  const rows = [["total", t("compare.total")], ["average", t("compare.average")], ["median", t("compare.median")], ["zero", t("compare.zero_members")]];
-  for (const [key, label] of rows) {
-    add(stats, label, "label");
-    sides.forEach((side, index) => {
-      const lead = side[key] > sides[1 - index][key];   // the higher one is bold
-      add(stats, fmt(side[key]), lead ? "lead" : "");
-    });
-  }
-  const score = add(box, "", "score");   // between the two halves
-  const days = add(box, "", "days");
-  const duel = duelDays(data, sides);
-  for (const { day, points, winner } of duel.days) {
-    const dayBar = shareBar(points);
-    if (dayBar) dayBar.title = t("compare.versus", { a: fmt(points[0]), b: fmt(points[1]) });
-    add(days, t("weekday." + day), "label");
-    sides.forEach((_, index) => {
-      const cell = add(days, "", "win s" + index);
-      if (index === winner) {
-        cell.appendChild(winIcon());
-      }
-      if (index === 0) days.appendChild(dayBar || document.createElement("div"));
-    });
-  }
-  score.title = t("compare.score_title", { first: WIN_POINTS.mon, last: WIN_POINTS.sat, other: WIN_POINTS.tue });
-  add(score, t("compare.score"), "label");
-  const value = add(score, "", "value");
-  const part = (text, className) => { add(value, text, className).style.display = "inline"; };
-  if (duel.winner === 0) value.appendChild(winIcon());   // the duel is decided: its winner gets the icon
-  part(sides[0].tag || sides[0].alliance, "short s0");
-  part(" " + duel.won[0], "s0");
-  value.append(" : ");
-  part(duel.won[1] + " ", "s1");
-  part(sides[1].tag || sides[1].alliance, "short s1");
-  if (duel.winner === 1) value.appendChild(winIcon());
+  box.hidden = compareSides(data).length < 2;
+  box.replaceChildren(...(box.hidden ? [] : [weekPanel(data, { t, lang: state.lang, detailed: true })]));
 }
 
 function legend() {

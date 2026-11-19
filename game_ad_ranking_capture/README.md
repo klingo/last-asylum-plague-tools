@@ -104,16 +104,24 @@ taken, and hovering a day's heading shows when that day was scanned (both in the
 (`viewer/assets/`): `red.png` below phase 5, `green.png` from phase 9, `amber.png` in between (the first and last phase
 of the colour scale in `config.py`).
 
-Above the table, a box compares the two alliances (yours blue, the other red; the "My alliance" filter does not change
-it). Left: the points of the week so far with each one's share, and the average and median per member (a member's total
-for the week; your alliance counts its roster members with 0 points, the other the players the lists show, plus, if
-you enter `"opponent_members": 100` in the week file's `meta` by hand, nameless members with 0 points up to that count). Right:
-the same share bar for every day (all weekdays are listed, a day without data has no bar; hover a bar for the two point totals), with `win.png` on the side of the winner of a finished day. In the middle the score: a won day gives points (Monday 1, Saturday 4, the other days 2), only finished days count, yours first; whoever reaches 7 of the 13 points has won and gets `win.png` beside their tag.
+Both pages have the same header (`viewer/base.css`): the title, the links to the overview and the details, and the language
+selector. On the details page a bar below it has the week selector and the info line (preliminary days, last scan), and a bar
+above the table the "My alliance" filter and the colour legend.
+
+Above the table, a panel shows the week's duel (yours blue, the other red; the "My alliance" filter does not change
+it), built by `viewer/week-panel.js` like the overview's rows. Left: the calendar week, its dates and "In progress" while a day
+is not finished. In the middle the score: a won day gives points (Monday 1, Saturday 4, the other days 2), only finished days count,
+yours first; whoever reaches 7 of the 13 points has won and gets `win.png` beside their tag. Right: the points of the week so
+far with each one's share bar, the average and median per member and the members with 0 points (a member's total for the week; your
+alliance counts its roster members with 0 points, the other the players the lists show, plus, if you enter
+`"opponent_members": 100` in the week file's `meta` by hand, nameless members with 0 points up to that count). At the far
+right (below the stats on a narrower window) the weekdays underneath each other, one share bar each (a day without data has no
+bar; hover a bar for the two point totals), with `win.png` on the side of the winner of a finished day.
 
 **Overview** (`overview.html`, the "Overview" link in the details page's header): one panel per week, newest first: the
 calendar week and its dates, the two alliances with the score of the duel (`win.png` beside the winner once it is decided,
 "In progress" while a day is not finished), and their total points and average / median per member. A panel opens the
-details page (`index.html?week=<week>`) with that week selected. The numbers are the compare box's (`viewer/compare.js`).
+details page (`index.html?week=<week>`) with that week selected. The panel is the same as the details page's (`viewer/week-panel.js`, `week-panel.css`), without the days and the share bar; the numbers come from `viewer/compare.js`.
 
 **Languages**: English, German and Russian. The page starts in the browser's language (the first of its preferred
 languages that is supported, else English); a small selector in the top-right corner changes it and the choice is
