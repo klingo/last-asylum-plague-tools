@@ -36,6 +36,37 @@ def test_screens_are_told_apart_by_their_text():
     assert screens.identify(words("Alliance Duel", cy=900), HEIGHT) is screens.Screen.OTHER  # only a title counts
 
 
+def details_words(left="#127", right="#122"):
+    """The Duel's Details tab as the OCR returns it: the title, then the server numbers under the two flags."""
+    return words("Alliance Duel", cy=50) + [
+        word("Daily Score Overview", 180, 346),
+        word(left, 65, 762),
+        word("Vs", 520, 757),
+        word(right, 940, 761),
+        word("[SolM]SwarmOfInfectedMice", 65, 808),
+        word("46%", 220, 688),
+    ]
+
+
+def test_the_details_tab_is_recognised_and_its_server_numbers_are_read_left_and_right():
+    found = details_words()
+    assert screens.identify(found, HEIGHT) is screens.Screen.DUEL
+    assert screens.on_details(found) and not screens.on_details(words("Alliance Duel", "Theme", "Details", cy=50))
+    assert screens.server_numbers(found, WIDTH, HEIGHT) == (127, 122)
+    assert screens.server_numbers(details_words("127", "# 122"), WIDTH, HEIGHT) == (127, 122)  # a '#' the OCR dropped
+
+
+def test_server_numbers_are_only_taken_when_each_side_has_exactly_one_clear_number():
+    assert screens.server_numbers(details_words("#12x", "#122"), WIDTH, HEIGHT) is None  # unreadable
+    assert screens.server_numbers(details_words(right="oops"), WIDTH, HEIGHT) is None
+    assert screens.server_numbers(details_words() + [word("#5", 70, 765)], WIDTH, HEIGHT) is None  # two on one side
+    assert screens.server_numbers([w for w in details_words() if w.text != "#122"], WIDTH, HEIGHT) is None
+    unsure = [w if w.text != "#127" else word("#127", 65, 762, score=0.5) for w in details_words()]
+    assert screens.server_numbers(unsure, WIDTH, HEIGHT) is None
+    elsewhere = [word("#127", 65, 1200), word("#122", 940, 1200)]  # outside the band: some other number
+    assert screens.server_numbers(elsewhere, WIDTH, HEIGHT) is None
+
+
 def tab_words():
     return {day: word(label, 127 + 167 * i, 304) for i, (day, label) in enumerate(C.DAY_LABELS.items())}
 
@@ -105,6 +136,40 @@ def test_navigation_goes_from_the_duel_to_the_rank_screen():
     assert any(w.text == "Weekly" for w in found)
 
 
+def test_navigation_opens_the_details_tab_from_the_map_and_from_another_tab_of_the_duel():
+    for start in ("map", "duel"):
+        game = FakeGame(start)
+        screen_words = {
+            "map": words("Squad", "Hero", "Territory"),
+            "duel": words("Alliance Duel", cy=50) + [word("Details", 400, 209), word("Theme", 130, 212)],
+            "details": details_words(),
+        }
+        navigator = screens.Navigator(game, FakeOcr(game, screen_words), lambda text: None)
+        navigator.template = cv2.imread(str(C.TEMPLATES_DIR / "duel_icon.png"))
+        original = game.tap
+        order = {"map": "duel", "duel": "details", "details": "details"}
+        game.tap = lambda x, y: (original(x, y), setattr(game, "shows", order[game.shows]))
+        if start == "map":  # the icon is found on the frame itself: give the fake map one
+            template = navigator.template
+            navigator.device.settled = lambda: np.pad(template, ((462, HEIGHT - 462 - template.shape[0]), (938, WIDTH - 938 - template.shape[1]), (0, 0)))
+        frame, found = navigator.open_details()
+        assert screens.on_details(found) and game.shows == "details"
+        assert game.taps[-1] == (round(400 + (40 + 12 * 7) / 2), 209)  # the Details tab's label, the last tap
+        assert len(game.taps) == (2 if start == "map" else 1)
+
+
+def test_navigation_does_not_tap_around_when_the_details_tab_is_missing_or_does_not_open():
+    game = FakeGame("duel")
+    navigator = screens.Navigator(game, FakeOcr(game, {"duel": words("Alliance Duel", cy=50)}), lambda text: None)
+    with pytest.raises(screens.NavigationError, match="Details tab was not found"):
+        navigator.open_details()
+    assert game.taps == []
+    stuck = FakeOcr(game, {"duel": words("Alliance Duel", cy=50) + [word("Details", 400, 209)]})
+    with pytest.raises(screens.NavigationError, match="did not open"):
+        screens.Navigator(game, stuck, lambda text: None).open_details()
+    assert len(game.taps) == 1
+
+
 def test_navigation_gives_up_instead_of_tapping_around_blindly():
     game = FakeGame("other")
     navigator = screens.Navigator(game, FakeOcr(game, {"other": words("Chat", cy=50)}), lambda text: None)
@@ -128,6 +193,15 @@ class FakeNavigator:
 
     def __init__(self, device, ocr, progress):
         pass
+
+    details = None  # what the Details tab reads: words, or an error to raise
+    opened = []
+
+    def open_details(self):
+        FakeNavigator.opened.append(1)
+        if isinstance(FakeNavigator.details, Exception):
+            raise FakeNavigator.details
+        return np.zeros((HEIGHT, WIDTH, 3), np.uint8), FakeNavigator.details or details_words()
 
     def open_rank(self):
         return np.zeros((HEIGHT, WIDTH, 3), np.uint8), list(tab_words().values()) + [word("Daily", 115, 185)]
@@ -187,7 +261,13 @@ def test_a_capture_reads_final_and_live_days_and_skips_what_is_not_there(tmp_pat
     ]
     week = store.load("2026-W47", tmp_path)
     assert (week["days"]["mon"]["final"], week["days"]["tue"]["final"]) == (True, False)  # Monday is over, Tuesday runs
-    assert week["meta"] == {"my_name": "Klingo", "my_alliance": "Mice", "my_tag": "SoIM"}
+    assert week["meta"] == {
+        "my_name": "Klingo",
+        "my_alliance": "Mice",
+        "my_tag": "SoIM",
+        "my_server": 127,
+        "opponent_server": 122,
+    }
     assert first["mon"].line() == "Mon: 1 rows" and first["wed"].line() == "Wed: no data yet"
 
 
@@ -358,3 +438,60 @@ def test_a_scan_that_runs_across_the_reset_is_not_final(tmp_path, monkeypatch):
     assert mon["final"] is False and mon["captured_at"] == "2026-11-17T01:55:00Z"  # it began before Monday ended
     assert [r.status for r in capture.run_capture(FakeClockDevice(), **kwargs)] == ["scanned"]  # so it is read again
     assert store.load("2026-W47", tmp_path)["days"]["mon"]["final"] is True  # begun after the reset: final
+
+
+# -- the servers of the Details tab, once per week
+def read(week, today, tmp_path, force=False):
+    FakeNavigator.opened = []
+    messages = []
+    capture.read_servers(FakeNavigator(None, None, None), week, today, force, messages.append, tmp_path)
+    return messages
+
+
+def test_the_servers_are_read_once_per_week_and_again_when_forced(tmp_path):
+    week, tuesday = store.new_week("2026-W47", date(2026, 11, 16)), date(2026, 11, 17)
+    FakeNavigator.details = None
+    assert read(week, tuesday, tmp_path) == ["Servers: #127 (own) against #122."]
+    assert (week["meta"]["my_server"], week["meta"]["opponent_server"]) == (127, 122)
+    assert not list(tmp_path.glob("*.json"))  # a new week is no file until a day is stored
+    assert read(week, tuesday, tmp_path) == [] and FakeNavigator.opened == []  # known: the game is not touched
+    FakeNavigator.details = details_words("#130", "#99")
+    assert read(week, tuesday, tmp_path, force=True) and week["meta"]["my_server"] == 130
+    FakeNavigator.details = None
+
+
+def test_the_servers_of_a_week_that_has_a_file_are_saved_right_away(tmp_path):
+    week = store.new_week("2026-W47", date(2026, 11, 16))
+    week["meta"]["opponent_members"] = 100
+    store.save(week, tmp_path)
+    FakeNavigator.details = None
+    read(week, date(2026, 11, 17), tmp_path)
+    assert store.load("2026-W47", tmp_path)["meta"] == {"opponent_members": 100, "my_server": 127, "opponent_server": 122}
+
+
+def test_a_sunday_has_no_servers_to_read(tmp_path):
+    week = store.new_week("2026-W47", date(2026, 11, 16))
+    assert read(week, date(2026, 11, 22), tmp_path) == [] and FakeNavigator.opened == [] and week["meta"] == {}
+
+
+def test_servers_that_cannot_be_read_cost_a_message_and_never_the_capture(tmp_path):
+    week = store.new_week("2026-W47", date(2026, 11, 16))
+    FakeNavigator.details = details_words("#12x", "#122")
+    assert "not found" in read(week, date(2026, 11, 17), tmp_path)[0] and week["meta"] == {}
+    FakeNavigator.details = screens.NavigationError("The Details tab of the Alliance Duel did not open.")
+    assert read(week, date(2026, 11, 17), tmp_path) == [
+        "Servers not read: The Details tab of the Alliance Duel did not open."
+    ]
+    FakeNavigator.details = None
+
+
+def test_the_week_table_carries_the_servers():
+    from aggregate import week_table
+    from corrections import Corrections
+    from roster import Roster
+
+    week = store.new_week("2026-W47", date(2026, 11, 16))
+    week["meta"].update(my_server=127, opponent_server=122)
+    table = week_table(week, Corrections({}, {}), Roster())
+    assert (table["my_server"], table["opponent_server"]) == (127, 122)
+    assert week_table(store.new_week("2026-W46", date(2026, 11, 9)), Corrections({}, {}), Roster())["my_server"] is None

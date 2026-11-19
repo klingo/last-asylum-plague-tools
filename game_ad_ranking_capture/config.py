@@ -43,6 +43,7 @@ FLING_BATCH = 4  # flings in a row before the screen is looked at to see whether
 BACK_ARROW = (0.083, 0.029)  # (x of width, y of height)
 ALLIANCE_BUTTON = (0.917, 0.719)  # the map's Alliance button (no OCR needed: it is a fixed part of the screen)
 MEMBERS_BUTTON = (0.804, 0.583)  # the Alliance page's Alliance Members button
+SERVER_BAND = (0.37, 0.42)  # the Duel's Details tab: the height range of the two server numbers ("#127"), of the height
 LIST_TOP = 0.238  # the list's visible area, between the column heads and the pinned own row
 LIST_BOTTOM = 0.800
 SWIPE_ROWS = 3.5  # cards the list is moved per swipe (five are fully visible at once, so a card is read twice)

@@ -124,6 +124,8 @@ def week_table(
         "my_alliance": fixes.fix(week["meta"].get("my_alliance", "")),
         "my_tag": fixes.fix(week["meta"].get("my_tag", "")),
         "opponent_members": week["meta"].get("opponent_members"),
+        "my_server": week["meta"].get("my_server"),
+        "opponent_server": week["meta"].get("opponent_server"),
         "days": days,
         "dates": {day: week["days"][day]["date"] for day in days},
         "final": {day: week["days"][day]["final"] for day in days},

@@ -5,10 +5,12 @@ matching a picture of it (`templates/duel_icon.png`). Every step is checked agai
 screen that is none of the known ones is left with the on-screen back arrow (never the Android back key: the game
 answers that with an exit dialog), and after a few of those the navigation gives up instead of tapping around blindly.
 A day tab the game does not switch to has no data yet (a day that has not started): the tap leaves the old tab selected.
+The Duel's Details tab shows both alliances' server numbers (`#127`): `server_numbers` reads them.
 """
 
 from __future__ import annotations
 
+import re
 from collections.abc import Callable
 from enum import Enum
 
@@ -53,6 +55,22 @@ def identify(words: list[Word], height: int) -> Screen:
     if len(texts & {"squad", "hero", "territory", "mail", "bag"}) >= 2:  # the map's own buttons: it is a busy picture
         return Screen.MAP
     return Screen.OTHER
+
+
+def on_details(words: list[Word]) -> bool:
+    """Whether the Duel shows its Details tab (the heading of that tab is on the screen)."""
+    return any(word.text.strip().lower() == "daily score overview" for word in words)
+
+
+def server_numbers(words: list[Word], width: int, height: int) -> tuple[int, int] | None:
+    """The own alliance's server (the left side) and the opponent's (the right) from the Details tab, None unless
+    exactly one number is read on each side."""
+    sides: dict[bool, list[int]] = {False: [], True: []}
+    for word in words:
+        number = re.fullmatch(r"#?\s*(\d{1,4})", word.text.strip())
+        if number and C.SERVER_BAND[0] * height <= word.cy <= C.SERVER_BAND[1] * height and word.score >= 0.8:
+            sides[word.cx > width / 2].append(int(number.group(1)))
+    return (sides[False][0], sides[True][0]) if len(sides[False]) == len(sides[True]) == 1 else None
 
 
 def find_duel_icon(frame: np.ndarray, template: np.ndarray) -> tuple[float, float] | None:
@@ -153,6 +171,20 @@ class Navigator:
         """Gets from wherever the game is to the Rank screen; returns its frame and words."""
         steps = {Screen.DUEL: self._tap_rank_button, Screen.MAP: self._tap_duel_icon}
         return self._reach(Screen.RANK, steps, "The Rank screen was not reached.")
+
+    def open_details(self) -> tuple[np.ndarray, list[Word]]:
+        """Gets from wherever the game is to the Alliance Duel's Details tab; returns its frame and words."""
+        frame, words = self._reach(Screen.DUEL, {Screen.MAP: self._tap_duel_icon}, "The Alliance Duel was not reached.")
+        if on_details(words):
+            return frame, words
+        tab = [w for w in words if w.text.strip().lower() == "details" and w.cy < 0.2 * frame.shape[0]]
+        if not tab:
+            raise NavigationError("The Alliance Duel is open, but its Details tab was not found.")
+        self.device.tap(tab[0].cx, tab[0].cy)
+        frame, words, _ = self.look()
+        if not on_details(words):
+            raise NavigationError("The Details tab of the Alliance Duel did not open.")
+        return frame, words
 
     def open_members(self) -> tuple[np.ndarray, list[Word]]:
         """Gets from wherever the game is to the Alliance Members screen."""

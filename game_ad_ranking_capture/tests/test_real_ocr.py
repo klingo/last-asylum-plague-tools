@@ -7,6 +7,7 @@ import numpy as np
 import pytest
 
 import scan
+import screens
 from helpers import HEIGHT, WIDTH, NoWords
 from ocr import Ocr
 
@@ -59,3 +60,15 @@ def test_a_cyrillic_name_is_read_by_the_second_engine(scanner):
     ]
     assert page.rows[1].name == "ФрауМарта" and page.rows[1].confidence >= 0.9
     assert [r.name for r in page.rows] == ["-Gaia-", "ФрауМарта", "KikiL", "-Helly-", "lostkid1312", "ADDEVIL"]
+
+
+def test_the_server_numbers_of_the_details_tab_are_read_from_a_real_frame():
+    ocr = Ocr()
+    try:
+        ocr.read(np.zeros((200, 200, 3), np.uint8))
+    except Exception as error:  # no models and no internet
+        pytest.skip(f"the OCR models are not available: {error}")
+    crop = cv2.imread(str(FIXTURES / "duel_details_servers.png"))
+    frame = np.zeros((HEIGHT, WIDTH, 3), np.uint8)
+    frame[600 : 600 + crop.shape[0]] = crop  # the fixture holds the flags, the share bar and the alliance names
+    assert screens.server_numbers(ocr.read(frame), WIDTH, HEIGHT) == (127, 122)

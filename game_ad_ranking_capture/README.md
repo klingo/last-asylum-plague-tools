@@ -27,6 +27,11 @@ Command line (from this folder): `.venv/Scripts/python main.py check | capture [
 - **Navigation** (`screens.py`): every screen is recognised by its text; the Duel's icon on the map (no text) by matching
   `templates/duel_icon.png`. Each step is checked, an unknown screen is left with the on-screen back arrow (never the Android
   back key), and after a few of those it stops with a message instead of tapping around.
+- **Servers**: the Duel's **Details** tab shows both alliances' server numbers (`#127` for yours on the left, `#122` for the
+  opponent on the right). A scan reads them once per week, before it opens the Rank screen, and keeps them in the week file's
+  `meta` (`my_server`, `opponent_server`); a week that has them is not touched again (`--force` / "Read final days again"
+  reads them again). It is best effort: a Sunday has no Duel (the tab may already show the next opponent), and a tab that
+  cannot be read costs a message in the scan log, never the scan. The API tables (`aggregate.week_table`) carry both numbers.
 - **Days**: Monday to Saturday (the Duel has no Sunday). A day tab the game does not switch to has **no data yet**.
   A day's numbers are **preliminary** until its game day has ended: the game's day changes at the 02:00 UTC reset (server
   time is UTC-2), i.e. 03:00 CET / 04:00 CEST, so Monday's list is final from Tuesday 03:00 CET on. A preliminary day is
@@ -47,7 +52,7 @@ Command line (from this folder): `.venv/Scripts/python main.py check | capture [
 
 ## Files
 
-- `data/<year>-W<week>.json`: one calendar week (ISO), committed. `{week, start, meta: {my_name, my_alliance, my_tag},
+- `data/<year>-W<week>.json`: one calendar week (ISO), committed. `{week, start, meta: {my_name, my_alliance, my_tag, my_server, opponent_server},
   days: {mon: {date, captured_at, final, complete, rows: [{rank, name, alliance, tag, points}]}}}`, one row per line so a
   diff shows what changed. `complete: false` means the list was not read to its end.
 - `corrections.json`: two sections, applied when the viewer builds its table. The weekly files keep the names as scanned,

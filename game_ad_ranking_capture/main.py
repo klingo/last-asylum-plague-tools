@@ -62,7 +62,9 @@ def cmd_status(_: argparse.Namespace) -> None:
             for day in C.DAYS
             if day in week["days"]
         ]
-        print(f"{name}: {', '.join(parts)}")
+        servers = week["meta"]
+        extra = f" (servers #{servers['my_server']} against #{servers['opponent_server']})" if servers.get("my_server") else ""
+        print(f"{name}: {', '.join(parts)}{extra}")
     if weeks:
         print("(* = preliminary: read before its game day ended, it is read again)")
     snapshots = roster.load().snapshots

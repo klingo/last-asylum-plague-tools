@@ -1,4 +1,5 @@
-"""The whole capture: open the Duel's Rank screen, check each day, scan what has data, write the week file.
+"""The whole capture: read the two servers once a week, open the Duel's Rank screen, check each day, scan what has
+data, write the week file.
 
 For every wanted day, in order: a day that is already final in the week file is left alone (`force` reads it again), a
 day tab the game does not switch to has no data yet, anything else is scanned. A list that is still changing is
@@ -6,6 +7,8 @@ preliminary: today's, and any day not read completely after its game day ended, 
 A day becomes final when a complete scan of it *started* after its game day ended (a scan that runs across the reset
 is not trusted). The file is written after every day, so a stopped or failed run keeps what it already read. Crops of
 the rows the OCR was unsure about go to `review/`.
+The servers of the two alliances (`#127`) are read from the Duel's Details tab once per week and kept in the week's
+`meta`; that is best effort (a Sunday has no Duel, and a screen that cannot be read only costs a message).
 """
 
 from __future__ import annotations
@@ -27,7 +30,7 @@ from device import AdbDevice
 from ocr import Ocr
 from members import MemberScan, MemberScanner
 from scan import Scanner
-from screens import Navigator, day_tabs
+from screens import NavigationError, Navigator, day_tabs, server_numbers
 
 
 @dataclass
@@ -62,6 +65,37 @@ def write_review(week: str, day: str, review: list, unreadable: list, directory:
         cv2.imwrite(str(target / f"page-{number}.png"), frame)
 
 
+def read_servers(
+    navigator: Navigator,
+    week: dict,
+    today: date,
+    force: bool,
+    progress: Callable[[str], None],
+    directory: Path,
+) -> None:
+    """Reads the servers of the two alliances (own first) into the week's `meta` unless the week has them already
+    (`force` reads them again). A week file that exists is saved right away; for a new one the first stored day writes
+    them with it, so a week is never a file with no day in it."""
+    meta = week["meta"]
+    if today.weekday() >= len(C.DAYS):
+        return  # a Sunday has no Duel: the Details tab may already show the next week's opponent
+    if meta.get("my_server") and meta.get("opponent_server") and not force:
+        return
+    try:
+        frame, words = navigator.open_details()
+    except NavigationError as error:
+        progress(f"Servers not read: {error}")
+        return
+    servers = server_numbers(words, frame.shape[1], frame.shape[0])
+    if servers is None:
+        progress("Servers not read: the two server numbers were not found on the Details tab.")
+        return
+    meta.update(my_server=servers[0], opponent_server=servers[1])
+    progress(f"Servers: #{servers[0]} (own) against #{servers[1]}.")
+    if store.week_path(week["week"], directory).exists():
+        store.save(week, directory)
+
+
 def run_capture(
     device: AdbDevice,
     days: tuple[str, ...] = C.DAYS,
@@ -83,6 +117,7 @@ def run_capture(
 
     navigator = Navigator(device, primary, progress)
     scanner = Scanner(device, primary, secondary, progress, should_stop)
+    read_servers(navigator, week, today, force, progress, directory)
     frame, words = navigator.open_rank()
     tabs = day_tabs(words, frame.shape[0])
     if len(tabs) < len(C.DAYS):
