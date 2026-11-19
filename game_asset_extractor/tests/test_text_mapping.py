@@ -45,7 +45,7 @@ def webapp(tmp_path, files):
     """A webapp checkout: its data files and one i18n file per language."""
     data = tmp_path / "webapp" / "data"
     data.mkdir(parents=True)
-    names = {"pack_data": {}, "events": {}, "hero_skills": {}, "lord_specialty": {}}
+    names = {"pack_data": {}, "events": {}, "hero_skills": {}, "lord_specialty": {}, "raven_epigraphs": {}}
     for stem, content in {**names, **files}.items():
         text = json.dumps(content, indent=4, ensure_ascii=False) + "\n"
         (data / f"{stem}.json").write_bytes((text.replace("\n", "\r\n") if stem == "hero_skills" else text).encode("utf-8"))
@@ -56,11 +56,14 @@ def webapp(tmp_path, files):
     return data, i18n
 
 
-def test_read_webapp_finds_the_texts_of_the_four_data_files_and_the_languages(tmp_path):
+def test_read_webapp_finds_the_texts_of_the_five_data_files_and_the_languages(tmp_path):
     data, i18n = webapp(tmp_path, {"pack_data": {"items": {"gold": {"name": {"en": "Gold", "de": "Gold"}}}},
-                                   "events": {"events": {"x": {"name": {"en": "X"}}}}})
+                                   "events": {"events": {"x": {"name": {"en": "X"}}}},
+                                   "raven_epigraphs": {"epigraphs": {"guard_of_nature": {"warrior": {
+                                       "description": {"en": "Gain a {shield}-HP shield", "de": ""}}}}}})
     docs, texts = TM.read_webapp(data)
-    assert list(texts) == ["pack_data:items.gold.name", "events:events.x.name"]
+    assert list(texts) == ["pack_data:items.gold.name", "events:events.x.name",
+                           "raven_epigraphs:epigraphs.guard_of_nature.warrior.description"]
     assert docs["pack_data"]["crlf"] is False and docs["hero_skills"]["crlf"] is True
     assert TM.webapp_languages(i18n) == ["en", "de"]
     with pytest.raises(FileNotFoundError, match="LAST_ASYLUM_WEBAPP"):

@@ -1,7 +1,7 @@
 """Text mapping: which game text each of the webapp's texts is, and keeping the webapp's wording and translations in step.
 
 A webapp text is a localized string (`{"en": "...", "de": "..."}`) in `data/pack_data.json`, `events.json`,
-`hero_skills.json` or `lord_specialty.json`, named by its location `<file>:<path>` (`pack_data:items.antitoxin.name`;
+`hero_skills.json`, `lord_specialty.json` or `raven_epigraphs.json`, named by its location `<file>:<path>` (`pack_data:items.antitoxin.name`;
 a list item by its `id` when it has one, else its number: `events:event_rotations.alliance_duel.phases[territory].name`).
 `text_mapping.json` (next to this file, committed) says which game text it is, by the game text's id (see `texts.py`):
 
@@ -61,7 +61,7 @@ import mapping as Mp
 import texts as T
 
 PATH = C.HERE / "text_mapping.json"
-DATA_FILES = ("pack_data", "events", "hero_skills", "lord_specialty")
+DATA_FILES = ("pack_data", "events", "hero_skills", "lord_specialty", "raven_epigraphs")
 STATUSES = ("official", "to sync", "mismatch", "missing", "suggested", "ambiguous", "near", "unmapped", "none")
 NEAR = 85  # percent: how alike two English texts must be to be offered as a possible typo
 CANDIDATES = 12  # kept per webapp text

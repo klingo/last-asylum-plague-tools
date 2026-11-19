@@ -911,6 +911,9 @@
  "lord_specialty:lords.legion_commander.talents[barracks_expansion].name": {
   "source": "tables/LordJobSkill:2003.name"
  },
+ "lord_specialty:lords.legion_commander.talents[boost_morale].description": {
+  "source": "tables/LordJobSkill:2011.desc"
+ },
  "lord_specialty:lords.legion_commander.talents[boost_morale].name": {
   "source": "tables/LordJobSkill:2011.name"
  },
@@ -2271,5 +2274,41 @@
  },
  "pack_data:spend_reward_tracks.halloween_cookie.name": {
   "source": "tables/ActivityDisplay:8200507.name"
+ },
+ "raven_epigraphs:epigraphs.frenzied_flock.ranger.description": {
+  "source": "tables/UavModuleStar:100600.skillDes"
+ },
+ "raven_epigraphs:epigraphs.frenzied_flock.warlock.description": {
+  "source": "tables/UavModuleStar:101000.skillDes"
+ },
+ "raven_epigraphs:epigraphs.frenzied_flock.warrior.description": {
+  "source": "tables/UavModuleStar:100200.skillDes"
+ },
+ "raven_epigraphs:epigraphs.guard_of_nature.ranger.description": {
+  "source": "tables/UavModuleStar:100500.skillDes"
+ },
+ "raven_epigraphs:epigraphs.guard_of_nature.warlock.description": {
+  "source": "tables/UavModuleStar:100900.skillDes"
+ },
+ "raven_epigraphs:epigraphs.guard_of_nature.warrior.description": {
+  "source": "tables/UavModuleStar:100100.skillDes"
+ },
+ "raven_epigraphs:epigraphs.protective_charm.ranger.description": {
+  "source": "tables/UavModuleStar:100800.skillDes"
+ },
+ "raven_epigraphs:epigraphs.protective_charm.warlock.description": {
+  "source": "tables/UavModuleStar:101200.skillDes"
+ },
+ "raven_epigraphs:epigraphs.protective_charm.warrior.description": {
+  "source": "tables/UavModuleStar:100400.skillDes"
+ },
+ "raven_epigraphs:epigraphs.reversal_power.ranger.description": {
+  "source": "tables/UavModuleStar:100700.skillDes"
+ },
+ "raven_epigraphs:epigraphs.reversal_power.warlock.description": {
+  "source": "tables/UavModuleStar:101100.skillDes"
+ },
+ "raven_epigraphs:epigraphs.reversal_power.warrior.description": {
+  "source": "tables/UavModuleStar:100300.skillDes"
  }
 }

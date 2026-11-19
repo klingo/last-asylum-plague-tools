@@ -57,7 +57,7 @@ switch the game to another language once and Download & extract it). A text's id
    gallery's), what a resource version added or changed (the first extract's version means "this or earlier"), and which texts
    the webapp maps. Click a row to copy its id.
 10. **Text mapping**: `text_mapping.json` (committed) says which game text each localized text (`{ "en", "de" }`) of the webapp's
-    `data/pack_data.json`, `events.json`, `hero_skills.json` and `lord_specialty.json` is. The editor (Texts > Edit text
+    `data/pack_data.json`, `events.json`, `hero_skills.json`, `lord_specialty.json` and `raven_epigraphs.json` is. The editor (Texts > Edit text
     mapping...) matches them by their English (markup, case and placeholder names do not count) and shows the webapp's text
     next to what the game says in every language. A text is *suggested* (its English is in the game with one translation),
     *ambiguous* (several translations: pick one), *near* (a typo? the closest game texts are offered, never taken without you)
