@@ -1,7 +1,7 @@
 "use strict";
 // The week's duel as a panel: the overview's rows and the top of the details page (week-panel.css; needs i18n.js and
-// compare.js loaded first). The calendar week and its dates, the two alliances with the score of the duel (the icon beside
-// the winner), and their points with what a member has on average and in the middle. `detailed` adds the share bar of the
+// compare.js loaded first). The calendar week and its dates, the two alliances with their server and the score of the duel
+// (the icon beside the winner), and their points with what a member has on average and in the middle. `detailed` adds the share bar of the
 // points, the members with 0 points and every day's bar; `link` makes the panel a link to the details of the week.
 
 function add(parent, text, className, tag = "div") {
@@ -48,7 +48,7 @@ function dateRange(start, lang) {
 function weekPanel(data, { t, lang, detailed = false, link = false }) {
   const sides = compareSides(data);
   const panel = document.createElement(link ? "a" : "div");
-  panel.className = "week";
+  panel.className = "week" + (detailed ? " detailed" : "");
   if (link) panel.href = "index.html?week=" + encodeURIComponent(data.week);   // the details page selects this week
   const duel = sides.length === 2 ? duelDays(data, sides) : null;
   const when = add(panel, "", "when");
@@ -63,6 +63,8 @@ function weekPanel(data, { t, lang, detailed = false, link = false }) {
     const box = add(row, "", "side s" + index);
     add(box, sides[index].tag || sides[index].alliance, "tag");
     if (sides[index].tag) add(box, sides[index].alliance, "name");
+    const server = sides[index].mine ? data.my_server : data.opponent_server;   // read from the game's Details tab, once a week
+    if (server) add(box, "#" + server, "server");
   };
   row.appendChild(winIcon("s0", duel.winner === 0));
   side(0);

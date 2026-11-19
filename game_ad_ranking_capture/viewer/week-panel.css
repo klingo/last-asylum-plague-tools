@@ -9,6 +9,8 @@ a.week:hover { background: #262a32; border-color: #444; text-decoration: none; }
 .week .duel .side { flex: 1 1 0; }
 .week .duel .side.s0 { text-align: right; color: #6aa0d8; }
 .week .duel .side.s1 { text-align: left; color: #e0685f; }
+.week .duel .server { margin-top: 2px; font-size: 22px; font-weight: 700; line-height: 1.2; }
+.week.detailed .duel .server { margin-top: 0; font-size: 12px; font-weight: 400; opacity: 0.8; }
 .week .duel .tag { font-weight: 600; }
 .week .duel .name { font-size: 12px; white-space: nowrap; }
 .week .duel .score { font-size: 44px; font-weight: 700; line-height: 1.2; white-space: nowrap; }
@@ -39,6 +41,8 @@ a.week:hover { background: #262a32; border-color: #444; text-decoration: none; }
   .week .when .live { margin-top: 0; }
   .week .duel { flex-basis: 100%; gap: 8px; }
   .week .duel .side { min-width: 0; }
+  .week .duel .server { font-size: 18px; }
+  .week.detailed .duel .server { font-size: 12px; }
   .week .duel .name { white-space: normal; overflow-wrap: anywhere; }
   .week .duel .icon { width: auto; }   /* only the winner's takes room */
   .week .duel img { height: 20px; }
