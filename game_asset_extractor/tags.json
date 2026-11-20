@@ -14,6 +14,9 @@
  "pictures/EliminateMaster/icon_zuanshi": [
   "diamond"
  ],
+ "pictures/ExploreDungeon/pic_zd_zb_defeat": [
+  "lose"
+ ],
  "pictures/HeroAwaken/hero_yxjx_1": [
   "marlena"
  ],
@@ -332,6 +335,12 @@
  "pictures/Volcano/pic_yszdz_js_bg": [
   "origin of the curse"
  ],
+ "pictures/Zombie_Act_BurstBattle1/BurstBattle_img_win": [
+  "win"
+ ],
+ "pictures/Zombie_Act_BurstBattle1/BurstBattle_img_winbig": [
+  "win"
+ ],
  "pictures/Zombie_Act_SupplyCall/icon_bjzh_yaoshi": [
   "item",
   "surprise encounter"
@@ -393,6 +402,15 @@
  "pictures/Zombie_AllianceBattleIcon/icon_wannengsuipian_chengse": [
   "shard"
  ],
+ "pictures/Zombie_AllianceFlagCapture/font_xgzfz_lose": [
+  "lose"
+ ],
+ "pictures/Zombie_AllianceFlagCapture/font_xgzfz_tie": [
+  "tie"
+ ],
+ "pictures/Zombie_AllianceFlagCapture/font_xgzfz_win": [
+  "win"
+ ],
  "pictures/Zombie_AllianceWarIcon/pic_lmjj_jz_shuishanghuati": [
   "territory skin"
  ],
@@ -404,6 +422,9 @@
  ],
  "pictures/Zombie_AreaReward1/pic_kaidi_boss_30": [
   "demon"
+ ],
+ "pictures/Zombie_Arena/pic_jjz_defeat": [
+  "lose"
  ],
  "pictures/Zombie_BuildingIcon/icon_food": [
   "grain"
@@ -533,6 +554,36 @@
  ],
  "pictures/Zombie_CastleSkinPic/pic_touxiangkuang9": [
   "avatar frame"
+ ],
+ "pictures/Zombie_ChampionDuel1/pic_gjs_pinfen5": [
+  "s"
+ ],
+ "pictures/Zombie_ChampionDuel1/pic_gjs_pinfen6": [
+  "ss"
+ ],
+ "pictures/Zombie_ChampionDuel1/pic_gjs_pinfen7": [
+  "sss"
+ ],
+ "pictures/Zombie_Chat/font_lt_sb": [
+  "lose"
+ ],
+ "pictures/Zombie_Chat/font_lt_sl": [
+  "win"
+ ],
+ "pictures/Zombie_Chat/font_pz_1": [
+  "n"
+ ],
+ "pictures/Zombie_Chat/font_pz_2": [
+  "r"
+ ],
+ "pictures/Zombie_Chat/font_pz_3": [
+  "sr"
+ ],
+ "pictures/Zombie_Chat/font_pz_4": [
+  "ssr"
+ ],
+ "pictures/Zombie_Chat/font_pz_5": [
+  "ur"
  ],
  "pictures/Zombie_CityTemp/1001": [
   "building"
@@ -964,11 +1015,47 @@
   "gear",
   "mr"
  ],
+ "pictures/Zombie_Escort_0/img_mc_pz_01": [
+  "n"
+ ],
+ "pictures/Zombie_Escort_0/img_mc_pz_02": [
+  "r"
+ ],
+ "pictures/Zombie_Escort_0/img_mc_pz_03": [
+  "sr"
+ ],
+ "pictures/Zombie_Escort_0/img_mc_pz_04": [
+  "ssr"
+ ],
+ "pictures/Zombie_Escort_0/img_mc_pz_05": [
+  "ur"
+ ],
  "pictures/Zombie_Escort_0/pic_lmcy_06_4": [
   "rank"
  ],
  "pictures/Zombie_Escort_0/pic_lmcy_06_5": [
   "rank"
+ ],
+ "pictures/Zombie_Escort_0/pic_rqq_defeat": [
+  "lose"
+ ],
+ "pictures/Zombie_Escort_0/pic_rqq_pinzhi1": [
+  "n"
+ ],
+ "pictures/Zombie_Escort_0/pic_rqq_pinzhi2": [
+  "r"
+ ],
+ "pictures/Zombie_Escort_0/pic_rqq_pinzhi3": [
+  "sr"
+ ],
+ "pictures/Zombie_Escort_0/pic_rqq_pinzhi4": [
+  "ssr"
+ ],
+ "pictures/Zombie_Escort_0/pic_rqq_pinzhi5": [
+  "ur"
+ ],
+ "pictures/Zombie_Escort_0/pic_rqq_victory": [
+  "win"
  ],
  "pictures/Zombie_Escort_1/feiting_01_leida_1": [
   "caravan"
@@ -1102,6 +1189,15 @@
  "pictures/Zombie_Hero/ico_yx_dw3": [
   "class",
   "support"
+ ],
+ "pictures/Zombie_Hero/ico_yx_zy1": [
+  "ranger"
+ ],
+ "pictures/Zombie_Hero/ico_yx_zy2": [
+  "warlock"
+ ],
+ "pictures/Zombie_Hero/ico_yx_zy3": [
+  "warrior"
  ],
  "pictures/Zombie_Hero/ico_yx_zyy1": [
   "ranger"
@@ -1283,6 +1379,30 @@
  "pictures/Zombie_Hero/pic_yx_5sr": [
   "ur"
  ],
+ "pictures/Zombie_Hero1/icon_yxjx_zy_01": [
+  "ranger"
+ ],
+ "pictures/Zombie_Hero1/icon_yxjx_zy_01_a": [
+  "ranger"
+ ],
+ "pictures/Zombie_Hero1/icon_yxjx_zy_02": [
+  "warlock"
+ ],
+ "pictures/Zombie_Hero1/icon_yxjx_zy_02_a": [
+  "warlock"
+ ],
+ "pictures/Zombie_Hero1/icon_yxjx_zy_03": [
+  "warrior"
+ ],
+ "pictures/Zombie_Hero1/icon_yxjx_zy_03_a": [
+  "warrior"
+ ],
+ "pictures/Zombie_HeroGift/pic_sc_yxtx": [
+  "marlena"
+ ],
+ "pictures/Zombie_HeroGift/pic_sc_yxtx2": [
+  "arthur"
+ ],
  "pictures/Zombie_HeroMarch/pic_card6_01": [
   "hero"
  ],
@@ -1459,11 +1579,23 @@
   "daskal",
   "exclusive weapon"
  ],
+ "pictures/Zombie_HeroUniqueWeapon/icon_ue_50003": [
+  "exclusive weapon",
+  "zoya"
+ ],
  "pictures/Zombie_HeroUniqueWeapon/icon_ue_50005": [
   "exclusive weapon",
   "louis"
  ],
  "pictures/Zombie_HeroUniqueWeapon/icon_ue_50006": [
+  "exclusive weapon"
+ ],
+ "pictures/Zombie_HeroUniqueWeapon/icon_ue_50007": [
+  "exclusive weapon",
+  "red lady"
+ ],
+ "pictures/Zombie_HeroUniqueWeapon/icon_ue_50009": [
+  "billy",
   "exclusive weapon"
  ],
  "pictures/Zombie_HeroUniqueWeapon/icon_ue_50010": [
@@ -2448,6 +2580,18 @@
  "pictures/Zombie_ItemIcon144/uav_skin_012": [
   "raven"
  ],
+ "pictures/Zombie_Mail/pic_font_yj_1": [
+  "win"
+ ],
+ "pictures/Zombie_Mail/pic_font_yj_2": [
+  "lose"
+ ],
+ "pictures/Zombie_Mail_Report/sign_yj_shengfu_01": [
+  "win"
+ ],
+ "pictures/Zombie_Mail_Report/sign_yj_shengfu_02": [
+  "lose"
+ ],
  "pictures/Zombie_Main/pic_lmcy_06_4": [
   "rank"
  ],
@@ -2927,6 +3071,15 @@
  ],
  "pictures/Zombie_Vip/pic_vip_chengse3": [
   "vip"
+ ],
+ "pictures/Zombie_WarDuel/WarDuel_img_lose": [
+  "lose"
+ ],
+ "pictures/Zombie_WarDuel/WarDuel_img_win": [
+  "win"
+ ],
+ "pictures/Zombie_WarDuel/warzone_img_battle_defeat2": [
+  "lose"
  ],
  "pictures/Zombie_WorkerBigIcon/pic_xcz01_03_01": [
   "survivor"
