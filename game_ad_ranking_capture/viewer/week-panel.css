@@ -6,19 +6,18 @@ a.week:hover { background: #262a32; border-color: #444; text-decoration: none; }
 .week .when .dates { color: #9aa; }
 .week .when .live { display: inline-block; margin-top: 4px; padding: 1px 8px; border-radius: 3px; font-size: 12px; background: #4a3a14; color: #d9a441; }
 .week .duel { flex: 1 1 380px; display: flex; align-items: center; justify-content: center; gap: 14px; }
-.week .duel .side { flex: 1 1 0; }
-.week .duel .side.s0 { text-align: right; color: #6aa0d8; }
-.week .duel .side.s1 { text-align: left; color: #e0685f; }
+.week .duel .side { flex: 1 1 0; display: flex; align-items: center; gap: 10px; }   /* the score stays in the middle: both sides take the same room */
+.week .duel .side.s0 { justify-content: flex-end; text-align: right; color: #6aa0d8; }
+.week .duel .side.s1 { justify-content: flex-start; text-align: left; color: #e0685f; }
+.week .duel .text { flex: none; width: 140px; }   /* room for the longest alliance name (SwarmOfInfectedMice), so the icons are as far from the score on both sides */
 .week .duel .server { margin-top: 2px; font-size: 22px; font-weight: 700; line-height: 1.2; }
 .week.detailed .duel .server { margin-top: 0; font-size: 12px; font-weight: 400; opacity: 0.8; }
-.week .duel .tag { font-weight: 600; }
-.week .duel .name { font-size: 12px; white-space: nowrap; }
+.week .duel .tag { color: inherit; font-size: 18px; font-weight: 600; }   /* the side's color, over the members table's grey .tag of details.html */
+.week .duel .name { font-size: 14px; white-space: nowrap; }
 .week .duel .score { font-size: 44px; font-weight: 700; line-height: 1.2; white-space: nowrap; }
 .week .duel .score .s0 { color: #6aa0d8; }
 .week .duel .score .s1 { color: #e0685f; }
 .week .duel img { height: 24px; flex: none; }
-.week .duel .icon { width: 66px; flex: none; display: flex; }
-.week .duel .icon.s0 { justify-content: flex-end; }
 .week .stats { flex: 1 1 340px; max-width: 400px; display: grid; grid-template-columns: max-content minmax(0, 1fr) minmax(0, 1fr); gap: 3px 20px; align-content: start; }
 .week .stats > div { text-align: right; white-space: nowrap; }
 .week .stats .label { text-align: left; color: #9aa; }
@@ -30,7 +29,7 @@ a.week:hover { background: #262a32; border-color: #444; text-decoration: none; }
 .week .bar span { box-sizing: border-box; padding: 0 6px; overflow: hidden; font-size: 12px; line-height: 18px; color: #111; }
 .week .bar .s0 { background: #6aa0d8; }
 .week .bar .s1 { background: #e0685f; text-align: right; }
-.week .days { flex: 0 1 320px; margin-left: auto; display: grid; grid-template-columns: max-content 50px minmax(120px, 1fr) 50px; gap: 3px 6px; align-content: start; }
+.week .days { flex: 0 1 320px; margin-left: auto; display: grid; grid-template-columns: max-content 54px minmax(120px, 1fr) 54px; gap: 3px 6px; align-content: start; }
 .week .days .label { color: #9aa; }
 .week .days .win { display: flex; align-items: center; }
 .week .days .win.s0 { justify-content: flex-end; }
@@ -40,11 +39,11 @@ a.week:hover { background: #262a32; border-color: #444; text-decoration: none; }
   .week .when { flex-basis: 100%; display: flex; gap: 4px 12px; align-items: baseline; flex-wrap: wrap; }
   .week .when .live { margin-top: 0; }
   .week .duel { flex-basis: 100%; gap: 8px; }
-  .week .duel .side { min-width: 0; }
+  .week .duel .side { min-width: 0; gap: 6px; }
+  .week .duel .text { flex: 1 1 0; width: auto; min-width: 0; }   /* the phone shares the room equally instead */
   .week .duel .server { font-size: 18px; }
   .week.detailed .duel .server { font-size: 12px; }
   .week .duel .name { white-space: normal; overflow-wrap: anywhere; }
-  .week .duel .icon { width: auto; }   /* only the winner's takes room */
   .week .duel img { height: 20px; }
   .week .duel .score { font-size: 34px; }
   .week .stats { flex-basis: 100%; max-width: none; gap: 3px 12px; }
