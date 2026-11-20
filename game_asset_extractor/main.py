@@ -131,7 +131,7 @@ def do_import(args) -> None:
 def do_status(args) -> None:
     table = Mp.rows(Mp.load(), S.load_index(), Mp.load_matches())
     print(Mp.summary(table))
-    for status in ("to sync", "missing", "suggested", "unmapped"):
+    for status in ("to sync", "gone", "missing", "suggested", "unmapped"):
         names = [r["rel"] for r in table if r["status"] == status]
         if names:
             print(f"{status} ({len(names)}): {', '.join(names[:12])}{' ...' if len(names) > 12 else ''}")

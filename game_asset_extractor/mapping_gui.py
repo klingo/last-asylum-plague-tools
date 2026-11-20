@@ -34,7 +34,7 @@ SLIDER_LENGTH = 110  # px: a slider (its field sits next to it)
 HEADINGS = {"#0": "Webapp image", "status": "Status", "source": "Game picture", "dist": "Dist"}
 LAYOUTS = {"single": "One picture", "overlay": "Overlay", "beside2": "2 side by side", "beside3": "3 side by side"}
 BESIDE_COUNT = {"beside2": 1, "beside3": 2}  # layout -> how many pictures come after the first
-COLOURS = {"official": "#1b7f3b", "to sync": "#b36b00", "missing": "#b00020", "suggested": "#1f5fbf", "unmapped": "#b00020", "none": "#777777"}
+COLOURS = {"official": "#1b7f3b", "to sync": "#b36b00", "gone": "#b00020", "missing": "#b00020", "suggested": "#1f5fbf", "unmapped": "#b00020", "none": "#777777"}
 
 
 def load_picture(path: Path) -> Image.Image | None:

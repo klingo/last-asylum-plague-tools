@@ -42,7 +42,10 @@ install-time asset pack (`split_abPack1.apk`) and the hot-updated ones on the sd
    as overlay", with size and position sliders, each with a field for an exact value): a second game picture, e.g. a trophy, put on top of the first. The editor's **Layout** switch chooses between one picture, an overlay,
    and two or three pictures **side by side** (`beside`: equal columns of the first picture's size, each picture cropped to its column by its own crop window).
 7. **Status** counts the webapp images that are *official* (mapped and made from the game's current picture): `main.py
-   status`, also shown in the window. A game update that changes a picture turns its image back to "to sync".
+   status`, also shown in the window. A game update that changes a picture turns its image back to "to sync". If the game
+   drops a picture it made an image from (gone from the extract, or only a blank placeholder is left: a PNG under 1 KB or a fully transparent one), the image is
+   flagged "gone" and Sync keeps its file, `--force` included; it ends when the game has a real picture again or you map
+   another.
 8. **Import** adds a new picture to the webapp's assets and maps it (`import <id> items/chest/gold`, events become WebP).
 
 ### Texts

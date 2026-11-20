@@ -29,7 +29,7 @@ Run from the tool's own folder, with its venv (`.venv/Scripts/python`; set it up
 `.venv/Scripts/python -m pip install -r requirements.txt`; use `python -m pip`, a moved venv's `pip.exe` points at the old path).
 
 ```bash
-.venv/Scripts/python -m pytest -q          # the tool's tests (game_asset_extractor: 218, mahjong_minigame_helper: 64, game_ad_ranking_capture: 100)
+.venv/Scripts/python -m pytest -q          # the tool's tests (game_asset_extractor: 222, mahjong_minigame_helper: 64, game_ad_ranking_capture: 100)
 .venv/Scripts/python main.py --help        # the CLI (game_asset_extractor and game_ad_ranking_capture: also gui.py / start_gui.bat; mahjong: gui.py)
 ```
 
@@ -46,6 +46,7 @@ webapp checkout and a small screen: tests stub the webapp's folder and size the 
 - `mapping.json` (committed here) says which game picture each webapp image is made from (`source`, crop `focus`, `resize`,
   `overlay`: a second picture on top, e.g. a trophy, `beside`: one or two more pictures next to the first in equal columns, `synced` fingerprint). It is data about the webapp's files: edit it through
   the mapping editor (`gui.py` > Pictures > Edit mapping) or `main.py map` / `import`, not by hand.
+  A synced image whose game picture later vanishes or turns into a blank placeholder (under 1 KB, or fully transparent) is `gone`: `sync` keeps its file.
 - The webapp's images are written to the webapp's repository: `config.WEBAPP_ASSETS`, `../last-asylum-pack-solver/webapp/public/assets`
   or under `LAST_ASYLUM_WEBAPP`. The commands that touch it (`match`, `update`, `map`, `status`, `sync`, `import`) stop with a
   message when it is missing (`config.require_webapp`), so nothing is written to a wrong place. `sync` / `import` change files

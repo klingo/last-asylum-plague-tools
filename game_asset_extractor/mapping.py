@@ -23,18 +23,25 @@ overlay or `beside`) the file was last made from. An image is
     official    mapped, and the file was made from the game's current picture
     to sync     mapped, but never synced or the game changed the picture since (`sync` rebuilds the file)
     missing     mapped to a picture the index does not have (extract it again, or map something else)
+    gone        was official (`synced`), but the game's picture is now missing or a blank placeholder (a PNG under
+                `MIN_BYTES`, or fully transparent): the game dropped it. The file stays as it is, `sync` never replaces
+                it (not even with `--force`); the status ends when the game has a real picture again, or by mapping another
     suggested   not mapped, the hash match found a close picture (`CLOSE`) - to be confirmed
     unmapped    not mapped, nothing close
     none        marked as having no original in the game
 
-Only `official` images are the game's own. `sync` writes nothing without `apply`; it lists what it would do.
+Only `official` images are the game's own (a `gone` one was, and its file is still the game's last picture). `sync` writes
+nothing without `apply`; it lists what it would do.
 """
 
 from __future__ import annotations
 
 import hashlib
 import json
+from functools import lru_cache
 from pathlib import Path
+
+from PIL import Image
 
 import config as C
 import match as M
@@ -42,7 +49,8 @@ import render as R
 import state as S
 
 PATH = C.HERE / "mapping.json"
-STATUSES = ("official", "to sync", "missing", "suggested", "unmapped", "none")
+STATUSES = ("official", "to sync", "gone", "missing", "suggested", "unmapped", "none")
+MIN_BYTES = 1024  # a game picture's PNG under this is a blank placeholder, not a picture
 
 
 def load(path: Path = PATH) -> dict:
@@ -84,6 +92,29 @@ def fingerprint(entry: dict, sprites: dict) -> str | None:
     return hashlib.md5("".join(f["md5"] for f in found).encode()).hexdigest()
 
 
+@lru_cache(maxsize=None)
+def _transparent(path: str, size: int, mtime: int) -> bool:
+    with Image.open(path) as img:
+        return "A" in img.getbands() and img.getchannel("A").getextrema()[1] == 0
+
+
+def blank(png: Path) -> bool:
+    """Is this extracted picture a placeholder: missing, a PNG under `MIN_BYTES`, or fully transparent?"""
+    try:
+        stat = png.stat()
+        return stat.st_size < MIN_BYTES or _transparent(str(png), stat.st_size, stat.st_mtime_ns)
+    except (OSError, ValueError):
+        return True
+
+
+def lost_source(entry: dict, sprites: dict, out: Path = C.OUT) -> str | None:
+    """The id of a picture the game dropped from an entry that was made from it: not in the index, or `blank`.
+    None if the entry never was synced (it was not official) or all its pictures are fine."""
+    if not entry.get("synced"):
+        return None
+    return next((i for i in sources(entry) if i not in sprites or blank(out / f"{i}.png")), None)
+
+
 def overlay_of(entry: dict, out: Path = C.OUT) -> dict | None:
     """The entry's overlay as `render.render` takes it (the picture's path instead of its id)."""
     over = entry.get("overlay")
@@ -95,20 +126,22 @@ def beside_of(entry: dict, out: Path = C.OUT) -> list[dict] | None:
     return [{**b, "path": out / f"{b['source']}.png"} for b in entry["beside"]] if entry.get("beside") else None
 
 
-def status_of(rel: str, mapping: dict, sprites: dict, matches: dict, assets: Path = C.WEBAPP_ASSETS) -> str:
+def status_of(rel: str, mapping: dict, sprites: dict, matches: dict, assets: Path = C.WEBAPP_ASSETS, out: Path = C.OUT) -> str:
     entry = mapping.get(rel)
     if entry is None:
         best = best_candidate(matches, rel)
         return "suggested" if best and best["dist"] <= M.CLOSE else "unmapped"
     if entry.get("source") is None:
         return "none"
+    if lost_source(entry, sprites, out):
+        return "gone"
     current = fingerprint(entry, sprites)
     if current is None:
         return "missing"
     return "official" if entry.get("synced") == current and (assets / rel).is_file() else "to sync"
 
 
-def rows(mapping: dict, index: dict, matches: dict, assets: Path = C.WEBAPP_ASSETS) -> list[dict]:
+def rows(mapping: dict, index: dict, matches: dict, assets: Path = C.WEBAPP_ASSETS, out: Path = C.OUT) -> list[dict]:
     """One row per webapp image: {rel, status, source, dist (of the best candidate)}."""
     result = []
     for path in M.webapp_images(assets):
@@ -116,7 +149,7 @@ def rows(mapping: dict, index: dict, matches: dict, assets: Path = C.WEBAPP_ASSE
         best = best_candidate(matches, rel)
         result.append({
             "rel": rel,
-            "status": status_of(rel, mapping, index["sprites"], matches, assets),
+            "status": status_of(rel, mapping, index["sprites"], matches, assets, out),
             "source": (mapping.get(rel) or {}).get("source") or (best["id"] if best else None),
             "dist": best["dist"] if best else None,
         })
@@ -130,7 +163,7 @@ def counts(table: list[dict]) -> dict[str, int]:
 def summary(table: list[dict]) -> str:
     c = counts(table)
     return (f"Official {c['official']} of {len(table)} webapp images - to sync {c['to sync']}, suggested {c['suggested']}, "
-            f"unmapped {c['unmapped']}, no original {c['none']}" + (f", missing {c['missing']}" if c["missing"] else ""))
+            f"unmapped {c['unmapped']}, no original {c['none']}" + "".join(f", {s} {c[s]}" for s in ("gone", "missing") if c[s]))
 
 
 def set_source(rel: str, source: str | None, focus=None, synced: str | None = None, resize: bool = False,
@@ -181,13 +214,18 @@ def sync(index: dict, apply: bool = False, force: bool = False, out: Path = C.OU
     """Make the webapp's files from the game pictures they are mapped to. Without `apply` nothing is written.
 
     A file is rebuilt when it was never synced from the current picture (or `force`); the result is a list of
-    {rel, action: write / same / skipped, note}. `same`: the file already shows exactly the rebuilt picture (it is
+    {rel, action: write / same / skipped, note}. An entry whose game picture is gone (`lost_source`) is skipped and its
+    file kept, `force` or not. `same`: the file already shows exactly the rebuilt picture (it is
     left alone and only marked synced, so a re-encoded copy does not make a needless change)."""
     mapping = load(path)
     done = []
     for rel, entry in sorted(mapping.items()):
         source = entry.get("source")
         if source is None:
+            continue
+        lost = lost_source(entry, index["sprites"], out)
+        if lost:
+            done.append({"rel": rel, "action": "skipped", "note": f"{lost} is gone from the game or only a blank placeholder: the file is kept"})
             continue
         picture = out / f"{source}.png"
         overlay = overlay_of(entry, out)

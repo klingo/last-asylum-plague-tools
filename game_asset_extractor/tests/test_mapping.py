@@ -9,8 +9,9 @@ import render as R
 
 
 @pytest.fixture
-def world(tmp_path):
-    """A tiny webapp assets folder, extracted pictures and a mapping file."""
+def world(tmp_path, monkeypatch):
+    """A tiny webapp assets folder, extracted pictures and a mapping file (the pictures are far under `MIN_BYTES`: it is off)."""
+    monkeypatch.setattr(Mp, "MIN_BYTES", 0)
     assets, out = tmp_path / "assets", tmp_path / "out"
     (assets / "items").mkdir(parents=True)
     (assets / "events").mkdir()
@@ -37,28 +38,29 @@ def test_load_of_a_missing_file_is_empty_and_save_sorts_the_keys(world):
 
 
 def test_status_of_covers_every_state(world):
-    sprites, assets = world["index"]["sprites"], world["assets"]
+    sprites, assets, out = world["index"]["sprites"], world["assets"], world["out"]
     matches = {"items/screenshot.png": [{"id": "G/red", "dist": 4}], "items/lonely.png": [{"id": "G/red", "dist": M.CLOSE + 1}]}
     mapping = {
         "items/gold.png": {"source": "G/gold", "synced": "md5-gold"},
         "items/screenshot.png": {"source": "G/red"},
-        "events/x.webp": {"source": "G/ghost", "synced": "md5-ghost"},
+        "events/x.webp": {"source": "G/ghost"},
         "items/none.png": {"source": None},
     }
-    status = lambda rel, m=mapping: Mp.status_of(rel, m, sprites, matches, assets)  # noqa: E731
+    status = lambda rel, m=mapping: Mp.status_of(rel, m, sprites, matches, assets, out)  # noqa: E731
     assert status("items/gold.png") == "official"
     assert status("items/screenshot.png") == "to sync"  # mapped, never synced
     assert status("events/x.webp") == "missing"
+    assert status("events/x.webp", {"events/x.webp": {"source": "G/ghost", "synced": "md5-ghost"}}) == "gone"  # was official
     assert status("items/none.png") == "none"
     assert status("items/screenshot.png", {}) == "suggested"
     assert status("items/lonely.png", {}) == "unmapped"
-    assert Mp.status_of("items/gold.png", {"items/gold.png": {"source": "G/gold", "synced": "OLD"}}, sprites, matches, assets) == "to sync"
-    assert Mp.status_of("items/absent.png", {"items/absent.png": {"source": "G/gold", "synced": "md5-gold"}}, sprites, matches, assets) == "to sync"  # file gone
+    assert Mp.status_of("items/gold.png", {"items/gold.png": {"source": "G/gold", "synced": "OLD"}}, sprites, matches, assets, out) == "to sync"
+    assert Mp.status_of("items/absent.png", {"items/absent.png": {"source": "G/gold", "synced": "md5-gold"}}, sprites, matches, assets, out) == "to sync"  # file gone
 
 
 def test_rows_lists_png_and_webp_with_the_best_candidate(world):
     matches = {"items/screenshot.png": [{"id": "G/red", "dist": 4}, {"id": "G/gold", "dist": 50}]}
-    table = Mp.rows({"items/gold.png": {"source": "G/gold", "synced": "md5-gold"}}, world["index"], matches, world["assets"])
+    table = Mp.rows({"items/gold.png": {"source": "G/gold", "synced": "md5-gold"}}, world["index"], matches, world["assets"], world["out"])
     by_rel = {r["rel"]: r for r in table}
     assert set(by_rel) == {"items/gold.png", "items/screenshot.png", "items/lonely.png", "events/x.webp"}
     assert by_rel["items/screenshot.png"] == {"rel": "items/screenshot.png", "status": "suggested", "source": "G/red", "dist": 4}
@@ -127,6 +129,52 @@ def test_sync_reports_pictures_that_are_not_extracted(world):
     assert done == [{"rel": "items/a.png", "action": "skipped", "note": "G/ghost is not extracted"}]
 
 
+def test_a_synced_image_whose_picture_vanished_or_went_blank_is_gone_and_sync_keeps_its_file(world, monkeypatch):
+    sprites, assets, out = world["index"]["sprites"], world["assets"], world["out"]
+    before = (assets / "items" / "gold.png").read_bytes()
+    Mp.save({"items/gold.png": {"source": "G/gold", "synced": "OLD"}}, world["path"])
+    entry = Mp.load(world["path"])["items/gold.png"]
+    status = lambda: Mp.status_of("items/gold.png", {"items/gold.png": entry}, sprites, {}, assets, out)  # noqa: E731
+    assert status() == "to sync"  # the game changed the picture: a normal update
+    monkeypatch.setattr(Mp, "MIN_BYTES", (out / "G" / "gold.png").stat().st_size + 1)  # the picture is now under the limit
+    assert status() == "gone"
+    assert Mp.lost_source(entry, sprites, out) == "G/gold"
+    assert Mp.lost_source({"source": "G/gold"}, sprites, out) is None  # never synced: not official before
+    for force in (False, True):
+        done = run_sync(world, apply=True, force=force)
+        assert [(d["rel"], d["action"]) for d in done] == [("items/gold.png", "skipped")]
+        assert "gone" in done[0]["note"]
+    assert (assets / "items" / "gold.png").read_bytes() == before
+    assert Mp.load(world["path"])["items/gold.png"]["synced"] == "OLD"
+    monkeypatch.setattr(Mp, "MIN_BYTES", 0)
+    (out / "G" / "gold.png").unlink()  # the game dropped it altogether
+    assert status() == "gone"
+    del sprites["G/gold"]
+    assert status() == "gone"
+    assert Mp.summary(Mp.rows({"items/gold.png": entry}, world["index"], {}, assets, out)).endswith(", gone 1")
+
+
+def test_a_fully_transparent_picture_is_blank_even_when_it_is_big_and_was_what_the_image_was_synced_from(world):
+    sprites, assets, out = world["index"]["sprites"], world["assets"], world["out"]
+    Image.new("RGBA", (706, 360), (255, 255, 255, 0)).save(out / "G" / "gold.png")
+    entry = {"source": "G/gold", "synced": "md5-gold"}  # the fingerprint matches: the blank was synced into the mapping
+    assert Mp.lost_source(entry, sprites, out) == "G/gold"
+    assert Mp.status_of("items/gold.png", {"items/gold.png": entry}, sprites, {}, assets, out) == "gone"
+    Mp.save({"items/gold.png": entry}, world["path"])
+    assert [d["action"] for d in run_sync(world, apply=True, force=True)] == ["skipped"]
+    Image.new("RGBA", (706, 360), (255, 255, 255, 1)).save(out / "G" / "gold.png")  # barely visible is a picture
+    assert Mp.lost_source(entry, sprites, out) is None
+
+
+def test_an_overlay_that_went_blank_makes_the_entry_gone(world, monkeypatch):
+    sprites, out = world["index"]["sprites"], world["out"]
+    entry = {"source": "G/banner", "overlay": {"source": "G/gold"}, "synced": "OLD"}
+    assert Mp.lost_source(entry, sprites, out) is None
+    (out / "G" / "gold.png").write_bytes(b"")
+    monkeypatch.setattr(Mp, "MIN_BYTES", 1)
+    assert Mp.lost_source(entry, sprites, out) == "G/gold"
+
+
 def test_set_source_stores_resize_only_for_a_mapped_picture(world):
     Mp.set_source("events/a.webp", "G/banner", resize=True, path=world["path"])
     Mp.set_source("events/b.webp", None, resize=True, path=world["path"])
@@ -156,14 +204,14 @@ def test_sync_uses_the_focus_of_the_entry(world):
 
 
 def test_an_overlay_is_part_of_the_fingerprint_and_the_status(world):
-    sprites, assets = world["index"]["sprites"], world["assets"]
+    sprites, assets, out = world["index"]["sprites"], world["assets"], world["out"]
     entry = {"source": "G/banner", "overlay": {"source": "G/gold", "scale": 0.8, "at": [0.5, 0.5]}}
     both = Mp.fingerprint(entry, sprites)
     assert both not in ("md5-banner", "md5-gold") and Mp.fingerprint({"source": "G/banner"}, sprites) == "md5-banner"
     assert Mp.fingerprint({**entry, "overlay": {"source": "G/ghost"}}, sprites) is None
-    assert Mp.status_of("events/x.webp", {"events/x.webp": {**entry, "synced": both}}, sprites, {}, assets) == "official"
-    assert Mp.status_of("events/x.webp", {"events/x.webp": {**entry, "synced": "md5-banner"}}, sprites, {}, assets) == "to sync"  # the overlay is new
-    assert Mp.status_of("events/x.webp", {"events/x.webp": {**entry, "overlay": {"source": "G/ghost"}}}, sprites, {}, assets) == "missing"
+    assert Mp.status_of("events/x.webp", {"events/x.webp": {**entry, "synced": both}}, sprites, {}, assets, out) == "official"
+    assert Mp.status_of("events/x.webp", {"events/x.webp": {**entry, "synced": "md5-banner"}}, sprites, {}, assets, out) == "to sync"  # the overlay is new
+    assert Mp.status_of("events/x.webp", {"events/x.webp": {**entry, "overlay": {"source": "G/ghost"}}}, sprites, {}, assets, out) == "missing"
 
 
 def test_sync_puts_the_overlay_on_top_and_marks_both_pictures_as_synced(world):
@@ -199,15 +247,15 @@ def test_set_source_stores_beside_for_a_mapped_picture_and_leaves_out_a_default_
 
 
 def test_the_pictures_next_to_each_other_are_part_of_the_fingerprint_and_the_status(world):
-    sprites, assets = world["index"]["sprites"], world["assets"]
+    sprites, assets, out = world["index"]["sprites"], world["assets"], world["out"]
     entry = {"source": "G/banner", "beside": [{"source": "G/red"}, {"source": "G/gold"}]}
     assert Mp.sources(entry) == ["G/banner", "G/red", "G/gold"]
     full = Mp.fingerprint(entry, sprites)
     assert full not in ("md5-banner", Mp.fingerprint({**entry, "beside": entry["beside"][:1]}, sprites))
     assert Mp.fingerprint({**entry, "beside": [{"source": "G/ghost"}]}, sprites) is None
-    assert Mp.status_of("events/x.webp", {"events/x.webp": {**entry, "synced": full}}, sprites, {}, assets) == "official"
-    assert Mp.status_of("events/x.webp", {"events/x.webp": {**entry, "synced": "md5-banner"}}, sprites, {}, assets) == "to sync"
-    assert Mp.status_of("events/x.webp", {"events/x.webp": {**entry, "beside": [{"source": "G/ghost"}]}}, sprites, {}, assets) == "missing"
+    assert Mp.status_of("events/x.webp", {"events/x.webp": {**entry, "synced": full}}, sprites, {}, assets, out) == "official"
+    assert Mp.status_of("events/x.webp", {"events/x.webp": {**entry, "synced": "md5-banner"}}, sprites, {}, assets, out) == "to sync"
+    assert Mp.status_of("events/x.webp", {"events/x.webp": {**entry, "beside": [{"source": "G/ghost"}]}}, sprites, {}, assets, out) == "missing"
 
 
 def test_an_overlay_fingerprint_is_the_one_it_always_was(world):
