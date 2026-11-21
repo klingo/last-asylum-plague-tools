@@ -1,3 +1,5 @@
+import random
+
 import config as C
 import scan
 from helpers import HEIGHT, WIDTH, NoWords, VirtualList
@@ -94,6 +96,12 @@ def test_too_many_unreadable_pages_make_the_scan_incomplete_not_complete():
     assert [row["rank"] for row in result.rows] == list(range(1, result.rows[-1]["rank"] + 1))
 
 
+def test_a_list_that_ends_right_after_a_skipped_page_is_not_complete():
+    result = scanner(Blind(24, after=18, blind=2 * READ_TRIES)).scan_day()  # the last page is skipped twice
+    assert len(result.unreadable) == 2 and len(result.rows) == 23
+    assert not result.complete
+
+
 def test_cards_without_a_rank_number_are_placed_by_the_cards_read_before_them():
     result = scanner(VirtualList(60, unnumbered_from=25)).scan_day()  # "Not ranked" from rank 25 on
     assert [row["rank"] for row in result.rows] == list(range(1, 61))
@@ -103,3 +111,22 @@ def test_cards_without_a_rank_number_are_placed_by_the_cards_read_before_them():
 def test_a_page_that_cannot_be_placed_is_read_again_from_further_up():
     result = scanner(VirtualList(60, overshoot=1.9, unnumbered_from=25)).scan_day()
     assert [row["rank"] for row in result.rows] == list(range(1, 61)) and result.complete
+
+
+class Uneven(VirtualList):
+    """A list whose swipes move it a different distance every time, within `low` to `high` times what was asked."""
+
+    def __init__(self, size, unnumbered_from, seed, low=0.9, high=1.2):
+        super().__init__(size, unnumbered_from=unnumbered_from)
+        self.random, self.low, self.high = random.Random(seed), low, high
+
+    def swipe(self, x0, y0, x1, y1, ms=0):
+        self.overshoot = self.random.uniform(self.low, self.high)
+        super().swipe(x0, y0, x1, y1, ms)
+
+
+def test_uneven_swipes_over_cards_without_a_rank_number_leave_no_gap_and_no_early_end():
+    for seed in range(40):  # a swipe that overshoots leaves no known card on the page: back to the last placed one
+        result = scanner(Uneven(66, unnumbered_from=31, seed=seed)).scan_day()
+        assert [row["rank"] for row in result.rows] == list(range(1, 67)), seed
+        assert result.complete, seed

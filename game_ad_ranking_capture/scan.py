@@ -4,8 +4,10 @@ Pages are merged by rank. Far down the list the game shows no rank numbers ("Not
 one the earlier pages read (same name and points), so a swipe must always leave a card of the old page on the new one.
 How far a swipe really moves the list is measured from where the same cards sit on two pages and the next swipe is sized
 by it. A swipe that skipped cards (the next page starts after the last known rank + 1) is undone by a swipe back to just
-above them, a page that cannot be placed is looked at again from further up, so the list is read without gaps. The end
-is reached when two swipes in a row bring no new rank on pages that could be read, or at `MAX_ROWS`. Rows the OCR was
+above them, a page that cannot be placed is looked at again from the last page that could (and the swipes get shorter from
+then on, so that a known card stays on the next page), so the list is read without gaps. The end
+is reached when two swipes in a row bring no new rank on pages that could be read, or at `MAX_ROWS`; a list that
+ends while a skipped page has not been followed by new ranks is not complete (the end was not seen). Rows the OCR was
 unsure about (or had to read with the second engine) are returned with a
 picture of their card, so they can be looked at. Nothing here taps anything but the list itself.
 """
@@ -26,6 +28,7 @@ MAX_UP_BATCHES = 20  # from the bottom of a 200 row list, four rows a swipe, is 
 READ_TRIES = 3  # times a page without readable ranks is looked at before it is given up
 MAX_UNREADABLE = 4  # such pages per day before the scan stops as incomplete
 MAX_RECOVERIES = 8  # swipes back per day after a skipped card (the first swipe is a guess, the rest are measured)
+MIN_STEP = 1.5  # cards a swipe moves at the least: after a page that could not be placed the swipes get shorter
 
 
 @dataclass
@@ -114,6 +117,10 @@ class Scanner:
         me: dict | None = None
         stalled = recoveries = 0
         gain = 1.0  # cards the list really moves per card asked for, measured from where the same cards are
+        step = C.SWIPE_ROWS  # cards a swipe asks for; shorter after a page that could not be placed
+        drift = 0.0  # cards asked for since the last page that could be placed (negative: back towards the top)
+        unverified = False  # a page was skipped and no new rank has been read since
+        returning = False  # the last swipe went back: its page shows old cards, which says nothing about the end
         asked: float | None = None  # what the last swipe asked for
         previous_at: dict[int, float] = {}  # rank -> y of its card on the previous page
         previous_lowest: int | None = None
@@ -127,12 +134,20 @@ class Scanner:
             if page.rows and page.rows[0].rank is None:
                 # a page that cannot be read says nothing about the list's end: keep its picture, move on
                 unreadable.append(frame)
+                unverified = True
                 warnings.append(f"a page without a readable rank was skipped (after rank {max(found, default=0)})")
                 if len(unreadable) > MAX_UNREADABLE:
                     break  # incomplete: something is wrong with the screen
-                self.swipe(frame, -2 / gain)  # back, so that a card read before is on the page again to place it by
+                # back to the last page that could be placed (a card read before is on it again), then in shorter steps
+                back = drift if drift > 0 else 2 / gain
+                step = max(step - 1, MIN_STEP)
+                drift -= back
+                self.swipe(frame, -back)
+                returning = True
+                asked = None  # the page after a swipe back says nothing about how far the forward swipe went
                 frame = self.device.settled()
                 continue
+            drift = 0.0
             lowest = min((row.rank for row in page.rows), default=None)
             at = {row.rank: row.cy for row in page.rows}
             pitch = C.ROW_PITCH * height
@@ -146,7 +161,10 @@ class Scanner:
             asked = None
             if found and lowest is not None and lowest > max(found) + 1 and recoveries < MAX_RECOVERIES:
                 recoveries += 1  # cards were skipped: back to just above them and read again
-                self.swipe(frame, -(lowest - max(found) - 1 + 1.5) / gain)
+                back = (lowest - max(found) - 1 + 1.5) / gain
+                drift -= back
+                self.swipe(frame, -back)
+                returning = True
                 frame = self.device.settled()
                 continue
             new = 0
@@ -160,11 +178,17 @@ class Scanner:
                     crop = frame[max(round(row.cy) - half, 0) : round(row.cy) + half]
                     review[row.rank] = Review(row.rank, row.flags, crop.copy())
             self.progress(f"{len(found)} rows, up to rank {max(found, default=0)}")
-            stalled = 0 if new else stalled + 1
-            if found and max(found) >= C.MAX_ROWS or stalled >= 2:
+            unverified = unverified and not (new and not returning)
+            stalled = 0 if new else stalled + (not returning)
+            returning = False
+            if found and max(found) >= C.MAX_ROWS:
                 complete = True
                 break
-            asked = C.SWIPE_ROWS / gain
+            if stalled >= 2:
+                complete = not unverified
+                break
+            asked = step / gain
+            drift += asked
             self.swipe(frame, asked)
             frame = self.device.settled()
         rows = [found[rank] for rank in sorted(found)]
