@@ -25,6 +25,7 @@ import capture as C  # noqa: E402
 import game_profile as G  # noqa: E402
 
 MAIN = HERE / "main.py"
+ICON = HERE / "icon.ico"  # the window's and the taskbar's icon (`make_icon.py` draws it)
 NO_WINDOW = 0x08000000 if sys.platform == "win32" else 0
 WRAP = 600  # px: line width of the explanations
 
@@ -153,6 +154,10 @@ class Launcher:
         self.lines: queue.Queue = queue.Queue()  # output lines, None = command ended, ("data", text) = verdict
         self.action = ""  # the running command (for its progress in the status bar)
         root.title("Last Asylum: Plague - Mahjong Minigame Helper")
+        try:
+            root.iconbitmap(default=str(ICON))
+        except tk.TclError:  # no .ico support on this platform: the default icon stays
+            pass
         root.minsize(640, 640)
         pad = {"padx": 8, "pady": 4}
 
