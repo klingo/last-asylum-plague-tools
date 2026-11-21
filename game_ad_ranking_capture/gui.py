@@ -29,6 +29,7 @@ import store  # noqa: E402
 import viewer_server  # noqa: E402
 from device import AdbDevice  # noqa: E402
 
+ICON = HERE / "icon.ico"  # the window's and the taskbar's icon (`make_icon.py` draws it)
 POLL_MS = 100  # how often the window looks for what a background task has said or finished
 GOOD, BAD = "#1a7f37", "#c62828"
 
@@ -41,6 +42,10 @@ class App:
         self.server = None  # the viewer's local server, started with the first "Open rankings in browser"
         self.url = ""
         root.title("Game AD Ranking Capture")
+        try:
+            root.iconbitmap(str(ICON))
+        except tk.TclError:  # no .ico support on this platform: the default icon stays
+            pass
         root.geometry("820x700")
         root.protocol("WM_DELETE_WINDOW", self.close)
 
