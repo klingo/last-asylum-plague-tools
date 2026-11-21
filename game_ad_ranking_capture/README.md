@@ -95,6 +95,10 @@ alliances are not touched.
 - **The ranking tells when the list is out of date.** After each ranking scan, players of your alliance who are not in the
   list that applies are reported as probably joined, and listed members who appear under another alliance as probably left
   ("Read the member list again"): you do not have to remember to re-scan.
+- **A joiner counts without a new list.** A player of your alliance who is in a day's ranking but not in that day's list is
+  taken as a member from that day on (the days before are left empty: they were no member yet), so their later days
+  without points get a zero as well. This holds for the week the table is built for; reading the list again makes it
+  official (and gives the rank).
 - Member names are matched like the ranking's names (look-alike characters, case, `corrections.json` and aliases), so a
   renamed member is one player. A member whose name could not be read (`?`) cannot be matched and is left out.
 

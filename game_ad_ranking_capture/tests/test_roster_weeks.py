@@ -91,6 +91,24 @@ def test_players_outside_the_alliance_or_before_the_first_list_stay_as_they_are(
     assert not any(p["filled"] for p in table["players"]) and "Bob" not in [p["name"] for p in table["players"]]
 
 
+def test_a_player_who_joined_after_the_list_was_read_counts_from_the_first_day_they_are_ranked():
+    week = stored_week(
+        mon=[(1, "Ann", 5_000_000)],
+        tue=[(1, "Ann", 3_000_000), (2, "Newbie", 2_000_000)],  # joined on Tuesday: not in the list
+        wed=[(1, "Ann", 1_000_000)],  # Newbie made nothing on Wednesday
+    )
+    week["meta"]["my_tag"] = "SoIM"  # as the rows spell it (the fixture's own tag is the corrected one)
+    roster = R.Roster()
+    snapshot(roster, "2026-11-16", ["Ann"])
+    by_name = {p["name"]: p for p in aggregate.week_table(week, corrections.Corrections(), roster)["players"]}
+    assert by_name["Newbie"]["points"] == {"mon": None, "tue": 2_000_000, "wed": 0}  # Monday: no member yet
+    assert by_name["Newbie"]["filled"] == ["wed"] and by_name["Newbie"]["average"] == 1_000_000
+    assert by_name["Ann"]["filled"] == []
+    snapshot(roster, "2026-11-17", ["Ann", "Newbie"])  # the list read on Tuesday has them: the same result
+    again = {p["name"]: p for p in aggregate.week_table(week, corrections.Corrections(), roster)["players"]}
+    assert again["Newbie"]["points"] == by_name["Newbie"]["points"]
+
+
 def test_a_list_is_stored_from_the_day_it_was_read_with_the_changes_since_the_one_before(monkeypatch, tmp_path):
     scan, stored = fake_run(monkeypatch, tmp_path / "members", alliance(folded={2}))  # Wednesday 2026-11-18
     assert stored and len(scan.members) == 19 and (scan.joined, scan.left) == ([], [])  # the first: no comparison

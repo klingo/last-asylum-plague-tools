@@ -8,8 +8,8 @@ left, so a week without a list of its own uses the latest earlier one.
 For a day the members are those of the latest snapshot valid by then; if there is none, those of the earliest
 snapshot of the same calendar week (a first list read on Wednesday covers Monday and Tuesday too); else the day has no
 member list and no zeros are invented for it (weeks before the first list). Reading the list again on the same day
-replaces that snapshot. `changes` tells who joined or left since the list that applied before, `hints` which names of a
-day's ranking suggest that the list is out of date.
+replaces that snapshot. `changes` tells who joined or left since the list that applied before, `unlisted` and `hints`
+which names of a day's ranking suggest that the list is out of date.
 """
 
 from __future__ import annotations
@@ -105,13 +105,13 @@ def changes(before: list[dict], after: list[dict]) -> tuple[list[str], list[str]
     return [name for key, name in new.items() if key not in old], [name for key, name in old.items() if key not in new]
 
 
-def hints(
+def unlisted(
     rows: list[dict], members: list[dict], week: str, day: str, fixes: corrections.Corrections, mine: tuple[str, str]
-) -> list[str]:
-    """What a day's ranking says about a member list that does not match it. Players of the own alliance who are not in
-    the list probably joined; listed members who play for another alliance in the ranking probably left."""
+) -> tuple[list[str], list[str]]:
+    """(joined, left) as a day's ranking says it about a member list that does not match it: players of the own
+    alliance who are not in the list probably joined; listed members who play for another alliance probably left."""
     if not members:
-        return []
+        return [], []
     known = {spelling_key(fixes.rename(fixes.fix(m["name"]))) for m in members if m["name"] != UNREADABLE}
     joined, left = [], []
     for stored in rows:
@@ -123,6 +123,14 @@ def hints(
             joined.append(row["name"])
         elif not own and spelling_key(row["name"]) in known:
             left.append(row["name"])
+    return joined, left
+
+
+def hints(
+    rows: list[dict], members: list[dict], week: str, day: str, fixes: corrections.Corrections, mine: tuple[str, str]
+) -> list[str]:
+    """What a day's ranking says about a member list that does not match it, as text for the capture's report."""
+    joined, left = unlisted(rows, members, week, day, fixes, mine)
     notes = []
     if joined:
         notes.append(

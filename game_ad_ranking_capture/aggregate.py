@@ -17,7 +17,9 @@ lists do not know, such as those of other alliances, have none.
 An alliance member (`roster.py`) who is not in a day's ranking made 0 points that day: the ranking only lists players
 with points. Such a member gets 0 for the day, counted in the average (`filled` lists those days);
 members of an older roster snapshot are only counted from the day it was valid. Other alliances' players stay as
-they are.
+they are. A player of the own alliance who is in a day's ranking but not in that day's roster joined after the list was
+read: from the first such day on (not before: they were no member yet) they count as a member too, so their later
+zero days are filled in as well, until the list is read again and has them.
 """
 
 from __future__ import annotations
@@ -78,8 +80,16 @@ def week_table(
             player["alliance"], player["tag"] = row["alliance"], row["tag"]
             player["points"][day] = row["points"]
     mine = (fixes.fix(week["meta"].get("my_alliance", "")), fixes.fix(week["meta"].get("my_tag", "")))
+    joined: set[str] = set()  # players of the own alliance seen in a ranking but not in the list that applies
     for day in days:
-        for member in roster.members_on(date.fromisoformat(week["days"][day]["date"])):
+        members = roster.members_on(date.fromisoformat(week["days"][day]["date"]))
+        new, _ = roster_file.unlisted(week["days"][day]["rows"], members, week["week"], day, fixes, mine)
+        joined |= {spelling_key(name) for name in new}
+        for key in joined:
+            if players[key]["points"][day] is None:
+                players[key]["points"][day] = 0
+                players[key]["filled"].append(day)
+        for member in members:
             name = fixes.rename(fixes.fix(member["name"]))
             if name == UNREADABLE:
                 continue  # a member whose name could not be read cannot be matched with anyone
