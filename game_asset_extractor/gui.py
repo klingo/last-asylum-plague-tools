@@ -147,6 +147,10 @@ class Launcher:
         self.action = ""
         self.gallery = None  # the gallery's local server while one is open (it saves the tags)
         root.title("Last Asylum: Plague - Game Asset Extractor")
+        try:
+            root.iconbitmap(default=str(C.ICON))  # also the icon of the mapping editors' windows
+        except tk.TclError:  # no .ico support on this platform: the default icon stays
+            pass
         root.minsize(700, 700)
         pad = {"padx": 8, "pady": 4}
 

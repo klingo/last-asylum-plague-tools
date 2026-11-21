@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
+import base64
 import os
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 CACHE = HERE / "cache"  # the bundles as pulled from the device, by file name
 OUT = HERE / "out"  # the PNGs (out/<type>/<group>/<name>.png, the type being a key of TYPES), index.json, matches.json, the gallery, the texts (data/, texts.json, texts/)
+ICON = HERE / "icon.ico"  # the windows' and the shortcut's icon, drawn by `make_icon.py` (with `favicon.png`)
+FAVICON = HERE / "favicon.png"  # the icon of the gallery's and the texts' pages
 STATE = HERE / "state"  # what was pulled / extracted, the last scan
 # The webapp lives in its own repository (last-asylum-plague), checked out next to this one as `last-asylum-pack-solver`
 # (or wherever LAST_ASYLUM_WEBAPP points); the pictures it shows are in its webapp/public/assets.
@@ -15,6 +18,12 @@ WEBAPP = Path(os.environ.get("LAST_ASYLUM_WEBAPP") or HERE.parents[1] / "last-as
 WEBAPP_ASSETS = WEBAPP / "webapp" / "public" / "assets"
 WEBAPP_DATA = WEBAPP / "data"  # the data files whose texts the text mapping syncs
 WEBAPP_I18N = WEBAPP / "webapp" / "src" / "i18n"  # one <lang>.json per language the webapp speaks
+
+
+def favicon_link() -> str:
+    """The pages' `<link rel="icon">`, with the picture inside (the pages are opened as files as well as served)."""
+    data = base64.b64encode(FAVICON.read_bytes()).decode("ascii")
+    return f'<link rel="icon" type="image/png" href="data:image/png;base64,{data}">'
 
 
 def require_webapp(folder: Path | None = None) -> Path:

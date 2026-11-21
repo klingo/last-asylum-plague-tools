@@ -22,6 +22,7 @@ import texts as T
 
 PAGE = r"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><title>Last Asylum: Plague - game texts</title>
+<!--FAVICON-->
 <style>
 body { font: 14px/1.4 system-ui, sans-serif; margin: 0; background: #1b1d22; color: #e6e6e6; }
 header { position: sticky; top: 0; z-index: 1; background: #23262d; padding: 10px 14px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; border-bottom: 1px solid #000; }
@@ -192,5 +193,5 @@ def write(out: Path | None = None) -> Path:
             f"(window.TEXT_LANGS = window.TEXT_LANGS || {{}})[{json.dumps(lang)}] = " + json.dumps(data, ensure_ascii=False) + ";\n",
             encoding="utf-8")
     page = out / "index.html"
-    page.write_text(PAGE, encoding="utf-8")
+    page.write_text(PAGE.replace("<!--FAVICON-->", C.favicon_link(), 1), encoding="utf-8")
     return page

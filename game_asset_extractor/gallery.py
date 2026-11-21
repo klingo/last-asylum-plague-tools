@@ -30,6 +30,7 @@ import tags as Tg
 
 PAGE = r"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><title>Last Asylum: Plague - game pictures</title>
+<!--FAVICON-->
 <style>
 body { font: 14px/1.4 system-ui, sans-serif; margin: 0; background: #1b1d22; color: #e6e6e6; }
 body.picking { padding-bottom: 96px; }
@@ -271,7 +272,7 @@ def write_data(out: Path, index: dict, tags_path: Path = Tg.PATH) -> None:
 def write(out: Path = C.OUT) -> Path:
     write_data(out, S.load_index())
     page = out / "index.html"
-    page.write_text(PAGE, encoding="utf-8")
+    page.write_text(PAGE.replace("<!--FAVICON-->", C.favicon_link(), 1), encoding="utf-8")
     return page
 
 
